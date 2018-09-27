@@ -5,6 +5,7 @@ module Relaton
       title
       items
       doctype
+      author
     ]
 
     attr_accessor *ATTRIBS
@@ -66,6 +67,9 @@ module Relaton
 
       ret = "<relaton-collection #{collection_type}>"
       ret += "<title>#{title}</title>" if title
+      if author
+        ret += "<contributor><role type='author'/><organization><name>#{author}</name></organization></contributor>"
+      end
       unless items.empty?
         items.each do |item|
           ret += "<relation type='partOf'>"

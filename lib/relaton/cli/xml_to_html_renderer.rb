@@ -107,6 +107,11 @@ module Relaton::Cli
     end
 
     def make_body1(body, docxml)
+      body.div **{ id: "topbar-inner" } do |div1|
+        div1.div **{ id: "titleBar" } do |div2|
+          div2.span { |s| s << docxml&.at(ns("./relaton-collection/contributor[role/@type = 'author']/organization/name"))&.text }
+        end
+      end
       body.div **{ class: "title-section" } do |div1|
         div1 << <<~END
       <header>
