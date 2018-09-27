@@ -179,24 +179,24 @@ module Relaton::Cli
     EXTENSION_TYPES = [
       {
         text: "HTML",
-        extension: ".html"
+        extension: "html"
       },
       {
         text: "PDF",
-        extension: ".pdf"
+        extension: "pdf"
       },
       {
         text: "Word",
-        extension: ".doc"
+        extension: "doc"
       },
       {
         text: "XML",
-        extension: ".xml"
+        extension: "xml"
       }
     ]
 
     def uri_for_extension(uri, extension)
-      uri.sub(/\.[^.]+$/, extension.to_s)
+      uri.sub(/\.[^.]+$/, ".#{extension.to_s}")
     end
 
     def iterate(d0, bib, depth, relaton_root)
