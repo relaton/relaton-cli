@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+
 # Invoke as: ./relaton-doc FILENAME STYLESHEET RELATON-ROOT
 require "nokogiri"
 require "relaton/cli"

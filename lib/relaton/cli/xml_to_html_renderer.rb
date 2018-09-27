@@ -249,7 +249,7 @@ module Relaton::Cli
         if id
           d.div **{ class: "doc-bib" } do |d1|
             d1.div **{ class: "doc-bib-relaton" } do |d2|
-              d2.a **{ href: URI.escape("#{relaton_root}/id/#{id_code}.xml") } do |a|
+              d2.a **{ href: URI.escape("#{relaton_root}/#{id_code}.xml") } do |a|
                 a << "Relaton XML"
               end
             end

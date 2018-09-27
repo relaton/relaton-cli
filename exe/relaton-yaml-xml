@@ -5,6 +5,7 @@ require "optparse"
 # require "metanorma"
 # require "byebug"
 require "fileutils"
+require "relaton/cli"
 
 
 options = {}

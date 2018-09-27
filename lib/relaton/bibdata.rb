@@ -1,6 +1,7 @@
+
 module Relaton
   class Bibdata
-    attr_accessor *%i[
+    ATTRIBS = %i[
       docid
       doctype
       title
@@ -11,6 +12,8 @@ module Relaton
       abstract
       technical_committee
     ]
+
+    attr_accessor *ATTRIBS
 
     def initialize(options)
       options.each_pair do |k,v|

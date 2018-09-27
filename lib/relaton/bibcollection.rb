@@ -1,3 +1,4 @@
+
 module Relaton
   class Bibcollection
     ATTRIBS = %i[
