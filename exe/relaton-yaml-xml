@@ -48,7 +48,7 @@ if options[:require]
 end
 
 index_input = YAML.load_file(options[:filename])
-index_collection = Bibcollection.new(index_input["root"])
+index_collection = ::Relaton::Bibcollection.new(index_input["root"])
 
 # TODO real lookup of namespaces and root elements
 

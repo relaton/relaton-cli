@@ -22,7 +22,9 @@ module Relaton
 
       # puts items.inspect
       self.items = self.items.inject([]) do |acc,item|
-        acc << if item.is_a?(Bibcollection) || item.is_a?(Bibdata)
+        acc << if item.is_a?(::Relaton::Bibcollection) ||
+          item.is_a?(::Relaton::Bibdata)
+
           item
         else
           # puts "item.inspect #{item.inspect}"
@@ -36,16 +38,16 @@ module Relaton
 
     def new_bib_item_class(options)
       if options["items"]
-        Bibcollection.new(options)
+        ::Relaton::Bibcollection.new(options)
       else
-        Bibdata.new(options)
+        ::Relaton::Bibdata.new(options)
       end
     end
 
     def items_flattened
 
       items.inject([]) do |acc,item|
-        if item.is_a? Bibcollection
+        if item.is_a? ::Relaton::Bibcollection
           acc << item.items_flattened
         else
           acc << item
