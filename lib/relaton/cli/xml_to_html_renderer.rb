@@ -60,6 +60,7 @@ module Relaton::Cli
         head.style do |style|
           style.comment "\n#{stylesheet}\n"
         end
+
         head.meta **{ "http-equiv": "Content-Type", content: "text/html", charset: "utf-8" }
 
         [
@@ -112,19 +113,21 @@ module Relaton::Cli
           div2.span { |s| s << docxml&.at(ns("./relaton-collection/contributor[role/@type = 'author']/organization/name"))&.text }
         end
       end
-      body.div **{ class: "title-section" } do |div1|
-        div1 << <<~END
-      <header>
-        <div class="coverpage">
-          <div class="wrapper-top">
-            <div class="coverpage-doc-identity">
-              <div class="coverpage-title">
-                <span class="title-first">#{docxml&.at(ns("./relaton-collection/title"))&.text}</span>
+
+      body.add_child <<~"END"
+        <div class="title-section">
+          <header>
+            <div class="coverpage">
+              <div class="wrapper-top">
+                <div class="coverpage-doc-identity">
+                  <div class="coverpage-title">
+                    <span class="title-first">#{docxml&.at(ns("./relaton-collection/title"))&.text}</span>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            <div>
+          </header>
         <div>
-      </header>
         END
       end
     end
@@ -143,16 +146,16 @@ module Relaton::Cli
         end
       end
 
-      body.div **{ class: "copyright" } do |div1|
-        div1 << <<~END
+      body.add_child <<~"END"
+        <div class="copyright">
           <p class="year">
             © The Calendaring and Scheduling Consortium, Inc.
           </p>
           <p class="message">
             All rights reserved. Unless otherwise specified, no part of this publication may be reproduced or utilized otherwise in any form or by any means, electronic or mechanical, including photocopying, or posting on the internet or an intranet, without prior written permission. Permission can be requested from the address below.
           </p>
-        END
-      end
+        </div>
+      END
 
     end
 
