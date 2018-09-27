@@ -1,0 +1,83 @@
+#!/usr/bin/env ruby
+
+require "yaml"
+require "optparse"
+# require "metanorma"
+# require "byebug"
+require "fileutils"
+
+
+options = {}
+
+opt_parser = OptionParser.new do |opts|
+  opts.banner += " <file>"
+  opts.on(
+    '-t',
+    '--type TYPE',
+    "Type of standard to generate"
+  ) { |v| options[:type] = v.to_sym }
+
+  opts.on(
+    '-r',
+    '--require LIBRARY',
+    'Require LIBRARY prior to execution'
+  ) { |v|
+    options[:require] ||= []
+    options[:require] << v
+  }
+
+  opts.on(
+    '-R OUTDIR',
+    '--relaton-outdir OUTDIR',
+    "Create Relaton XML per item, within this output directory (e.g. {outdir}/{docid}.xml)"
+  ) { |v| options[:outdir] = v }
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+end
+
+opt_parser.parse!(ARGV)
+options[:filename] = ARGV.pop
+
+if options[:require]
+  options[:require].each do |r|
+    require r
+  end
+end
+
+index_input = YAML.load_file(options[:filename])
+index_collection = Bibcollection.new(index_input["root"])
+
+# TODO real lookup of namespaces and root elements
+
+# Write out index.html
+outfilename = options[:filename].sub(/\.[^.]+$/, ".xml")
+File.open(outfilename, "w") do |f|
+  f.write index_collection.to_xml
+end
+
+outdir = options[:outdir] || "relaton"
+
+FileUtils.mkdir_p(outdir)
+# Write out relaton/#{id}.xml
+index_collection.items_flattened.each do |item|
+  filename = File.join(outdir, "#{item.docid_code}.xml")
+
+  File.open(filename, "w:UTF-8") do |f|
+    f.write(item.to_xml)
+  end
+
+end
+
+# cmd = "#{File.dirname(__FILE__)}/relaton-doc #{outfilename} #{ manifest["htmlstylesheet"] || '""' } #{ options[:relaton] || '""' }"
+# system cmd
+
+#processor = registry.find_processor(options[:type].to_sym)
+#ext = :html
+#file_extension = "html" || processor.output_formats[ext]
+#outfilename = options[:filename].sub(/\.[^.]+$/, ".#{file_extension}")
+#isodoc_options = { suppressheadingnumbers: true }
+#isodoc_options[:htmlstylesheet] = manifest["htmlstylesheet"] if manifest["htmlstylesheet"]
+#processor.output(out, outfilename, ext, isodoc_options)

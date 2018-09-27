@@ -1,0 +1,50 @@
+title: Guidelines
+items:
+  - docid: Part I
+    title: Licensing
+    items:
+      - docid: I.1
+        title: Guidelines on Application for Approval as Trustees and Application for Approval as Controllers of Approved Trustees
+        uri: guidelines_I1.adoc
+        revdate: 2014-10-17
+        abstract: I.1 abstract.
+        items:
+          - docid: Annex A
+            uri: guidelines_I1A.adoc
+          - docid: Annex B
+            uri: guidelines_I1B.adoc
+          - docid: Annex C
+            uri: guidelines_I1C.adoc
+      - docid: I.2
+        title: Guidelines on Application for Registration of Provident Fund Schemes
+        uri: guidelines_I2.adoc
+        abstract: I.2 abstract.
+        items:
+          - docid: Clause 1
+            uri: guidelines_I1A.adoc#clause1
+          - docid: Clause 2
+            uri: guidelines_I1A.adoc#clause2
+      - docid: I.3
+        title: Guidelines on Custodians
+        uri: guidelines_I3.adoc
+        abstract: I.3 abstract.
+      - docid: I.4
+        title: Guidelines on Eligible Insurers
+        uri: guidelines_I4.adoc
+      - docid: I.5
+        title: Guidelines on Application for Approval of Constituent Funds
+        uri: guidelines_I5.adoc
+  - docid: Part II
+    title: Reporting Requirements
+    items:
+      - docid: II.1
+        title: Guidelines on Monthly Returns of Registered Schemes
+        uri: guidelines_II1.adoc
+        abstract: II.1 abstract.
+      - docid: II.2
+        title: Guidelines on Monthly Returns of Approved Pooled Investment Funds being Capital Preservation Funds
+        uri: guidelines_II2.adoc
+      - docid: II.3
+        title: Guidelines on Quarterly Statistical Returns of Registered Schemes
+        uri: guidelines_II3.adoc
+

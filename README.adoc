@@ -1,0 +1,9 @@
+= Relaton CLI (relaton-cli): Relaton Command-line Interface
+
+image:https://img.shields.io/gem/v/relaton-cli.svg["Gem Version", link="https://rubygems.org/gems/relaton-cli"]
+image:https://img.shields.io/travis/riboseinc/relaton-cli/master.svg["Build Status", link="https://travis-ci.org/riboseinc/relaton-cli"]
+image:https://codeclimate.com/github/riboseinc/relaton-cli/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/riboseinc/relaton-cli"]
+
+Documentation in development.
+
+Please refer to https://github.com/riboseinc/relaton.

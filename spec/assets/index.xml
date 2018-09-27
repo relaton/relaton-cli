@@ -1,0 +1,93 @@
+<relaton-collection xmlns="http://riboseinc.com/isoxml">
+  <title>CalConnect Standards Registry</title>
+<relation type='partOf'><bibdata type='standard'>
+<title>Date and time -- Representations for information interchange -- Part 1: Basic rules</title>
+<uri>http://calconnect.org/pubdocs/CD0403%20July%202004%20CalConnect%20Interoperability%20Test%20Report%20V1.0.pdf</uri>
+<docidentifier>CC 18001</docidentifier>
+<date type='published'><on>2018-10-17</on></date>
+<status>Published</status>
+<technical-committee>TC VCARD</technical-committee>
+</bibdata>
+</relation>
+<relation type='partOf'><bibdata type='governance'>
+<title>Standardization and publication</title>
+<uri>http://calconnect.org/pubdocs/CD0403%20July%202004%20CalConnect%20Interoperability%20Test%20Report%20V1.0.pdf</uri>
+<docidentifier>CC/DIR 10001</docidentifier>
+<date type='updated'><on>2018-10-17</on></date>
+<status>proposal</status>
+<technical-committee>TC PUBLISH</technical-committee>
+</bibdata>
+</relation>
+<relation type='partOf'><bibdata type='governance'>
+<title>Standard document requirements</title>
+<uri>http://calconnect.org/pubdocs/CD0403%20July%202004%20CalConnect%20Interoperability%20Test%20Report%20V1.0.pdf</uri>
+<docidentifier>CC/DIR 10002</docidentifier>
+<date type='updated'><on>2018-10-17</on></date>
+<status>proposal</status>
+<technical-committee>TC PUBLISH</technical-committee>
+</bibdata>
+</relation>
+<relation type='partOf'><bibdata type='guide'>
+<title>Standardization -- Vocabulary</title>
+<uri>http://calconnect.org/pubdocs/roundtable1rpt.pdf</uri>
+<docidentifier>CC/Guide 33000</docidentifier>
+<date type='updated'><on>2004-09-25</on></date>
+<status>working-draft</status>
+<technical-committee>TC PUBLISH</technical-committee>
+</bibdata>
+</relation>
+<relation type='partOf'><bibdata type='specification'>
+<title>Date and time -- Calendars -- Gregorian calendar</title>
+<uri>http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf</uri>
+<docidentifier>CC/S 50012</docidentifier>
+<date type='updated'><on>2018-09-26</on></date>
+<status>committee-draft</status>
+<technical-committee>TC TIME</technical-committee>
+</bibdata>
+</relation>
+<relation type='partOf'><bibdata type='specification'>
+<title>Date and time -- Calendars -- Gregorian calendar</title>
+<uri>http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf</uri>
+<docidentifier>CC/S 50012</docidentifier>
+<date type='published'><on>2018-09-26</on></date>
+<status>Published</status>
+<technical-committee>TC TIME</technical-committee>
+</bibdata>
+</relation>
+<relation type='partOf'><bibdata type='specification'>
+<title>Date and time -- Timezone -- Timezone Management</title>
+<uri>http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf</uri>
+<docidentifier>CC/Amd 86003</docidentifier>
+<date type='published'><on>2018-09-26</on></date>
+<status>Published</status>
+<technical-committee>TC TIME</technical-committee>
+</bibdata>
+</relation>
+<relation type='partOf'><bibdata type='corrigendum'>
+<title>Technical corrigendum on CC 12990</title>
+<uri>http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf</uri>
+<docidentifier>CC/Cor 12990-3</docidentifier>
+<date type='updated'><on>2018-09-26</on></date>
+<status>withdrawn</status>
+<technical-committee>TC CALDAV</technical-committee>
+</bibdata>
+</relation>
+<relation type='partOf'><bibdata type='administrative'>
+<title>Membership -- Lifecycle management -- Part 1: Onboarding</title>
+<uri>http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf</uri>
+<docidentifier>CC/Cor 12990-3</docidentifier>
+<date type='updated'><on>2018-09-26</on></date>
+<status>withdrawn</status>
+<technical-committee>TCC</technical-committee>
+</bibdata>
+</relation>
+<relation type='partOf'><bibdata type='report'>
+<title>CalConnect XLIII -- Position on the European Union daylight-savings timezone change</title>
+<uri>http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf</uri>
+<docidentifier>CC/R 3101</docidentifier>
+<date type='updated'><on>2019-10-17</on></date>
+<status>cancelled</status>
+<technical-committee>CALCONNECT</technical-committee>
+</bibdata>
+</relation>
+</relaton-collection>
