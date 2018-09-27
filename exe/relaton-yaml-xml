@@ -2,11 +2,8 @@
 
 require "yaml"
 require "optparse"
-# require "metanorma"
-# require "byebug"
 require "fileutils"
 require "relaton/cli"
-
 
 options = {}
 
@@ -59,17 +56,19 @@ File.open(outfilename, "w") do |f|
   f.write index_collection.to_xml
 end
 
-outdir = options[:outdir] || "relaton"
+outdir = options[:outdir]
 
-FileUtils.mkdir_p(outdir)
-# Write out relaton/#{id}.xml
-index_collection.items_flattened.each do |item|
-  filename = File.join(outdir, "#{item.docid_code}.xml")
+if outdir
+  FileUtils.mkdir_p(outdir)
+  # Write out relaton/#{id}.xml
+  index_collection.items_flattened.each do |item|
+    filename = File.join(outdir, "#{item.docid_code}.xml")
 
-  File.open(filename, "w:UTF-8") do |f|
-    f.write(item.to_xml)
+    File.open(filename, "w:UTF-8") do |f|
+      f.write(item.to_xml)
+    end
+
   end
-
 end
 
 # cmd = "#{File.dirname(__FILE__)}/relaton-doc #{outfilename} #{ manifest["htmlstylesheet"] || '""' } #{ options[:relaton] || '""' }"
