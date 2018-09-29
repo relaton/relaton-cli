@@ -10,20 +10,27 @@ module Relaton
 
     attr_accessor *ATTRIBS
 
+    def self.ns(xpath)
+      xpath.gsub(%r{/([a-zA-z])}, "/xmlns:\\1").
+        gsub(%r{::([a-zA-z])}, "::xmlns:\\1").
+        gsub(%r{\[([a-zA-z][a-z0-9A-Z@/]* ?=)}, "[xmlns:\\1").
+        gsub(%r{\[([a-zA-z][a-z0-9A-Z@/]*\])}, "[xmlns:\\1")
+    end
+
     def initialize(options)
       self.items = []
       ATTRIBS.each do |k|
         method = "#{k}="
-        value = options[k.to_s]
-        # puts "K #{method}"
-        # puts value.inspect
+        value = options[k] || options[k.to_s]
+        puts "K #{method}"
+        puts value.inspect
 
-        self.send("#{k}=", options[k.to_s])
-        # puts "SET! to #{self.send(k).inspect}"
+        self.send("#{k}=", value)
+        puts "SET! to #{self.send(k).inspect}"
       end
 
       # puts items.inspect
-      self.items = self.items.inject([]) do |acc,item|
+      self.items = (self.items || []).inject([]) do |acc,item|
         acc << if item.is_a?(::Relaton::Bibcollection) ||
           item.is_a?(::Relaton::Bibdata)
 
@@ -36,6 +43,36 @@ module Relaton
 
       self
       # byebug
+    end
+
+    def self.from_xml(source)
+      # source = Nokogiri::XML(content)
+
+      title = source&.at(ns("./relaton-collection/title"))&.text
+      author = source&.at(ns("./relaton-collection/contributor[role/@type = 'author']/organization/name"))&.text
+
+      puts "!!!!!!!!!!"*3
+      puts "BC: title #{title}"
+      puts "BC: author #{author}"
+      puts "!!!!!!!!!!"*3
+
+      items = source.xpath(ns("./relaton-collection/relation")).map do |item|
+        puts "========="*3
+        puts "item #{item.to_s}"
+        klass = item.at(ns("./bibdata")) ? Bibdata : Bibcollection
+        klass.from_xml(item.at(ns("./bibdata")))
+      end
+
+      opts = {
+        title: title,
+        author: author,
+        items: items
+      }
+
+      puts "X"*38
+      puts opts.inspect
+      puts "X"*38
+      new(opts)
     end
 
     def new_bib_item_class(options)
@@ -78,6 +115,17 @@ module Relaton
         end
       end
       ret += "</relaton-collection>\n"
+    end
+
+    def to_h
+      a = ATTRIBS.inject({}) do |acc, k|
+        acc[k] = send(k)
+        acc
+      end
+
+      a[:items] = a[:items].map(&:to_h)
+
+      a
     end
 
   end

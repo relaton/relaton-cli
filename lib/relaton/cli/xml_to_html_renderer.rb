@@ -1,4 +1,6 @@
+require "nokogiri"
 require "liquid"
+require 'pp'
 
 module Relaton::Cli
   class XmlToHtmlRenderer
@@ -18,17 +20,6 @@ module Relaton::Cli
     </html>
     HERE
 
-    # block for processing XML document fragments as XHTML,
-    # to allow for HTMLentities
-    def noko(&block)
-      doc = ::Nokogiri::XML.parse(NOKOHEAD)
-      fragment = doc.fragment("")
-      ::Nokogiri::XML::Builder.with fragment, &block
-      fragment.to_xml(encoding: "US-ASCII").lines.map do |l|
-        l.gsub(/\s*\n/, "")
-      end
-    end
-
     def liquid(doc)
       # unescape HTML escapes in doc
       doc = doc.split(%r<(\{%|\}%)>).each_slice(4).map do |a|
@@ -43,45 +34,48 @@ module Relaton::Cli
       v
     end
 
+    COPYRIGHT = "All rights reserved. Unless otherwise specified, no part of this publication may be reproduced or utilized otherwise in any form or by any means, electronic or mechanical, including photocopying, or posting on the internet or an intranet, without prior written permission."
+
+    def hash_to_liquid(hash)
+      hash.map { |k, v| [k.to_s, empty2nil(v)] }.to_h
+    end
+
     def render(file_content, css_path, relaton_root, html_template)
       source = Nokogiri::XML(file_content)
       stylesheet = File.read(css_path, encoding: "utf-8")
-      template = File.read(html_template || "#{__dir__}/template.html", encoding: "utf-8")
-      div = noko do |xml|
-        xml.div do |div|
-          source.xpath(ns("./relaton-collection/relation")).each do |x|
-            iterate(div, x.at(ns("./bibdata | ./relaton-collection")), 2, relaton_root)
-          end
-        end
-      end.join("\n")
-      params = {
+
+      Liquid::Template.file_system = Liquid::LocalFileSystem.new(__dir__)
+      template = File.read(html_template || "#{__dir__}/template.liquid", encoding: "utf-8")
+
+      # iterate(div, x.at(ns("./bibdata | ./relaton-collection")), 2, relaton_root)
+      bibcollection = ::Relaton::Bibcollection.from_xml(source)
+
+      puts "@"*38
+      puts bibcollection.inspect
+      puts "@"*38
+
+      locals = {
         css: stylesheet,
-        title: source&.at(ns("./relaton-collection/title"))&.text || "Untitled",
-        author: source&.at(ns("./relaton-collection/contributor[role/@type = 'author']/organization/name"))&.text,
-        content: div,
+        title: bibcollection.title,
+        author: bibcollection.author,
+        documents: bibcollection.to_h[:items].map { |i| hash_to_liquid(i) },
+        copyright: COPYRIGHT,
+        depth: 2
       }
-      ret = liquid(template).render(params.map { |k, v| [k.to_s, empty2nil(v)] }.to_h)
+
+      # puts "template: #{template}"
+      puts "B"*30
+      puts "#{bibcollection.inspect}"
+      puts "B"*30
+      #ret = liquid(template).render(params.map { |k, v| [k.to_s, empty2nil(v)] }.to_h)
+      puts "#{bibcollection.items.size}"
+
+      pp bibcollection.to_h[:items]
+
+      puts "B"*30
+      ret = Liquid::Template.parse(template).render(hash_to_liquid(locals))
       ret
     end
-
-    EXTENSION_TYPES = [
-      {
-        text: "HTML",
-        extension: "html"
-      },
-      {
-        text: "PDF",
-        extension: "pdf"
-      },
-      {
-        text: "Word",
-        extension: "doc"
-      },
-      {
-        text: "XML",
-        extension: "xml"
-      }
-    ]
 
     def uri_for_extension(uri, extension)
       return nil if uri.nil?
@@ -89,94 +83,13 @@ module Relaton::Cli
     end
 
     def iterate(d0, bib, depth, relaton_root)
-      generic_uri = bib.at(ns("./uri[not(@type)]"))&.text
-      links = {}
-      links["html"] = bib.at(ns("./uri[@type = 'html']"))&.text || uri_for_extension(generic_uri, :html)
-      links["pdf"] = bib.at(ns("./uri[@type = 'pdf']"))&.text || uri_for_extension(generic_uri, :pdf)
-      links["doc"] = bib.at(ns("./uri[@type = 'doc']"))&.text || uri_for_extension(generic_uri, :doc)
-      links["xml"] = bib.at(ns("./uri[@type = 'xml']"))&.text || uri_for_extension(generic_uri, :xml)
+      # id_code = id.downcase.gsub(/[\s\/]/, "-") unless id.nil?
 
-      html_link = links["html"] || uri_for_extension(generic_uri, :html)
+      # bib.relaton_xml_path = URI.escape("#{relaton_root}/#{id_code}.xml")
 
-      id = bib.at(ns("./docidentifier"))&.text
-      id_code = id.downcase.gsub(/[\s\/]/, "-") unless id.nil?
-      title = bib.at(ns("./title"))&.text
-
-      relaton_link = bib.at(ns("./uri[@type = 'relaton']"))&.text 
-      relaton_link ||= URI.escape("#{relaton_root}/#{id_code}.xml") if relaton_root
-
-      d0.div **{ class: bib.name == "bibdata" ? "document" : "doc-section" } do |d|
-        d.div **{ class: "doc-line" } do |d1|
-
-          d1.div **{ class: "doc-identifier" } do |d2|
-            d2.send "h#{depth}" do |h|
-              if html_link
-                h.a **{ href: html_link } do |a|
-                  a << id
-                end
-              else
-                h << id
-              end
-            end
-          end
-
-          d1.div **{ class: "doc-type-wrap" } do |d2|
-            d2.div bib.at(ns("./@type"))&.text, **{ class: "doc-type #{bib.at(ns("./@type"))&.text&.downcase}" }
-          end
-        end
-
-        d.div **{ class: "doc-title" } do |d1|
-          d1.send "h#{depth+1}" do |h|
-
-            if html_link
-              h.a **{ href: html_link } do |a|
-                a << title
-              end
-            else
-              h << title
-            end
-          end
-        end
-
-        d.div **{ class: "doc-info #{bib.at(ns("./status"))&.text&.downcase}" } do |d1|
-          d1.div bib.at(ns("./status"))&.text, **{ class: "doc-stage #{bib.at(ns("./status"))&.text&.downcase}" }
-          d1.div **{ class: "doc-dates" } do |d2|
-            if bib.at(ns("./date[@type = 'published']/on"))
-              d2.div bib.at(ns("./date[@type = 'published']/on"))&.text, **{ class: "doc-published" }
-            end
-            if bib.at(ns("./date[@type = 'updated']/on"))
-              d2.div bib.at(ns("./date[@type = 'updated']/on"))&.text, **{ class: "doc-updated" }
-            end
-          end
-        end
-
-        if relaton_link
-          d.div **{ class: "doc-bib" } do |d1|
-            d1.div **{ class: "doc-bib-relaton" } do |d2|
-              d2.a **{ href: relaton_link } do |a|
-                a << "Relaton XML"
-              end
-            end
-          end
-        end
-
-        if !links.empty?
-          d.div **{ class: "doc-access" } do |d1|
-            EXTENSION_TYPES.each do |attribs|
-              next unless links[attribs[:extension]]
-              d1.div **{ class: "doc-access-button-#{attribs[:extension]}" } do |d2|
-                d2.a **{ href: links[attribs[:extension]] } do |a|
-                  a << attribs[:text]
-                end
-              end
-            end
-          end
-        end
-
-        bib.xpath(ns("./relation")).each do |x|
-          iterate(d, x.at(ns("./bibdata | ./relaton-collection")), depth + 1, relaton_root)
-        end
-      end
+      # bib.xpath(ns("./relation")).each do |x|
+      #   iterate(d, x.at(ns("./bibdata | ./relaton-collection")), depth + 1, relaton_root)
+      # end
     end
 
   end

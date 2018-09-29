@@ -20,14 +20,51 @@ module Relaton
 
     attr_accessor *ATTRIBS
 
+    def self.ns(xpath)
+      xpath.gsub(%r{/([a-zA-z])}, "/xmlns:\\1").
+        gsub(%r{::([a-zA-z])}, "::xmlns:\\1").
+        gsub(%r{\[([a-zA-z][a-z0-9A-Z@/]* ?=)}, "[xmlns:\\1").
+        gsub(%r{\[([a-zA-z][a-z0-9A-Z@/]*\])}, "[xmlns:\\1")
+    end
+
     def initialize(options)
       options.each_pair do |k,v|
         send("#{k.to_s}=", v)
       end
+
+      puts "*+"*30
+      puts self.inspect
+
+      self
     end
 
     def docid_code
       docid.downcase.gsub(/[\s\/]/, "-") || ""
+    end
+
+    def self.from_xml(source)
+
+      # bib.relaton_xml_path = URI.escape("#{relaton_root}/#{id_code}.xml")
+
+      datetype = source.at(ns("./date[@type]")).text
+      revdate = source.at(ns("./date/on")).text
+
+      new({
+        uri: source.at(ns("./uri"))&.text,
+        xml: source.at(ns("./uri[@type='xml']"))&.text,
+        pdf: source.at(ns("./uri[@type='pdf']"))&.text,
+        html: source.at(ns("./uri[@type='html']"))&.text,
+        relaton: source.at(ns("./uri[@type='relaton']"))&.text,
+        doc: source.at(ns("./uri[@type='doc']"))&.text,
+        docid: source.at(ns("./docidentifier"))&.text,
+        title: source.at(ns("./title"))&.text,
+        doctype: source.at(ns("./@type"))&.text,
+        stage: source.at(ns("./status"))&.text,
+        technical_committee: source.at(ns("./technical-committee"))&.text,
+        abstract: source.at(ns("./abstract"))&.text,
+        revdate: Date.parse(revdate)
+        # revdate TODO
+      })
     end
 
     def to_xml
@@ -47,6 +84,13 @@ module Relaton
       ret += "<status>#{stage}</status>\n" if stage
       ret += "<technical-committee>#{technical_committee}</technical-committee>\n" if technical_committee
       ret += "</bibdata>\n"
+    end
+
+    def to_h
+      ATTRIBS.inject({}) do |acc, k|
+        acc[k] = send(k)
+        acc
+      end
     end
 
   end

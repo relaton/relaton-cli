@@ -1,0 +1,82 @@
+{%- if document.items.size > 0 -%}
+<div class="doc-section">
+{%- else -%}
+<div class="document">
+{%- endif -%}
+
+  <div class="doc-line">
+    <div class="doc-identifier">
+      <h{{ depth }}>
+      {% if document.html == "" %}
+        {{ document.docid }}
+      {% else %}
+        <a href="{{ document.html }}">{{ document.docid }}</a>
+      {% endif %}
+      </h{{ depth }}>
+    </div>
+
+    <div class="doc-type-wrap">
+      <div class="doc-type {{ document.doctype | downcase | split: " " | join: "-" }}">
+      {{ document.doctype }}
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-title">
+    <h{{ depth | plus: 1 }}>
+      {% if document.html == "" %}
+        {{ document.title }}
+      {% else %}
+        <a href="{{ document.html }}">{{ document.title }}</a>
+      {% endif %}
+    </h{{ depth | plus: 1 }}>
+  </div>
+
+  <div class="doc-info {{ document.stage | downcase }}">
+    <div class="doc-stage {{ document.stage | downcase }}">
+      {{ document.stage }}
+    </div>
+    <div class="doc-dates">
+      {% unless document.stage == "published" %}
+      <div class="doc-updated">
+      {% else %}
+      <div class="doc-published">
+      {% endunless %}
+        {{ document.revdate }}
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-bib">
+    <div class="doc-bib-relaton">
+      <a href="{{ document.relaton }}">Relaton XML</a>
+    </div>
+  </div>
+
+  <div class="doc-access">
+  {% unless document.html == "" %}
+    <div class="doc-access-button-html">
+      <a href="{{ document.html }}">HTML</a>
+    </div>
+  {% endunless %}
+  {% unless document.pdf == "" %}
+    <div class="doc-access-button-pdf">
+      <a href="{{ document.pdf }}">PDF</a>
+    </div>
+  {% endunless %}
+  {% unless document.doc == "" %}
+    <div class="doc-access-button-doc">
+      <a href="{{ document.doc }}">Word</a>
+    </div>
+  {% endunless %}
+  {% unless document.xml == "" %}
+    <div class="doc-access-button-xml">
+      <a href="{{ document.xml }}">XML</a>
+    </div>
+  {% endunless %}
+  </div>
+</div>
+
+{%- if document.items.size > 0 -%}
+  {%- include 'document' for document.items -%}
+{%- endif -%}
