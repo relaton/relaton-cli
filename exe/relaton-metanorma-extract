@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require "nokogiri"
+
+unless ARGV.size == 2
+  warn "./relaton-metanorma-extract Metanorma-XML-Directory Relaton-XML-Directory"
+end
+indir = ARGV[0]
+outdir = ARGV[1]
+
+Dir.foreach indir do |f|
+  if /\.xml$/.match f
+    file = File.read("#{indir}/#{f}", encoding: "utf-8")
+    xml = Nokogiri::XML(file)
+    bibdata = xml.at("//xmlns:bibdata")
+    docid = bibdata&.at("./xmlns:docidentifier")&.text || f.sub(/\.xml$/, "")
+    outname = docid.sub(/^\s+/, "").sub(/\s+$/, "").gsub(/\s+/, "-") + ".xml"
+    File.open("#{outdir}/#{outname}", "w:UTF-8") { |f| f.write bibdata.to_xml }
+  end
+end
