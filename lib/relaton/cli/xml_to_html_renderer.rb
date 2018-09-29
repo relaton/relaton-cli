@@ -84,22 +84,34 @@ module Relaton::Cli
     ]
 
     def uri_for_extension(uri, extension)
+      return nil if uri.nil?
       uri.sub(/\.[^.]+$/, ".#{extension.to_s}")
     end
 
     def iterate(d0, bib, depth, relaton_root)
-      uri = bib.at(ns("./uri"))&.text
+      generic_uri = bib.at(ns("./uri[not(@type)]"))&.text
+      links = {}
+      links["html"] = bib.at(ns("./uri[@type = 'html']"))&.text || uri_for_extension(generic_uri, :html)
+      links["pdf"] = bib.at(ns("./uri[@type = 'pdf']"))&.text || uri_for_extension(generic_uri, :pdf)
+      links["doc"] = bib.at(ns("./uri[@type = 'doc']"))&.text || uri_for_extension(generic_uri, :doc)
+      links["xml"] = bib.at(ns("./uri[@type = 'xml']"))&.text || uri_for_extension(generic_uri, :xml)
+
+      html_link = links["html"] || uri_for_extension(generic_uri, :html)
+
       id = bib.at(ns("./docidentifier"))&.text
       id_code = id.downcase.gsub(/[\s\/]/, "-") unless id.nil?
       title = bib.at(ns("./title"))&.text
+
+      relaton_link = bib.at(ns("./uri[@type = 'relaton']"))&.text 
+      relaton_link ||= URI.escape("#{relaton_root}/#{id_code}.xml") if relaton_root
 
       d0.div **{ class: bib.name == "bibdata" ? "document" : "doc-section" } do |d|
         d.div **{ class: "doc-line" } do |d1|
 
           d1.div **{ class: "doc-identifier" } do |d2|
             d2.send "h#{depth}" do |h|
-              if uri
-                h.a **{ href: uri_for_extension(uri, :html) } do |a|
+              if html_link
+                h.a **{ href: html_link } do |a|
                   a << id
                 end
               else
@@ -116,8 +128,8 @@ module Relaton::Cli
         d.div **{ class: "doc-title" } do |d1|
           d1.send "h#{depth+1}" do |h|
 
-            if uri
-              h.a **{ href: uri_for_extension(uri, :html) } do |a|
+            if html_link
+              h.a **{ href: html_link } do |a|
                 a << title
               end
             else
@@ -138,22 +150,22 @@ module Relaton::Cli
           end
         end
 
-        if id
+        if relaton_link
           d.div **{ class: "doc-bib" } do |d1|
             d1.div **{ class: "doc-bib-relaton" } do |d2|
-              d2.a **{ href: URI.escape("#{relaton_root}/#{id_code}.xml") } do |a|
+              d2.a **{ href: relaton_link } do |a|
                 a << "Relaton XML"
               end
             end
           end
         end
 
-        if uri
+        if !links.empty?
           d.div **{ class: "doc-access" } do |d1|
-
             EXTENSION_TYPES.each do |attribs|
+              next unless links[attribs[:extension]]
               d1.div **{ class: "doc-access-button-#{attribs[:extension]}" } do |d2|
-                d2.a **{ href: uri_for_extension(uri, attribs[:extension]) } do |a|
+                d2.a **{ href: links[attribs[:extension]] } do |a|
                   a << attribs[:text]
                 end
               end

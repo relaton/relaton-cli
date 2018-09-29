@@ -132,7 +132,11 @@ root:
       title: "Date and time -- Representations for information interchange -- Part 1: Basic rules"
       stage: Published
       revdate: 2018-10-17
-      uri: standards/csd-datetime-explict/csd-datetime-explict.xml
+      xml: standards/csd-datetime-explict/csd-datetime-explict.xml
+      html: standards/csd-datetime-explict/csd-datetime-explict.html
+      pdf: standards/csd-datetime-explict/csd-datetime-explict.pdf
+      doc: standards/csd-datetime-explict/csd-datetime-explict.doc
+      relaton: standards/csd-datetime-explict/cc-18001.xml
     - technical_committee: TC PUBLISH
       docid: CC/DIR 10001
       doctype: governance

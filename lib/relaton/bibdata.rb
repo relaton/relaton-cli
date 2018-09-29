@@ -7,7 +7,12 @@ module Relaton
       title
       stage
       relation
+      xml
+      pdf
+      doc
+      html
       uri
+      relaton
       revdate
       abstract
       technical_committee
@@ -30,7 +35,12 @@ module Relaton
 
       ret = "<bibdata type='#{doctype}'>\n"
       ret += "<title>#{title}</title>\n"
-      ret += "<uri>#{uri}</uri>\n"
+      ret += "<uri>#{uri}</uri>\n" if uri
+      ret += "<uri type='xml'>#{xml}</uri>\n" if xml
+      ret += "<uri type='html'>#{html}</uri>\n" if html
+      ret += "<uri type='pdf'>#{pdf}</uri>\n" if pdf
+      ret += "<uri type='doc'>#{doc}</uri>\n" if doc
+      ret += "<uri type='relaton'>#{relaton}</uri>\n" if relaton
       ret += "<docidentifier>#{docid}</docidentifier>\n"
       ret += "<date type='#{datetype}'><on>#{revdate}</on></date>\n" if revdate
       ret += "<abstract>#{abstract}</abstract>\n" if abstract
