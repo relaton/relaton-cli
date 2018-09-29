@@ -34,4 +34,5 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'relaton', "~> 0.2.4"
   spec.add_runtime_dependency 'uuidtools'
+  spec.add_runtime_dependency 'liquid'
 end

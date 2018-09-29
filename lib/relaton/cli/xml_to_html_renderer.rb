@@ -29,6 +29,15 @@ module Relaton::Cli
       end
     end
 
+    def liquid(doc)
+      # unescape HTML escapes in doc
+      doc = doc.split(%r<(\{%|\}%)>).each_slice(4).map do |a|
+        a[2].gsub!("&lt;", "<").gsub!("&gt;", ">") if a.size > 2
+        a.join("")
+      end.join("")
+      Liquid::Template.parse(doc)
+    end
+
     def script_cdata(result)
       result.gsub(%r{<script>\s*<!\[CDATA\[}m, "<script>").
         gsub(%r{\]\]>\s*</script>}, "</script>").
@@ -36,10 +45,28 @@ module Relaton::Cli
         gsub(%r{</script>\s*\]\]>}, "</script>")
     end
 
-    def render(file_content, css_path, relaton_root)
-      doc = Nokogiri::XML(file_content)
-      stylesheet = File.read(css_path)
+    def render(file_content, css_path, relaton_root, html_template)
+      source = Nokogiri::XML(file_content)
+      stylesheet = File.read(css_path, encoding: "utf-8")
+      template = File.read(html_template || "#{__dir__}/template.html", encoding: "utf-8")
+      div = noko do |xml|
+        xml do |div|
+          docxml.xpath(ns("./relaton-collection/relation")).each do |x|
+            iterate(div, x.at(ns("./bibdata | ./relaton-collection")), 2, relaton_root)
+          end
+        end
+      end.join("\n")
+      require "byebug"; byebug
+      params = {
+        css: stylesheet,
+        title: source&.at(ns("./relaton-collection/title"))&.text || "Untitled",
+        author: source&.at(ns("./relaton-collection/contributor[role/@type = 'author']/organization/name"))&.text,
+        content: div.to_xml
+      }
+      ret = template.render(params)
+      ret
 
+=begin
       result = noko do |xml|
         xml.html do |html|
           define_head(
@@ -52,6 +79,7 @@ module Relaton::Cli
       end.join("\n")
 
       script_cdata(result)
+=end
     end
 
     def define_head(html, stylesheet, title)
@@ -128,8 +156,7 @@ module Relaton::Cli
             <div>
           </header>
         <div>
-        END
-      end
+      END
     end
 
     def make_body2(body, docxml)
