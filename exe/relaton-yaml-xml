@@ -9,11 +9,6 @@ options = {}
 
 opt_parser = OptionParser.new do |opts|
   opts.banner += " <file>"
-  opts.on(
-    '-t',
-    '--type TYPE',
-    "Type of standard to generate"
-  ) { |v| options[:type] = v.to_sym }
 
   opts.on(
     '-r',
@@ -71,13 +66,3 @@ if outdir
   end
 end
 
-# cmd = "#{File.dirname(__FILE__)}/relaton-doc #{outfilename} #{ manifest["htmlstylesheet"] || '""' } #{ options[:relaton] || '""' }"
-# system cmd
-
-#processor = registry.find_processor(options[:type].to_sym)
-#ext = :html
-#file_extension = "html" || processor.output_formats[ext]
-#outfilename = options[:filename].sub(/\.[^.]+$/, ".#{file_extension}")
-#isodoc_options = { suppressheadingnumbers: true }
-#isodoc_options[:htmlstylesheet] = manifest["htmlstylesheet"] if manifest["htmlstylesheet"]
-#processor.output(out, outfilename, ext, isodoc_options)

@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+unless ARGV.size == 1 
+  warn "./relaton-concatenate DIRECTORY (containing Relaton-XML or YAML)"
+end
+dir = ARGV.pop
+
+ret = ""
+
+Dir.foreach dir do |f|
+  if /\.yaml$/.match f
+    puts "#{__dir__}/relaton-yaml-xml -R #{dir} #{dir}/#{f}"
+    system "#{__dir__}/relaton-yaml-xml -R #{dir} #{dir}/#{f}"
+  end
+end
+
+Dir.foreach dir do |f|
+  if /\.xml$/.match f
+    ret += File.read("#{dir}/#{f}", encoding: "utf-8")
+  end
+end
+
+ret = "<relaton-collection>\n#{ret}\n</relaton-collection>"
+puts ret
