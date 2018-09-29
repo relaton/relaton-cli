@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+
+require "relaton"
+require "optparse"
+
+cache = "#{Dir.home}/.relaton-bib.pstore"
+relaton = Relaton::Db.new(cache, nil)
+types = Relaton::Db::SUPPORTED_GEMS.join(', ')
+
+options = {}
+
+opt_parser = OptionParser.new do |opts|
+  opts.banner += " <file>"
+  opts.on(
+    '-t',
+    '--type TYPE',
+    "Type of standard to get bibliographic entry for: #{types}"
+  ) { |v| options[:type] = v.to_sym }
+
+  opts.on(
+    '-y',
+    '--year YEAR',
+    "Year the standard was published"
+  ) { |v| options[:year] = v }
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+end
+
+opt_parser.parse!(ARGV)
+options[:code] = ARGV.pop
+
+ret = relaton.fetch_std(options[:code], options[:year], options[:type], {})
+
+if ret.nil?
+  warn "No matching bibliographic entry found"
+else
+  puts ret.to_xml
+end
