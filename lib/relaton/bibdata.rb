@@ -88,7 +88,8 @@ module Relaton
 
     def to_h
       ATTRIBS.inject({}) do |acc, k|
-        acc[k] = send(k)
+        value = send(k)
+        acc[k] = value unless value.nil?
         acc
       end
     end

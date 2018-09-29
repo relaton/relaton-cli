@@ -1,24 +1,28 @@
 #!/usr/bin/env ruby
 
 # Invoke as: ./relaton-doc FILENAME STYLESHEET RELATON-ROOT
-require "nokogiri"
+require "yaml"
+require "optparse"
+require "fileutils"
 require "relaton/cli"
 
-if ARGV.size < 3 || ARGV.size > 4
-  warn "Invoke as: ./relaton-xml-html <relaton-xml> <stylesheet> <output-root> <html-template>"
+
+if ARGV.size < 2 || ARGV.size > 3
+  warn "Invoke as: ./relaton-xml-html <relaton-index-xml> <stylesheet> <liquid-template-dir>"
   exit
 end
 
 filename = ARGV[0]
-stylesheet = ARGV[1]
-template = ARGV[3] || nil
-relaton_root = ARGV[2] || "relaton"
+file = File.read(filename, encoding: "utf-8")
 
-file = File.read(ARGV[0], encoding: "utf-8")
+puts ARGV.inspect
 
-xml_to_html = Relaton::Cli::XmlToHtmlRenderer.new
+xml_to_html = Relaton::Cli::XmlToHtmlRenderer.new({
+  stylesheet: ARGV[1],
+  liquid_dir: ARGV[2]
+})
 
 File.open(filename.sub(/\.xml$/, ".html"), "w:UTF-8") do |f|
-  f.write(xml_to_html.render(file, stylesheet, relaton_root, template))
+  f.write(xml_to_html.render(file))
 end
 
