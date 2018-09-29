@@ -3,7 +3,6 @@ require "liquid"
 module Relaton::Cli
   class XmlToHtmlRenderer
 
-    # require "byebug"; byebug
     def ns(xpath)
       xpath.gsub(%r{/([a-zA-z])}, "/xmlns:\\1").
         gsub(%r{::([a-zA-z])}, "::xmlns:\\1").
@@ -44,13 +43,6 @@ module Relaton::Cli
       v
     end
 
-    def script_cdata(result)
-      result.gsub(%r{<script>\s*<!\[CDATA\[}m, "<script>").
-        gsub(%r{\]\]>\s*</script>}, "</script>").
-        gsub(%r{<!\[CDATA\[\s*<script>}m, "<script>").
-        gsub(%r{</script>\s*\]\]>}, "</script>")
-    end
-
     def render(file_content, css_path, relaton_root, html_template)
       source = Nokogiri::XML(file_content)
       stylesheet = File.read(css_path, encoding: "utf-8")
@@ -62,7 +54,6 @@ module Relaton::Cli
           end
         end
       end.join("\n")
-      require "byebug"; byebug
       params = {
         css: stylesheet,
         title: source&.at(ns("./relaton-collection/title"))&.text || "Untitled",
@@ -71,145 +62,6 @@ module Relaton::Cli
       }
       ret = liquid(template).render(params.map { |k, v| [k.to_s, empty2nil(v)] }.to_h)
       ret
-
-=begin
-      result = noko do |xml|
-        xml.html do |html|
-          define_head(
-            html,
-            stylesheet,
-            doc&.at(ns("./relaton-collection/title"))&.text || "Untitled"
-          )
-          make_body html, doc, relaton_root
-        end
-      end.join("\n")
-
-      script_cdata(result)
-=end
-    end
-
-    def define_head(html, stylesheet, title)
-      html.head do |head|
-        head.title { |t| t << title }
-        head.style do |style|
-          style.comment "\n#{stylesheet}\n"
-        end
-
-        head.meta **{ "http-equiv": "Content-Type", content: "text/html", charset: "utf-8" }
-
-        [
-          "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js",
-          "https://cdn.rawgit.com/jgallen23/toc/0.3.2/dist/toc.min.js"
-        ].each do |url|
-          head.script **{ src: url, type: "text/javascript" } do |s|
-            s.text nil
-          end
-        end
-
-        [
-          {
-            href: "https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i|Space+Mono:400,700|Overpass:300,300i,600,900|Ek+Mukta:200",
-            rel: "stylesheet",
-            type: "text/css"
-          },
-          {
-            href: "https://use.fontawesome.com/releases/v5.0.8/css/solid.css",
-            integrity: "sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk",
-            crossorigin: "anonymous"
-          },
-          {
-            href: "https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css",
-            integrity: "sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P",
-            crossorigin: "anonymous"
-          }
-
-        ].each do |attribs|
-          head.link **attribs
-        end
-
-      end
-    end
-
-    def make_body(html, xml, relaton_root)
-      # require "byebug"; byebug
-      body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72" }
-      html.body **body_attr do |body|
-        make_body1(body, xml)
-        make_body2(body, xml)
-        make_body3(body, xml, relaton_root)
-        scripts(body)
-      end
-    end
-
-    def make_body1(body, docxml)
-      body.div **{ id: "topbar-inner" } do |div1|
-        div1.div **{ id: "titleBar" } do |div2|
-          div2.span { |s| s << docxml&.at(ns("./relaton-collection/contributor[role/@type = 'author']/organization/name"))&.text }
-        end
-      end
-
-      body.add_child <<~"END"
-        <div class="title-section">
-          <header>
-            <div class="coverpage">
-              <div class="wrapper-top">
-                <div class="coverpage-doc-identity">
-                  <div class="coverpage-title">
-                    <span class="title-first">#{docxml&.at(ns("./relaton-collection/title"))&.text}</span>
-                  </div>
-                </div>
-              </div>
-            <div>
-          </header>
-        <div>
-      END
-    end
-
-    def make_body2(body, docxml)
-      body.div **{ class: "prefatory-section" } do |div2|
-        div2.p { |p| p << "&nbsp;" } # placeholder
-      end
-    end
-
-    def make_body3(body, docxml, relaton_root)
-      # require "byebug"; byebug
-      body.main **{ class: "main-section" } do |div3|
-        docxml.xpath(ns("./relaton-collection/relation")).each do |x|
-          iterate(div3, x.at(ns("./bibdata | ./relaton-collection")), 2, relaton_root)
-        end
-      end
-
-      body.add_child <<~"END"
-        <div class="copyright">
-          <p class="year">
-            © The Calendaring and Scheduling Consortium, Inc.
-          </p>
-          <p class="message">
-            All rights reserved. Unless otherwise specified, no part of this publication may be reproduced or utilized otherwise in any form or by any means, electronic or mechanical, including photocopying, or posting on the internet or an intranet, without prior written permission. Permission can be requested from the address below.
-          </p>
-        </div>
-      END
-
-    end
-
-    def script
-      <<~"END"
-    <script>
-      $(document).ready(function() {
-        $('[id^=toc]').each(function () {
-           var currentToc = $(this);
-           var url = window.location.href;
-           currentToc.wrap("<a href='" + url + "#" + currentToc.attr("id") + "' <\/a>");
-        });
-      });
-      anchors.options = { placement: 'left' };
-      anchors.add('h1, h2, h3, h4');
-    </script>
-      END
-    end
-
-    def scripts(body)
-      body.parent.add_child script
     end
 
     EXTENSION_TYPES = [
@@ -236,7 +88,6 @@ module Relaton::Cli
     end
 
     def iterate(d0, bib, depth, relaton_root)
-      # require "byebug"; byebug
       uri = bib.at(ns("./uri"))&.text
       id = bib.at(ns("./docidentifier"))&.text
       id_code = id.downcase.gsub(/[\s\/]/, "-") unless id.nil?

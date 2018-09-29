@@ -5,7 +5,7 @@ require "nokogiri"
 require "relaton/cli"
 
 if ARGV.size < 3 || ARGV.size > 4
-  warn "Invoke as: ./relaton-doc <relaton-xml> <stylesheet> <output-root> <html-template>"
+  warn "Invoke as: ./relaton-xml-html <relaton-xml> <stylesheet> <output-root> <html-template>"
   exit
 end
 
