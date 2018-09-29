@@ -14,9 +14,9 @@ The following executables are included:
 
 === relaton-concatenate
 
-````
+```
 relaton-concatenate DIRECTORY
-````
+```
 
 Iterates through all the Relaton YAML files in DIRECTORY, and converts them in-place into Relaton XML.
 
@@ -25,9 +25,9 @@ and outputs to stdout a `relaton-collection` document containing all the Relaton
 
 === relaton-fetch
 
-````
+```
 relaton-fetch -t TYPE -y YEAR code
-````
+```
 
 Fetch the Relaton XML entry corresponding to the document identifier `code`. 
 
@@ -37,9 +37,9 @@ values for `TYPE` are `isobib`, `ietfbib`, `iecbib`, `gbbib`.
 
 === relaton-metanorma-extract
 
-````
+```
 relaton-metanorma-extract Metanorma-XML-Directory Relaton-XML-Directory
-````
+```
 
 Iterate through all the Metanorma XML files in `Metanorma-XML-Directory`, and extract the `bibdata`
 element from each. Save the `bibdata` element for each file to `Relaton-XML-Directory`, as the Relaton XML
@@ -48,9 +48,9 @@ file; otherwise, the original file name is used.
 
 === relaton-xml-html
 
-````
+```
 relaton-xml-html <relaton-xml> <stylesheet> <output-root> <html-template>
-````
+```
 
 Render a Relaton Collection XML as an HTML file. Used to generate an HTML index of standards.
 
@@ -65,7 +65,7 @@ Render a Relaton Collection XML as an HTML file. Used to generate an HTML index 
 
 Sample HTML output for a bibliographic entry:
 
-````
+```xml
   <div class="document">
     <div class="doc-line">
       <div class="doc-identifier">
@@ -108,19 +108,19 @@ Sample HTML output for a bibliographic entry:
       </div>
     </div>
   </div>
-````
+```
 
 === relaton-yaml-xml
 
-````
+```
 relaton-yaml-xml -R relaton-dir yaml-file
-````
+```
 
 Convert a Relaton YAML file into a Relaton Collection XML.
 
 The Relaton YAML file contains some initial metadata, and a list of metadata about each bibliographic entry. The following is a sample:
 
-````
+```yaml
 htmlstylesheet: ./index-style.css
 root:
   title: CalConnect Standards Registry
@@ -140,5 +140,5 @@ root:
       stage: proposal
       revdate: 2018-10-17
       uri: standards/csd-standardization/csd-standardization.xml
-````
+```
 
