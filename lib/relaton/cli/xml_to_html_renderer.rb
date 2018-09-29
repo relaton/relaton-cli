@@ -1,3 +1,4 @@
+require "liquid"
 
 module Relaton::Cli
   class XmlToHtmlRenderer
@@ -38,6 +39,11 @@ module Relaton::Cli
       Liquid::Template.parse(doc)
     end
 
+    def empty2nil(v)
+      return nil if !v.nil? && v.is_a?(String) && v.empty?
+      v
+    end
+
     def script_cdata(result)
       result.gsub(%r{<script>\s*<!\[CDATA\[}m, "<script>").
         gsub(%r{\]\]>\s*</script>}, "</script>").
@@ -50,8 +56,8 @@ module Relaton::Cli
       stylesheet = File.read(css_path, encoding: "utf-8")
       template = File.read(html_template || "#{__dir__}/template.html", encoding: "utf-8")
       div = noko do |xml|
-        xml do |div|
-          docxml.xpath(ns("./relaton-collection/relation")).each do |x|
+        xml.div do |div|
+          source.xpath(ns("./relaton-collection/relation")).each do |x|
             iterate(div, x.at(ns("./bibdata | ./relaton-collection")), 2, relaton_root)
           end
         end
@@ -61,9 +67,9 @@ module Relaton::Cli
         css: stylesheet,
         title: source&.at(ns("./relaton-collection/title"))&.text || "Untitled",
         author: source&.at(ns("./relaton-collection/contributor[role/@type = 'author']/organization/name"))&.text,
-        content: div.to_xml
+        content: div,
       }
-      ret = template.render(params)
+      ret = liquid(template).render(params.map { |k, v| [k.to_s, empty2nil(v)] }.to_h)
       ret
 
 =begin

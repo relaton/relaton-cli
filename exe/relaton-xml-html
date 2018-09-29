@@ -9,7 +9,6 @@ if ARGV.size < 3 || ARGV.size > 4
   exit
 end
 
-require "byebug"; byebug
 filename = ARGV[0]
 stylesheet = ARGV[1]
 template = ARGV[3] || nil
