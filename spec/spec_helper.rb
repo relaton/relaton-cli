@@ -1,4 +1,5 @@
 require "bundler/setup"
+require "relaton-cli"
 require "equivalent-xml"
 require "rspec-command"
 require "fileutils"

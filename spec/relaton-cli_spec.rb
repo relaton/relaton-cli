@@ -1,6 +1,6 @@
 require_relative "spec_helper"
 
-RSpec.describe Metanorma do
+RSpec.describe Relaton::Cli do
   it "processes an asciidoc ISO document" do
     File.open("test.adoc", "w:UTF-8") { |f| f.write(ASCIIDOC_BLANK_HDR) }
     FileUtils.rm_f %w(test.xml test.html test.alt.html test.doc)
