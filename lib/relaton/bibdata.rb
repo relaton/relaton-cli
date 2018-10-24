@@ -1,3 +1,4 @@
+require "date"
 
 module Relaton
   class Bibdata
@@ -16,6 +17,10 @@ module Relaton
       revdate
       abstract
       technical_committee
+      agency
+      edition
+      language
+      script
     ]
 
     attr_accessor *ATTRIBS
@@ -60,10 +65,13 @@ module Relaton
         title: source.at(ns("./title"))&.text,
         doctype: source.at(ns("./@type"))&.text,
         stage: source.at(ns("./status"))&.text,
-        technical_committee: source.at(ns("./technical-committee"))&.text,
+        technical_committee: source.at(ns("./editorialgroup/technical-committee"))&.text,
         abstract: source.at(ns("./abstract"))&.text,
-        revdate: Date.parse(revdate)
-        # revdate TODO
+        revdate: Date.parse(revdate),
+        agency: source.at(ns("./contributor/organization/name"))&.text,
+        edition: source.at(ns("./edition"))&.text,
+        language: source.at(ns("./language"))&.text,
+        script: source.at(ns("./script"))&.text,
       })
     end
 
@@ -71,6 +79,7 @@ module Relaton
       datetype = stage.casecmp("published") == 0 ? "published" : "updated"
 
       ret = "<bibdata type='#{doctype}'>\n"
+      ret += "<fetched>#{Date.today.to_s}</fetched>\n"
       ret += "<title>#{title}</title>\n"
       ret += "<uri>#{uri}</uri>\n" if uri
       ret += "<uri type='xml'>#{xml}</uri>\n" if xml
@@ -80,9 +89,14 @@ module Relaton
       ret += "<uri type='relaton'>#{relaton}</uri>\n" if relaton
       ret += "<docidentifier>#{docid}</docidentifier>\n"
       ret += "<date type='#{datetype}'><on>#{revdate}</on></date>\n" if revdate
+      ret += "<contributor><role type='author'/><organization><name>#{agency}</name></organization></contributor>" if agency
+      ret += "<contributor><role type='publisher'/><organization><name>#{agency}</name></organization></contributor>" if agency
+      ret += "<edition>#{edition}</edition>\n" if edition
+      ret += "<language>#{language}</language>\n" if language
+      ret += "<script>#{script}</script>\n" if script
       ret += "<abstract>#{abstract}</abstract>\n" if abstract
       ret += "<status>#{stage}</status>\n" if stage
-      ret += "<technical-committee>#{technical_committee}</technical-committee>\n" if technical_committee
+      ret += "<editorialgroup><technical-committee>#{technical_committee}</technical-committee></editorialgroup>\n" if technical_committee
       ret += "</bibdata>\n"
     end
 
