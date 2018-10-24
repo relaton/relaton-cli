@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <style>
+<!--
+{{ css }}
+-->
+    </style>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdn.rawgit.com/jgallen23/toc/0.3.2/dist/toc.min.js" type="text/javascript"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i|Space+Mono:400,700|Overpass:300,300i,600,900|Ek+Mukta:200" rel="stylesheet" type="text/css"/>
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous"/>
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous"/>
+  </head>
+  <body>
+    <header>
+      <div id="topbar-inner">
+        <div id="title-bar"><span>{{ author }}</span></div>
+      </div>
+      <div class="title-section">
+        <div class="coverpage">
+          <div class="wrapper-top">
+            <div class="coverpage-doc-identity">
+              <div class="coverpage-title"><span class="title-first">{{ title }}</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main class="main-section">
+    {% include 'document' for documents %}
+    </main>
+    <footer>
+      <div class="copyright">
+        <p class="year">&copy; {{ author }}</p>
+        <p class="message">All rights reserved. Unless otherwise specified, no part of this publication may be reproduced or utilized otherwise in any form or by any means, electronic or mechanical, including photocopying, or posting on the internet or an intranet, without prior written permission.</p>
+      </div>
+    </footer>
+    <script>
+      $(document).ready(function() {
+        $('[id^=toc]').each(function () {
+           var currentToc = $(this);
+           var url = window.location.href;
+           currentToc.wrap("<a href='" + url + "#" + currentToc.attr("id") + "' <\/a>");
+        });
+      });
+      anchors.options = { placement: 'left' };
+      anchors.add('h1, h2, h3, h4');
+    </script>
+  </body>
+</html>
