@@ -144,5 +144,9 @@ root:
       stage: proposal
       revdate: 2018-10-17
       uri: standards/csd-standardization/csd-standardization.xml
+      agency: CalConnect
+      language: en
+      script: Latn
+      edition: 1
 ```
 
