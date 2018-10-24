@@ -17,36 +17,7 @@ RSpec.configure do |config|
   config.include RSpecCommand
 end
 
-ASCIIDOC_BLANK_HDR = <<~"HDR"
-      = Document title
-      Author
-      :docfile: test.adoc
-      :nodoc:
-      :novalid:
-      :no-isobib:
-
-HDR
-
-ASCIIDOC_CONFIGURED_HDR = <<~"HDR"
-      = Document title
-      Author
-      :docfile: test.adoc
-      :nodoc:
-      :novalid:
-      :no-isobib:
-      :script: script.html
-      :body-font: body-font
-      :header-font: header-font
-      :monospace-font: monospace-font
-      :title-font: title-font
-      :i18nyaml: i18n.yaml
-
-      = Scope
-      image::spec/assets/rice_image1.png[]
-HDR
-
 ISOXML_BLANK_HDR = <<~"HDR"
-<?xml version="1.0" encoding="UTF-8"?>
 <iso-standard xmlns="http://riboseinc.com/isoxml">
 <bibdata type="article">
   <title>

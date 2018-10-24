@@ -26,7 +26,7 @@ module Relaton
       desc "fetch CODE", "Fetch Relaton XML for Standard identifier CODE"
 
       option :type, :required => true, :desc => "Type of standard to get bibliographic entry for", :aliases => :t
-      option :year, :desc => "Year the standard was published", :aliases => :y, :type => :numeric, :aliases => :y
+      option :year, :desc => "Year the standard was published", :aliases => :y, :type => :numeric
 
       def fetch(code)
         relaton = Relaton::Db.new("#{Dir.home}/.relaton-bib.pstore", nil)
@@ -75,8 +75,8 @@ module Relaton
       def xml2html(filename, stylesheet, liquid_dir)
         file = File.read(filename, encoding: "utf-8")
         xml_to_html = Relaton::Cli::XmlToHtmlRenderer.new({
-          stylesheet: ARGV[1],
-          liquid_dir: ARGV[2]
+          stylesheet: stylesheet,
+          liquid_dir: liquid_dir,
         })
         File.open(filename.sub(/\.xml$/, ".html"), "w:UTF-8") do |f|
           f.write(xml_to_html.render(file))
