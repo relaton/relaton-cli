@@ -3,7 +3,7 @@ PATH
   specs:
     relaton-cli (0.1.2)
       liquid
-      relaton (~> 0.2.4)
+      relaton (~> 0.3.0)
       thor
 
 GEM
@@ -20,39 +20,40 @@ GEM
     equivalent-xml (0.6.0)
       nokogiri (>= 1.4.3)
     gb-agencies (0.0.3)
-    gbbib (0.3.1)
+    gbbib (0.4.1)
       cnccs (~> 0.1.1)
       gb-agencies (~> 0.0.1)
-      iso-bib-item (~> 0.3.0)
+      iso-bib-item (~> 0.4.2)
     httpclient (2.8.3)
-    iecbib (0.1.2)
+    iecbib (0.2.1)
       addressable
-      iso-bib-item (~> 0.3.0)
-    ietfbib (0.4.1)
-      iso-bib-item (~> 0.3.0)
-    iso-bib-item (0.3.1)
+      iso-bib-item (~> 0.4.2)
+    ietfbib (0.4.3)
+      iso-bib-item (~> 0.4.2)
+    iso-bib-item (0.4.2)
       isoics (~> 0.1.6)
       nokogiri (~> 1.8.4)
       ruby_deep_clone (~> 0.8.0)
-    isobib (0.3.1)
+    isobib (0.4.1)
       algoliasearch
-      iso-bib-item (~> 0.3.0)
+      iecbib (~> 0.2.1)
+      iso-bib-item (~> 0.4.2)
     isoics (0.1.7)
     json (2.1.0)
-    liquid (4.0.0)
+    liquid (4.0.1)
     mini_portile2 (2.3.0)
     mixlib-shellout (2.4.0)
     nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
     public_suffix (3.0.3)
     rake (12.3.1)
-    relaton (0.2.4)
+    relaton (0.3.0)
       algoliasearch
-      gbbib (~> 0.3.1)
-      iecbib (~> 0.1.1)
-      ietfbib (~> 0.4.1)
-      iso-bib-item (~> 0.3.0)
-      isobib (~> 0.3.1)
+      gbbib (~> 0.4.0)
+      iecbib (~> 0.2.0)
+      ietfbib (~> 0.4.2)
+      iso-bib-item (~> 0.4.2)
+      isobib (~> 0.4.0)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
       rspec-expectations (~> 3.8.0)
@@ -90,4 +91,4 @@ DEPENDENCIES
   rspec-core (~> 3.4)
 
 BUNDLED WITH
-   1.16.2
+   1.17.1
