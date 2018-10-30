@@ -99,7 +99,7 @@ module Relaton
       collection_type = if doctype
         "type=\"#{doctype}\""
       else
-        'xmlns="http://riboseinc.com/isoxml"'
+        'xmlns="https://open.ribose.com/relaton-xml"'
       end
 
       ret = "<relaton-collection #{collection_type}>"

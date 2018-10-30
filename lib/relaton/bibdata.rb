@@ -3,7 +3,7 @@ require "date"
 module Relaton
   class Bibdata
     ATTRIBS = %i[
-      docid
+      docidentifier
       doctype
       title
       stage
@@ -17,8 +17,12 @@ module Relaton
       revdate
       abstract
       technical_committee
-      agency
-      edition
+      copyright_from
+      copyright_owner
+      contributor_author_role
+      contributor_author_organization
+      contributor_publisher_role
+      contributor_publisher_organization
       language
       script
     ]
@@ -43,16 +47,20 @@ module Relaton
       self
     end
 
-    def docid_code
-      docid.downcase.gsub(/[\s\/]/, "-") || ""
+    def docidentifier_code
+      docidentifier.downcase.gsub(/[\s\/]/, "-") || ""
     end
 
     def self.from_xml(source)
 
       # bib.relaton_xml_path = URI.escape("#{relaton_root}/#{id_code}.xml")
 
-      datetype = source.at(ns("./date[@type]")).text
-      revdate = source.at(ns("./date/on")).text
+      datetype = source.at(ns("./date[@type]"))&.text
+      revdate = source.at(ns("./date/on"))&.text
+      #
+      # puts "#{ns("./date/on")}"
+      #
+      # byebug
 
       new({
         uri: source.at(ns("./uri"))&.text,
@@ -61,17 +69,23 @@ module Relaton
         html: source.at(ns("./uri[@type='html']"))&.text,
         relaton: source.at(ns("./uri[@type='relaton']"))&.text,
         doc: source.at(ns("./uri[@type='doc']"))&.text,
-        docid: source.at(ns("./docidentifier"))&.text,
+        docidentifier: source.at(ns("./docidentifier"))&.text,
         title: source.at(ns("./title"))&.text,
         doctype: source.at(ns("./@type"))&.text,
         stage: source.at(ns("./status"))&.text,
         technical_committee: source.at(ns("./editorialgroup/technical-committee"))&.text,
         abstract: source.at(ns("./abstract"))&.text,
-        revdate: Date.parse(revdate),
-        agency: source.at(ns("./contributor/organization/name"))&.text,
-        edition: source.at(ns("./edition"))&.text,
+        revdate: revdate ? Date.parse(revdate) : nil,
         language: source.at(ns("./language"))&.text,
         script: source.at(ns("./script"))&.text,
+        edition: source.at(ns("./edition"))&.text,
+        copyright_from: source.at(ns("./copyright/from"))&.text,
+        copyright_owner: source.at(ns("./copyright/owner/organization/name"))&.text,
+        contributor_author_role: source.at(ns("./contributor/role[@type='author']")),
+        contributor_author_organization: source.at(ns("./contributor/role[@type='author']"))&.parent&.at(ns("./organization/name"))&.text,
+        contributor_publisher_role: source.at(ns("./contributor/role[@type='publisher']")),
+        contributor_publisher_organization: source.at(ns("./contributor/role[@type='publisher']"))&.parent&.at(ns("./organization/name"))&.text,
+        # revdate TODO
       })
     end
 
@@ -81,16 +95,41 @@ module Relaton
       ret = "<bibdata type='#{doctype}'>\n"
       ret += "<fetched>#{Date.today.to_s}</fetched>\n"
       ret += "<title>#{title}</title>\n"
+      ret += "<docidentifier>#{docidentifier}</docidentifier>\n" if docidentifier
       ret += "<uri>#{uri}</uri>\n" if uri
       ret += "<uri type='xml'>#{xml}</uri>\n" if xml
       ret += "<uri type='html'>#{html}</uri>\n" if html
       ret += "<uri type='pdf'>#{pdf}</uri>\n" if pdf
       ret += "<uri type='doc'>#{doc}</uri>\n" if doc
       ret += "<uri type='relaton'>#{relaton}</uri>\n" if relaton
-      ret += "<docidentifier>#{docid}</docidentifier>\n"
+
+      ret += "<language>#{language}</language>\n"
+      ret += "<script>#{script}</script>\n"
+
+      if copyright_from
+        ret += "<copyright>"
+        ret += "<from>#{copyright_from}</from>\n" if copyright_from
+        ret += "<owner><organization><name>#{copyright_owner}</name></organization></owner>\n" if copyright_owner
+        ret += "</copyright>"
+      end
+
+      if contributor_author_role
+        ret += "<contributor>\n"
+        ret += "<role type='author'/>\n"
+        ret += "<organization><name>#{contributor_author_organization}</name></organization>\n"
+        ret += "</contributor>\n"
+      end
+
+      if contributor_publisher_role
+        ret += "<contributor>\n"
+        ret += "<role type='publisher'/>\n"
+        ret += "<organization><name>#{contributor_publisher_organization}</name></organization>\n"
+        ret += "</contributor>\n"
+      end
+
       ret += "<date type='#{datetype}'><on>#{revdate}</on></date>\n" if revdate
-      ret += "<contributor><role type='author'/><organization><name>#{agency}</name></organization></contributor>" if agency
-      ret += "<contributor><role type='publisher'/><organization><name>#{agency}</name></organization></contributor>" if agency
+      # ret += "<contributor><role type='author'/><organization><name>#{agency}</name></organization></contributor>" if agency
+      # ret += "<contributor><role type='publisher'/><organization><name>#{agency}</name></organization></contributor>" if agency
       ret += "<edition>#{edition}</edition>\n" if edition
       ret += "<language>#{language}</language>\n" if language
       ret += "<script>#{script}</script>\n" if script

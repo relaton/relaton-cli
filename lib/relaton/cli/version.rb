@@ -1,5 +1,5 @@
 module Relaton
   module Cli
-    VERSION = "0.1.2".freeze
+    VERSION = "0.1.3".freeze
   end
 end

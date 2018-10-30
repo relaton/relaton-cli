@@ -3,70 +3,70 @@ root:
   title: CalConnect Standards Registry
   items:
     - technical_committee: TC VCARD
-      docid: CC 18001
+      docidentifier: CC 18001
       doctype: standard
       title: "Date and time -- Representations for information interchange -- Part 1: Basic rules"
       stage: Published
       revdate: 2018-10-17
       uri: standards/csd-datetime-explict/csd-datetime-explict.xml
     - technical_committee: TC PUBLISH
-      docid: CC/DIR 10001
+      docidentifier: CC/DIR 10001
       doctype: governance
       title: "Standardization and publication"
       stage: proposal
       revdate: 2018-10-17
       uri: standards/csd-standardization/csd-standardization.xml
     - technical_committee: TC PUBLISH
-      docid: CC/DIR 10002
+      docidentifier: CC/DIR 10002
       doctype: governance
       title: "Standard document requirements"
       stage: proposal
       revdate: 2018-10-17
       uri: standards/csd-document-requirements/csd-document-requirements.xml
     - technical_committee: TC PUBLISH
-      docid: CC/Guide 33000
+      docidentifier: CC/Guide 33000
       doctype: guide
       title: Standardization -- Vocabulary
       stage: working-draft
       revdate: 2004-09-25
       uri: standards/csd-standardization-vocabulary/csd-standardization-vocabulary.xml
     - technical_committee: TC TIME
-      docid: CC/S 50012
+      docidentifier: CC/S 50012
       doctype: specification
       title: Date and time -- Calendars -- Gregorian calendar
       stage: committee-draft
       revdate: 2018-09-26
       uri: http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf
     - technical_committee: TC TIME
-      docid: CC/S 50012
+      docidentifier: CC/S 50012
       doctype: specification
       title: Date and time -- Calendars -- Gregorian calendar
       stage: Published
       revdate: 2018-09-26
       uri: http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf
     - technical_committee: TC TIME
-      docid: CC/Amd 86003
+      docidentifier: CC/Amd 86003
       doctype: specification
       title: Date and time -- Timezone -- Timezone Management
       stage: Published
       revdate: 2018-09-26
       uri: http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf
     - technical_committee: TC CALDAV
-      docid: CC/Cor 12990-3
+      docidentifier: CC/Cor 12990-3
       doctype: corrigendum
       title: Technical corrigendum on CC 12990
       stage: withdrawn
       revdate: 2018-09-26
       uri: http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf
     - technical_committee: TCC
-      docid: CC/Cor 12990-3
+      docidentifier: CC/Cor 12990-3
       doctype: administrative
       title: "Membership -- Lifecycle management -- Part 1: Onboarding"
       stage: withdrawn
       revdate: 2018-09-26
       uri: http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf
     - technical_committee: CALCONNECT
-      docid: CC/R 3101
+      docidentifier: CC/R 3101
       doctype: report
       title: "CalConnect XLIII -- Position on the European Union daylight-savings timezone change"
       stage: cancelled

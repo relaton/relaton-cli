@@ -5,7 +5,10 @@ require "optparse"
 require "fileutils"
 require "relaton/cli"
 
-options = {}
+options = {
+  extension: ".rxl",
+  prefix: ""
+}
 
 opt_parser = OptionParser.new do |opts|
   opts.banner += " <file>"
@@ -22,8 +25,20 @@ opt_parser = OptionParser.new do |opts|
   opts.on(
     '-R OUTDIR',
     '--relaton-outdir OUTDIR',
-    "Create Relaton XML per item, within this output directory (e.g. {outdir}/{docid}.xml)"
+    "Create Relaton XML per item, within this output directory (e.g. {outdir}/{docidentifier}.xml)"
   ) { |v| options[:outdir] = v }
+
+  opts.on(
+    '-x EXT',
+    '--relaton-ext EXT',
+    "File extension of Relaton XML files, defaults to '.rxl'"
+  ) { |v| options[:extension] = v }
+
+  opts.on(
+    '-p PREFIX',
+    '--prefix PREFIX',
+    "Filename prefix of Relaton XML files, defaults to empty"
+  ) { |v| options[:prefix] = v }
 
   opts.on_tail("-h", "--help", "Show this message") do
     puts opts
@@ -57,7 +72,7 @@ if outdir
   FileUtils.mkdir_p(outdir)
   # Write out relaton/#{id}.xml
   index_collection.items_flattened.each do |item|
-    filename = File.join(outdir, "#{item.docid_code}.xml")
+    filename = File.join(outdir, "#{options[:prefix]}#{item.docidentifier_code}#{options[:extension]}")
 
     File.open(filename, "w:UTF-8") do |f|
       f.write(item.to_xml)

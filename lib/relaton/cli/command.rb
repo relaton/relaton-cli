@@ -48,8 +48,8 @@ module Relaton
           if /\.xml$/.match f
             xml = Nokogiri::XML(File.read("#{indir}/#{f}", encoding: "utf-8"))
             bib = xml.at("//xmlns:bibdata") || next
-            docid = bib&.at("./xmlns:docidentifier")&.text || f.sub(/\.xml$/, "")
-            fn = docid.sub(/^\s+/, "").sub(/\s+$/, "").gsub(/\s+/, "-") + ".xml"
+            docidentifier = bib&.at("./xmlns:docidentifierentifier")&.text || f.sub(/\.xml$/, "")
+            fn = docidentifier.sub(/^\s+/, "").sub(/\s+$/, "").gsub(/\s+/, "-") + ".xml"
             File.open("#{outdir}/#{fn}", "w:UTF-8") { |f| f.write bib.to_xml }
           end
         end
@@ -65,7 +65,7 @@ module Relaton
         return unless outdir
         FileUtils.mkdir_p(outdir)
         coll.items_flattened.each do |item|
-          itemname = File.join(outdir, "#{item.docid_code}.xml")
+          itemname = File.join(outdir, "#{item.docidentifier_code}.xml")
           File.open(itemname, "w:UTF-8") { |f| f.write(item.to_xml) }
         end
       end
