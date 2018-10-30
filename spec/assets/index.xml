@@ -1,6 +1,6 @@
 <relaton-collection xmlns="http://riboseinc.com/isoxml">
   <title>CalConnect Standards Registry</title>
-  <author>CalConnect Inc.</author>
+  <contributor><role type="author"/><organization><name>CalConnect Inc.</name></organization></contributor>
 <relation type='partOf'><bibdata type='standard'>
 <title>Date and time -- Representations for information interchange -- Part 1: Basic rules</title>
 <uri>http://calconnect.org/pubdocs/CD0403%20July%202004%20CalConnect%20Interoperability%20Test%20Report%20V1.0.pdf</uri>

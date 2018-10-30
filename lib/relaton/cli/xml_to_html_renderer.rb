@@ -35,11 +35,6 @@ module Relaton::Cli
     def render(index_xml)
       source = Nokogiri::XML(index_xml)
       bibcollection = ::Relaton::Bibcollection.from_xml(source)
-
-      # puts "@"*38
-      # puts bibcollection.inspect
-      # puts "@"*38
-
       locals = {
         css: @stylesheet,
         title: bibcollection.title,
@@ -47,14 +42,6 @@ module Relaton::Cli
         documents: bibcollection.to_h[:items].map { |i| hash_to_liquid(i) },
         depth: 2
       }
-
-      # puts "template: #{template}"
-      # puts "B"*30
-      # puts "#{bibcollection.inspect}"
-      # puts "B"*30
-      # puts "#{bibcollection.items.size}"
-      # pp bibcollection.to_h[:items]
-
       Liquid::Template.parse(@template).render(hash_to_liquid(locals))
     end
 

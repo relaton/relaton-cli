@@ -54,6 +54,11 @@
   </div>
 
   <div class="doc-access">
+  {% unless document.uri == blank or document.uri == nil %}
+    <div class="doc-access-button-uri">
+      <a href="{{ document.uri }}">URI</a>
+    </div>
+  {% endunless %}
   {% unless document.html == blank or document.html == nil %}
     <div class="doc-access-button-html">
       <a href="{{ document.html }}">HTML</a>

@@ -13,7 +13,6 @@ RSpec.describe Relaton::Cli::XmlToHtmlRenderer do
     expect(html).to match /Date and time -- Timezone -- Timezone Management/
     expect(html).to include "http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf"
     expect(html).to include "CC/Amd 86003"
-    expect(html).to include "TC TIME"
   end
 end
 
