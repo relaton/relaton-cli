@@ -25,6 +25,7 @@ module Relaton
       contributor_publisher_organization
       language
       script
+      edition
     ]
 
     attr_accessor *ATTRIBS
