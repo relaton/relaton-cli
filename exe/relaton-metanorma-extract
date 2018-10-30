@@ -11,6 +11,8 @@ require "nokogiri"
 require "relaton/cli"
 # require "byebug"
 
+warn "DEPRECATED: use relaton concatenate"
+
 options = {
   outfile: "relaton-collection.xml"
 }

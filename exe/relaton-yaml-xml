@@ -5,6 +5,8 @@ require "optparse"
 require "fileutils"
 require "relaton/cli"
 
+warn "DEPRECATED: use relaton yaml2xml"
+
 options = {
   extension: ".rxl",
   prefix: ""

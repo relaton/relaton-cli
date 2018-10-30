@@ -7,22 +7,6 @@ require "fileutils"
 module Relaton
   module Cli
     class Command < Thor
-      desc "concatenate DIRECTORY", "Concatenate entries in DIRECTORY (containing Relaton-XML or YAML) into a Relaton Collection"
-
-      def concatenate(dir)
-        ret = ""
-        Dir.foreach dir do |f|
-          /\.yaml$/.match(f) and
-            #TODO come back to this
-            system "#{__dir__}/relaton-yaml-xml -R #{dir} #{dir}/#{f}"
-        end
-        Dir.foreach dir do |f|
-          /\.xml$/.match(f) and
-            ret += File.read("#{dir}/#{f}", encoding: "utf-8")
-        end
-        say "<relaton-collection>\n#{ret}\n</relaton-collection>"
-      end
-
       desc "fetch CODE", "Fetch Relaton XML for Standard identifier CODE"
 
       option :type, :required => true, :desc => "Type of standard to get bibliographic entry for", :aliases => :t
@@ -41,9 +25,12 @@ module Relaton
         end
       end
 
-      desc "extract Metanorma-XML-Directory Relaton-XML-Directory", "Extract Relaton XML from folder of Metanorma XML"
+      desc "extract Metanorma-XML-Directory Relaton-XML-File", "Extract Relaton XML from folder of Metanorma XML"
 
-      def extract(indir, outdir)
+      option :title, :required => false, :desc => "Title of resulting Relaton collection", :aliases => :t
+      option :organization, :required => false, :desc => "Organization owner of Relaton collection", :aliases => :g
+
+      def extract(source_dir, outfile)
         Dir.foreach indir do |f|
           if /\.xml$/.match f
             xml = Nokogiri::XML(File.read("#{indir}/#{f}", encoding: "utf-8"))
@@ -55,18 +42,74 @@ module Relaton
         end
       end
 
+      desc "concatenate Source-Directory Collection-File", "Concatenate entries in DIRECTORY (containing Relaton-XML or YAML) into a Relaton Collection"
+
+      option :title, :required => false, :desc => "Title of resulting Relaton collection", :aliases => :t
+      option :organization, :required => false, :desc => "Organization owner of Relaton collection", :aliases => :g
+
+      def concatenate(source_dir, outfile)
+        Dir.foreach source_dir do |f|
+          /\.yaml$/.match(f) and yaml2xml("#{dir}/#{f}", dir)
+        end
+        Dir[ File.join(source_dir '**', '*.{xml,rxl}') ].reject { |p| File.directory? p }.each do |f|
+          file = File.read(f, encoding: "utf-8")
+          bibdata_doc = Nokogiri.XML(file)
+          # Skip if this XML isn't a Relaton XML
+          next unless bibdata_doc.root.name == "bibdata"
+
+          # Force a namespace otherwise Nokogiri won't parse.
+          # The reason is we use Bibcollection's from_xml, but that one has an xmlns.
+          # We don't want to change the code for bibdata hence this hack
+          bibdata_doc.root['xmlns'] = "xmlns"
+          bibdata_doc = Nokogiri.XML(bibdata_doc.to_xml)
+
+          bibdata = Relaton::Bibdata.from_xml(bibdata_doc.root)
+          # XML relaton file must already exist
+          bibdata.relaton = f
+          xml = Pathname.new(f).sub_ext('.xml')
+          bibdata.xml = xml if File.file?(xml)
+          pdf = Pathname.new(f).sub_ext('.pdf')
+          bibdata.pdf = pdf if File.file?(pdf)
+          doc = Pathname.new(f).sub_ext('.doc')
+          bibdata.doc = doc if File.file?(doc)
+          html = Pathname.new(f).sub_ext('.html')
+          bibdata.html = html if File.file?(html)
+          bibdatas << bibdata
+        end
+
+        bibcollection = ::Relaton::Bibcollection.new(
+          title: options[:title],
+          # doctype: options[:doctype],
+          author: options[:author],
+          items: bibdatas
+        )
+        File.open(outfile, "w:UTF-8") do |f|
+          f.write bibcollection.to_xml
+        end
+      end
+
       desc "yaml2xml YAML OUTPUT-DIRECTORY", "Convert Relaton YAML into Relaton Collection XML"
 
+      option :relaton_ext, :required => false, :desc => "File extension of Relaton XML files, defaults to '.rxl'", :aliases => :x
+      option :prefix, :required => false, :desc => "Filename prefix of Relaton XML files, defaults to empty", :aliases => :p
+      option :require, :required => false, :desc => "Require LIBRARY prior to execution", :aliases => :r, :type => :array
+
       def yaml2xml(filename, outdir)
+        if options[:require]
+          options[:require].each do |r|
+            require r
+          end
+        end
         index_input = YAML.load_file(filename)
-        coll = ::Relaton::Bibcollection.new(index_input["root"])
+        index_collection = ::Relaton::Bibcollection.new(index_input["root"])
+        # TODO real lookup of namespaces and root elements
         outfilename = filename.sub(/\.[^.]+$/, ".xml")
-        File.open(outfilename, "w:utf-8") { |f| f.write coll.to_xml }
+        File.open(outfilename, "w:utf-8") { |f| f.write index_collection.to_xml }
         return unless outdir
         FileUtils.mkdir_p(outdir)
-        coll.items_flattened.each do |item|
-          itemname = File.join(outdir, "#{item.docidentifier_code}.xml")
-          File.open(itemname, "w:UTF-8") { |f| f.write(item.to_xml) }
+        index_collection.items_flattened.each do |item|
+          filename = File.join(outdir, "#{options[:prefix]}#{item.docidentifier_code}#{options[:extension]}")
+          File.open(filename, "w:UTF-8") { |f| f.write(item.to_xml) }
         end
       end
 
