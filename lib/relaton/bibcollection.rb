@@ -20,58 +20,28 @@ module Relaton
     def initialize(options)
       self.items = []
       ATTRIBS.each do |k|
-        method = "#{k}="
         value = options[k] || options[k.to_s]
-        puts "K #{method}"
-        puts value.inspect
-
         self.send("#{k}=", value)
-        puts "SET! to #{self.send(k).inspect}"
       end
-
-      # puts items.inspect
       self.items = (self.items || []).inject([]) do |acc,item|
         acc << if item.is_a?(::Relaton::Bibcollection) ||
           item.is_a?(::Relaton::Bibdata)
-
           item
         else
-          # puts "item.inspect #{item.inspect}"
           new_bib_item_class(item)
         end
       end
-
       self
-      # byebug
     end
 
     def self.from_xml(source)
-      # source = Nokogiri::XML(content)
-
       title = source&.at(ns("./relaton-collection/title"))&.text
       author = source&.at(ns("./relaton-collection/contributor[role/@type = 'author']/organization/name"))&.text
-
-      puts "!!!!!!!!!!"*3
-      puts "BC: title #{title}"
-      puts "BC: author #{author}"
-      puts "!!!!!!!!!!"*3
-
-      items = source.xpath(ns("./relaton-collection/relation")).map do |item|
-        puts "========="*3
-        puts "item #{item.to_s}"
+      items = source&.xpath(ns("./relaton-collection/relation"))&.map do |item|
         klass = item.at(ns("./bibdata")) ? Bibdata : Bibcollection
-        klass.from_xml(item.at(ns("./bibdata")))
+        klass.from_xml(item.at(ns("./bibdata")) || item)
       end
-
-      opts = {
-        title: title,
-        author: author,
-        items: items
-      }
-
-      puts "X"*38
-      puts opts.inspect
-      puts "X"*38
+      opts = { title: title, author: author, items: items }
       new(opts)
     end
 
@@ -84,7 +54,6 @@ module Relaton
     end
 
     def items_flattened
-
       items.inject([]) do |acc,item|
         if item.is_a? ::Relaton::Bibcollection
           acc << item.items_flattened
@@ -92,7 +61,6 @@ module Relaton
           acc << item
         end
       end
-
     end
 
     def to_xml

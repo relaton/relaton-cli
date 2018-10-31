@@ -91,7 +91,7 @@ module Relaton
     end
 
     def to_xml
-      datetype = stage.casecmp("published") == 0 ? "published" : "updated"
+      datetype = stage&.casecmp("published") == 0 ? "published" : "updated"
 
       ret = "<bibdata type='#{doctype}'>\n"
       ret += "<fetched>#{Date.today.to_s}</fetched>\n"

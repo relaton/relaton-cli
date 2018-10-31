@@ -14,5 +14,10 @@ RSpec.describe Relaton::Cli::XmlToHtmlRenderer do
     expect(html).to include "http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf"
     expect(html).to include "CC/Amd 86003"
   end
+
+  it "replaces file extension" do
+        xmltohtml = Relaton::Cli::XmlToHtmlRenderer.new(stylesheet: "spec/assets/index-style.css", liquid_dir: "templates")
+        expect(xmltohtml.uri_for_extension("a.b", "c")).to eq "a.c"
+  end
 end
 
