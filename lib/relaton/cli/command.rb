@@ -56,6 +56,7 @@ module Relaton
         Dir.foreach source_dir do |f|
           /\.yaml$/.match(f) and yaml2xml("#{dir}/#{f}", dir)
         end
+        bibdatas = []
         Dir[ File.join(source_dir, '**', '*.{xml,rxl}') ].reject { |p| File.directory? p }.each do |f|
           file = File.read(f, encoding: "utf-8")
           bibdata_doc = Nokogiri.XML(file)
