@@ -14,20 +14,28 @@ The following executables are included:
 
 === relaton concatenate
 
-```
-$ relaton concatenate DIRECTORY
-```
+[source,console]
+----
+$ relaton concatenate Source-Directory Collection-File -t TITLE -g ORGANIZATION
+----
 
-Iterates through all the Relaton YAML files in DIRECTORY, and converts them in-place into Relaton XML.
+Iterates through all the Relaton YAML files in `Source-Directory`, and converts them in-place into Relaton XML.
 
-Iterates through all the Relaton XML files in DIRECTORY (including those just converted from Relaton YAML),
-and outputs to stdout a `relaton-collection` document containing all the Relaton XML objects read in.
+Iterates through all the Relaton XML files in `Source-Directory` (including those just converted from Relaton YAML),
+and outputs to `Collection-File` a `relaton-collection` document containing all the Relaton XML objects read in.
+
+For each Relaton XML file, if a document file with the same base name is identified (i.e. an XML, HTML, PDF or DOC
+file), a link to that file is inserted. 
+
+If the `TITLE` or `ORGANIZATION` options are given, they are added to the `Collection-File` output as the
+title and author of the `relaton-collection` document.
 
 === relaton fetch
 
-```
+[source,console]
+----
 $ relaton fetch CODE -t TYPE -y YEAR
-```
+----
 
 Fetch the Relaton XML entry corresponding to the document identifier `CODE`. 
 
@@ -37,9 +45,10 @@ values for `TYPE` are `isobib`, `ietfbib`, `iecbib`, `gbbib`.
 
 === relaton extract
 
-```
+[source,console]
+----
 $ relaton extract Metanorma-XML-Directory Relaton-XML-Directory
-```
+----
 
 Iterate through all the Metanorma XML files in `Metanorma-XML-Directory`, and extract the `bibdata`
 element from each. Save the `bibdata` element for each file to `Relaton-XML-Directory`, as the Relaton XML
@@ -49,9 +58,10 @@ file; otherwise, the original file name is used.
 [[relaton-xml2html]]
 === relaton xml2html
 
-```
+[source,console]
+----
 $ relaton xml2html <relaton-xml> <stylesheet> <html-template-dir>
-```
+----
 
 Render a Relaton Collection XML as an HTML file. Used to generate an HTML index of standards.
 
@@ -69,7 +79,8 @@ The HTML Template file `_index.liquid` recognises the following parameters:
 
 Sample HTML output for a bibliographic entry:
 
-```xml
+[source,xml]
+----
   <div class="document">
     <div class="doc-line">
       <div class="doc-identifier">
@@ -112,20 +123,22 @@ Sample HTML output for a bibliographic entry:
       </div>
     </div>
   </div>
-```
+----
 
 [[relaton-yaml]]
 === relaton yaml2xml
 
-```
-$ relaton yaml2xml YAML OUTPUT-DIRECTORY
-```
+[source,console]
+----
+$ relaton yaml2xml YAML OUTPUT-DIRECTORY -x RELATON_EXTENSION -p PREFIX -r LIBRARY
+----
 
-Convert a Relaton YAML file (`filename.yaml`) into a a Relaton Collection XML file (`filename.xml`) and a list of Relaton XML files; the latter are stored in OUTPUT-DIRECTORY. The document identifier is used as the name of each Relaton XML file.
+Convert a Relaton YAML file (`filename.yaml`) into a Relaton Collection XML file (`filename.xml`) and a list of Relaton XML files; the latter are stored in `OUTPUT-DIRECTORY`. The document identifier is used as the name of each Relaton XML file; the Relaton XML filename is suffixed with `RELATON_EXTENSION` (default `.rxl`) and prefixed with `PREFIX` (default empty). Any libraries that need to be required for the conversion are specified in `LIBRARY` as a space-delimited list.
 
 The Relaton YAML file contains some initial metadata, and a list of metadata about each bibliographic entry. The following illustrates the fields supported:
 
-```yaml
+[source,yaml]
+----
 htmlstylesheet: ./index-style.css
 root:
   title: CalConnect Standards Registry
@@ -153,12 +166,13 @@ root:
       language: en
       script: Latn
       edition: 1
-```
+----
 
 === relaton yaml2html
 
-```
+[source,console]
+----
 $ relaton yaml2xml YAML <stylesheet> <liquid-template-dir>
-```
+----
 
 Render a Relaton YAML file as an HTML file. The stylesheet and liquid-template-dir directories are as for <<relaton-xml2html,relaton xml2html>>.

@@ -27,9 +27,6 @@ module Relaton
 
       desc "extract Metanorma-XML-Directory Relaton-XML-File", "Extract Relaton XML from folder of Metanorma XML"
 
-      option :title, :required => false, :desc => "Title of resulting Relaton collection", :aliases => :t
-      option :organization, :required => false, :desc => "Organization owner of Relaton collection", :aliases => :g
-
       def extract(source_dir, outfile)
         Dir.foreach indir do |f|
           if /\.xml$/.match f
@@ -67,7 +64,7 @@ module Relaton
           # XML relaton file must already exist
           bibdata.relaton = f
           xml = Pathname.new(f).sub_ext('.xml')
-          bibdata.xml = xml if File.file?(xml)
+          bibdata.xml = xml if File.file?(xml) && f.match(/\.rxl$/)
           pdf = Pathname.new(f).sub_ext('.pdf')
           bibdata.pdf = pdf if File.file?(pdf)
           doc = Pathname.new(f).sub_ext('.doc')
@@ -90,7 +87,7 @@ module Relaton
 
       desc "yaml2xml YAML OUTPUT-DIRECTORY", "Convert Relaton YAML into Relaton Collection XML"
 
-      option :relaton_ext, :required => false, :desc => "File extension of Relaton XML files, defaults to '.rxl'", :aliases => :x
+      option :relaton_ext, :required => false, :desc => "File extension of Relaton XML files, defaults to '.rxl'", :aliases => :x, :default => ".rxl:
       option :prefix, :required => false, :desc => "Filename prefix of Relaton XML files, defaults to empty", :aliases => :p
       option :require, :required => false, :desc => "Require LIBRARY prior to execution", :aliases => :r, :type => :array
 
@@ -108,7 +105,7 @@ module Relaton
         return unless outdir
         FileUtils.mkdir_p(outdir)
         index_collection.items_flattened.each do |item|
-          filename = File.join(outdir, "#{options[:prefix]}#{item.docidentifier_code}#{options[:extension]}")
+          filename = File.join(outdir, "#{options[:prefix]}#{item.docidentifier_code}#{options[:relaton_ext]}")
           File.open(filename, "w:UTF-8") { |f| f.write(item.to_xml) }
         end
       end
