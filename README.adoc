@@ -47,13 +47,14 @@ values for `TYPE` are `isobib`, `ietfbib`, `iecbib`, `gbbib`.
 
 [source,console]
 ----
-$ relaton extract Metanorma-XML-Directory Relaton-XML-Directory
+$ relaton extract Metanorma-XML-Directory Relaton-XML-Directory -x EXTENSION
 ----
 
 Iterate through all the Metanorma XML files in `Metanorma-XML-Directory`, and extract the `bibdata`
 element from each. Save the `bibdata` element for each file to `Relaton-XML-Directory`, as the Relaton XML
 description for that file. If a document identifier is present in `bibdata`, it is used as the name of the
-file; otherwise, the original file name is used.
+file; otherwise, the original file name is used. The filename is suffixed with `EXTENSION`; by default,
+`.rxl` is used.
 
 [[relaton-xml2html]]
 === relaton xml2html
@@ -133,7 +134,7 @@ Sample HTML output for a bibliographic entry:
 $ relaton yaml2xml YAML OUTPUT-DIRECTORY -x RELATON_EXTENSION -p PREFIX -r LIBRARY
 ----
 
-Convert a Relaton YAML file (`filename.yaml`) into a Relaton Collection XML file (`filename.xml`) and a list of Relaton XML files; the latter are stored in `OUTPUT-DIRECTORY`. The document identifier is used as the name of each Relaton XML file; the Relaton XML filename is suffixed with `RELATON_EXTENSION` (default `.rxl`) and prefixed with `PREFIX` (default empty). Any libraries that need to be required for the conversion are specified in `LIBRARY` as a space-delimited list.
+Convert a Relaton YAML file (`filename.yaml`) into a Relaton Collection XML file (`filename.xml`) and a list of Relaton XML files (`*.rxl` or `*.xml`); the latter are stored in `OUTPUT-DIRECTORY`. The document identifier is used as the name of each Relaton XML file; the Relaton XML filename is suffixed with `RELATON_EXTENSION` (default `.rxl`) and prefixed with `PREFIX` (default empty). Any libraries that need to be required for the conversion are specified in `LIBRARY` as a space-delimited list.
 
 The Relaton YAML file contains some initial metadata, and a list of metadata about each bibliographic entry. The following illustrates the fields supported:
 
