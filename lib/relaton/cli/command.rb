@@ -3,6 +3,7 @@ require "nokogiri"
 require "yaml"
 require "thor"
 require "fileutils"
+require "pathname"
 
 module Relaton
   module Cli
@@ -28,17 +29,23 @@ module Relaton
       desc "extract Metanorma-XML-Directory Relaton-XML-File", "Extract Relaton XML from folder of Metanorma XML"
 
       option :title, :required => false, :desc => "Title of resulting Relaton collection", :aliases => :t
+      option :extension, :required => false, :desc => "File extension of Relaton XML files, defaults to '.rxl'", :aliases => :x, :default => ".rxl"
       option :organization, :required => false, :desc => "Organization owner of Relaton collection", :aliases => :g
 
       def extract(source_dir, outfile)
         Dir.foreach indir do |f|
-          if /\.xml$/.match f
-            xml = Nokogiri::XML(File.read("#{indir}/#{f}", encoding: "utf-8"))
-            bib = xml.at("//xmlns:bibdata") || next
-            docidentifier = bib&.at("./xmlns:docidentifierentifier")&.text || f.sub(/\.xml$/, "")
-            fn = docidentifier.sub(/^\s+/, "").sub(/\s+$/, "").gsub(/\s+/, "-") + ".xml"
-            File.open("#{outdir}/#{fn}", "w:UTF-8") { |f| f.write bib.to_xml }
-          end
+          next unless /\.xml\Z/.match f
+
+          xml = Nokogiri::XML(File.read("#{indir}/#{f}", encoding: "utf-8"))
+          bib = xml.at("//xmlns:bibdata") || next
+
+          docidentifier = bib&.at("./xmlns:docidentifier")&.text ||
+            Pathname.new(f).sub_ext('.xml').to_s
+
+          fn = docidentifier.sub(/^\s+/, "").sub(/\s+$/, "").gsub(/\s+/, "-") +
+            ".#{options[:extension]}"
+
+          File.open("#{outdir}/#{fn}", "w:UTF-8") { |f| f.write bib.to_xml }
         end
       end
 
@@ -90,7 +97,7 @@ module Relaton
 
       desc "yaml2xml YAML OUTPUT-DIRECTORY", "Convert Relaton YAML into Relaton Collection XML"
 
-      option :relaton_ext, :required => false, :desc => "File extension of Relaton XML files, defaults to '.rxl'", :aliases => :x
+      option :extension, :required => false, :desc => "File extension of Relaton XML files, defaults to '.rxl'", :aliases => :x, :default => ".rxl"
       option :prefix, :required => false, :desc => "Filename prefix of Relaton XML files, defaults to empty", :aliases => :p
       option :require, :required => false, :desc => "Require LIBRARY prior to execution", :aliases => :r, :type => :array
 
@@ -103,12 +110,12 @@ module Relaton
         index_input = YAML.load_file(filename)
         index_collection = ::Relaton::Bibcollection.new(index_input["root"])
         # TODO real lookup of namespaces and root elements
-        outfilename = filename.sub(/\.[^.]+$/, ".xml")
+        outfilename = Pathname.new(filename).sub_ext('.xml')
         File.open(outfilename, "w:utf-8") { |f| f.write index_collection.to_xml }
         return unless outdir
         FileUtils.mkdir_p(outdir)
         index_collection.items_flattened.each do |item|
-          filename = File.join(outdir, "#{options[:prefix]}#{item.docidentifier_code}#{options[:extension]}")
+          filename = File.join(outdir, "#{options[:prefix]}#{item.docidentifier_code}.#{options[:extension]}")
           File.open(filename, "w:UTF-8") { |f| f.write(item.to_xml) }
         end
       end
@@ -121,7 +128,8 @@ module Relaton
           stylesheet: stylesheet,
           liquid_dir: liquid_dir,
         })
-        File.open(filename.sub(/\.xml$/, ".html"), "w:UTF-8") do |f|
+        html_filename = Pathname.new(filename).sub_ext('.html')
+        File.open(html_filename, "w:UTF-8") do |f|
           f.write(xml_to_html.render(file))
         end
       end
@@ -130,7 +138,7 @@ module Relaton
 
       def yaml2html(filename, stylesheet, liquid_dir)
         yaml2xml(filename, nil)
-        outfilename = filename.sub(/\.[^.]+$/, ".xml")
+        outfilename = Pathname.new(filename).sub_ext('.xml')
         xml2html(outfilename, stylesheet, liquid_dir)
       end
     end
