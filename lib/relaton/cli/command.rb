@@ -47,7 +47,7 @@ module Relaton
         end
       end
 
-      desc "concatenate Source-Directory Collection-File", "Concatenate entries in DIRECTORY (containing Relaton-XML or YAML) into a Relaton Collection"
+      desc "concatenate SOURCE-DIR COLLECTION-FILE", "Concatenate entries in DIRECTORY (containing Relaton-XML or YAML) into a Relaton Collection"
 
       option :title, :required => false, :desc => "Title of resulting Relaton collection", :aliases => :t
       option :organization, :required => false, :desc => "Organization owner of Relaton collection", :aliases => :g
@@ -56,6 +56,7 @@ module Relaton
         Dir.foreach source_dir do |f|
           /\.yaml$/.match(f) and yaml2xml("#{dir}/#{f}", dir)
         end
+
         bibdatas = []
         Dir[ File.join(source_dir, '**', '*.{xml,rxl}') ].reject { |p| File.directory? p }.each do |f|
           file = File.read(f, encoding: "utf-8")
@@ -83,10 +84,15 @@ module Relaton
           bibdatas << bibdata
         end
 
+        doc_number_regex = /([\w\/]+)\s+(\d+):?(\d*)/
+        bibdatas.sort_by! do |b|
+          b.docidentifier.match(doc_number_regex) ? $2.to_i : 999999
+        end
+
         bibcollection = ::Relaton::Bibcollection.new(
           title: options[:title],
           # doctype: options[:doctype],
-          author: options[:author],
+          author: options[:organization],
           items: bibdatas
         )
         File.open(outfile, "w:UTF-8") do |f|

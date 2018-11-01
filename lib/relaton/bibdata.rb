@@ -44,8 +44,14 @@ module Relaton
       self
     end
 
+    # From http://gavinmiller.io/2016/creating-a-secure-sanitization-function/
+    FILENAME_BAD_CHARS = [ '/', '\\', '?', '%', '*', ':', '|', '"', '<', '>', '.', ' ' ]
+
     def docidentifier_code
-      docidentifier.downcase.gsub(/[\s\/]/, "-") || ""
+      return "" if docidentifier.nil?
+      a = FILENAME_BAD_CHARS.inject(docidentifier.downcase) do |result, bad_char|
+        result.gsub(bad_char, '-')
+      end
     end
 
     def self.from_xml(source)
