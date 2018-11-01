@@ -41,10 +41,6 @@ module Relaton
       options.each_pair do |k,v|
         send("#{k.to_s}=", v)
       end
-
-      puts "*+"*30
-      puts self.inspect
-
       self
     end
 
@@ -56,12 +52,11 @@ module Relaton
 
       # bib.relaton_xml_path = URI.escape("#{relaton_root}/#{id_code}.xml")
 
-      datetype = source.at(ns("./date[@type]"))&.text
-      revdate = source.at(ns("./date/on"))&.text
-      #
-      # puts "#{ns("./date/on")}"
-      #
-      # byebug
+      #datetype = source.at(ns("./date[@type]"))&.text
+      #revdate = source.at(ns("./date/on"))&.text
+      revdate = source.at(ns("./date[@type = 'published']")) ||
+        source.at(ns("./date[@type = 'circulated']")) || source.at(ns("./date"))
+      datetype = date["type"] if revdate
 
       new({
         uri: source.at(ns("./uri"))&.text,
@@ -76,7 +71,7 @@ module Relaton
         stage: source.at(ns("./status"))&.text,
         technical_committee: source.at(ns("./editorialgroup/technical-committee"))&.text,
         abstract: source.at(ns("./abstract"))&.text,
-        revdate: revdate ? Date.parse(revdate) : nil,
+        revdate: revdate ? Date.parse(revdate.text) : nil,
         language: source.at(ns("./language"))&.text,
         script: source.at(ns("./script"))&.text,
         edition: source.at(ns("./edition"))&.text,
@@ -86,7 +81,6 @@ module Relaton
         contributor_author_organization: source.at(ns("./contributor/role[@type='author']"))&.parent&.at(ns("./organization/name"))&.text,
         contributor_publisher_role: source.at(ns("./contributor/role[@type='publisher']")),
         contributor_publisher_organization: source.at(ns("./contributor/role[@type='publisher']"))&.parent&.at(ns("./organization/name"))&.text,
-        # revdate TODO
       })
     end
 
@@ -128,7 +122,7 @@ module Relaton
         ret += "</contributor>\n"
       end
 
-      ret += "<date type='#{datetype}'><on>#{revdate}</on></date>\n" if revdate
+      ret += "<date type='#{datetype}'><on>#{revdate.text}</on></date>\n" if revdate
       # ret += "<contributor><role type='author'/><organization><name>#{agency}</name></organization></contributor>" if agency
       # ret += "<contributor><role type='publisher'/><organization><name>#{agency}</name></organization></contributor>" if agency
       ret += "<edition>#{edition}</edition>\n" if edition
