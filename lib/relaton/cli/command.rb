@@ -92,7 +92,7 @@ module Relaton
         bibcollection = ::Relaton::Bibcollection.new(
           title: options[:title],
           # doctype: options[:doctype],
-          author: options[:author],
+          author: options[:organization],
           items: bibdatas
         )
         File.open(outfile, "w:UTF-8") do |f|
