@@ -26,6 +26,7 @@ module Relaton
       language
       script
       edition
+      datetype
     ]
 
     attr_accessor *ATTRIBS
@@ -57,15 +58,13 @@ module Relaton
     def self.from_xml(source)
 
       # bib.relaton_xml_path = URI.escape("#{relaton_root}/#{id_code}.xml")
-
-      #datetype = source.at(ns("./date[@type]"))&.text
-      #revdate = source.at(ns("./date/on"))&.text
       revdate = source.at(ns("./date[@type = 'published']")) ||
         source.at(ns("./date[@type = 'circulated']")) || source.at(ns("./date"))
-      datetype = date["type"] if revdate
+      datetype = "circulated"
+      datetype = revdate["type"] if revdate
 
       new({
-        uri: source.at(ns("./uri"))&.text,
+        uri: source.at(ns("./uri[not(@type)]"))&.text,
         xml: source.at(ns("./uri[@type='xml']"))&.text,
         pdf: source.at(ns("./uri[@type='pdf']"))&.text,
         html: source.at(ns("./uri[@type='html']"))&.text,
@@ -87,11 +86,12 @@ module Relaton
         contributor_author_organization: source.at(ns("./contributor/role[@type='author']"))&.parent&.at(ns("./organization/name"))&.text,
         contributor_publisher_role: source.at(ns("./contributor/role[@type='publisher']")),
         contributor_publisher_organization: source.at(ns("./contributor/role[@type='publisher']"))&.parent&.at(ns("./organization/name"))&.text,
+        datetype: datetype
       })
     end
 
     def to_xml
-      datetype = stage&.casecmp("published") == 0 ? "published" : "updated"
+      #datetype = stage&.casecmp("published") == 0 ? "published" : "circulated"
 
       ret = "<bibdata type='#{doctype}'>\n"
       ret += "<fetched>#{Date.today.to_s}</fetched>\n"
@@ -128,7 +128,7 @@ module Relaton
         ret += "</contributor>\n"
       end
 
-      ret += "<date type='#{datetype}'><on>#{revdate.text}</on></date>\n" if revdate
+      ret += "<date type='#{datetype}'><on>#{revdate}</on></date>\n" if revdate
       # ret += "<contributor><role type='author'/><organization><name>#{agency}</name></organization></contributor>" if agency
       # ret += "<contributor><role type='publisher'/><organization><name>#{agency}</name></organization></contributor>" if agency
       ret += "<edition>#{edition}</edition>\n" if edition
