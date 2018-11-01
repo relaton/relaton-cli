@@ -86,7 +86,7 @@ module Relaton
 
         doc_number_regex = /([\w\/]+)\s+(\d+):?(\d*)/
         bibdatas.sort_by! do |b|
-          b.docidentifier.match(doc_number_regex) ? $2 : 999999
+          b.docidentifier.match(doc_number_regex) ? $2.to_i : 999999
         end
 
         bibcollection = ::Relaton::Bibcollection.new(
