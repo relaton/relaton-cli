@@ -42,8 +42,8 @@ module Relaton
         send("#{k.to_s}=", v)
       end
 
-      puts "*+"*30
-      puts self.inspect
+      # puts "*+"*30
+      # puts self.inspect
 
       self
     end
@@ -62,6 +62,7 @@ module Relaton
       # puts "#{ns("./date/on")}"
       #
       # byebug
+      # puts "revdate -#{revdate}-"
 
       new({
         uri: source.at(ns("./uri"))&.text,
