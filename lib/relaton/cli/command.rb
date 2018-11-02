@@ -54,7 +54,7 @@ module Relaton
 
       def concatenate(source_dir, outfile)
         Dir.foreach source_dir do |f|
-          /\.yaml$/.match(f) and yaml2xml("#{dir}/#{f}", dir)
+          /\.yaml$/.match(f) and yaml2xml("#{source_dir}/#{f}", dir)
         end
 
         bibdatas = []
