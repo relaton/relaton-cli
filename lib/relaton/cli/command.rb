@@ -84,11 +84,6 @@ module Relaton
           bibdatas << bibdata
         end
 
-        doc_number_regex = /([\w\/]+)\s+(\d+):?(\d*)/
-        bibdatas.sort_by! do |b|
-          b.docidentifier.match(doc_number_regex) ? $2.to_i : 999999
-        end
-
         bibcollection = ::Relaton::Bibcollection.new(
           title: options[:title],
           # doctype: options[:doctype],
@@ -100,13 +95,13 @@ module Relaton
         end
       end
 
-      desc "yaml2xml YAML OUTPUT-DIRECTORY", "Convert Relaton YAML into Relaton Collection XML"
-
+      desc "yaml2xml YAML", "Convert Relaton YAML into Relaton Bibcollection XML (or separate files or a Relaton Collection XML"
       option :extension, :required => false, :desc => "File extension of Relaton XML files, defaults to '.rxl'", :aliases => :x, :default => ".rxl"
       option :prefix, :required => false, :desc => "Filename prefix of Relaton XML files, defaults to empty", :aliases => :p
+      option :outdir, :required => false, :desc => "Output to the specified directory with individual Relaton Bibdata XML files", :aliases => :o
       option :require, :required => false, :desc => "Require LIBRARY prior to execution", :aliases => :r, :type => :array
 
-      def yaml2xml(filename, outdir)
+      def yaml2xml(filename)
         if options[:require]
           options[:require].each do |r|
             require r
@@ -114,18 +109,25 @@ module Relaton
         end
         index_input = YAML.load_file(filename)
         index_collection = ::Relaton::Bibcollection.new(index_input["root"])
+
         # TODO real lookup of namespaces and root elements
         outfilename = Pathname.new(filename).sub_ext('.xml')
         File.open(outfilename, "w:utf-8") { |f| f.write index_collection.to_xml }
+
+        outdir = options[:outdir]
         return unless outdir
         FileUtils.mkdir_p(outdir)
+
         index_collection.items_flattened.each do |item|
-          filename = File.join(outdir, "#{options[:prefix]}#{item.docidentifier_code}.#{options[:extension]}")
+          filename = File.join(
+            outdir,
+            "#{options[:prefix]}#{item.docidentifier_code}.#{options[:extension]}"
+          )
           File.open(filename, "w:UTF-8") { |f| f.write(item.to_xml) }
         end
       end
 
-      desc "xml2html <relaton-index-xml> <stylesheet> <liquid-template-dir>", "Convert Relaton Collection XML into HTML"
+      desc "xml2html RELATON-INDEX-XML STYLESHEET LIQUID-TEMPLATE-DIR", "Convert Relaton Collection XML into HTML"
 
       def xml2html(filename, stylesheet, liquid_dir)
         file = File.read(filename, encoding: "utf-8")
@@ -139,7 +141,7 @@ module Relaton
         end
       end
 
-      desc "yaml2html YAML <stylesheet> <liquid-template-dir>", "Concatenate Relaton YAML into HTML"
+      desc "yaml2html YAML STYLESHEET LIQUID-TEMPLATE-DIR", "Concatenate Relaton YAML into HTML"
 
       def yaml2html(filename, stylesheet, liquid_dir)
         yaml2xml(filename, nil)

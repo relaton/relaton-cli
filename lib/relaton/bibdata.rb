@@ -55,6 +55,11 @@ module Relaton
       end
     end
 
+    DOC_NUMBER_REGEX = /([\w\/]+)\s+(\d+):?(\d*)/
+    def doc_number
+      docidentifier.match(DOC_NUMBER_REGEX) ? $2.to_i : 999999
+    end
+
     def self.from_xml(source)
 
       # bib.relaton_xml_path = URI.escape("#{relaton_root}/#{id_code}.xml")

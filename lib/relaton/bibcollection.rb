@@ -54,6 +54,10 @@ module Relaton
     end
 
     def items_flattened
+      items.sort_by! do |b|
+        b.doc_number
+      end
+
       items.inject([]) do |acc,item|
         if item.is_a? ::Relaton::Bibcollection
           acc << item.items_flattened
@@ -64,6 +68,10 @@ module Relaton
     end
 
     def to_xml
+      items.sort_by! do |b|
+        b.doc_number
+      end
+
       collection_type = if doctype
         "type=\"#{doctype}\""
       else
