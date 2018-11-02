@@ -12,6 +12,7 @@ RSpec.describe Relaton::Bibcollection do
   <relation>
   <bibdata>
   <title>Bibdata 1</title>
+  <docidentifier>CS 3</docidentifier>
   </bibdata>
   </relation>
   <relation>
@@ -24,6 +25,18 @@ RSpec.describe Relaton::Bibcollection do
   </relation>
   </relaton-collection>
   </relation>
+  <relation>
+  <bibdata>
+  <title>Bibdata 4</title>
+  <docidentifier>CS</docidentifier>
+  </bibdata>
+  </relation>
+  <relation>
+  <bibdata>
+  <title>Bibdata 3</title>
+  <docidentifier>CS 2</docidentifier>
+  </bibdata>
+  </relation>
   </relaton-collection>
     XML
     xml = Nokogiri.XML(doc)
@@ -34,23 +47,40 @@ RSpec.describe Relaton::Bibcollection do
     expect(collection.items[1].title).to eq "Title 2"
     expect(collection.items[1].items[0].title).to eq "Bibdata 2"
     expect(collection.to_xml).to be_equivalent_to <<~"XML"
-    <relaton-collection xmlns="https://open.ribose.com/relaton-xml"><title>Title</title><contributor><role type='author'/><organization><name>Orgname1</name></organization></contributor><relation type='partOf'><bibdata type=''>
-<fetched>#{Date.today}</fetched>
-<title>Bibdata 1</title>
+<relaton-collection xmlns="https://open.ribose.com/relaton-xml"><title>Title</title><contributor><role type='author'/><organization><name>Orgname1</name></organization></contributor><relation type='partOf'><bibdata type=''>
+       <fetched>#{Date.today}</fetched>
+       <title>Bibdata 3</title>
+       <docidentifier>CS 2</docidentifier>
+       <language></language>
+       <script></script>
+       </bibdata>
+       </relation>
+       <relation type='partOf'><bibdata type=''>
+       <fetched>#{Date.today}</fetched>
+       <title>Bibdata 1</title>
+       <docidentifier>CS 3</docidentifier>
+       <language></language>
+       <script></script>
+       </bibdata>
+       </relation>
+       <relation type='partOf'><bibdata type=''>
+<fetched>2018-11-02</fetched>
+<title>Bibdata 4</title>
+<docidentifier>CS</docidentifier>
 <language></language>
 <script></script>
 </bibdata>
 </relation>
-<relation type='partOf'><relaton-collection xmlns="https://open.ribose.com/relaton-xml"><title>Title 2</title><relation type='partOf'><bibdata type=''>
-<fetched>#{Date.today}</fetched>
-<title>Bibdata 2</title>
-<language></language>
-<script></script>
-</bibdata>
-</relation>
-</relaton-collection>
-</relation>
-</relaton-collection>
+       <relation type='partOf'><relaton-collection xmlns="https://open.ribose.com/relaton-xml"><title>Title 2</title><relation type='partOf'><bibdata type=''>
+       <fetched>#{Date.today}</fetched>
+       <title>Bibdata 2</title>
+       <language></language>
+       <script></script>
+       </bibdata>
+       </relation>
+       </relaton-collection>
+       </relation>
+       </relaton-collection>
     XML
   end
 end

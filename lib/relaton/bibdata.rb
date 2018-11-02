@@ -57,7 +57,7 @@ module Relaton
 
     DOC_NUMBER_REGEX = /([\w\/]+)\s+(\d+):?(\d*)/
     def doc_number
-      docidentifier.match(DOC_NUMBER_REGEX) ? $2.to_i : 999999
+      docidentifier&.match(DOC_NUMBER_REGEX) ? $2.to_i : 999999
     end
 
     def self.from_xml(source)

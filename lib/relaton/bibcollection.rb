@@ -34,6 +34,11 @@ module Relaton
       self
     end
 
+    # arbitrary number, must sort after all bib items
+    def doc_number
+      9999999
+    end
+
     def self.from_xml(source)
       title = source&.at(ns("./relaton-collection/title"))&.text
       author = source&.at(ns("./relaton-collection/contributor[role/@type = 'author']/organization/name"))&.text
