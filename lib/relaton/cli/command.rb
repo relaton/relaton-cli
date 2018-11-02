@@ -28,7 +28,7 @@ module Relaton
 
       desc "extract Metanorma-XML-Directory Relaton-XML-File", "Extract Relaton XML from folder of Metanorma XML"
 
-      option :extension, :required => false, :desc => "File extension of Relaton XML files, defaults to '.rxl'", :aliases => :x, :default => ".rxl"
+      option :extension, :required => false, :desc => "File extension of Relaton XML files, defaults to 'rxl'", :aliases => :x, :default => "rxl"
 
       def extract(source_dir, outfile)
         Dir.foreach indir do |f|
@@ -97,7 +97,7 @@ module Relaton
       end
 
       desc "yaml2xml YAML", "Convert Relaton YAML into Relaton Bibcollection XML (or separate files or a Relaton Collection XML"
-      option :extension, :required => false, :desc => "File extension of Relaton XML files, defaults to '.rxl'", :aliases => :x, :default => ".rxl"
+      option :extension, :required => false, :desc => "File extension of Relaton XML files, defaults to 'rxl'", :aliases => :x, :default => "rxl"
       option :prefix, :required => false, :desc => "Filename prefix of Relaton XML files, defaults to empty", :aliases => :p
       option :outdir, :required => false, :desc => "Output to the specified directory with individual Relaton Bibdata XML files", :aliases => :o
       option :require, :required => false, :desc => "Require LIBRARY prior to execution", :aliases => :r, :type => :array
@@ -137,7 +137,7 @@ module Relaton
       end
 
       desc "xml2yaml XML", "Convert Relaton YAML into Relaton Bibcollection YAML (or separate files or a Relaton Collection YAML"
-      option :extension, :required => false, :desc => "File extension of Relaton YAML files, defaults to '.yaml'", :aliases => :x, :default => "yaml"
+      option :extension, :required => false, :desc => "File extension of Relaton YAML files, defaults to 'yaml'", :aliases => :x, :default => "yaml"
       option :prefix, :required => false, :desc => "Filename prefix of Relaton XML files, defaults to empty", :aliases => :p
       option :outdir, :required => false, :desc => "Output to the specified directory with individual Relaton Bibdata YAML files", :aliases => :o
       option :require, :required => false, :desc => "Require LIBRARY prior to execution", :aliases => :r, :type => :array
@@ -187,7 +187,7 @@ module Relaton
       desc "yaml2html YAML STYLESHEET LIQUID-TEMPLATE-DIR", "Concatenate Relaton YAML into HTML"
 
       def yaml2html(filename, stylesheet, liquid_dir)
-        yaml2xml(filename, nil)
+        yaml2xml(filename)
         outfilename = Pathname.new(filename).sub_ext('.xml')
         xml2html(outfilename, stylesheet, liquid_dir)
       end
