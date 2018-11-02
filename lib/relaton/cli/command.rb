@@ -116,7 +116,7 @@ module Relaton
           # this is a collection
           # TODO real lookup of namespaces and root elements
           index_collection = ::Relaton::Bibcollection.new(index_input["root"])
-          outfilename = Pathname.new(filename).sub_ext(options[:extension])
+          outfilename = Pathname.new(filename).sub_ext(".#{options[:extension]}")
           File.open(outfilename, "w:utf-8") { |f| f.write index_collection.to_xml }
           return unless outdir
           FileUtils.mkdir_p(outdir)
@@ -131,7 +131,7 @@ module Relaton
         else
           # this is a single entry
           index_entry = ::Relaton::Bibdata.new(index_input)
-          outfilename = Pathname.new(filename).sub_ext(options[:extension])
+          outfilename = Pathname.new(filename).sub_ext(".#{options[:extension]}")
           File.open(outfilename, "w:utf-8") { |f| f.write index_entry.to_xml }
         end
       end
