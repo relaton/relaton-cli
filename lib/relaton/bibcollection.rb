@@ -93,15 +93,23 @@ module Relaton
       ret += "</relaton-collection>\n"
     end
 
+    def to_yaml
+      to_h.to_yaml
+    end
+
     def to_h
+      items.sort_by! do |b|
+        b.doc_number
+      end
+
       a = ATTRIBS.inject({}) do |acc, k|
-        acc[k] = send(k)
+        acc[k.to_s] = send(k)
         acc
       end
 
-      a[:items] = a[:items].map(&:to_h)
+      a["items"] = a["items"].map(&:to_h)
 
-      a
+      { "root" => a }
     end
 
   end

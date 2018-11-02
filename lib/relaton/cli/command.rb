@@ -127,6 +127,40 @@ module Relaton
         end
       end
 
+      desc "xml2yaml XML", "Convert Relaton YAML into Relaton Bibcollection YAML (or separate files or a Relaton Collection YAML"
+      option :extension, :required => false, :desc => "File extension of Relaton YAML files, defaults to '.yaml'", :aliases => :x, :default => "yaml"
+      option :prefix, :required => false, :desc => "Filename prefix of Relaton XML files, defaults to empty", :aliases => :p
+      option :outdir, :required => false, :desc => "Output to the specified directory with individual Relaton Bibdata YAML files", :aliases => :o
+      option :require, :required => false, :desc => "Require LIBRARY prior to execution", :aliases => :r, :type => :array
+
+      def xml2yaml(filename)
+        if options[:require]
+          options[:require].each do |r|
+            require r
+          end
+        end
+
+        index_input = File.read(filename, encoding: "utf-8")
+        bibdata_doc = Nokogiri.XML(index_input)
+        index_collection = ::Relaton::Bibcollection.from_xml(bibdata_doc)
+
+        # TODO real lookup of namespaces and root elements
+        outfilename = Pathname.new(filename).sub_ext('.yaml')
+        File.open(outfilename, "w:utf-8") { |f| f.write index_collection.to_yaml }
+
+        outdir = options[:outdir]
+        return unless outdir
+        FileUtils.mkdir_p(outdir)
+
+        index_collection.items_flattened.each do |item|
+          filename = File.join(
+            outdir,
+            "#{options[:prefix]}#{item.docidentifier_code}.#{options[:extension]}"
+          )
+          File.open(filename, "w:UTF-8") { |f| f.write(item.to_yaml) }
+        end
+      end
+
       desc "xml2html RELATON-INDEX-XML STYLESHEET LIQUID-TEMPLATE-DIR", "Convert Relaton Collection XML into HTML"
 
       def xml2html(filename, stylesheet, liquid_dir)

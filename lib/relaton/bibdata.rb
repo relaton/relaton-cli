@@ -148,9 +148,13 @@ module Relaton
     def to_h
       ATTRIBS.inject({}) do |acc, k|
         value = send(k)
-        acc[k] = value unless value.nil?
+        acc[k.to_s] = value unless value.nil?
         acc
       end
+    end
+
+    def to_yaml
+      to_h.to_yaml
     end
 
   end
