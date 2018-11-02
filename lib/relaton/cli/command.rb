@@ -53,12 +53,13 @@ module Relaton
       option :organization, :required => false, :desc => "Organization owner of Relaton collection", :aliases => :g
 
       def concatenate(source_dir, outfile)
-        Dir.foreach source_dir do |f|
-          /\.yaml$/.match(f) and yaml2xml("#{source_dir}/#{f}", source_dir)
+
+        Dir[ File.join(source_dir, '**', '*.yaml') ].reject { |p| File.directory? p }.each do |f|
+          yaml2xml(f)
         end
 
         bibdatas = []
-        Dir[ File.join(source_dir, '**', '*.{xml,rxl}') ].reject { |p| File.directory? p }.each do |f|
+        Dir[ File.join(source_dir, '**', '*.{rxl}') ].reject { |p| File.directory? p }.each do |f|
           file = File.read(f, encoding: "utf-8")
           bibdata_doc = Nokogiri.XML(file)
           # Skip if this XML isn't a Relaton XML
@@ -101,29 +102,37 @@ module Relaton
       option :outdir, :required => false, :desc => "Output to the specified directory with individual Relaton Bibdata XML files", :aliases => :o
       option :require, :required => false, :desc => "Require LIBRARY prior to execution", :aliases => :r, :type => :array
 
-      def yaml2xml(filename)
+      def yaml2xml(filename, outdir = options[:outdir])
         if options[:require]
           options[:require].each do |r|
             require r
           end
         end
         index_input = YAML.load_file(filename)
-        index_collection = ::Relaton::Bibcollection.new(index_input["root"])
+        # puts "index - #{filename}"
+        # puts index_input.inspect
 
-        # TODO real lookup of namespaces and root elements
-        outfilename = Pathname.new(filename).sub_ext('.xml')
-        File.open(outfilename, "w:utf-8") { |f| f.write index_collection.to_xml }
+        if index_input.has_key?("root")
+          # this is a collection
+          # TODO real lookup of namespaces and root elements
+          index_collection = ::Relaton::Bibcollection.new(index_input["root"])
+          outfilename = Pathname.new(filename).sub_ext(options[:extension])
+          File.open(outfilename, "w:utf-8") { |f| f.write index_collection.to_xml }
+          return unless outdir
+          FileUtils.mkdir_p(outdir)
 
-        outdir = options[:outdir]
-        return unless outdir
-        FileUtils.mkdir_p(outdir)
-
-        index_collection.items_flattened.each do |item|
-          filename = File.join(
-            outdir,
-            "#{options[:prefix]}#{item.docidentifier_code}.#{options[:extension]}"
-          )
-          File.open(filename, "w:UTF-8") { |f| f.write(item.to_xml) }
+          index_collection.items_flattened.each do |item|
+            filename = File.join(
+              outdir,
+              "#{options[:prefix]}#{item.docidentifier_code}.#{options[:extension]}"
+            )
+            File.open(filename, "w:UTF-8") { |f| f.write(item.to_xml) }
+          end
+        else
+          # this is a single entry
+          index_entry = ::Relaton::Bibdata.new(index_input)
+          outfilename = Pathname.new(filename).sub_ext(options[:extension])
+          File.open(outfilename, "w:utf-8") { |f| f.write index_entry.to_xml }
         end
       end
 

@@ -87,9 +87,9 @@ module Relaton
         edition: source.at(ns("./edition"))&.text,
         copyright_from: source.at(ns("./copyright/from"))&.text,
         copyright_owner: source.at(ns("./copyright/owner/organization/name"))&.text,
-        contributor_author_role: source.at(ns("./contributor/role[@type='author']")),
+        contributor_author_role: source.at(ns("./contributor/role[@type='author']"))&.text,
         contributor_author_organization: source.at(ns("./contributor/role[@type='author']"))&.parent&.at(ns("./organization/name"))&.text,
-        contributor_publisher_role: source.at(ns("./contributor/role[@type='publisher']")),
+        contributor_publisher_role: source.at(ns("./contributor/role[@type='publisher']"))&.text,
         contributor_publisher_organization: source.at(ns("./contributor/role[@type='publisher']"))&.parent&.at(ns("./organization/name"))&.text,
         datetype: datetype
       })
