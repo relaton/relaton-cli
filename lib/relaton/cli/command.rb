@@ -33,8 +33,7 @@ module Relaton
 
       def extract(source_dir, outdir)
         Dir[ File.join(source_dir, '**', '*.xml') ].reject { |p| File.directory? p }.each do |f|
-          xml = Nokogiri::XML(File.read(f, encoding: "utf-8"))
-          xml.remove_namespaces!
+          xml = Nokogiri::XML(File.read(f, encoding: "utf-8")).remove_namespaces!
           bib = xml.at("//bibdata") || next
           bib.add_namespace(nil, "")
           docidentifier = bib&.at("./docidentifier")&.text ||
@@ -94,9 +93,9 @@ module Relaton
         end
       end
 
-      desc "yaml2xml YAML", "Convert Relaton YAML into Relaton Bibcollection XML (or separate files or a Relaton Collection XML"
+      desc "yaml2xml YAML", "Convert Relaton YAML into Relaton Collection XML or separate files"
       option :extension, :required => false, :desc => "File extension of Relaton XML files, defaults to 'rxl'", :aliases => :x, :default => "rxl"
-      option :prefix, :required => false, :desc => "Filename prefix of Relaton XML files, defaults to empty", :aliases => :p
+      option :prefix, :required => false, :desc => "Filename prefix of individual Relaton XML files, defaults to empty", :aliases => :p
       option :outdir, :required => false, :desc => "Output to the specified directory with individual Relaton Bibdata XML files", :aliases => :o
       option :require, :required => false, :desc => "Require LIBRARY prior to execution", :aliases => :r, :type => :array
 
@@ -107,8 +106,6 @@ module Relaton
           end
         end
         index_input = YAML.load_file(filename)
-        # puts "index - #{filename}"
-        # puts index_input.inspect
 
         if index_input.has_key?("root")
           # this is a collection

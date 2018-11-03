@@ -131,12 +131,12 @@ Sample HTML output for a bibliographic entry:
 
 [source,console]
 ----
-$ relaton yaml2xml YAML OUTPUT-DIRECTORY -x RELATON_EXTENSION -p PREFIX -r LIBRARY
+$ relaton yaml2xml YAML -o OUTPUT-DIRECTORY -x RELATON_EXTENSION -p PREFIX -r LIBRARY
 ----
 
-Convert a Relaton YAML file (`filename.yaml`) into a Relaton Collection XML file (`filename.xml`) and a list of Relaton XML files (`*.rxl` or `*.xml`); the latter are stored in `OUTPUT-DIRECTORY`. The document identifier is used as the name of each Relaton XML file; the Relaton XML filename is suffixed with `RELATON_EXTENSION` (default `.rxl`) and prefixed with `PREFIX` (default empty). Any libraries that need to be required for the conversion are specified in `LIBRARY` as a space-delimited list.
+Convert a Relaton YAML file (`filename.yaml`) into a Relaton XML file (`filename.xml`). If the Relaton YAML file specifies multiple bibliograph items, and `OUTPUT-DIRECTORY` is nominated, also convert the file into a list of Relaton XML files for each entry, stored in that directory. The document identifier is used as the name of each Relaton XML file; the Relaton XML filename is suffixed with `RELATON_EXTENSION` (default `.rxl`) and prefixed with `PREFIX` (default empty). Any libraries that need to be required for the conversion are specified in `LIBRARY` as a space-delimited list.
 
-The Relaton YAML file contains some initial metadata, and a list of metadata about each bibliographic entry. The following illustrates the fields supported:
+A Relaton Colleciton YAML file contains some initial metadata, and a list of metadata about each bibliographic entry. A Relaton YAML file describing an individual bibliographic entry is limited to metadata specific to that entry. The following illustrates the fields supported:
 
 [source,yaml]
 ----
