@@ -52,7 +52,7 @@ module Relaton
       def concatenate(source_dir, outfile)
 
         Dir[ File.join(source_dir, '**', '*.yaml') ].reject { |p| File.directory? p }.each do |f|
-          yaml2xml(f)
+          yaml2xml(f, nil, "rxl")
         end
 
         bibdatas = []
@@ -61,11 +61,12 @@ module Relaton
           bibdata_doc = Nokogiri.XML(file)
           # Skip if this XML isn't a Relaton XML
           next unless bibdata_doc.root.name == "bibdata"
-
           # Force a namespace otherwise Nokogiri won't parse.
           # The reason is we use Bibcollection's from_xml, but that one has an xmlns.
           # We don't want to change the code for bibdata hence this hack
-          bibdata_doc.root['xmlns'] = "xmlns"
+          #bibdata_doc.root['xmlns'] = "xmlns"
+          bibdata_doc.remove_namespaces!
+          bibdata_doc.root.add_namespace(nil, "xmlns")
           bibdata_doc = Nokogiri.XML(bibdata_doc.to_xml)
 
           bibdata = Relaton::Bibdata.from_xml(bibdata_doc.root)
@@ -99,7 +100,8 @@ module Relaton
       option :outdir, :required => false, :desc => "Output to the specified directory with individual Relaton Bibdata XML files", :aliases => :o
       option :require, :required => false, :desc => "Require LIBRARY prior to execution", :aliases => :r, :type => :array
 
-      def yaml2xml(filename, outdir = options[:outdir])
+      def yaml2xml(filename, outdir = options[:outdir], ext = nil)
+        ext ||= options[:extension]
         if options[:require]
           options[:require].each do |r|
             require r
@@ -111,7 +113,7 @@ module Relaton
           # this is a collection
           # TODO real lookup of namespaces and root elements
           index_collection = ::Relaton::Bibcollection.new(index_input["root"])
-          outfilename = Pathname.new(filename).sub_ext(".#{options[:extension]}")
+          outfilename = Pathname.new(filename).sub_ext(".#{ext}")
           File.open(outfilename, "w:utf-8") { |f| f.write index_collection.to_xml }
           return unless outdir
           FileUtils.mkdir_p(outdir)
@@ -119,19 +121,19 @@ module Relaton
           index_collection.items_flattened.each do |item|
             filename = File.join(
               outdir,
-              "#{options[:prefix]}#{item.docidentifier_code}.#{options[:extension]}"
+              "#{options[:prefix]}#{item.docidentifier_code}.#{ext}"
             )
             File.open(filename, "w:UTF-8") { |f| f.write(item.to_xml) }
           end
         else
           # this is a single entry
           index_entry = ::Relaton::Bibdata.new(index_input)
-          outfilename = Pathname.new(filename).sub_ext(".#{options[:extension]}")
+          outfilename = Pathname.new(filename).sub_ext(".#{ext}")
           File.open(outfilename, "w:utf-8") { |f| f.write index_entry.to_xml }
         end
       end
 
-      desc "xml2yaml XML", "Convert Relaton YAML into Relaton Bibcollection YAML (or separate files or a Relaton Collection YAML"
+      desc "xml2yaml XML", "Convert Relaton YAML into Relaton Bibcollection YAML (and separate files)"
       option :extension, :required => false, :desc => "File extension of Relaton YAML files, defaults to 'yaml'", :aliases => :x, :default => "yaml"
       option :prefix, :required => false, :desc => "Filename prefix of Relaton XML files, defaults to empty", :aliases => :p
       option :outdir, :required => false, :desc => "Output to the specified directory with individual Relaton Bibdata YAML files", :aliases => :o
@@ -182,7 +184,7 @@ module Relaton
       desc "yaml2html YAML STYLESHEET LIQUID-TEMPLATE-DIR", "Concatenate Relaton YAML into HTML"
 
       def yaml2html(filename, stylesheet, liquid_dir)
-        yaml2xml(filename)
+        yaml2xml(filename, nil, "xml")
         outfilename = Pathname.new(filename).sub_ext('.xml')
         xml2html(outfilename, stylesheet, liquid_dir)
       end

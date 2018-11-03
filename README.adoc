@@ -169,6 +169,16 @@ root:
       edition: 1
 ----
 
+=== relaton xml2yaml
+
+[source,console]
+----
+$ relaton xml2yaml XML -o OUTPUT-DIRECTORY -x RELATON_EXTENSION -p PREFIX -r LIBRARY
+----
+
+Convert a Relaton XML file (`filename.xml` or `filename.rxl`) into a Relaton YAML file (`filename.yaml`). If the Relaton XML file is a collection, and `OUTPUT-DIRECTORY` is nominated, also convert the file into a list of Relaton YAML files for each entry, stored in that directory. The document identifier is used as the name of each Relaton XML file; the Relaton XML filename is suffixed with `RELATON_EXTENSION` (default `.yaml`) and prefixed with `PREFIX` (default empty). Any libraries that need to be required for the conversion are specified in `LIBRARY` as a space-delimited list.
+
+
 === relaton yaml2html
 
 [source,console]
