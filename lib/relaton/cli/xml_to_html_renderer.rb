@@ -39,7 +39,7 @@ module Relaton::Cli
         css: @stylesheet,
         title: bibcollection.title,
         author: bibcollection.author,
-        documents: bibcollection.to_h[:items].map { |i| hash_to_liquid(i) },
+        documents: bibcollection.to_h["root"]["items"].map { |i| hash_to_liquid(i) },
         depth: 2
       }
       Liquid::Template.parse(@template).render(hash_to_liquid(locals))

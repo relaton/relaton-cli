@@ -4,6 +4,7 @@ require "yaml"
 require "thor"
 require "fileutils"
 require "pathname"
+require "fcntl"
 
 module Relaton
   module Cli
@@ -15,34 +16,31 @@ module Relaton
 
       def fetch(code)
         relaton = Relaton::Db.new("#{Dir.home}/.relaton-bib.pstore", nil)
-        registry = Relaton::Registry.instance
         types = []
-        registry.processors.each { |_n, pr| types << pr.prefix }
+        Relaton::Registry.instance.processors.each { |_n, pr| types << pr.prefix }
         if types.include?(options[:type])
           ret = relaton.fetch_std(code, options[:year], options[:type], {})
-          say(ret.nil? ? "No matching bibliographic entry found" : ret.to_xml)
+          io = IO.new(STDOUT.fcntl(::Fcntl::F_DUPFD), mode: 'w:UTF-8')
+          io.puts(ret.nil? ? "No matching bibliographic entry found" : ret.to_xml)
         else
           say "Recognised types: #{types.sort.join(', ')}"
         end
       end
 
-      desc "extract Metanorma-XML-Directory Relaton-XML-File", "Extract Relaton XML from folder of Metanorma XML"
+      desc "extract Metanorma-XML-Directory Relaton-XML-Directory", "Extract Relaton XML from folder of Metanorma XML"
 
       option :extension, :required => false, :desc => "File extension of Relaton XML files, defaults to 'rxl'", :aliases => :x, :default => "rxl"
 
-      def extract(source_dir, outfile)
-        Dir.foreach indir do |f|
-          next unless /\.xml\Z/.match f
-
-          xml = Nokogiri::XML(File.read("#{indir}/#{f}", encoding: "utf-8"))
-          bib = xml.at("//xmlns:bibdata") || next
-
-          docidentifier = bib&.at("./xmlns:docidentifier")&.text ||
-            Pathname.new(f).sub_ext('.xml').to_s
-
+      def extract(source_dir, outdir)
+        Dir[ File.join(source_dir, '**', '*.xml') ].reject { |p| File.directory? p }.each do |f|
+          xml = Nokogiri::XML(File.read(f, encoding: "utf-8"))
+          xml.remove_namespaces!
+          bib = xml.at("//bibdata") || next
+          bib.add_namespace(nil, "")
+          docidentifier = bib&.at("./docidentifier")&.text ||
+            Pathname.new(File.basename(f, ".xml")).to_s
           fn = docidentifier.sub(/^\s+/, "").sub(/\s+$/, "").gsub(/\s+/, "-") +
             ".#{options[:extension]}"
-
           File.open("#{outdir}/#{fn}", "w:UTF-8") { |f| f.write bib.to_xml }
         end
       end

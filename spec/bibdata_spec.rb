@@ -64,13 +64,13 @@ RSpec.describe Relaton::Bibcollection do
        </bibdata>
        </relation>
        <relation type='partOf'><bibdata type=''>
-<fetched>2018-11-02</fetched>
-<title>Bibdata 4</title>
-<docidentifier>CS</docidentifier>
-<language></language>
-<script></script>
-</bibdata>
-</relation>
+       <fetched>#{Date.today}</fetched>
+       <title>Bibdata 4</title>
+       <docidentifier>CS</docidentifier>
+       <language></language>
+       <script></script>
+       </bibdata>
+       </relation>
        <relation type='partOf'><relaton-collection xmlns="https://open.ribose.com/relaton-xml"><title>Title 2</title><relation type='partOf'><bibdata type=''>
        <fetched>#{Date.today}</fetched>
        <title>Bibdata 2</title>
