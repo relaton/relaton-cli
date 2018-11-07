@@ -1,35 +1,6 @@
 require_relative "spec_helper"
 require "fileutils"
 
-RSpec.describe "fetch" do
-  context "fetches code" do
-    command "relaton fetch -t ISO 'ISO 2146'"
-    its(:stdout) { is_expected.to include %(<docidentifier type="ISO">ISO 2146</docidentifier>) }
-    its(:stdout) { is_expected.to include %(<relation type="instance">) }
-  end
-  context "fetches dated code" do
-    command "relaton fetch -t ISO -y 2010 'ISO 2146'"
-    its(:stdout) { is_expected.to include %(<docidentifier type="ISO">ISO 2146:2010</docidentifier>) }
-    its(:stdout) { is_expected.not_to include %(<relation type="instance">) }
-  end
-  context "warns when fetch askes for wrong date" do
-    command "relaton fetch -t ISO -y 2009 'ISO 2146'"
-    its(:stdout) { is_expected.to include "No matching bibliographic entry found" }
-  end
-  context "warns when fetch gives no type" do
-    command "relaton fetch 'ISO 170'"
-    its(:stderr) { is_expected.to include "No value provided for required options '--type'" }
-  end
-  context "warns when fetch uses unsupported type" do
-    command "relaton fetch -t xyz 'ISO 170'"
-    its(:stdout) { is_expected.to include "Recognised types:" }
-  end
-  context "warns when fetch targets an undefined standard" do
-    command "relaton fetch -t ISO 'ISO ABC'"
-    its(:stdout) { is_expected.to include "No matching bibliographic entry found" }
-  end
-end
-
 RSpec.describe "extract" do
   it "extracts Metanorma XML" do
     FileUtils.rm_rf "spec/assets/out"

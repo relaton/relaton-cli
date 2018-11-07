@@ -9,22 +9,14 @@ require "fcntl"
 module Relaton
   module Cli
     class Command < Thor
-      desc "fetch CODE", "Fetch Relaton XML for Standard identifier CODE"
 
-      option :type, :required => true, :desc => "Type of standard to get bibliographic entry for", :aliases => :t
-      option :year, :desc => "Year the standard was published", :aliases => :y, :type => :numeric
+      desc "fetch CODE", "Fetch Relaton XML for Standard identifier CODE"
+      option :type, aliases: :t, required: true, desc: "Type of standard to get bibliographic entry for"
+      option :year, aliases: :y, type: :numeric, desc: "Year the standard was published"
 
       def fetch(code)
-        relaton = Relaton::Db.new("#{Dir.home}/.relaton/cache", nil)
-        types = []
-        Relaton::Registry.instance.processors.each { |_n, pr| types << pr.prefix }
-        if types.include?(options[:type])
-          ret = relaton.fetch_std(code, options[:year], options[:type], {})
-          io = IO.new(STDOUT.fcntl(::Fcntl::F_DUPFD), mode: 'w:UTF-8')
-          io.puts(ret.nil? ? "No matching bibliographic entry found" : ret.to_xml)
-        else
-          say "Recognised types: #{types.sort.join(', ')}"
-        end
+        Relaton::Cli.relaton
+        say(fetch_document(code, options) || supported_type_message)
       end
 
       desc "extract Metanorma-XML-Directory Relaton-XML-Directory", "Extract Relaton XML from folder of Metanorma XML"
@@ -188,8 +180,24 @@ module Relaton
         outfilename = Pathname.new(filename).sub_ext('.xml')
         xml2html(outfilename, stylesheet, liquid_dir)
       end
+
+      private
+
+      def fetch_document(code, options)
+        if registered_types.include?(options[:type])
+          doc = Cli.relaton.fetch_std(code, options[:year], options[:type])
+          doc ? doc.to_xml : "No matching bibliographic entry found"
+        end
+      end
+
+      def supported_type_message
+        ["Recognised types:", registered_types.sort.join(", ")].join(" ")
+      end
+
+      def registered_types
+        @registered_types ||=
+          Relaton::Registry.instance.processors.each.map { |_n, pr| pr.prefix }
+      end
     end
   end
 end
-
-
