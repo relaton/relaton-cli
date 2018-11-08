@@ -6,6 +6,8 @@ require "fileutils"
 require "pathname"
 require "fcntl"
 
+require "relaton/cli/yaml_convertor"
+
 module Relaton
   module Cli
     class Command < Thor
@@ -87,42 +89,13 @@ module Relaton
       end
 
       desc "yaml2xml YAML", "Convert Relaton YAML into Relaton Collection XML or separate files"
-      option :extension, :required => false, :desc => "File extension of Relaton XML files, defaults to 'rxl'", :aliases => :x, :default => "rxl"
-      option :prefix, :required => false, :desc => "Filename prefix of individual Relaton XML files, defaults to empty", :aliases => :p
-      option :outdir, :required => false, :desc => "Output to the specified directory with individual Relaton Bibdata XML files", :aliases => :o
-      option :require, :required => false, :desc => "Require LIBRARY prior to execution", :aliases => :r, :type => :array
+      option :extension, aliases: :x, desc: "File extension of Relaton XML files, defaults to 'rxl'"
+      option :prefix, aliases: :p, desc: "Filename prefix of individual Relaton XML files, defaults to empty"
+      option :outdir, aliases: :o,  desc: "Output to the specified directory with individual Relaton Bibdata XML files"
+      option :require, aliases: :r, type: :array, desc: "Require LIBRARY prior to execution"
 
-      def yaml2xml(filename, outdir = options[:outdir], ext = nil)
-        ext ||= options[:extension]
-        if options[:require]
-          options[:require].each do |r|
-            require r
-          end
-        end
-        index_input = YAML.load_file(filename)
-
-        if index_input.has_key?("root")
-          # this is a collection
-          # TODO real lookup of namespaces and root elements
-          index_collection = ::Relaton::Bibcollection.new(index_input["root"])
-          outfilename = Pathname.new(filename).sub_ext(".#{ext}")
-          File.open(outfilename, "w:utf-8") { |f| f.write index_collection.to_xml }
-          return unless outdir
-          FileUtils.mkdir_p(outdir)
-
-          index_collection.items_flattened.each do |item|
-            filename = File.join(
-              outdir,
-              "#{options[:prefix]}#{item.docidentifier_code}.#{ext}"
-            )
-            File.open(filename, "w:UTF-8") { |f| f.write(item.to_xml) }
-          end
-        else
-          # this is a single entry
-          index_entry = ::Relaton::Bibdata.new(index_input)
-          outfilename = Pathname.new(filename).sub_ext(".#{ext}")
-          File.open(outfilename, "w:utf-8") { |f| f.write index_entry.to_xml }
-        end
+      def yaml2xml(filename)
+        Relaton::Cli::YAMLConvertor.to_xml(filename, options)
       end
 
       desc "xml2yaml XML", "Convert Relaton YAML into Relaton Bibcollection YAML (and separate files)"
