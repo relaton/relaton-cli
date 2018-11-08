@@ -5,6 +5,7 @@ module Relaton
         @file = file
         @options = options
         @outdir = options.fetch(:outdir, nil)
+        @writable = options.fetch(:write, true)
 
         install_dependencies(options[:require] || [])
       end
@@ -20,7 +21,7 @@ module Relaton
 
       private
 
-      attr_reader :file, :outdir, :options
+      attr_reader :file, :outdir, :options, :writable
 
       def default_ext
         raise "Override this method"

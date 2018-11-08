@@ -5,7 +5,11 @@ module Relaton
   module Cli
     class YAMLConvertor < Relaton::Cli::BaseConvertor
       def to_xml
-        convert_and_write(file_content, :to_xml)
+        if writable
+          convert_and_write(file_content, :to_xml)
+        else
+          convert_content(file_content).to_xml
+        end
       end
 
       def self.to_xml(file, options = {})

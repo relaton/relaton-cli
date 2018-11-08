@@ -8,6 +8,7 @@ require "fcntl"
 
 require "relaton/cli/xml_convertor"
 require "relaton/cli/yaml_convertor"
+require "relaton/cli/concatenator"
 
 module Relaton
   module Cli
@@ -40,53 +41,11 @@ module Relaton
       end
 
       desc "concatenate SOURCE-DIR COLLECTION-FILE", "Concatenate entries in DIRECTORY (containing Relaton-XML or YAML) into a Relaton Collection"
-
-      option :title, :required => false, :desc => "Title of resulting Relaton collection", :aliases => :t
-      option :organization, :required => false, :desc => "Organization owner of Relaton collection", :aliases => :g
+      option :title, aliases: :t,  desc: "Title of resulting Relaton collection"
+      option :organization, aliases: :g, desc: "Organization owner of Relaton collection"
 
       def concatenate(source_dir, outfile)
-
-        Dir[ File.join(source_dir, '**', '*.yaml') ].reject { |p| File.directory? p }.each do |f|
-          yaml2xml(f, nil, "rxl")
-        end
-
-        bibdatas = []
-        Dir[ File.join(source_dir, '**', '*.{rxl}') ].reject { |p| File.directory? p }.each do |f|
-          file = File.read(f, encoding: "utf-8")
-          bibdata_doc = Nokogiri.XML(file)
-          # Skip if this XML isn't a Relaton XML
-          next unless bibdata_doc.root.name == "bibdata"
-          # Force a namespace otherwise Nokogiri won't parse.
-          # The reason is we use Bibcollection's from_xml, but that one has an xmlns.
-          # We don't want to change the code for bibdata hence this hack
-          #bibdata_doc.root['xmlns'] = "xmlns"
-          bibdata_doc.remove_namespaces!
-          bibdata_doc.root.add_namespace(nil, "xmlns")
-          bibdata_doc = Nokogiri.XML(bibdata_doc.to_xml)
-
-          bibdata = Relaton::Bibdata.from_xml(bibdata_doc.root)
-          # XML relaton file must already exist
-          bibdata.relaton = f
-          xml = Pathname.new(f).sub_ext('.xml')
-          bibdata.xml = xml if File.file?(xml) && f.match(/\.rxl$/)
-          pdf = Pathname.new(f).sub_ext('.pdf')
-          bibdata.pdf = pdf if File.file?(pdf)
-          doc = Pathname.new(f).sub_ext('.doc')
-          bibdata.doc = doc if File.file?(doc)
-          html = Pathname.new(f).sub_ext('.html')
-          bibdata.html = html if File.file?(html)
-          bibdatas << bibdata
-        end
-
-        bibcollection = ::Relaton::Bibcollection.new(
-          title: options[:title],
-          # doctype: options[:doctype],
-          author: options[:organization],
-          items: bibdatas
-        )
-        File.open(outfile, "w:UTF-8") do |f|
-          f.write bibcollection.to_xml
-        end
+        Relaton::Cli::Concatenator.concatenate(source_dir, outfile, options)
       end
 
       desc "yaml2xml YAML", "Convert Relaton YAML into Relaton Collection XML or separate files"
