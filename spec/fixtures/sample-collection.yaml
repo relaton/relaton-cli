@@ -1,0 +1,40 @@
+root:
+  author: The Calendaring and Scheduling Consortium
+  title: CalConnect Standards Registry
+  items:
+    - technical_committee: PUBLISH
+      docidentifier: "CC 36000"
+      doctype: standard
+      title: Standardization documents -- Vocabulary
+      stage: proposal
+      revdate: 2018-10-25
+    - technical_committee: DATETIME
+      docidentifier: "CC 34000"
+      doctype: standard
+      title: Date and time -- Concepts and vocabulary
+      stage: proposal
+      revdate: 2018-10-25
+    - technical_committee: DATETIME
+      docidentifier: "CC 34002"
+      doctype: standard
+      title: Date and time -- Timezones
+      stage: proposal
+      revdate: 2018-10-25
+    - technical_committee: DATETIME
+      docidentifier: "CC 34003"
+      doctype: standard
+      title: Date and time -- Codes for calendar systems
+      stage: proposal
+      revdate: 2018-10-25
+    - technical_committee: DATETIME
+      docidentifier: "CC 34005"
+      doctype: standard
+      title: Date and time -- Calendars -- Gregorian calendar
+      stage: proposal
+      revdate: 2018-10-25
+    - technical_committee: DATETIME
+      docidentifier: "CC/S 34006"
+      doctype: specification
+      title: Date and time -- Calendars -- Chinese calendar
+      stage: proposal
+      revdate: 2018-10-25
