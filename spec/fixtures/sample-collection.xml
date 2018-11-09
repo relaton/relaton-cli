@@ -1,0 +1,67 @@
+<relaton-collection xmlns="https://open.ribose.com/relaton-xml"><title>CalConnect Standards Registry</title><contributor><role type='author'/><organization><name>The Calendaring and Scheduling Consortium</name></organization></contributor><relation type='partOf'><bibdata type='standard'>
+<fetched>2018-11-09</fetched>
+<title>Date and time -- Concepts and vocabulary</title>
+<docidentifier>CC 34000</docidentifier>
+<language></language>
+<script></script>
+<date type=''><on>2018-10-25</on></date>
+<status>proposal</status>
+<editorialgroup><technical-committee>DATETIME</technical-committee></editorialgroup>
+</bibdata>
+</relation>
+<relation type='partOf'><bibdata type='standard'>
+<fetched>2018-11-09</fetched>
+<title>Date and time -- Timezones</title>
+<docidentifier>CC 34002</docidentifier>
+<language></language>
+<script></script>
+<date type=''><on>2018-10-25</on></date>
+<status>proposal</status>
+<editorialgroup><technical-committee>DATETIME</technical-committee></editorialgroup>
+</bibdata>
+</relation>
+<relation type='partOf'><bibdata type='standard'>
+<fetched>2018-11-09</fetched>
+<title>Date and time -- Codes for calendar systems</title>
+<docidentifier>CC 34003</docidentifier>
+<language></language>
+<script></script>
+<date type=''><on>2018-10-25</on></date>
+<status>proposal</status>
+<editorialgroup><technical-committee>DATETIME</technical-committee></editorialgroup>
+</bibdata>
+</relation>
+<relation type='partOf'><bibdata type='standard'>
+<fetched>2018-11-09</fetched>
+<title>Date and time -- Calendars -- Gregorian calendar</title>
+<docidentifier>CC 34005</docidentifier>
+<language></language>
+<script></script>
+<date type=''><on>2018-10-25</on></date>
+<status>proposal</status>
+<editorialgroup><technical-committee>DATETIME</technical-committee></editorialgroup>
+</bibdata>
+</relation>
+<relation type='partOf'><bibdata type='specification'>
+<fetched>2018-11-09</fetched>
+<title>Date and time -- Calendars -- Chinese calendar</title>
+<docidentifier>CC/S 34006</docidentifier>
+<language></language>
+<script></script>
+<date type=''><on>2018-10-25</on></date>
+<status>proposal</status>
+<editorialgroup><technical-committee>DATETIME</technical-committee></editorialgroup>
+</bibdata>
+</relation>
+<relation type='partOf'><bibdata type='standard'>
+<fetched>2018-11-09</fetched>
+<title>Standardization documents -- Vocabulary</title>
+<docidentifier>CC 36000</docidentifier>
+<language></language>
+<script></script>
+<date type=''><on>2018-10-25</on></date>
+<status>proposal</status>
+<editorialgroup><technical-committee>PUBLISH</technical-committee></editorialgroup>
+</bibdata>
+</relation>
+</relaton-collection>

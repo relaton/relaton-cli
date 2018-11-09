@@ -11,4 +11,5 @@ before_install:
   - unset _JAVA_OPTIONS
 matrix:
   allow_failures:
+    - rvm: 2.3
     - rvm: ruby-head
