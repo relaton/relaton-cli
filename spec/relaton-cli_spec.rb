@@ -25,54 +25,6 @@ RSpec.describe "extract", skip: true do
   end
 end
 
-RSpec.describe "xml2yaml", skip: true do
-  skip "pending for refactoring"
-  it "converts collection from XML to Relaton YAML" do
-    FileUtils.rm_rf "spec/assets/out"
-    FileUtils.mkdir_p "spec/assets/out"
-    FileUtils.cp "spec/assets/collection.xml", "spec/assets/out"
-    system "relaton xml2yaml spec/assets/out/collection.xml"
-    expect(File.exist?("spec/assets/out/collection.yaml")).to be true
-    file = File.read("spec/assets/out/collection.yaml", encoding: "utf-8")
-    expect(file).to include <<~"YAML"
-root:
-  title: CalConnect Standards Registry
-  items:
-  - docidentifier: CC/R 3101
-    doctype: report
-YAML
-  end
-
-  it "converts collection from XML to Relaton YAML with output directory" do
-    FileUtils.rm_rf "spec/assets/out"
-    FileUtils.mkdir_p "spec/assets/out"
-    FileUtils.rm_rf "spec/assets/rxl"
-    FileUtils.mkdir_p "spec/assets/rxl"
-    FileUtils.cp "spec/assets/collection.xml", "spec/assets/out"
-    system "relaton xml2yaml -o spec/assets/rxl spec/assets/out/collection.xml"
-    expect(File.exist?("spec/assets/rxl/cc-18001.yaml")).to be true
-    expect(File.read("spec/assets/rxl/cc-18001.yaml")).to include <<~"YAML"
-docidentifier: CC 18001
-doctype: standard
-YAML
-  end
-
-  it "converts collection from XML to Relaton YAML with output directory, with different prefix and extension nominated" do
-    FileUtils.rm_rf "spec/assets/out"
-    FileUtils.mkdir_p "spec/assets/out"
-    FileUtils.rm_rf "spec/assets/rxl"
-    FileUtils.mkdir_p "spec/assets/rxl"
-    FileUtils.cp "spec/assets/collection.xml", "spec/assets/out"
-    system "relaton xml2yaml -p PREFIX -x rxml -o spec/assets/rxl spec/assets/out/collection.xml"
-    expect(File.exist?("spec/assets/rxl/cc-18001.yaml")).to be false
-    expect(File.exist?("spec/assets/rxl/PREFIXcc-18001.rxml")).to be true
-    expect(File.read("spec/assets/rxl/PREFIXcc-18001.rxml")).to include <<~"YAML"
-docidentifier: CC 18001
-doctype: standard
-YAML
-  end
-end
-
 RSpec.describe "xml2html", skip: true do
   it "converts Relaton XML to HTML" do
     FileUtils.rm_rf "spec/assets/collection.html"
