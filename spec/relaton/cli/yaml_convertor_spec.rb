@@ -27,7 +27,7 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
     end
 
     context "with yaml and options" do
-      it "usages specified extension to write single file" do
+      it "usages options extension to write single file" do
         buffer = stub_file_write_to_io(sample_yaml_file, "rxml")
 
         Relaton::Cli::YAMLConvertor.to_xml(
@@ -42,20 +42,15 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
 
       it "usages specified options to write file collection" do
         stub_file_write_to_io(sample_collection_file)
-        stub_file_write_to_io("./tmp/RCLIcc-34000.rxl")
-        stub_file_write_to_io("./tmp/RCLIcc-34002.rxl")
-        stub_file_write_to_io("./tmp/RCLIcc-34003.rxl")
-        stub_file_write_to_io("./tmp/RCLIcc-34005.rxl")
-        stub_file_write_to_io("./tmp/RCLIcc-36000.rxl")
-
-        buffer = stub_file_write_to_io("./tmp/RCLIcc-s-34006.rxl")
+        buffer = stub_collections_write(collection_names, dir: "./tmp")
 
         Relaton::Cli::YAMLConvertor.to_xml(
           sample_collection_file, prefix: "RCLI", outdir: "./tmp"
         )
 
-        expect(buffer).to include("<bibdata type='specification'>")
-        expect(buffer).to include("<docidentifier>CC/S 34006</docidentifier>")
+        expect(buffer.count).to eq(6)
+        expect(buffer.last).to include("<bibdata type='specification'>")
+        expect(buffer.last).to include("<docidentifier>CC/S 34006</docidenti")
       end
     end
   end
@@ -72,22 +67,21 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
     allow(YAML).to receive(:load_file).and_return(YAML.load_file(file))
   end
 
-  def stub_collection_write
-    stub_file_write_to_io(sample_collection_file)
-    stub_file_write_to_io("./tmp/RCLIcc-34000.rxl")
-    stub_file_write_to_io("./tmp/RCLIcc-34002.rxl")
-    stub_file_write_to_io("./tmp/RCLIcc-34003.rxl")
-    stub_file_write_to_io("./tmp/RCLIcc-34005.rxl")
-    stub_file_write_to_io("./tmp/RCLIcc-36000.rxl")
+  def collection_names
+    ["cc-34000", "cc-34002", "cc-34003", "cc-34005", "cc-36000", "cc-s-34006"]
+  end
 
-    stub_file_write_to_io("./tmp/RCLIcc-s-34006.rxl")
+  def stub_collections_write(files, dir:, prefix: "RCLI", ext: "yaml")
+    files.each.map do |file|
+      stub_file_write_to_io([dir, "#{prefix}#{file}.#{ext}"].join("/"))
+    end
   end
 
   def stub_file_write_to_io(file, ext = "rxl")
     buffer = StringIO.new
-    out_file = Pathname.new(file).sub_ext(".#{ext}").to_s
-
     stub_yaml_file_load(file) if file.include?(".yaml")
+
+    out_file = Pathname.new(file).sub_ext(".#{ext}").to_s
     allow(File).to receive(:open).with(out_file, "w:utf-8").and_yield(buffer)
 
     buffer.string
