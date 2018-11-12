@@ -8,17 +8,8 @@ module Relaton
         convert_and_write(file_content, :to_yaml)
       end
 
-      def to_html
-        content = convert_to_html
-        write_to_a_file(content)
-      end
-
       def self.to_yaml(file, options = {})
         new(file, options).to_yaml
-      end
-
-      def self.to_html(file, style, template)
-        new(file, style: style, template: template, extension: "html").to_html
       end
 
       private

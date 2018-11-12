@@ -117,10 +117,8 @@ module Relaton
 
       desc "yaml2html YAML STYLESHEET LIQUID-TEMPLATE-DIR", "Concatenate Relaton YAML into HTML"
 
-      def yaml2html(filename, stylesheet, liquid_dir)
-        yaml2xml(filename, nil, "xml")
-        outfilename = Pathname.new(filename).sub_ext('.xml')
-        xml2html(outfilename, stylesheet, liquid_dir)
+      def yaml2html(file, style, template)
+        Relaton::Cli::YAMLConvertor.to_html(file, style, template)
       end
 
       private

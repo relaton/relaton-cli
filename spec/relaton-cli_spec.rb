@@ -25,17 +25,6 @@ RSpec.describe "extract", skip: true do
   end
 end
 
-RSpec.describe "yaml2html", skip: true do
-  it "converts Relaton YAML to HTML" do
-    FileUtils.rm_rf "spec/assets/relaton-yaml/collection.html"
-    system "relaton yaml2html spec/assets/relaton-yaml/collection.yaml spec/assets/index-style.css spec/assets/templates"
-    expect(File.exist?("spec/assets/relaton-yaml/collection.html")).to be true
-    html = File.read("spec/assets/relaton-yaml/collection.html", encoding: "utf-8")
-    expect(html).to include "I AM A SAMPLE STYLESHEET"
-    expect(html).to include %(<a href="">CC 34000</a>)
-  end
-end
-
 RSpec.describe "concatenate", skip: true do
   it "concatenates YAML and RXL into a collection" do
     FileUtils.rm_rf "spec/assets/rxl"
