@@ -32,6 +32,10 @@ module Relaton
         end
       end
 
+      def xml_content(_raw_file)
+        convert_content(file_content).to_xml
+      end
+
       def convert_content(content)
         convert_collection(content) || convert_single_file(content)
       end

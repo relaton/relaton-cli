@@ -9,6 +9,15 @@ module Relaton
         install_dependencies(options[:require] || [])
       end
 
+      def to_html
+        content = convert_to_html
+        write_to_a_file(content)
+      end
+
+      def self.to_html(file, style, template)
+        new(file, style: style, template: template, extension: "html").to_html
+      end
+
       private
 
       attr_reader :file, :outdir, :options
@@ -19,13 +28,13 @@ module Relaton
 
       def convert_to_html
         Relaton::Cli::XmlToHtmlRenderer.render(
-          read_content(file),
+          xml_content(file),
           stylesheet: options[:style],
           liquid_dir: options[:template],
         )
       end
 
-      def read_content(file)
+      def xml_content(file)
         File.read(file, encoding: "utf-8")
       end
 

@@ -53,6 +53,25 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
         expect(buffer.last).to include("<docidentifier>CC/S 34006</docidenti")
       end
     end
+
+    describe ".to_html" do
+      context "with valid file and styles" do
+        it "converts and writes a YAML document to HTML" do
+          buffer = stub_file_write_to_io(sample_collection_file, "html")
+
+          Relaton::Cli::YAMLConvertor.to_html(
+            sample_collection_file,
+            "spec/assets/index-style.css",
+            "spec/assets/templates",
+          )
+
+          expect(buffer).to include("I AM A SAMPLE STYLESHEET")
+          expect(buffer).to include('<a href="">CC/S 34006</a>')
+          expect(buffer).to include("<!DOCTYPE HTML>\n<html>\n  <head>")
+          expect(buffer).to include("<title>CalConnect Standards Registry</tit")
+        end
+      end
+    end
   end
 
   def sample_yaml_file
