@@ -111,16 +111,8 @@ module Relaton
 
       desc "xml2html RELATON-INDEX-XML STYLESHEET LIQUID-TEMPLATE-DIR", "Convert Relaton Collection XML into HTML"
 
-      def xml2html(filename, stylesheet, liquid_dir)
-        file = File.read(filename, encoding: "utf-8")
-        xml_to_html = Relaton::Cli::XmlToHtmlRenderer.new({
-          stylesheet: stylesheet,
-          liquid_dir: liquid_dir,
-        })
-        html_filename = Pathname.new(filename).sub_ext('.html')
-        File.open(html_filename, "w:UTF-8") do |f|
-          f.write(xml_to_html.render(file))
-        end
+      def xml2html(file, style, template)
+        Relaton::Cli::XMLConvertor.to_html(file, style, template)
       end
 
       desc "yaml2html YAML STYLESHEET LIQUID-TEMPLATE-DIR", "Concatenate Relaton YAML into HTML"

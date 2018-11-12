@@ -25,17 +25,6 @@ RSpec.describe "extract", skip: true do
   end
 end
 
-RSpec.describe "xml2html", skip: true do
-  it "converts Relaton XML to HTML" do
-    FileUtils.rm_rf "spec/assets/collection.html"
-    system "relaton xml2html spec/assets/collection.xml spec/assets/index-style.css spec/assets/templates"
-    expect(File.exist?("spec/assets/collection.html")).to be true
-    html = File.read("spec/assets/collection.html", encoding: "utf-8")
-    expect(html).to include "I AM A SAMPLE STYLESHEET"
-    expect(html).to include %(<a href="csd/cc-r-3101.html">CalConnect XLIII -- Position on the European Union daylight-savings timezone change</a>)
-  end
-end
-
 RSpec.describe "yaml2html", skip: true do
   it "converts Relaton YAML to HTML" do
     FileUtils.rm_rf "spec/assets/relaton-yaml/collection.html"
