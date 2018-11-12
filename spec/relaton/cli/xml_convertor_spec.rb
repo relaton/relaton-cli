@@ -30,6 +30,25 @@ RSpec.describe Relaton::Cli::XMLConvertor do
     end
   end
 
+  describe ".to_html" do
+    context "with valid file and styles" do
+      it "sends render message to xml to html renderer" do
+        buffer = stub_file_write_to_io("spec/fixtures/collection.html", "html")
+
+        Relaton::Cli::XMLConvertor.to_html(
+          "spec/fixtures/collection.xml",
+          "spec/assets/index-style.css",
+          "spec/assets/templates",
+        )
+
+        expect(buffer).to include("I AM A SAMPLE STYLESHEET")
+        expect(buffer).to include("<!DOCTYPE HTML>\n<html>\n  <head>")
+        expect(buffer).to include("<title>CalConnect Standards Registry</tit")
+        expect(buffer).to include('<a href="csd/cc-r-3101.html">CalConnect ')
+      end
+    end
+  end
+
   def sample_collection_file
     @sample_collection_file ||= "spec/fixtures/sample-collection.xml"
   end

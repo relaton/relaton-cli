@@ -17,22 +17,31 @@ module Relaton
         raise "Override this method"
       end
 
-      def convert_and_write(content, format)
-        content = convert_content(content)
-        write_to_a_file(content, format.to_sym)
-        write_to_file_collection(content, format.to_sym)
+      def convert_to_html
+        Relaton::Cli::XmlToHtmlRenderer.render(
+          read_content(file),
+          stylesheet: options[:style],
+          liquid_dir: options[:template],
+        )
+      end
+
+      def read_content(file)
+        File.read(file, encoding: "utf-8")
       end
 
       def install_dependencies(dependencies)
         dependencies.each { |dependency| require(dependency) }
       end
 
-      def write_to_a_file(content, format, outfile = nil)
-        outfile ||= Pathname.new(file).sub_ext(extension).to_s
+      def convert_and_write(content, format)
+        content = convert_content(content)
+        write_to_a_file(content.send(format.to_sym))
+        write_to_file_collection(content, format.to_sym)
+      end
 
-        File.open(outfile, "w:utf-8") do |file|
-          file.write(content.send(format.to_sym))
-        end
+      def write_to_a_file(content, outfile = nil)
+        outfile ||= Pathname.new(file).sub_ext(extension).to_s
+        File.open(outfile, "w:utf-8") { |file| file.write(content) }
       end
 
       def write_to_file_collection(content, format)
@@ -41,7 +50,7 @@ module Relaton
 
           content.items_flattened.each do |item|
             collection = collection_filename(item.docidentifier_code)
-            write_to_a_file(item, format, collection)
+            write_to_a_file(item.send(format.to_sym), collection)
           end
         end
       end
