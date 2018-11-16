@@ -8,12 +8,11 @@ require "fcntl"
 
 require "relaton/cli/xml_convertor"
 require "relaton/cli/yaml_convertor"
-require "relaton/cli/concatenator"
+require "relaton/cli/relaton_file"
 
 module Relaton
   module Cli
     class Command < Thor
-
       desc "fetch CODE", "Fetch Relaton XML for Standard identifier CODE"
       option :type, aliases: :t, required: true, desc: "Type of standard to get bibliographic entry for"
       option :year, aliases: :y, type: :numeric, desc: "Year the standard was published"
@@ -24,20 +23,10 @@ module Relaton
       end
 
       desc "extract Metanorma-XML-Directory Relaton-XML-Directory", "Extract Relaton XML from folder of Metanorma XML"
-
-      option :extension, :required => false, :desc => "File extension of Relaton XML files, defaults to 'rxl'", :aliases => :x, :default => "rxl"
+      option :extension, aliases: :x, desc: "File extension of Relaton XML files, defaults to 'rxl'"
 
       def extract(source_dir, outdir)
-        Dir[ File.join(source_dir, '**', '*.xml') ].reject { |p| File.directory? p }.each do |f|
-          xml = Nokogiri::XML(File.read(f, encoding: "utf-8")).remove_namespaces!
-          bib = xml.at("//bibdata") || next
-          bib.add_namespace(nil, "")
-          docidentifier = bib&.at("./docidentifier")&.text ||
-            Pathname.new(File.basename(f, ".xml")).to_s
-          fn = docidentifier.sub(/^\s+/, "").sub(/\s+$/, "").gsub(/\s+/, "-") +
-            ".#{options[:extension]}"
-          File.open("#{outdir}/#{fn}", "w:UTF-8") { |f| f.write bib.to_xml }
-        end
+        Relaton::Cli::RelatonFile.extract(source_dir, outdir, options)
       end
 
       desc "concatenate SOURCE-DIR COLLECTION-FILE", "Concatenate entries in DIRECTORY (containing Relaton-XML or YAML) into a Relaton Collection"
@@ -45,7 +34,7 @@ module Relaton
       option :organization, aliases: :g, desc: "Organization owner of Relaton collection"
 
       def concatenate(source_dir, outfile)
-        Relaton::Cli::Concatenator.concatenate(source_dir, outfile, options)
+        Relaton::Cli::RelatonFile.concatenate(source_dir, outfile, options)
       end
 
       desc "yaml2xml YAML", "Convert Relaton YAML into Relaton Collection XML or separate files"

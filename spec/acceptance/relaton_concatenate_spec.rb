@@ -3,12 +3,12 @@ require "spec_helper"
 RSpec.describe "Relaton Concatenate" do
   describe "relaton concatenate" do
     it "sends concatenate message to the concatenator" do
-      allow(Relaton::Cli::Concatenator).to receive(:concatenate)
+      allow(Relaton::Cli::RelatonFile).to receive(:concatenate)
       command = %w(concatenate spec/fixtures ./tmp/concatenate.rxl -t Title)
 
       Relaton::Cli.start(command)
 
-      expect(Relaton::Cli::Concatenator).to have_received(:concatenate).
+      expect(Relaton::Cli::RelatonFile).to have_received(:concatenate).
         with("spec/fixtures", "./tmp/concatenate.rxl", title: "Title")
     end
   end
