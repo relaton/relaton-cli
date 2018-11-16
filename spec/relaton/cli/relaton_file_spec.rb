@@ -1,11 +1,39 @@
 require "fileutils"
 require "spec_helper"
 
-RSpec.describe Relaton::Cli::Concatenator do
+RSpec.describe Relaton::Cli::RelatonFile do
+  describe ".extract" do
+    before { FileUtils.mkdir_p("./tmp/output") }
+    after { FileUtils.rm_rf("./tmp/output") }
+
+    it "extracts Metanorma XML" do
+      Relaton::Cli::RelatonFile.extract(
+        "spec/assets/metanorma-xml", "./tmp/output"
+      )
+
+      content = File.read("./tmp/output/CC-18001.rxl")
+
+      expect(file_exist?("CC-18002.rxl")).to be false
+      expect(file_exist?("cc-amd-86003.rxl")).to be false
+      expect(file_exist?("cc-cor-12990-3.rxl")).to be true
+      expect(content).to include('<bibdata xmlns="" type="standard">')
+    end
+
+    it "extracts Metanorma XML with a different extension" do
+      Relaton::Cli::RelatonFile.extract(
+        "spec/assets/metanorma-xml", "./tmp/output", extension: "rxml"
+      )
+      expect(file_exist?("CC-18001.rxl")).to be false
+      expect(file_exist?("CC-18001.rxml")).to be true
+      expect(file_exist?("cc-cor-12990-3.rxl")).to be false
+      expect(file_exist?("cc-cor-12990-3.rxml")).to be true
+    end
+  end
+
   describe ".concatenate" do
     context "with YAML & RXL files in source directory" do
       it "combines both type of files into a collection" do
-        Relaton::Cli::Concatenator.concatenate(
+        Relaton::Cli::RelatonFile.concatenate(
           "spec/fixtures", "./tmp/concatenate.rxl"
         )
 
@@ -23,7 +51,7 @@ RSpec.describe Relaton::Cli::Concatenator do
 
     context "with YAML, RXL files and custom options" do
       it "combines both type of files and usages the options" do
-        Relaton::Cli::Concatenator.concatenate(
+        Relaton::Cli::RelatonFile.concatenate(
           "spec/fixtures",
           "./tmp/concatenate.rxl",
           title: "collection title",
@@ -49,7 +77,7 @@ RSpec.describe Relaton::Cli::Concatenator do
         file_types = ["xml", "pdf", "doc", "html"]
         create_fixture_files("sample", file_types)
 
-        Relaton::Cli::Concatenator.concatenate(
+        Relaton::Cli::RelatonFile.concatenate(
           "spec/fixtures", "./tmp/concatenate.rxl"
         )
 
@@ -67,6 +95,10 @@ RSpec.describe Relaton::Cli::Concatenator do
         expect(xml).to include("<uri type='html'>spec/fixtures/sample.html")
       end
     end
+  end
+
+  def file_exist?(file, directory = "./tmp/output")
+    File.exist?([directory, file].join("/"))
   end
 
   def cleanup_fixture_files(name, types = [])
