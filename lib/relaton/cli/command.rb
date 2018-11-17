@@ -15,7 +15,7 @@ module Relaton
       option :year, :desc => "Year the standard was published", :aliases => :y, :type => :numeric
 
       def fetch(code)
-        relaton = Relaton::Db.new("#{Dir.home}/.relaton-bib.pstore", nil)
+        relaton = Relaton::Db.new("#{Dir.home}/.relaton/cache", nil)
         types = []
         Relaton::Registry.instance.processors.each { |_n, pr| types << pr.prefix }
         if types.include?(options[:type])
