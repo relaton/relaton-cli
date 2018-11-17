@@ -1,3 +1,4 @@
+require "fileutils"
 require "relaton/bibdata"
 require "relaton/bibcollection"
 require "relaton/cli/xml_to_html_renderer"
@@ -22,11 +23,11 @@ module Relaton
       # Convert to HTML
       #
       # This interface expect us to provide Relaton collection XML
-      # as XML/RXL, and necessary styels / tempaplates then it can
-      # be used convert that collection to HTML.
+      # as XML/RXL, and necessary styels / templates then it will be
+      # used convert that collection to HTML.
       #
       # @param file [String] Relaton collection file path
-      # @param style [String] Stylesheet file path for styling
+      # @param style [String] Stylesheet file path for styles
       # @param template [String] The liquid tempalte directory
       #
       def self.to_html(file, style, template)

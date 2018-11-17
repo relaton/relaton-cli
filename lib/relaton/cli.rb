@@ -11,8 +11,8 @@ module Relaton
     # Relaton
     #
     # Based on current setup, we need to initiate a Db instance to
-    # register all of it's supported processor  backends. To make
-    # it easier we've added it as a class method so we can use it
+    # register all of it's supported processor backends. To make it
+    # easier we have added it as a class method so we can use this
     # whenever necessary.
     #
     def self.relaton
