@@ -12,6 +12,17 @@ module Relaton
         end
       end
 
+      # Convert to XML
+      #
+      # This interface allow us to convert any YAML file to XML.
+      # It only require us to provide a valid YAML file and it can
+      # do converstion using default attributes, but it also allow
+      # us to provide custom options to customize this converstion
+      # process.
+      #
+      # @param file [File] The complete path to a YAML file
+      # @param options [Hash] Options as hash key, value pairs.
+      #
       def self.to_xml(file, options = {})
         new(file, options).to_xml
       end

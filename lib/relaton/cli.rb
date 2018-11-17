@@ -1,9 +1,6 @@
-require "relaton"
-require_relative "bibcollection"
-require_relative "bibdata"
-require_relative "cli/xml_to_html_renderer"
-require_relative "cli/command"
 require "thor"
+require "relaton"
+require_relative "cli/command"
 
 module Relaton
   module Cli
@@ -11,12 +8,12 @@ module Relaton
       Relaton::Cli::Command.start(arguments)
     end
 
-    # Temporary: Load Supported Gems
+    # Relaton
     #
-    # Based on current setup, looks like we need to initiate a db
-    # instance to register all of it's supported processor  backends.
-    # So let's put this here for now & as soon as we've some alternative
-    # then we can optimize this later.
+    # Based on current setup, we need to initiate a Db instance to
+    # register all of it's supported processor  backends. To make
+    # it easier we've added it as a class method so we can use it
+    # whenever necessary.
     #
     def self.relaton
       @relaton ||= Relaton::Db.new("#{Dir.home}/.relaton-bib.pstore", nil)
