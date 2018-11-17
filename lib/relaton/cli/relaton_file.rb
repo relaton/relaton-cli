@@ -1,3 +1,6 @@
+require "nokogiri"
+require "pathname"
+
 module Relaton
   module Cli
     class RelatonFile
@@ -16,10 +19,36 @@ module Relaton
         write_to_file(bibcollection.to_xml)
       end
 
+      # Extract files
+      #
+      # This interface expect us to provide a source directory, output
+      # directory and custom configuration options. Then it wll extract
+      # Relaton XML files to output directory from the source directory
+      # During this process it will use custom options when available.
+      #
+      # @param source [Dir] The source directory for files
+      # @param outdir [Dir] The output directory for files
+      # @param options [Hash] Options as hash key value pair
+      #
       def self.extract(source, outdir, options = {})
         new(source, options.merge(outdir: outdir)).extract
       end
 
+      # Concatenate files
+      #
+      ## This interface expect us to provide a source directory, output
+      # file and custom configuration options. Normally, this expect the
+      # source directory to contain RXL fles, but it also converts any
+      # YAML files to RXL and then finally combines those together.
+      #
+      # This interface also allow us to provdie options like title and
+      # organization and then it usage those details to generate the
+      # collection file.
+      #
+      # @param source [Dir] The source directory for files
+      # @param output [String] The collection output file
+      # @param options [Hash] Options as hash key value pair
+      #
       def self.concatenate(source, outfile, options = {})
         new(source, options.merge(outfile: outfile)).concatenate
       end
@@ -44,7 +73,8 @@ module Relaton
 
       def extract_and_write_to_files
         select_files_with("xml").each do |file|
-          xml = nokogiri_document(nil, file).remove_namespaces!
+          xml = nokogiri_document(nil, file)
+          xml.remove_namespaces!
 
           bib = xml.at("//bibdata") || next
           bib.add_namespace(nil, "")
@@ -55,7 +85,9 @@ module Relaton
       end
 
       def concatenate_files
-        [convert_rxl_to_xml, convert_yamls_to_xml].flatten.map do |xml|
+        xml_files = [convert_rxl_to_xml, convert_yamls_to_xml]
+
+        xml_files.flatten.map do |xml|
           doc = nokogiri_document(xml[:content])
           bibdata_instance(doc, xml[:file]) if doc.root.name == "bibdata"
         end.compact

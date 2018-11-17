@@ -8,6 +8,17 @@ module Relaton
         convert_and_write(file_content, :to_yaml)
       end
 
+      # Convert to YAML
+      #
+      # This interface allow us to convert any XML file to YAML.
+      # It only require us to provide a valid XML file and it can
+      # do converstion using default attributes, but it also allow
+      # us to provide custom options to customize this converstion
+      # process.
+      #
+      # @param file [File] The complete path to a XML file
+      # @param options [Hash] Options as hash key, value pairs.
+      #
       def self.to_yaml(file, options = {})
         new(file, options).to_yaml
       end

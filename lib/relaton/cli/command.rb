@@ -1,14 +1,6 @@
-require "relaton"
-require "nokogiri"
-require "yaml"
-require "thor"
-require "fileutils"
-require "pathname"
-require "fcntl"
-
+require "relaton/cli/relaton_file"
 require "relaton/cli/xml_convertor"
 require "relaton/cli/yaml_convertor"
-require "relaton/cli/relaton_file"
 
 module Relaton
   module Cli
