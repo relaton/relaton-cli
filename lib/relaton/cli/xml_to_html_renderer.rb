@@ -50,5 +50,8 @@ module Relaton::Cli
       uri.sub(/\.[^.]+$/, ".#{extension.to_s}")
     end
 
+    def self.render(file, options)
+      new(options).render(file)
+    end
   end
 end
