@@ -13,7 +13,7 @@ module Relaton
       doc
       html
       uri
-      relaton
+      rxl
       revdate
       abstract
       technical_committee
@@ -73,7 +73,7 @@ module Relaton
         xml: source.at(ns("./uri[@type='xml']"))&.text,
         pdf: source.at(ns("./uri[@type='pdf']"))&.text,
         html: source.at(ns("./uri[@type='html']"))&.text,
-        relaton: source.at(ns("./uri[@type='relaton']"))&.text,
+        rxl: source.at(ns("./uri[@type='rxl']"))&.text,
         doc: source.at(ns("./uri[@type='doc']"))&.text,
         docidentifier: source.at(ns("./docidentifier"))&.text,
         title: source.at(ns("./title"))&.text,
@@ -107,7 +107,7 @@ module Relaton
       ret += "<uri type='html'>#{html}</uri>\n" if html
       ret += "<uri type='pdf'>#{pdf}</uri>\n" if pdf
       ret += "<uri type='doc'>#{doc}</uri>\n" if doc
-      ret += "<uri type='relaton'>#{relaton}</uri>\n" if relaton
+      ret += "<uri type='rxl'>#{rxl}</uri>\n" if rxl
 
       ret += "<language>#{language}</language>\n"
       ret += "<script>#{script}</script>\n"

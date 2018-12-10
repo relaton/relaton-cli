@@ -102,7 +102,7 @@ RSpec.describe Relaton::Bibdata do
 <uri>URI</uri>
 <uri type="pdf">PDF</uri>
 <uri type="doc">DOC</uri>
-<uri type="relaton">RXL</uri>
+<uri type="rxl">RXL</uri>
 <status>STAGE</status>
 <abstract>ABSTRACT</abstract>
 <language>LANGUAGE</language>
@@ -129,7 +129,7 @@ RSpec.describe Relaton::Bibdata do
     expect(bibdata.xml).to eq "XML"
     expect(bibdata.pdf).to eq "PDF"
     expect(bibdata.doc).to eq "DOC"
-    expect(bibdata.relaton).to eq "RXL"
+    expect(bibdata.rxl).to eq "RXL"
     expect(bibdata.doctype).to eq "TYPE"
     expect(bibdata.stage).to eq "STAGE"
     expect(bibdata.abstract).to eq "ABSTRACT"
@@ -152,7 +152,7 @@ RSpec.describe Relaton::Bibdata do
 <uri type='html'>HTML</uri>
 <uri type='pdf'>PDF</uri>
 <uri type='doc'>DOC</uri>
-<uri type='relaton'>RXL</uri>
+<uri type='rxl'>RXL</uri>
 <language>LANGUAGE</language>
 <script>SCRIPT</script>
 <copyright><from>1900</from>
