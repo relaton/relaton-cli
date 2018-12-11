@@ -1,6 +1,7 @@
 require "relaton/cli/relaton_file"
 require "relaton/cli/xml_convertor"
 require "relaton/cli/yaml_convertor"
+require "fcntl"
 
 module Relaton
   module Cli
@@ -11,7 +12,8 @@ module Relaton
 
       def fetch(code)
         Relaton::Cli.relaton
-        say(fetch_document(code, options) || supported_type_message)
+        io = IO.new(STDOUT.fcntl(::Fcntl::F_DUPFD), mode: 'w:UTF-8')
+        io.puts(fetch_document(code, options) || supported_type_message)
       end
 
       desc "extract Metanorma-XML-Directory Relaton-XML-Directory", "Extract Relaton XML from folder of Metanorma XML"
