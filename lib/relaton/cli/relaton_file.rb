@@ -77,10 +77,16 @@ module Relaton
           xml.remove_namespaces!
 
           bib = xml.at("//bibdata") || next
-          bib.add_namespace(nil, "")
+
+          bib = nokogiri_document(bib.to_xml)
+          bib.remove_namespaces!
+          bib.root.add_namespace(nil, "xmlns")
+
+          bibdata = Relaton::Bibdata.from_xml(bib.root)
+          build_bibdata_relaton(bibdata, file)
 
           outfile = [outdir, build_filename(file, bib)].join("/")
-          write_to_file(bib.to_xml, outfile)
+          write_to_file(bibdata.to_xml, outfile)
         end
       end
 
@@ -142,10 +148,8 @@ module Relaton
       end
 
       def build_filename(file, document)
-        identifier = document&.at("./docidentifier")&.text ||
-          Pathname.new(File.basename(file, ".xml")).to_s
-
-        filename = identifier.sub(/^\s+/, "").sub(/\s+$/, "").gsub(/\s+/, "-")
+        identifier = Pathname.new(File.basename(file, ".xml")).to_s
+        filename = identifier.downcase.gsub(/^\s+/, "").gsub(/\s+$/, "").gsub(/\s+/, "-")
         [filename, options[:extension] || "rxl"].join(".")
       end
     end
