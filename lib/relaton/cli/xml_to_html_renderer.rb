@@ -9,7 +9,6 @@ module Relaton::Cli
       @liquid_dir = options[:liquid_dir]
       @stylesheet = File.read(options[:stylesheet], encoding: "utf-8")
 
-      puts "HTML html_template_dir #{@liquid_dir}"
       @file_system = Liquid::LocalFileSystem.new(@liquid_dir)
       @template = File.read(@file_system.full_path("index"), encoding: "utf-8")
       Liquid::Template.file_system = @file_system
