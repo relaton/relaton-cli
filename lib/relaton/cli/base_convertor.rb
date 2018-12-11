@@ -30,8 +30,13 @@ module Relaton
       # @param style [String] Stylesheet file path for styles
       # @param template [String] The liquid tempalte directory
       #
-      def self.to_html(file, style, template)
-        new(file, style: style, template: template, extension: "html").to_html
+      def self.to_html(file, style = nil, template = nil)
+        new(
+          file,
+          style: style || File.join(File.dirname(__FILE__), "../../../templates/index-style.css"),
+          template: template || File.join(File.dirname(__FILE__), "../../../templates/"),
+          extension: "html"
+        ).to_html
       end
 
       private

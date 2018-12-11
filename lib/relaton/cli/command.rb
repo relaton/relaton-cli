@@ -51,15 +51,19 @@ module Relaton
         Relaton::Cli::XMLConvertor.to_yaml(filename, options)
       end
 
-      desc "xml2html RELATON-INDEX-XML STYLESHEET LIQUID-TEMPLATE-DIR", "Convert Relaton Collection XML into HTML"
+      desc "xml2html RELATON-INDEX-XML", "Convert Relaton Collection XML into HTML"
+      option :stylesheet, aliases: :s, desc: "Stylesheet file path for rendering HTML index"
+      option :templatedir, aliases: :t, desc: "Liquid template directory for rendering Relaton items and collection"
 
-      def xml2html(file, style, template)
+      def xml2html(file, style = nil, template = nil)
         Relaton::Cli::XMLConvertor.to_html(file, style, template)
       end
 
-      desc "yaml2html YAML STYLESHEET LIQUID-TEMPLATE-DIR", "Concatenate Relaton YAML into HTML"
+      desc "yaml2html RELATON-INDEX-YAML", "Concatenate Relaton Collection YAML into HTML"
+      option :stylesheet, aliases: :s, desc: "Stylesheet file path for rendering HTML index"
+      option :templatedir, aliases: :t, desc: "Liquid template directory for rendering Relaton items and collection"
 
-      def yaml2html(file, style, template)
+      def yaml2html(file, style = nil, template = nil)
         Relaton::Cli::YAMLConvertor.to_html(file, style, template)
       end
 
