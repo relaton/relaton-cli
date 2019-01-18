@@ -123,7 +123,7 @@ RSpec.describe Relaton::Bibdata do
     bibdata = Relaton::Bibdata.from_xml(xml.root)
     expect(bibdata.title).to eq "Title"
     expect(bibdata.docidentifier).to eq "ID"
-    expect(bibdata.revdate.to_s).to eq "1000-01-01"
+    expect(bibdata.revdate).to eq "1000-01-01"
     expect(bibdata.uri).to eq "URI"
     expect(bibdata.html).to eq "HTML"
     expect(bibdata.xml).to eq "XML"
@@ -188,7 +188,7 @@ XML
     xml = Nokogiri.XML(doc)
     bibdata = Relaton::Bibdata.from_xml(xml.root)
     expect(bibdata.title).to eq "Title"
-    expect(bibdata.revdate.to_s).to eq "1001-01-01"
+    expect(bibdata.revdate).to eq "1001-01-01"
     expect(bibdata.datetype).to eq "circulated"
     expect(bibdata.to_xml).to be_equivalent_to <<~"XML"
 <bibdata type='TYPE'>

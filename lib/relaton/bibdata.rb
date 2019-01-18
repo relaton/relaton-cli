@@ -62,13 +62,25 @@ module Relaton
 
     def self.from_xml(source)
 
-      # bib.relaton_xml_path = URI.escape("#{relaton_root}/#{id_code}.xml")
-      revdate = source.at(ns("./date[@type = 'published']")) ||
-        source.at(ns("./date[@type = 'circulated']")) || source.at(ns("./date"))
       datetype = "circulated"
-      datetype = revdate["type"] if revdate
 
-      new({
+      # bib.relaton_xml_path = URI.escape("#{relaton_root}/#{id_code}.xml")
+      revdate = source.at(ns("./date[@type = 'published']/on")) ||
+        source.at(ns("./date[@type = 'circulated']/on")) ||
+        source.at(ns("./date"))
+
+      if revdate
+        datetype = revdate["type"]
+        revdate = begin
+          Date.parse(revdate.text.strip).to_s
+        rescue
+          warn "[relaton] parsing published date '#{revdate.text}' failed."
+          revdate.text.strip
+        end || nil
+      end
+
+
+      options = {
         uri: source.at(ns("./uri[not(@type)]"))&.text,
         xml: source.at(ns("./uri[@type='xml']"))&.text,
         pdf: source.at(ns("./uri[@type='pdf']"))&.text,
@@ -81,7 +93,7 @@ module Relaton
         stage: source.at(ns("./status"))&.text,
         technical_committee: source.at(ns("./editorialgroup/technical-committee"))&.text,
         abstract: source.at(ns("./abstract"))&.text,
-        revdate: revdate ? Date.parse(revdate.text) : nil,
+        revdate: revdate,
         language: source.at(ns("./language"))&.text,
         script: source.at(ns("./script"))&.text,
         edition: source.at(ns("./edition"))&.text,
@@ -92,7 +104,9 @@ module Relaton
         contributor_publisher_role: source.at(ns("./contributor/role[@type='publisher']"))&.text,
         contributor_publisher_organization: source.at(ns("./contributor/role[@type='publisher']"))&.parent&.at(ns("./organization/name"))&.text,
         datetype: datetype
-      })
+      }
+
+      new(options)
     end
 
     def to_xml
