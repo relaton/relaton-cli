@@ -95,8 +95,8 @@ RSpec.describe Relaton::Bibdata do
 <bibdata xmlns="https://open.ribose.com/relaton-xml" type="TYPE">
 <title>Title</title>
 <docidentifier>ID</docidentifier>
-<date type="fred">1002-01-01</date>
-<date type="published">1000-01-01</date>
+<date type="fred"><on>1002-01-01</on></date>
+<date type="published"><on>1000-01-01</on></date>
 <uri type="html">HTML</uri>
 <uri type="xml">XML</uri>
 <uri>URI</uri>
@@ -181,8 +181,8 @@ XML
     doc = <<~"XML"
 <bibdata xmlns="https://open.ribose.com/relaton-xml" type="TYPE">
 <title>Title</title>
-<date type="fred">1000-01-01</date>
-<date type="circulated">1001-01-01</date>
+<date type="fred"><on>1000-01-01</on></date>
+<date type="circulated"><on>1001-01-01</on></date>
 </bibdata>
     XML
     xml = Nokogiri.XML(doc)

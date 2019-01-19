@@ -9,9 +9,9 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.5.2)
+    addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
-    algoliasearch (1.24.0)
+    algoliasearch (1.25.2)
       httpclient (~> 2.8, >= 2.8.3)
       json (>= 1.5.1)
     byebug (10.0.2)
@@ -35,7 +35,7 @@ GEM
       isoics (~> 0.1.6)
       nokogiri (~> 1.8.4)
       ruby_deep_clone (~> 0.8.0)
-    isobib (0.4.2)
+    isobib (0.4.3)
       algoliasearch
       iecbib (~> 0.2.1)
       iso-bib-item (~> 0.4.2)
@@ -86,7 +86,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.16)
+  bundler (~> 2.0.1)
   byebug (~> 10.0)
   equivalent-xml (~> 0.6)
   pry
@@ -97,4 +97,4 @@ DEPENDENCIES
   rspec-core (~> 3.4)
 
 BUNDLED WITH
-   1.17.2
+   2.0.1

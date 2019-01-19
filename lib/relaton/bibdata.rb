@@ -65,18 +65,21 @@ module Relaton
       datetype = "circulated"
 
       # bib.relaton_xml_path = URI.escape("#{relaton_root}/#{id_code}.xml")
-      revdate = source.at(ns("./date[@type = 'published']/on")) ||
-        source.at(ns("./date[@type = 'circulated']/on")) ||
+      revdate = source.at(ns("./date[@type = 'published']")) ||
+        source.at(ns("./date[@type = 'circulated']")) ||
         source.at(ns("./date"))
+      revdate_value = revdate&.at(ns("./on")) || revdate&.at(ns("./from"))
 
-      if revdate
+      if revdate && revdate_value
         datetype = revdate["type"]
         revdate = begin
-          Date.parse(revdate.text.strip).to_s
+          Date.parse(revdate_value.text.strip).to_s
         rescue
           warn "[relaton] parsing published date '#{revdate.text}' failed."
-          revdate.text.strip
+          revdate_value.text.strip
         end || nil
+      else
+        revdate = nil
       end
 
 
