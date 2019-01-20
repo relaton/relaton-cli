@@ -21,10 +21,11 @@ module Relaton
 
       # Extract files
       #
-      # This interface expect us to provide a source directory, output
-      # directory and custom configuration options. Then it wll extract
-      # Relaton XML files to output directory from the source directory
-      # During this process it will use custom options when available.
+      # This interface expect us to provide a source file / directory,
+      # output directory and custom configuration options. Then it wll
+      # extract Relaton XML file / files to output directory from the
+      # source file / directory. During this process it will use custom
+      # options when available.
       #
       # @param source [Dir] The source directory for files
       # @param outdir [Dir] The output directory for files
@@ -71,8 +72,16 @@ module Relaton
         Nokogiri.XML(document)
       end
 
+      def select_source_files
+        if File.file?(source)
+          [source]
+        else
+          select_files_with("xml")
+        end
+      end
+
       def extract_and_write_to_files
-        select_files_with("xml").each do |file|
+        select_source_files.each do |file|
           xml = nokogiri_document(nil, file)
           xml.remove_namespaces!
 

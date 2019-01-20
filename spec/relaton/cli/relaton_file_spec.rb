@@ -14,7 +14,6 @@ RSpec.describe Relaton::Cli::RelatonFile do
 
         content = File.read("./tmp/output/a.rxl")
 
-        expect(file_exist?("CC-18002.rxl")).to be false
         expect(file_exist?("cc-amd-86003.rxl")).to be false
         expect(file_exist?("cc-cor-12990-3.rxl")).to be true
         expect(content).to include("<bibdata type='standard'>")
@@ -31,6 +30,20 @@ RSpec.describe Relaton::Cli::RelatonFile do
         expect(file_exist?("a.rxml")).to be true
         expect(file_exist?("cc-cor-12990-3.rxl")).to be false
         expect(file_exist?("cc-cor-12990-3.rxml")).to be true
+      end
+    end
+
+    context "with single Metanorma XML file" do
+      it "extracts the XML in the output directory" do
+        Relaton::Cli::RelatonFile.extract(
+          "spec/assets/metanorma-xml/a.xml", "./tmp/output"
+        )
+
+        content = File.read("./tmp/output/a.rxl")
+
+        expect(file_exist?("a.rxl")).to be_truthy
+        expect(file_exist?("cc-cor-12990-3.rxl")).to be_falsey
+        expect(content).to include("<bibdata type='standard'>")
       end
     end
   end
