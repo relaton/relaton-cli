@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    relaton-cli (0.1.6)
+    relaton-cli (0.1.7)
       liquid
       relaton (~> 0.3)
       thor
