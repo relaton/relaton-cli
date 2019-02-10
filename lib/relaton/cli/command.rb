@@ -31,6 +31,13 @@ module Relaton
         Relaton::Cli::RelatonFile.concatenate(source_dir, outfile, options)
       end
 
+      desc "split Relaton-Collection-File Relaton-XML-Directory", "Split a Relaton Collection into multiple files"
+      option :extension, aliases: :x, desc: "File extension of Relaton XML files, defaults to 'rxl'"
+
+      def split(source, outdir)
+        Relaton::Cli::RelatonFile.split(source, outdir, options)
+      end
+
       desc "yaml2xml YAML", "Convert Relaton YAML into Relaton Collection XML or separate files"
       option :extension, aliases: :x, desc: "File extension of Relaton XML files, defaults to 'rxl'"
       option :prefix, aliases: :p, desc: "Filename prefix of individual Relaton XML files, defaults to empty"

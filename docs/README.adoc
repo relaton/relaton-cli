@@ -30,6 +30,16 @@ file), a link to that file is inserted.
 If the `TITLE` or `ORGANIZATION` options are given, they are added to the `Collection-File` output as the
 title and author of the `relaton-collection` document.
 
+=== relaton split
+
+[source,console]
+----
+$ relaton split Collection-File Relaton-File-Directory -x rxl
+----
+
+Splits a `Relaton-Collection-File` into multiple files in the `Relaton-File-Directory`, and it also
+suports an addional `extension` options to use different extension.
+
 === relaton fetch
 
 [source,console]
