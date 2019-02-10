@@ -19,6 +19,10 @@ module Relaton
         write_to_file(bibcollection.to_xml)
       end
 
+      def split
+        split_and_write_to_files
+      end
+
       # Extract files
       #
       # This interface expect us to provide a source file / directory,
@@ -37,7 +41,7 @@ module Relaton
 
       # Concatenate files
       #
-      ## This interface expect us to provide a source directory, output
+      # This interface expect us to provide a source directory, output
       # file and custom configuration options. Normally, this expect the
       # source directory to contain RXL fles, but it also converts any
       # YAML files to RXL and then finally combines those together.
@@ -52,6 +56,24 @@ module Relaton
       #
       def self.concatenate(source, outfile, options = {})
         new(source, options.merge(outfile: outfile)).concatenate
+      end
+
+      # Split collection
+      #
+      # This interface expects us to provide a Relaton Collection
+      # file and also an output directory, then it will split that
+      # collection into multiple files.
+      #
+      # By default it usages `rxl` extension for these new files,
+      # but we can also customize that by providing the correct
+      # one as `extension` option parameter.
+      #
+      # @param source [File] The source collection file
+      # @param output [Dir] The output directory for files
+      # @param options [Hash] Options as hash key value pair
+      #
+      def self.split(source, outdir = nil, options = {})
+        new(source, options.merge(outdir: outdir)).split
       end
 
       private
@@ -80,6 +102,11 @@ module Relaton
         end
       end
 
+      def relaton_collection
+        @relaton_collection ||=
+          Relaton::Bibcollection.from_xml(nokogiri_document(nil, source))
+      end
+
       def extract_and_write_to_files
         select_source_files.each do |file|
           xml = nokogiri_document(nil, file)
@@ -94,8 +121,7 @@ module Relaton
           bibdata = Relaton::Bibdata.from_xml(bib.root)
           build_bibdata_relaton(bibdata, file)
 
-          outfile = [outdir, build_filename(file, bib)].join("/")
-          write_to_file(bibdata.to_xml, outfile)
+          write_to_file(bibdata.to_xml, outdir, build_filename(file))
         end
       end
 
@@ -106,6 +132,16 @@ module Relaton
           doc = nokogiri_document(xml[:content])
           bibdata_instance(doc, xml[:file]) if doc.root.name == "bibdata"
         end.compact
+      end
+
+      def split_and_write_to_files
+        output_dir = outdir || build_dirname(source)
+        write_to_collection_file(relaton_collection.to_yaml, output_dir)
+
+        relaton_collection.items.each do |content|
+          name = build_filename(nil, content.docidentifier)
+          write_to_file(content.to_xml, output_dir, name)
+        end
       end
 
       def bibdata_instance(document, file)
@@ -151,15 +187,31 @@ module Relaton
         Dir[files].reject { |file| File.directory?(file) }
       end
 
-      def write_to_file(content, output_file = nil)
-        output_file ||= outfile
-        File.open(output_file, "w:utf-8") { |file| file.write(content) }
+      def write_to_file(content, directory = nil, output_file = nil)
+        file_with_dir = [directory, output_file || outfile].compact.join("/")
+        File.open(file_with_dir, "w:utf-8") { |file| file.write(content) }
       end
 
-      def build_filename(file, document)
-        identifier = Pathname.new(File.basename(file, ".xml")).to_s
-        filename = identifier.downcase.gsub(/^\s+/, "").gsub(/\s+$/, "").gsub(/\s+/, "-")
-        [filename, options[:extension] || "rxl"].join(".")
+      def write_to_collection_file(content, directory)
+        write_to_file(content, directory, build_filename(source, nil, "yaml"))
+      end
+
+      def build_dirname(filename)
+        basename = File.basename(filename)&.gsub(/.(xml|rxl)/, "")
+        directory_name = sanitize_string(basename)
+        Dir.mkdir(directory_name) unless File.exists?(directory_name)
+
+        directory_name
+      end
+
+      def build_filename(file, identifier = nil, ext = "rxl")
+        identifier ||= Pathname.new(File.basename(file, ".xml")).to_s
+        [sanitize_string(identifier), options[:extension] || ext].join(".")
+      end
+
+      def sanitize_string(string)
+        string.downcase.gsub("/", " ").gsub(/^\s+/, "").gsub(/\s+$/, "").
+          gsub(/\s+/, "-")
       end
     end
   end
