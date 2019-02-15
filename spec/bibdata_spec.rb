@@ -119,8 +119,8 @@ RSpec.describe Relaton::Bibdata do
 <organization><name>PUBLISHERG</name></organization></contributor>
 </bibdata>
     XML
-    xml = Nokogiri.XML(doc)
-    bibdata = Relaton::Bibdata.from_xml(xml.root)
+    # xml = Nokogiri.XML(doc)
+    bibdata = Relaton::Bibdata.from_xml(doc)
     expect(bibdata.title).to eq "Title"
     expect(bibdata.docidentifier).to eq "ID"
     expect(bibdata.revdate).to eq "1000-01-01"
@@ -185,8 +185,8 @@ XML
 <date type="circulated"><on>1001-01-01</on></date>
 </bibdata>
     XML
-    xml = Nokogiri.XML(doc)
-    bibdata = Relaton::Bibdata.from_xml(xml.root)
+    # xml = Nokogiri.XML(doc)
+    bibdata = Relaton::Bibdata.from_xml(doc)
     expect(bibdata.title).to eq "Title"
     expect(bibdata.revdate).to eq "1001-01-01"
     expect(bibdata.datetype).to eq "circulated"

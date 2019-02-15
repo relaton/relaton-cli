@@ -31,13 +31,6 @@ module Relaton
 
     attr_accessor *ATTRIBS
 
-    def self.ns(xpath)
-      xpath.gsub(%r{/([a-zA-z])}, "/xmlns:\\1").
-        gsub(%r{::([a-zA-z])}, "::xmlns:\\1").
-        gsub(%r{\[([a-zA-z][a-z0-9A-Z@/]* ?=)}, "[xmlns:\\1").
-        gsub(%r{\[([a-zA-z][a-z0-9A-Z@/]*\])}, "[xmlns:\\1")
-    end
-
     def initialize(options)
       options.each_pair do |k,v|
         send("#{k.to_s}=", v)
@@ -61,55 +54,7 @@ module Relaton
     end
 
     def self.from_xml(source)
-
-      datetype = "circulated"
-
-      # bib.relaton_xml_path = URI.escape("#{relaton_root}/#{id_code}.xml")
-      revdate = source.at(ns("./date[@type = 'published']")) ||
-        source.at(ns("./date[@type = 'circulated']")) ||
-        source.at(ns("./date"))
-      revdate_value = revdate&.at(ns("./on")) || revdate&.at(ns("./from"))
-
-      if revdate && revdate_value
-        datetype = revdate["type"]
-        revdate = begin
-          Date.parse(revdate_value.text.strip).to_s
-        rescue
-          warn "[relaton] parsing published date '#{revdate.text}' failed."
-          revdate_value.text.strip
-        end || nil
-      else
-        revdate = nil
-      end
-
-
-      options = {
-        uri: source.at(ns("./uri[not(@type)]"))&.text,
-        xml: source.at(ns("./uri[@type='xml']"))&.text,
-        pdf: source.at(ns("./uri[@type='pdf']"))&.text,
-        html: source.at(ns("./uri[@type='html']"))&.text,
-        rxl: source.at(ns("./uri[@type='rxl']"))&.text,
-        doc: source.at(ns("./uri[@type='doc']"))&.text,
-        docidentifier: source.at(ns("./docidentifier"))&.text,
-        title: source.at(ns("./title"))&.text,
-        doctype: source.at(ns("./@type"))&.text,
-        stage: source.at(ns("./status"))&.text,
-        technical_committee: source.at(ns("./editorialgroup/technical-committee"))&.text,
-        abstract: source.at(ns("./abstract"))&.text,
-        revdate: revdate,
-        language: source.at(ns("./language"))&.text,
-        script: source.at(ns("./script"))&.text,
-        edition: source.at(ns("./edition"))&.text,
-        copyright_from: source.at(ns("./copyright/from"))&.text,
-        copyright_owner: source.at(ns("./copyright/owner/organization/name"))&.text,
-        contributor_author_role: source.at(ns("./contributor/role[@type='author']"))&.text,
-        contributor_author_organization: source.at(ns("./contributor/role[@type='author']"))&.parent&.at(ns("./organization/name"))&.text,
-        contributor_publisher_role: source.at(ns("./contributor/role[@type='publisher']"))&.text,
-        contributor_publisher_organization: source.at(ns("./contributor/role[@type='publisher']"))&.parent&.at(ns("./organization/name"))&.text,
-        datetype: datetype
-      }
-
-      new(options)
+      new(Relaton::Document.parse(source))
     end
 
     def to_xml
@@ -173,6 +118,5 @@ module Relaton
     def to_yaml
       to_h.to_yaml
     end
-
   end
 end

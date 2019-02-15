@@ -1,5 +1,6 @@
 require "thor"
 require "relaton"
+require "relaton/document"
 require_relative "cli/command"
 
 module Relaton

@@ -1,0 +1,44 @@
+<bibdata xmlns="https://open.ribose.com/relaton-xml" type="TYPE">
+    <title>Title</title>
+    <docidentifier>ID</docidentifier>
+    <date type="fred">
+        <on>1002-01-01</on>
+    </date>
+    <date type="published">
+        <on>1000-01-01</on>
+    </date>
+    <uri type="html">HTML</uri>
+    <uri type="xml">XML</uri>
+    <uri>URI</uri>
+    <uri type="pdf">PDF</uri>
+    <uri type="doc">DOC</uri>
+    <uri type="rxl">RXL</uri>
+    <status>STAGE</status>
+    <abstract>ABSTRACT</abstract>
+    <language>LANGUAGE</language>
+    <script>SCRIPT</script>
+    <edition>EDITION</edition>
+    <editorialgroup>
+        <technical-committee>TC</technical-committee>
+    </editorialgroup>
+    <copyright>
+        <from>1900</from>
+        <owner>
+            <organization>
+                <name>DISNEY</name>
+            </organization>
+        </owner>
+    </copyright>
+    <contributor>
+        <role type="author">AUTHOR_ROLE</role>
+        <organization>
+            <name>AUTHORG</name>
+        </organization>
+    </contributor>
+    <contributor>
+        <role type="publisher" />
+        <organization>
+            <name>PUBLISHERG</name>
+        </organization>
+    </contributor>
+</bibdata>
