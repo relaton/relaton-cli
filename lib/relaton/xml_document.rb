@@ -1,5 +1,9 @@
+require "relaton/element_finder"
+
 module Relaton
-  class Document
+  class XmlDocument
+    include Relaton::ElementFinder
+
     def initialize(document)
       @document = nokogiri_document(document) || document
     end
@@ -15,14 +19,6 @@ module Relaton
     private
 
     attr_reader :document
-
-    def find_text(xpath, element = nil)
-      find(xpath, element)&.text
-    end
-
-    def find(xpath, element = nil)
-      (element || document).at(apply_namespace(xpath))
-    end
 
     def nokogiri_document(document)
       if document.class == String
@@ -46,14 +42,6 @@ module Relaton
     def find_organization_for(type)
       find("./contributor/role[@type='#{type}']")&.parent&.
         at(apply_namespace("./organization/name"))&.text
-    end
-
-    def apply_namespace(xpath)
-      xpath.
-        gsub(%r{/([a-zA-Z])}, "/xmlns:\\1").
-        gsub(%r{::([a-zA-Z])}, "::xmlns:\\1").
-        gsub(%r{\[([a-zA-Z][a-z0-9A-Z@/]* ?=)}, "[xmlns:\\1").
-        gsub(%r{\[([a-zA-Z][a-z0-9A-Z@/]*\])}, "[xmlns:\\1")
     end
 
     def elements

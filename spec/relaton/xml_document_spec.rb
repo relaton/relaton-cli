@@ -1,9 +1,9 @@
 require "spec_helper"
 
-RSpec.describe Relaton::Document do
+RSpec.describe Relaton::XmlDocument do
   describe ".parse" do
     it "parse an xml document attributes" do
-      document = Relaton::Document.parse(
+      document = Relaton::XmlDocument.parse(
         File.read("spec/fixtures/relaton.xml"),
       )
 

@@ -54,7 +54,7 @@ module Relaton
     end
 
     def self.from_xml(source)
-      new(Relaton::Document.parse(source))
+      new(Relaton::XmlDocument.parse(source))
     end
 
     def to_xml

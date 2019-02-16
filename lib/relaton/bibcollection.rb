@@ -1,6 +1,9 @@
+require "relaton/element_finder"
 
 module Relaton
   class Bibcollection
+    extend Relaton::ElementFinder
+
     ATTRIBS = %i[
       title
       items
@@ -9,13 +12,6 @@ module Relaton
     ]
 
     attr_accessor *ATTRIBS
-
-    def self.ns(xpath)
-      xpath.gsub(%r{/([a-zA-z])}, "/xmlns:\\1").
-        gsub(%r{::([a-zA-z])}, "::xmlns:\\1").
-        gsub(%r{\[([a-zA-z][a-z0-9A-Z@/]* ?=)}, "[xmlns:\\1").
-        gsub(%r{\[([a-zA-z][a-z0-9A-Z@/]*\])}, "[xmlns:\\1")
-    end
 
     def initialize(options)
       self.items = []
@@ -40,14 +36,16 @@ module Relaton
     end
 
     def self.from_xml(source)
-      title = source&.at(ns("./relaton-collection/title"))&.text
-      author = source&.at(ns("./relaton-collection/contributor[role/@type = 'author']/organization/name"))&.text
-      items = source&.xpath(ns("./relaton-collection/relation"))&.map do |item|
-        klass = item.at(ns("./bibdata")) ? Bibdata : Bibcollection
-        klass.from_xml(item.at(ns("./bibdata")) || item)
+      title = find_text("./relaton-collection/title", source)
+      author = find_text("./relaton-collection/contributor[role/@type = 'author']/organization/name", source)
+
+      items = find_xpath("./relaton-collection/relation", source)&.map do |item|
+        bibdata = find("./bibdata", item)
+        klass = bibdata ? Bibdata : Bibcollection
+        klass.from_xml(bibdata || item)
       end
-      opts = { title: title, author: author, items: items }
-      new(opts)
+
+      new(title: title, author: author, items: items)
     end
 
     def new_bib_item_class(options)
