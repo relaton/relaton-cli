@@ -11,6 +11,7 @@ module Relaton
         @options = options
         @outdir = options.fetch(:outdir, nil)
         @writable = options.fetch(:write, true)
+        @overwrite = options.fetch(:overwrite, true)
 
         install_dependencies(options[:require] || [])
       end
@@ -41,7 +42,7 @@ module Relaton
 
       private
 
-      attr_reader :file, :outdir, :options, :writable
+      attr_reader :file, :outdir, :options, :writable, :overwrite
 
       def default_ext
         raise "Override this method"
@@ -71,7 +72,10 @@ module Relaton
 
       def write_to_a_file(content, outfile = nil)
         outfile ||= Pathname.new(file).sub_ext(extension).to_s
-        File.open(outfile, "w:utf-8") { |file| file.write(content) }
+
+        if !File.exists?(outfile) || overwrite
+          File.open(outfile, "w:utf-8") { |file| file.write(content) }
+        end
       end
 
       def write_to_file_collection(content, format)

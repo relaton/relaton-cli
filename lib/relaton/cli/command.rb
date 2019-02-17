@@ -43,6 +43,7 @@ module Relaton
       option :prefix, aliases: :p, desc: "Filename prefix of individual Relaton XML files, defaults to empty"
       option :outdir, aliases: :o,  desc: "Output to the specified directory with individual Relaton Bibdata XML files"
       option :require, aliases: :r, type: :array, desc: "Require LIBRARY prior to execution"
+      option :overwrite, aliases: :f, type: :boolean, default: false, desc: "Overwrite the existing file"
 
       def yaml2xml(filename)
         Relaton::Cli::YAMLConvertor.to_xml(filename, options)
@@ -53,6 +54,7 @@ module Relaton
       option :prefix, aliases: :p, desc: "Filename prefix of Relaton XML files, defaults to empty"
       option :outdir, aliases: :o, desc: "Output to the specified directory with individual Relaton Bibdata YAML files"
       option :require, aliases: :r, type: :array, desc: "Require LIBRARY prior to execution"
+      option :overwrite, aliases: :f, type: :boolean, default: false, desc: "Overwrite the existing file"
 
       def xml2yaml(filename)
         Relaton::Cli::XMLConvertor.to_yaml(filename, options)
@@ -61,6 +63,7 @@ module Relaton
       desc "xml2html RELATON-INDEX-XML", "Convert Relaton Collection XML into HTML"
       option :stylesheet, aliases: :s, desc: "Stylesheet file path for rendering HTML index"
       option :templatedir, aliases: :t, desc: "Liquid template directory for rendering Relaton items and collection"
+      option :overwrite, aliases: :f, type: :boolean, default: false, desc: "Overwrite the existing file"
 
       def xml2html(file, style = nil, template = nil)
         Relaton::Cli::XMLConvertor.to_html(file, style, template)
@@ -69,6 +72,7 @@ module Relaton
       desc "yaml2html RELATON-INDEX-YAML", "Concatenate Relaton Collection YAML into HTML"
       option :stylesheet, aliases: :s, desc: "Stylesheet file path for rendering HTML index"
       option :templatedir, aliases: :t, desc: "Liquid template directory for rendering Relaton items and collection"
+      option :overwrite, aliases: :f, type: :boolean, default: false, desc: "Overwrite the existing file"
 
       def yaml2html(file, style = nil, template = nil)
         Relaton::Cli::YAMLConvertor.to_html(file, style, template)
