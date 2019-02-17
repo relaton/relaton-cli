@@ -28,6 +28,17 @@ RSpec.describe Relaton::Cli::XMLConvertor do
         expect(buffer.last).to include("title: Date and time -- Calendars")
       end
     end
+
+    context "with a single relaton file" do
+      it "converts the relaton xml file to yaml file" do
+        buffer = stub_file_write_to_io(sample_relaton_fille)
+        Relaton::Cli::XMLConvertor.to_yaml(sample_relaton_fille)
+
+        expect(buffer).to include("docidentifier: CC 18001")
+        expect(buffer).to include("doctype: standard")
+        expect(buffer).to include("uri: standards/csd-datetime-explict")
+      end
+    end
   end
 
   describe ".to_html" do
@@ -47,6 +58,10 @@ RSpec.describe Relaton::Cli::XMLConvertor do
         expect(buffer).to include("<title>CalConnect Standards Registry</tit")
       end
     end
+  end
+
+  def sample_relaton_fille
+    @sample_relaton_fille ||= "spec/fixtures/sample.rxl"
   end
 
   def sample_collection_file

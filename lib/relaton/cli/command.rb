@@ -48,7 +48,7 @@ module Relaton
         Relaton::Cli::YAMLConvertor.to_xml(filename, options)
       end
 
-      desc "xml2yaml XML", "Convert Relaton YAML into Relaton Bibcollection YAML (and separate files)"
+      desc "xml2yaml XML", "Convert Relaton XML into Relaton Bibdata / Bibcollection YAML (and separate files)"
       option :extension, aliases: :x, desc: "File extension of Relaton YAML files, defaults to 'yaml'"
       option :prefix, aliases: :p, desc: "Filename prefix of Relaton XML files, defaults to empty"
       option :outdir, aliases: :o, desc: "Output to the specified directory with individual Relaton Bibdata YAML files"

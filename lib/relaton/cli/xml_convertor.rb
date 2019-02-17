@@ -30,7 +30,11 @@ module Relaton
       end
 
       def convert_content(content)
-        Relaton::Bibcollection.from_xml(content)
+        if content.root.name == "bibdata"
+          Bibdata.from_xml(content.to_s)
+        else
+          Bibcollection.from_xml(content)
+        end
       end
 
       def file_content
