@@ -4,53 +4,76 @@ require 'pp'
 
 module Relaton::Cli
   class XmlToHtmlRenderer
-
-    def initialize(options)
-      @liquid_dir = options[:liquid_dir]
-      @stylesheet = File.read(options[:stylesheet], encoding: "utf-8")
-
-      @file_system = Liquid::LocalFileSystem.new(@liquid_dir)
-      @template = File.read(@file_system.full_path("index"), encoding: "utf-8")
-      Liquid::Template.file_system = @file_system
+    def initialize(liquid_dir: nil, stylesheet: nil)
+      @liquid_dir = liquid_dir
+      @stylesheet = read_file(stylesheet)
+      init_liquid_template_and_filesystem
     end
 
-    def ns(xpath)
-      xpath.gsub(%r{/([a-zA-z])}, "/xmlns:\\1").
-        gsub(%r{::([a-zA-z])}, "::xmlns:\\1").
-        gsub(%r{\[([a-zA-z][a-z0-9A-Z@/]* ?=)}, "[xmlns:\\1").
-        gsub(%r{\[([a-zA-z][a-z0-9A-Z@/]*\])}, "[xmlns:\\1")
+    def render(index_xml)
+      Liquid::Template.
+        parse(template).
+        render(build_liquid_document(index_xml))
     end
 
-    def empty2nil(v)
-      return nil if !v.nil? && v.is_a?(String) && v.empty?
-      v
+    def uri_for_extension(uri, extension)
+      unless uri.nil?
+        uri.sub(/\.[^.]+$/, ".#{extension.to_s}")
+      end
+    end
+
+    # Render HTML
+    #
+    # This interface allow us to convert a Relaton XML to HTML
+    # using the specified liquid template and stylesheets. It
+    # also do some minor clean during this conversion.
+    #
+    def self.render(file, options)
+      new(options).render(file)
+    end
+
+    private
+
+    attr_reader :stylesheet, :liquid_dir, :template
+
+    def read_file(file)
+      File.read(file, encoding: "utf-8")
+    end
+
+    def build_liquid_document(source)
+      bibcollection = build_bibcollection(source)
+
+      hash_to_liquid({
+        depth: 2,
+        css: stylesheet,
+        title: bibcollection.title,
+        author: bibcollection.author,
+        documents: document_items(bibcollection)
+      })
+    end
+
+    def init_liquid_template_and_filesystem
+      file_system = Liquid::LocalFileSystem.new(liquid_dir)
+      @template = read_file(file_system.full_path("index"))
+
+      Liquid::Template.file_system = file_system
     end
 
     # TODO: This should be recursive, but it's not
     def hash_to_liquid(hash)
-      hash.map { |k, v| [k.to_s, empty2nil(v)] }.to_h
+      hash.map { |key, value| [key.to_s, empty2nil(value)] }.to_h
     end
 
-    def render(index_xml)
-      source = Nokogiri::XML(index_xml)
-      bibcollection = ::Relaton::Bibcollection.from_xml(source)
-      locals = {
-        css: @stylesheet,
-        title: bibcollection.title,
-        author: bibcollection.author,
-        documents: bibcollection.to_h["root"]["items"].map { |i| hash_to_liquid(i) },
-        depth: 2
-      }
-      Liquid::Template.parse(@template).render(hash_to_liquid(locals))
+    def empty2nil(value)
+      value unless value.is_a?(String) && value.empty? && !value.nil?
     end
 
-    def uri_for_extension(uri, extension)
-      return nil if uri.nil?
-      uri.sub(/\.[^.]+$/, ".#{extension.to_s}")
+    def build_bibcollection(source)
+      Relaton::Bibcollection.from_xml(Nokogiri::XML(source))
     end
 
-    def self.render(file, options)
-      new(options).render(file)
+    def document_items(bibcollection)
+      bibcollection.to_h["root"]["items"].map { |item| hash_to_liquid(item) }
     end
   end
 end
