@@ -136,12 +136,16 @@ module Relaton
 
       def split_and_write_to_files
         output_dir = outdir || build_dirname(source)
-        write_to_collection_file(relaton_collection.to_yaml, output_dir)
 
         relaton_collection.items.each do |content|
           name = build_filename(nil, content.docidentifier)
-          write_to_file(content.to_xml, output_dir, name)
+          write_to_file(content.send(output_type), output_dir, name)
         end
+      end
+
+      def output_type
+        output_format = options[:extension] || "rxl"
+        (output_format == "rxl" ? "to_xml" : "to_#{output_format}").to_sym
       end
 
       def bibdata_instance(document, file)
@@ -192,10 +196,6 @@ module Relaton
         File.open(file_with_dir, "w:utf-8") { |file| file.write(content) }
       end
 
-      def write_to_collection_file(content, directory)
-        write_to_file(content, directory, build_filename(source, nil, "yaml"))
-      end
-
       def build_dirname(filename)
         basename = File.basename(filename)&.gsub(/.(xml|rxl)/, "")
         directory_name = sanitize_string(basename)
@@ -210,8 +210,13 @@ module Relaton
       end
 
       def sanitize_string(string)
-        string.downcase.gsub("/", " ").gsub(/^\s+/, "").gsub(/\s+$/, "").
-          gsub(/\s+/, "-")
+        clean_string = replace_bad_characters(string.downcase)
+        clean_string.gsub(/^\s+/, "").gsub(/\s+$/, "").gsub(/\s+/, "-")
+      end
+
+      def replace_bad_characters(string)
+        bad_chars = ["/", "\\", "?", "%", "*", ":", "|", '"', "<", ">", ".", " "]
+        bad_chars.inject(string.downcase) { |res, char| res.gsub(char, "-") }
       end
     end
   end

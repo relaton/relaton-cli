@@ -128,7 +128,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
         content = File.read([output_dir, "cc-34000.rxl"].join("/"))
 
         expect(file_exist?("cc-34000.rxl")).to be true
-        expect(Dir["#{output_dir}/**"].length).to eq(7)
+        expect(Dir["#{output_dir}/**"].length).to eq(6)
         expect(content).to include("<bibdata type='standard'>")
         expect(content).to include("<title>Date and time -- Concepts")
       end
