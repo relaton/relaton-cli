@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Relaton Command-line Interface}
   spec.description   = %q{Relaton Command-line Interface}
-  spec.homepage      = "https://github.com/riboseinc/relaton-cli"
+  spec.homepage      = "https://github.com/metanorma/relaton-cli"
   spec.license       = "BSD-2-Clause"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
