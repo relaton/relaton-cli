@@ -139,7 +139,15 @@ module Relaton
 
         relaton_collection.items.each do |content|
           name = build_filename(nil, content.docidentifier)
+          find_available_bibrxl_file(name, output_dir, content)
           write_to_file(content.send(output_type), output_dir, name)
+        end
+      end
+
+      def find_available_bibrxl_file(name, ouputdir, content)
+        if options[:extension] == "yaml" || options[:extension] == "yml"
+          bib_rxl = Pathname.new([outdir, name].join("/")).sub_ext(".rxl")
+          content.bib_rxl = bib_rxl.to_s if File.file?(bib_rxl)
         end
       end
 

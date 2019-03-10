@@ -27,6 +27,7 @@ module Relaton
       script
       edition
       datetype
+      bib_rxl
     ]
 
     attr_accessor *ATTRIBS
