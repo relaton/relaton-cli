@@ -2,6 +2,7 @@
 
 image:https://img.shields.io/gem/v/relaton-cli.svg["Gem Version", link="https://rubygems.org/gems/relaton-cli"]
 image:https://img.shields.io/travis/metanorma/relaton-cli/master.svg["Build Status", link="https://travis-ci.org/metanorma/relaton-cli"]
+image:https://ci.appveyor.com/api/projects/status/fyy87flpig4q5o2u?svg=true["Appveyor Build Status", link="https://ci.appveyor.com/project/ribose/relaton-cli"]
 image:https://codeclimate.com/github/metanorma/relaton-cli/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/metanorma/relaton-cli"]
 
 Documentation in development.
