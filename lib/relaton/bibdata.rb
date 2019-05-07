@@ -21,6 +21,7 @@ module Relaton
       copyright_owner
       contributor_author_role
       contributor_author_organization
+      contributor_author_person
       contributor_publisher_role
       contributor_publisher_organization
       language
@@ -28,6 +29,7 @@ module Relaton
       edition
       datetype
       bib_rxl
+      ref
     ]
 
     attr_accessor *ATTRIBS
@@ -61,7 +63,7 @@ module Relaton
     def to_xml
       #datetype = stage&.casecmp("published") == 0 ? "published" : "circulated"
 
-      ret = "<bibdata type='#{doctype}'>\n"
+      ret = ref ? "<bibitem id= '#{ref}' type='#{doctype}'>\n" : "<bibdata type='#{doctype}'>\n"
       ret += "<fetched>#{Date.today.to_s}</fetched>\n"
       ret += "<title>#{title}</title>\n"
       ret += "<docidentifier>#{docidentifier}</docidentifier>\n" if docidentifier
@@ -89,6 +91,15 @@ module Relaton
         ret += "</contributor>\n"
       end
 
+      if contributor_author_person
+        Array(contributor_author_person).each do |name|
+          ret += "<contributor>\n"
+          ret += "<role type='author'/>\n"
+          ret += "<person><name><completename>#{name}</completename></name></person>\n"
+          ret += "</contributor>\n"
+        end
+      end
+
       if contributor_publisher_role
         ret += "<contributor>\n"
         ret += "<role type='publisher'/>\n"
@@ -105,7 +116,7 @@ module Relaton
       ret += "<abstract>#{abstract}</abstract>\n" if abstract
       ret += "<status>#{stage}</status>\n" if stage
       ret += "<editorialgroup><technical-committee>#{technical_committee}</technical-committee></editorialgroup>\n" if technical_committee
-      ret += "</bibdata>\n"
+      ret += ref ? "</bibitem>\n" : "</bibdata>\n"
     end
 
     def to_h
