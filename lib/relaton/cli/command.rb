@@ -82,7 +82,7 @@ module Relaton
 
       def fetch_document(code, options)
         if registered_types.include?(options[:type])
-          doc = Cli.relaton.fetch_std(code, options[:year], options[:type])
+          doc = Cli.relaton.fetch(code, options[:year])
           doc ? doc.to_xml : "No matching bibliographic entry found"
         end
       end
