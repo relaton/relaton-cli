@@ -30,6 +30,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "equivalent-xml", "~> 0.6"
   spec.add_development_dependency "rspec-core", "~> 3.4"
   spec.add_development_dependency "pry"
+  spec.add_development_dependency "ruby-debug-ide"
+  spec.add_development_dependency "debase"
 
   spec.add_runtime_dependency "relaton", "~> 0.4"
   spec.add_runtime_dependency "thor"

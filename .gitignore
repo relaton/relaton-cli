@@ -11,3 +11,5 @@
 /.rubocop-https*
 
 .rspec_status
+.vscode/
+.byebug_history

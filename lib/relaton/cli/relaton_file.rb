@@ -112,9 +112,16 @@ module Relaton
           xml = nokogiri_document(nil, file)
           xml.remove_namespaces!
 
-          bib = xml.at("//bibdata") || next
+          if (bib = xml.at("//bibdata"))
+            bib = nokogiri_document(bib.to_xml)
+          elsif (rfc = xml.at("//rfc"))
+            require "relaton_ietf/scrapper"
+            ietf = RelatonIetf::Scrapper.bib_item rfc, "rfc"
+            bib = nokogiri_document ietf.to_xml(bibdata: true)
+          else
+            next
+          end
 
-          bib = nokogiri_document(bib.to_xml)
           bib.remove_namespaces!
           bib.root.add_namespace(nil, "xmlns")
 
@@ -126,10 +133,15 @@ module Relaton
       end
 
       def concatenate_files
-        xml_files = [convert_rxl_to_xml, convert_yamls_to_xml]
+        xml_files = [convert_rxl_to_xml, convert_yamls_to_xml, convert_xml_to_xml]
 
         xml_files.flatten.map do |xml|
           doc = nokogiri_document(xml[:content])
+          if (rfc = doc.at("//rfc"))
+            require "relaton_ietf/scrapper"
+            ietf = RelatonIetf::Scrapper.bib_item rfc, "rfc"
+            doc = nokogiri_document ietf.to_xml(bibdata: true)
+          end
           bibdata_instance(doc, xml[:file]) if doc.root.name == "bibdata"
         end.compact
       end
@@ -191,6 +203,12 @@ module Relaton
       def convert_yamls_to_xml
         select_files_with("yaml").map do |file|
           { file: file, content: YAMLConvertor.to_xml(file, write: false) }
+        end
+      end
+
+      def convert_xml_to_xml
+        select_files_with("{xml}").map do |file|
+          { file: file, content: File.read(file, encoding: "utf-8") }
         end
       end
 

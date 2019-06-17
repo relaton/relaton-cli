@@ -77,7 +77,12 @@ module Relaton
       value = find_text("./on", revdate) || find_text("./form", revdate)
 
       if revdate && value
-        { datetype: revdate["type"], revdate: Date.parse(value.strip).to_s }
+        date = if value.size > 7
+                 Date.parse(value.strip)
+               else
+                 Date.strptime(value.strip, "%Y-%m")
+               end
+        { datetype: revdate["type"], revdate: date.to_s }
       end
     rescue
       warn "[relaton] parsing published date '#{revdate.text}' failed."
