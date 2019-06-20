@@ -14,6 +14,7 @@ module Relaton
       html
       uri
       rxl
+      txt
       revdate
       abstract
       technical_committee

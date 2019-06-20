@@ -177,7 +177,7 @@ module Relaton
       end
 
       def build_bibdata_relaton(bibdata, file)
-        ["xml", "pdf", "doc", "html", "rxl"].each do |type|
+        ["xml", "pdf", "doc", "html", "rxl", "txt"].each do |type|
           file = Pathname.new(file).sub_ext(".#{type}")
           bibdata.send("#{type}=", file) if File.file?(file)
         end
