@@ -85,6 +85,8 @@ module Relaton
           doc = Cli.relaton.fetch(code, options[:year])
           doc ? doc.to_xml : "No matching bibliographic entry found"
         end
+      rescue RelatonBib::RequestError => e
+        e.message
       end
 
       def supported_type_message

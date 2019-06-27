@@ -43,5 +43,17 @@ RSpec.describe "Relaton Fetch" do
         expect(output.stdout).to include("No matching bibliographic entry foun")
       end
     end
+
+    it "raise request error" do
+      require "relaton_bib"
+      relaton = double
+      expect(relaton).to receive(:fetch).and_raise RelatonBib::RequestError
+      expect(Relaton::Db).to receive(:new).and_return relaton
+      command = Relaton::Cli::Command.new
+      expect(command).to receive(:registered_types).and_return ["ISO"]
+      expect(command.send(:fetch_document, "ISO 2146", type: "ISO")).to eq(
+        "RelatonBib::RequestError",
+      )
+    end
   end
 end
