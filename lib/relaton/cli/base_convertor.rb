@@ -1,6 +1,7 @@
 require "fileutils"
 require "relaton/bibdata"
 require "relaton/bibcollection"
+require "relaton/bibcollectionnew"
 require "relaton/cli/xml_to_html_renderer"
 
 module Relaton

@@ -71,7 +71,7 @@ root:
       docid: 
         type: CC
         id: CC/S 34006
-      type: specification
+      type: standard
       title: 
         type: main
         content: Date and time -- Calendars -- Chinese calendar

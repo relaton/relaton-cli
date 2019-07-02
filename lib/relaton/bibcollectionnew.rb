@@ -72,7 +72,7 @@ module Relaton
 
     def to_xml(opts)
       items.sort_by! do |b|
-        b.doc_number
+        b.docnumber
       end
 
       collection_type = if doctype
