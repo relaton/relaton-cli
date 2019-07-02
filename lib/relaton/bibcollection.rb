@@ -70,7 +70,7 @@ module Relaton
       end
     end
 
-    def to_xml
+    def to_xml(opts)
       items.sort_by! do |b|
         b.doc_number
       end
@@ -89,7 +89,7 @@ module Relaton
       unless items.empty?
         items.each do |item|
           ret += "<relation type='partOf'>"
-          ret += item.to_xml
+          ret += item.to_xml(opts)
           ret += "</relation>\n"
         end
       end

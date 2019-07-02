@@ -63,10 +63,17 @@ module Relaton
       def install_dependencies(dependencies)
         dependencies.each { |dependency| require(dependency) }
       end
+      
+      def item_output(content, format)
+        case format.to_sym
+                        when :to_yaml then content.to_yaml
+                        when :to_xml then content.to_xml(date_format: :full)
+                        end
+      end
 
       def convert_and_write(content, format)
         content = convert_content(content)
-        write_to_a_file(content.send(format.to_sym))
+        write_to_a_file(item_output(content, format))
         write_to_file_collection(content, format.to_sym)
       end
 
@@ -81,10 +88,9 @@ module Relaton
       def write_to_file_collection(content, format)
         if outdir && content.is_a?(Relaton::Bibcollection)
           FileUtils.mkdir_p(outdir)
-
           content.items_flattened.each do |item|
             collection = collection_filename(item.docidentifier_code)
-            write_to_a_file(item.send(format.to_sym), collection)
+            write_to_a_file(item_output(item, format), collection)
           end
         end
       end

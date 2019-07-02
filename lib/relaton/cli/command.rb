@@ -1,6 +1,7 @@
 require "relaton/cli/relaton_file"
 require "relaton/cli/xml_convertor"
 require "relaton/cli/yaml_convertor"
+require "relaton/cli/yaml_convertor_new"
 require "fcntl"
 
 module Relaton
@@ -47,6 +48,17 @@ module Relaton
 
       def yaml2xml(filename)
         Relaton::Cli::YAMLConvertor.to_xml(filename, options)
+      end
+
+      desc "yaml2xmlnew YAML", "Convert Relaton YAML into Relaton Collection XML or separate files"
+      option :extension, aliases: :x, desc: "File extension of Relaton XML files, defaults to 'rxl'"
+      option :prefix, aliases: :p, desc: "Filename prefix of individual Relaton XML files, defaults to empty"
+      option :outdir, aliases: :o,  desc: "Output to the specified directory with individual Relaton Bibdata XML files"
+      option :require, aliases: :r, type: :array, desc: "Require LIBRARY prior to execution"
+      option :overwrite, aliases: :f, type: :boolean, default: false, desc: "Overwrite the existing file"
+
+      def yaml2xmlnew(filename)
+        Relaton::Cli::YAMLConvertorNew.to_xml(filename, options)
       end
 
       desc "xml2yaml XML", "Convert Relaton XML into Relaton Bibdata / Bibcollection YAML (and separate files)"
