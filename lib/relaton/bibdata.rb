@@ -61,7 +61,7 @@ module Relaton
       new(Relaton::XmlDocument.parse(source))
     end
 
-    def to_xml(opts)
+    def to_xml(opts = {})
       #datetype = stage&.casecmp("published") == 0 ? "published" : "circulated"
 
       ret = ref ? "<bibitem id= '#{ref}' type='#{doctype}'>\n" : "<bibdata type='#{doctype}'>\n"

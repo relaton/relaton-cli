@@ -13,6 +13,7 @@ module Relaton
         @outdir = options.fetch(:outdir, nil)
         @writable = options.fetch(:write, true)
         @overwrite = options.fetch(:overwrite, true)
+        @default_filelabel = 0
 
         install_dependencies(options[:require] || [])
       end
@@ -64,12 +65,12 @@ module Relaton
       def install_dependencies(dependencies)
         dependencies.each { |dependency| require(dependency) }
       end
-      
+
       def item_output(content, format)
         case format.to_sym
-                        when :to_yaml then content.to_yaml
-                        when :to_xml then content.to_xml(date_format: :full)
-                        end
+        when :to_yaml then content.to_yaml
+        when :to_xml then content.to_xml(date_format: :full)
+        end
       end
 
       def convert_and_write(content, format)
@@ -87,12 +88,37 @@ module Relaton
       end
 
       def write_to_file_collection(content, format)
-        if outdir && content.is_a?(Relaton::Bibcollection)
+        if outdir && (content.is_a?(Relaton::Bibcollection))
           FileUtils.mkdir_p(outdir)
           content.items_flattened.each do |item|
             collection = collection_filename(item.docidentifier_code)
             write_to_a_file(item_output(item, format), collection)
           end
+        end
+        if outdir && (content.is_a?(Relaton::BibcollectionNew))
+          FileUtils.mkdir_p(outdir)
+          content.items_flattened.each do |item|
+            collection = collection_filename(extract_docid(item))
+            write_to_a_file(item_output(item, format), collection)
+          end
+        end
+      end
+
+      def extract_docid(item)
+        @default_filelabel += 1
+        item.docidentifier.nil? and return @default_filelabel.to_s
+        item.docidentifier.is_a?(Array) or return @default_filelabel.to_s
+        item.docidentifier.empty? and return @default_filelabel.to_s
+        docidentifier_code(item.docidentifier[0].id)
+      end
+
+      # From http://gavinmiller.io/2016/creating-a-secure-sanitization-function/
+      FILENAME_BAD_CHARS = [ '/', '\\', '?', '%', '*', ':', '|', '"', '<', '>', '.', ' ' ]
+
+      def docidentifier_code(docidentifier)
+        return "" if docidentifier.nil?
+        a = FILENAME_BAD_CHARS.inject(docidentifier.downcase) do |result, bad_char|
+          result.gsub(bad_char, '-')
         end
       end
 

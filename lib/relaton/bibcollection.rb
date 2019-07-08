@@ -40,7 +40,7 @@ module Relaton
       author = find_text("./relaton-collection/contributor[role/@type = 'author']/organization/name", source)
 
       items = find_xpath("./relaton-collection/relation", source)&.map do |item|
-        bibdata = find("./bibdata", item)
+        bibdata = find("./bibdata | ./bibitem", item)
         klass = bibdata ? Bibdata : Bibcollection
         klass.from_xml(bibdata || item)
       end
@@ -70,7 +70,7 @@ module Relaton
       end
     end
 
-    def to_xml(opts)
+    def to_xml(opts = {})
       items.sort_by! do |b|
         b.doc_number
       end

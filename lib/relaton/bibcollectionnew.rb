@@ -58,7 +58,7 @@ module Relaton
 
     def items_flattened
       items.sort_by! do |b|
-        b.doc_number
+        b.docnumber
       end
 
       items.inject([]) do |acc,item|
