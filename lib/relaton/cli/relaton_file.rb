@@ -116,7 +116,8 @@ module Relaton
             bib = nokogiri_document(bib.to_xml)
           elsif (rfc = xml.at("//rfc"))
             require "relaton_ietf/scrapper"
-            ietf = RelatonIetf::Scrapper.bib_item rfc, "rfc"
+            #ietf = RelatonIetf::Scrapper.bib_item rfc, "rfc"
+            ietf = RelatonIetf::Scrapper.fetch_rfc rfc
             bib = nokogiri_document ietf.to_xml(bibdata: true)
           else
             next
@@ -139,7 +140,8 @@ module Relaton
           doc = nokogiri_document(xml[:content])
           if (rfc = doc.at("//rfc"))
             require "relaton_ietf/scrapper"
-            ietf = RelatonIetf::Scrapper.bib_item rfc, "rfc"
+            #ietf = RelatonIetf::Scrapper.bib_item rfc, "rfc"
+            ietf = RelatonIetf::Scrapper.fetch_rfc rfc
             doc = nokogiri_document ietf.to_xml(bibdata: true)
           end
           bibdata_instance(doc, xml[:file]) if doc.root.name == "bibdata"
