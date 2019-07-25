@@ -7,12 +7,12 @@ root:
         type: CC
         id: CC 36000
       type: standard
-      titles: 
+      title: 
         type: main
         content: Standardization documents -- Vocabulary
       docstatus:
         stage: proposal
-      dates:
+      date:
         type: issued
         value:  2018-10-25
     - technical_committee: DATETIME
@@ -20,12 +20,12 @@ root:
         type: CC
         id: CC 34000
       type: standard
-      titles: 
+      title: 
         type: main
         content: Date and time -- Concepts and vocabulary
       docstatus:
         stage: proposal
-      dates:
+      date:
         type: issued
         value: 2018-10-25
     - technical_committee: DATETIME
@@ -33,12 +33,12 @@ root:
         type: CC
         id: CC 34002
       type: standard
-      titles: 
+      title: 
         type: main
         content: Date and time -- Timezones
       docstatus:
         stage: proposal
-      dates:
+      date:
         type: issued
         value: 2018-10-25
     - technical_committee: DATETIME
@@ -46,12 +46,12 @@ root:
         type: CC
         id: CC 34003
       type: standard
-      titles: 
+      title: 
         type: main
         content: Date and time -- Codes for calendar systems
       docstatus:
         stage: proposal
-      dates:
+      date:
         type: issued
         value: 2018-10-25
     - technical_committee: DATETIME
@@ -59,12 +59,12 @@ root:
         type: CC
         id: CC 34005
       type: standard
-      titles: 
+      title: 
         type: main
         content: Date and time -- Calendars -- Gregorian calendar
       docstatus:
         stage: proposal
-      dates:
+      date:
         type: issued
         value: 2018-10-25
     - technical_committee: DATETIME
@@ -72,11 +72,11 @@ root:
         type: CC
         id: CC/S 34006
       type: standard
-      titles: 
+      title: 
         type: main
         content: Date and time -- Calendars -- Chinese calendar
       docstatus:
         stage: proposal
-      dates:
+      date:
         type: issued
         value: 2018-10-25

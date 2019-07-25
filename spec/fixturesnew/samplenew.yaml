@@ -3,12 +3,12 @@ docid:
   type: CC
   id: CC 36000
 type: standard
-titles: 
+title: 
   type: main
   content: Standardization documents -- Vocabulary
 docstatus:
   stage: proposal
-dates: 
+date: 
   type: issued
   value: 2018-10-25
 
