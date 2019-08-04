@@ -47,13 +47,13 @@ module Relaton
       end
 
       def convert_single_file(content)
-        RelatonBib::BibliographicItem.new(RelatonBib::hash_to_bib(content))
+        RelatonBib::BibliographicItem.new(RelatonBib::HashConverter::hash_to_bib(content))
       end
 
       def convert_collection(content)
         if content.has_key?("root")
           content["root"]["items"] = content["root"]["items"].map do |i|
-            RelatonBib::hash_to_bib(i)
+            RelatonBib::HashConverter::hash_to_bib(i)
           end
           Relaton::BibcollectionNew.new(content["root"])
         end
