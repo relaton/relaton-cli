@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    relaton-cli (0.3.3)
+    relaton-cli (0.3.4)
       liquid
       relaton (~> 0.5)
       thor
@@ -38,7 +38,7 @@ GEM
       method_source (~> 0.9.0)
     public_suffix (3.1.1)
     rake (12.3.3)
-    relaton (0.5.2)
+    relaton (0.5.3)
       algoliasearch
       relaton-gb (~> 0.6.0)
       relaton-iec (~> 0.4.0)
@@ -46,28 +46,28 @@ GEM
       relaton-iso (~> 0.6.0)
       relaton-itu (~> 0.3.0)
       relaton-nist (~> 0.3.0)
-    relaton-bib (0.3.4)
+    relaton-bib (0.3.5)
       addressable
       nokogiri (~> 1.10)
-    relaton-gb (0.6.1)
+    relaton-gb (0.6.2)
       cnccs (~> 0.1.1)
       gb-agencies (~> 0.0.1)
       relaton-iso-bib (~> 0.3.0)
-    relaton-iec (0.4.2)
+    relaton-iec (0.4.3)
       addressable
       relaton-iso-bib (~> 0.3.0)
-    relaton-ietf (0.6.2)
+    relaton-ietf (0.6.3)
       relaton-bib (~> 0.3.0)
-    relaton-iso (0.6.3)
+    relaton-iso (0.6.4)
       relaton-iec (~> 0.4.0)
       relaton-iso-bib (~> 0.3.0)
-    relaton-iso-bib (0.3.3)
+    relaton-iso-bib (0.3.4)
       isoics (~> 0.1.6)
       relaton-bib (~> 0.3.0)
       ruby_deep_clone (~> 0.8.0)
-    relaton-itu (0.3.1)
+    relaton-itu (0.3.2)
       relaton-iso-bib (~> 0.3.0)
-    relaton-nist (0.3.2)
+    relaton-nist (0.3.3)
       relaton-bib (~> 0.3.0)
       rubyzip
     rspec (3.8.0)
