@@ -1,0 +1,21 @@
+technical_committee: PUBLISH
+docid: 
+  - id: TC211
+    type: ISO
+type: standard
+title: 
+  - Geographic information
+  - content: Information géographique
+    language: fr
+    script: Latn
+docstatus:
+  stage: stage
+  substage: substage
+  iteration: final
+date: 
+  - type: issued
+    value: "2014"
+  - type: published
+    value: "2014-04"
+  - type: accessed
+    value: "2015-05-20"

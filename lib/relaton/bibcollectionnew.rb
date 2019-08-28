@@ -9,7 +9,7 @@ module Relaton
       items
       doctype
       author
-    ]
+    ].freeze
 
     attr_accessor *ATTRIBS
 
@@ -17,17 +17,15 @@ module Relaton
       self.items = []
       ATTRIBS.each do |k|
         value = options[k] || options[k.to_s]
-        self.send("#{k}=", value)
+        send("#{k}=", value)
       end
-      self.items = (self.items || []).inject([]) do |acc,item|
+      self.items = (items || []).reduce([]) do |acc, item|
         acc << if item.is_a?(::Relaton::BibcollectionNew) ||
-          item.is_a?(::RelatonBib::BibliographicItem)
-          item
-        else
-          new_bib_item_class(item)
-        end
+            item.class >= ::RelatonBib::BibliographicItem
+                 item
+               else new_bib_item_class(item)
+               end
       end
-      self
     end
 
     # arbitrary number, must sort after all bib items

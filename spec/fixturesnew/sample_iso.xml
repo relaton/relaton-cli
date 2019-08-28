@@ -1,0 +1,25 @@
+<bibdata type="standard">
+  <fetched>2019-08-28</fetched>
+  <title type="title-main" format="text/plain" language="en" script="Latn">Geographic information</title>
+  <title type="main" format="text/plain" language="en" script="Latn">Geographic information</title>
+  <title type="title-main" format="text/plain" language="fr" script="Latn">Information géographique</title>
+  <title type="main" format="text/plain" language="fr" script="Latn">Information géographique</title>
+  <docidentifier type="ISO">TC211</docidentifier>
+  <date type="issued">
+    <on>2014-01-01</on>
+  </date>
+  <date type="published">
+    <on>2014-04-01</on>
+  </date>
+  <date type="accessed">
+    <on>2015-05-20</on>
+  </date>
+  <status>
+    <stage>stage</stage>
+    <substage>substage</substage>
+    <iteration>final</iteration>
+  </status>
+  <ext>
+    <doctype>standard</doctype>
+  </ext>
+</bibdata>

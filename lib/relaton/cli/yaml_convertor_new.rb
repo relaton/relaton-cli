@@ -9,7 +9,7 @@ module Relaton
         if writable
           convert_and_write(file_content, :to_xml)
         else
-          convert_content(file_content).to_xml(nil, date_format: :full)
+          convert_content(file_content).to_xml(nil, date_format: :full, bibdata: true)
         end
       end
 
@@ -47,13 +47,19 @@ module Relaton
       end
 
       def convert_single_file(content)
-        RelatonBib::BibliographicItem.new(RelatonBib::HashConverter::hash_to_bib(content))
+        docid = content["docid"].is_a?(Array) ? content["docid"][0] : content["docid"]
+        if (processor = Relaton::Registry.instance.by_type(docid["type"]))
+          processor.hash_to_bib content
+        else
+          RelatonBib::BibliographicItem.new(RelatonBib::HashConverter::hash_to_bib(content))
+        end
       end
 
       def convert_collection(content)
         if content.has_key?("root")
           content["root"]["items"] = content["root"]["items"].map do |i|
-            RelatonBib::HashConverter::hash_to_bib(i)
+            # RelatonBib::HashConverter::hash_to_bib(i)
+            convert_single_file(i)
           end
           Relaton::BibcollectionNew.new(content["root"])
         end

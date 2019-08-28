@@ -1,9 +1,15 @@
 require "bundler/setup"
-require "relaton/cli"
 require "rspec/matchers"
 require "equivalent-xml"
 require "rspec-command"
 require "fileutils"
+require "simplecov"
+
+SimpleCov.start do
+  add_filter "/spec/"
+end
+
+require "relaton/cli"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

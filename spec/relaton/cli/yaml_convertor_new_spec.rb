@@ -7,19 +7,19 @@ RSpec.describe Relaton::Cli::YAMLConvertorNew do
         buffer = stub_file_write_to_io(sample_yaml_file)
         Relaton::Cli::YAMLConvertorNew.to_xml(sample_yaml_file)
         expect(buffer).to be_equivalent_to <<~"OUTPUT"
-        <bibitem  id="CC36000" type="standard">
-        <fetched>#{Date.today}</fetched>
-  <title type="main" format="text/plain">Standardization documents -- Vocabulary</title>
-  <docidentifier type="CC">CC 36000</docidentifier>
-  <date type="issued">
-    <on>2018-10-25</on>
-  </date>
-  <status>
-    <stage>proposal</stage>
-  </status>
-</bibitem>
-OUTPUT
-    end
+          <bibdata type="standard">
+            <fetched>#{Date.today}</fetched>
+            <title type="main" format="text/plain">Standardization documents -- Vocabulary</title>
+            <docidentifier type="CC">CC 36000</docidentifier>
+            <date type="issued">
+              <on>2018-10-25</on>
+            </date>
+            <status>
+              <stage>proposal</stage>
+            </status>
+          </bibdata>
+        OUTPUT
+      end
     end
 
     context "with yaml collection" do
@@ -43,19 +43,18 @@ OUTPUT
         )
 
         expect(buffer).to be_equivalent_to <<~"OUTPUT"
-        <bibitem  id="CC36000" type="standard">
-        <fetched>#{Date.today}</fetched>
-  <title type="main" format="text/plain">Standardization documents -- Vocabulary</title>
-  <docidentifier type="CC">CC 36000</docidentifier>
-  <date type="issued">
-    <on>2018-10-25</on>
-  </date>
-  <status>
-    <stage>proposal</stage>
-  </status>
-</bibitem>
-OUTPUT
-
+          <bibdata type="standard">
+            <fetched>#{Date.today}</fetched>
+            <title type="main" format="text/plain">Standardization documents -- Vocabulary</title>
+            <docidentifier type="CC">CC 36000</docidentifier>
+            <date type="issued">
+              <on>2018-10-25</on>
+            </date>
+            <status>
+              <stage>proposal</stage>
+            </status>
+          </bibdata>
+        OUTPUT
       end
 
       it "uses specified options to write file collection" do
@@ -68,37 +67,65 @@ OUTPUT
 
         expect(buffer.count).to eq(6)
         expect(buffer.last).to be_equivalent_to <<~"OUTPUT"
-        <bibitem id="CC/S34006" type="standard">
-        <fetched>#{Date.today}</fetched>
-  <title type="main" format="text/plain">Date and time -- Calendars -- Chinese calendar</title>
-  <docidentifier type="CC">CC/S 34006</docidentifier>
-  <date type="issued">
-    <on>2018-10-25</on>
-  </date>
-  <status>
-    <stage>proposal</stage>
-  </status>
-</bibitem>
+          <bibdata type="standard">
+            <fetched>#{Date.today}</fetched>
+            <title type="main" format="text/plain">Date and time -- Calendars -- Chinese calendar</title>
+            <docidentifier type="CC">CC/S 34006</docidentifier>
+            <date type="issued">
+              <on>2018-10-25</on>
+            </date>
+            <status>
+              <stage>proposal</stage>
+            </status>
+          </bibdata>
+        OUTPUT
+      end
+
+      it "don't write" do
+        xml = Relaton::Cli::YAMLConvertorNew.to_xml(sample_yaml_file, write: false)
+        expect(xml).to be_equivalent_to <<~OUTPUT
+          <bibdata type="standard">
+            <fetched>2019-08-28</fetched>
+            <title type="main" format="text/plain">Standardization documents -- Vocabulary</title>
+            <docidentifier type="CC">CC 36000</docidentifier>
+            <date type="issued">
+              <on>2018-10-25</on>
+            </date>
+            <status>
+              <stage>proposal</stage>
+            </status>
+          </bibdata>
         OUTPUT
       end
     end
 
-    describe ".to_html" do
-      context "with valid file and styles" do
-        it "converts and writes a YAML document to HTML" do
-          buffer = stub_file_write_to_io(sample_collection_file, "html")
+    context "document type" do
+      it "ISO" do
+        xml = Relaton::Cli::YAMLConvertorNew.to_xml(
+          "spec/fixturesnew/sample_iso.yaml", write: false
+        )
+        expect(xml).to be_equivalent_to File.read(
+          "spec/fixturesnew/sample_iso.xml", encoding: "UTF-8"
+        )
+      end
+    end
+  end
 
-          Relaton::Cli::YAMLConvertorNew.to_html(
-            sample_collection_file,
-            "spec/assets/index-style.css",
-            "spec/assets/templates",
-          )
+  describe ".to_html" do
+    context "with valid file and styles" do
+      it "converts and writes a YAML document to HTML" do
+        buffer = stub_file_write_to_io(sample_collection_file, "html")
 
-          expect(buffer).to include("I AM A SAMPLE STYLESHEET")
-          expect(buffer).to include('<a href="">CC/S 34006</a>')
-          expect(buffer).to include("<!DOCTYPE HTML>\n<html>\n  <head>")
-          expect(buffer).to include("<title>CalConnect Standards Registry</tit")
-        end
+        Relaton::Cli::YAMLConvertorNew.to_html(
+          sample_collection_file,
+          "spec/assets/index-style.css",
+          "spec/assets/templates",
+        )
+
+        expect(buffer).to include("I AM A SAMPLE STYLESHEET")
+        expect(buffer).to include('<a href="">CC/S 34006</a>')
+        expect(buffer).to include("<!DOCTYPE HTML>\n<html>\n  <head>")
+        expect(buffer).to include("<title>CalConnect Standards Registry</tit")
       end
     end
   end

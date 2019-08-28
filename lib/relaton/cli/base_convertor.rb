@@ -69,7 +69,7 @@ module Relaton
       def item_output(content, format)
         case format.to_sym
         when :to_yaml then content.to_yaml
-        when :to_xml then content.to_xml(date_format: :full)
+        when :to_xml then content.to_xml(date_format: :full, bibdata: true)
         end
       end
 
