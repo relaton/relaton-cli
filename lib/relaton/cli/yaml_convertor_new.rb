@@ -66,7 +66,7 @@ module Relaton
       end
 
       def xml_content(_raw_file)
-        convert_content(file_content).to_xml(date_format: :full)
+        convert_content(file_content).to_xml(date_format: :full, bibdata: true)
       end
 
       def convert_content(content)

@@ -85,7 +85,7 @@ RSpec.describe Relaton::Cli::YAMLConvertorNew do
         xml = Relaton::Cli::YAMLConvertorNew.to_xml(sample_yaml_file, write: false)
         expect(xml).to be_equivalent_to <<~OUTPUT
           <bibdata type="standard">
-            <fetched>2019-08-28</fetched>
+            <fetched>#{Date.today}</fetched>
             <title type="main" format="text/plain">Standardization documents -- Vocabulary</title>
             <docidentifier type="CC">CC 36000</docidentifier>
             <date type="issued">
@@ -106,7 +106,7 @@ RSpec.describe Relaton::Cli::YAMLConvertorNew do
         )
         expect(xml).to be_equivalent_to File.read(
           "spec/fixturesnew/sample_iso.xml", encoding: "UTF-8"
-        )
+        ).sub %r{(?<=<fetched>)\d{4}-\d{2}-\d{2}}, Date.today.to_s
       end
     end
   end
