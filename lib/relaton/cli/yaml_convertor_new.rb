@@ -47,12 +47,20 @@ module Relaton
       end
 
       def convert_single_file(content)
-        docid = content["docid"].is_a?(Array) ? content["docid"][0] : content["docid"]
-        if (processor = Relaton::Registry.instance.by_type(docid["type"]))
+        if (processor = Relaton::Registry.instance.by_type(doctype(content["docid"])))
           processor.hash_to_bib content
         else
           RelatonBib::BibliographicItem.new(RelatonBib::HashConverter::hash_to_bib(content))
         end
+      end
+
+      # @param content [Nokogiri::XML::Document]
+      # @return [String]
+      def doctype(docid)
+        did = docid.is_a?(Array) ? docid.fetch(0) : docid
+        return did["type"] if did && did["type"]
+
+        did&.fetch("id")&.match(/^\w+/)&.to_s
       end
 
       def convert_collection(content)
