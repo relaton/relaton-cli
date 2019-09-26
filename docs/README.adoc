@@ -201,7 +201,269 @@ Convert a Relaton XML file (`filename.xml` or `filename.rxl`) into a Relaton YAM
 
 [source,console]
 ----
-$ relaton yaml2xml Relaton-YAML [<stylesheet>] [<liquid-template-dir>]
+$ relaton yaml2xml <filename.yaml> [<stylesheet>] [<liquid-template-dir>]
 ----
 
-Render a Relaton YAML file as an HTML file. The stylesheet and liquid-template-dir directories are as for <<relaton-xml2html,relaton xml2html>>.
+Render a Relaton YAML file (`filename.yaml`) as an HTML file. The stylesheet and liquid-template-dir directories are as for <<relaton-xml2html,relaton xml2html>>.
+
+=== relaton yaml2xmlnew
+
+[source,console]
+----
+$ relaton yaml2xmlnew <filename.yaml> -o OUTPUT-DIRECTORY -x RELATON_EXTENSION -p PREFIX -r LIBRARY
+----
+
+Convert a Relaton YAML file (`filename.yaml`) in a new format into a Relaton XML file (`filename.xml`). If the Relaton YAML file specifies multiple bibliograph items, and `OUTPUT-DIRECTORY` is nominated, also convert the file into a list of Relaton XML files for each entry, stored in that directory. The document identifier is used as the name of each Relaton XML file; the Relaton XML filename is suffixed with `RELATON_EXTENSION` (default `.rxl`) and prefixed with `PREFIX` (default empty). Any libraries that need to be required for the conversion are specified in `LIBRARY` as a space-delimited list.
+
+A Relaton Colleciton YAML file contains some initial metadata, and a list of metadata about each bibliographic entry:
+
+[source,yaml]
+----
+root:
+  author: The Calendaring and Scheduling Consortium
+  title: CalConnect Standards Registry
+  items:
+    - technical_committee: PUBLISH
+      docid: 
+        type: CC
+        id: CC 36000
+      type: standard
+      title: 
+        type: main
+        content: Standardization documents -- Vocabulary
+      docstatus:
+        stage: proposal
+      date:
+        type: issued
+        value:  2018-10-25
+    - technical_committee: DATETIME
+      docid: 
+        type: CC
+        id: CC 34000
+      type: standard
+      title: 
+        type: main
+        content: Date and time -- Concepts and vocabulary
+      docstatus:
+        stage: proposal
+      date:
+        type: issued
+        value: 2018-10-25
+----
+
+A Relaton YAML file describing an individual bibliographic entry is limited to metadata specific to that entry. Flavor gems have aditional fields. The following illustrates the common fields supported by all flavor gems (see link:https://github.com/relaton/relaton-bib/blob/master/docs/hash.adoc#yaml[Relaton YAML]):
+
+[source,yaml]
+----
+---
+id: ISO/TC211
+title:
+- type: main
+  content: Geographic information
+  language: en
+  script: Latn
+  format: text/plain
+- content: Information géographique
+  language: fr
+  script: Latn
+  format: text/plain
+link:
+- type: src
+  content: https://www.iso.org/standard/53798.html
+- type: obp
+  content: https://www.iso.org/obp/ui/#!iso:std:53798:en
+- type: rss
+  content: https://www.iso.org/contents/data/standard/05/37/53798.detail.rss
+type: standard
+docid:
+  id: TC211
+  type: ISO
+docnumber: '123456'
+date:
+- type: issued
+  value: '2014-01-01'
+- type: published
+  value: '2014-04-01'
+- type: accessed
+  value: '2015-05-20'
+contributor:
+- organization:
+    name: International Organization for Standardization
+    abbreviation: ISO
+    subdivision: division
+    url: www.iso.org
+  role:
+    description: Publisher role
+    type: publisher
+- person:
+    name:
+      completename:
+        content: A. Bierman
+        language: en
+    affiliation:
+      organization:
+        name: IETF
+        abbreviation: IETF
+        identifier:
+          type: uri
+          id: www.ietf.org
+    contact:
+    - street:
+      - Street
+      city: City
+      state: State
+      country: Country
+      postcode: '123456'
+    - type: phone
+      value: '223322'
+  role: author
+- organization:
+    name: IETF
+    abbreviation: IETF
+    identifier:
+      type: uri
+      id: www.ietf.org
+  role: publisher
+- person:
+    name:
+      forename:
+        content: Forename
+        language: en
+      initial:
+        content: A.
+        language: en
+      surname:
+        content: Bierman
+        language: en
+      addition:
+        content: Addition
+        language: en
+      prefix:
+        content: Prefix
+        language: en
+    affiliation:
+      organization:
+        name: IETF
+        abbreviation: IETF
+      description:
+        content: Description
+        language: en
+    identifier:
+      type: uri
+      id: www.person.com
+    contact:
+    - street:
+      - Street
+      city: City
+      state: State
+      country: Country
+      postcode: '123456'
+    - type: phone
+      value: '223322'
+  role: author
+edition: '1'
+version:
+  revision_date: '2019-04-01'
+  draft: draft
+biblionote:
+  content: note
+  type: bibnote
+language:
+- en
+- fr
+script: Latn
+abstract:
+- content: ISO 19115-1:2014 defines the schema required for ...
+  language: en
+  script: Latn
+  format: text/plain
+- content: L'ISO 19115-1:2014 définit le schéma requis pour ...
+  language: fr
+  script: Latn
+  format: text/plain
+docstatus:
+  stage: stage
+  substage: substage
+  iteration: final
+copyright:
+  owner:
+    name: International Organization for Standardization
+    abbreviation: ISO
+    url: www.iso.org
+  from: '2014'
+  to: '2020'
+relation:
+- type: updates
+  bibitem:
+    formattedref:
+      content: ISO 19115:2003
+      format: text/plain
+  bib_locality:
+    type: updates
+    reference_from: Reference form
+- type: updates
+  bibitem:
+    type: standard
+    formattedref:
+      content: ISO 19115:2003/Cor 1:2006
+      format: text/plain
+series:
+- type: main
+  title:
+    type: original
+    content: ISO/IEC FDIS 10118-3
+    language: en
+    script: Latn
+    format: text/plain
+  place: Serie's place
+  organization: Serie's organization
+  abbreviation: ABVR
+  from: '2009-02-01'
+  to: '2010-12-20'
+  number: serie1234
+  partnumber: part5678
+- type: alt
+  formattedref:
+    content: serieref
+    language: en
+    script: Latn
+    format: text/plain
+medium:
+  form: medium form
+  size: medium size
+  scale: medium scale
+place: bib place
+extent:
+  type: section
+  reference_from: Reference from
+  reference_to: Reference to
+accesslocation:
+- accesslocation1
+- accesslocation2
+classification:
+  value: value
+  type: type
+validity:
+  begins: 2010-10-10 12:21
+  ends: 2011-02-03 18:30
+  revision: 2011-03-04 09:00
+fetched: '2019-08-16'
+----
+
+=== relaton xml2yamlnew
+
+[source,console]
+----
+$ relaton xml2yamlnew <filename.xml> -o OUTPUT-DIRECTORY -x RELATON_EXTENSION -p PREFIX -r LIBRARY
+----
+
+Convert a Relaton XML file (`filename.xml` or `filename.rxl`) into a Relaton YAML file (`filename.yaml`) in a new format. If the Relaton XML file is a collection, and `OUTPUT-DIRECTORY` is nominated, also convert the file into a list of Relaton YAML files for each entry, stored in that directory. The document identifier is used as the name of each Relaton XML file; the Relaton XML filename is suffixed with `RELATON_EXTENSION` (default `.yaml`) and prefixed with `PREFIX` (default empty). Any libraries that need to be required for the conversion are specified in `LIBRARY` as a space-delimited list.
+
+=== relaton yaml2htmlnew
+
+[source,console]
+----
+$ relaton yaml2xmlnew <filename.yaml> [<stylesheet>] [<liquid-template-dir>]
+----
+
+Render a Relaton YAML file in a new format (`filename.yaml`) as an HTML file. The `stylesheet` and `liquid-template-dir` directories are as for <<relaton xml2html,relaton xml2html>>.
