@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    relaton-cli (0.3.5)
+    relaton-cli (0.3.6)
       liquid
       relaton (~> 0.5)
       thor
@@ -38,7 +38,7 @@ GEM
       method_source (~> 0.9.0)
     public_suffix (4.0.1)
     rake (12.3.3)
-    relaton (0.5.4)
+    relaton (0.5.5)
       relaton-gb (~> 0.6.0)
       relaton-iec (~> 0.4.0)
       relaton-ietf (~> 0.6.0)
@@ -46,31 +46,31 @@ GEM
       relaton-itu (~> 0.3.0)
       relaton-nist (~> 0.3.0)
       relaton-ogc (~> 0.1.0)
-    relaton-bib (0.3.6)
+    relaton-bib (0.3.8)
       addressable
       nokogiri
-    relaton-gb (0.6.3)
+    relaton-gb (0.6.4)
       cnccs (~> 0.1.1)
       gb-agencies (~> 0.0.1)
       relaton-iso-bib (~> 0.3.0)
-    relaton-iec (0.4.4)
+    relaton-iec (0.4.6)
       addressable
       relaton-iso-bib (~> 0.3.0)
-    relaton-ietf (0.6.4)
+    relaton-ietf (0.6.5)
       relaton-bib (~> 0.3.0)
-    relaton-iso (0.6.5)
+    relaton-iso (0.6.6)
       relaton-iec (~> 0.4.0)
       relaton-iso-bib (~> 0.3.0)
-    relaton-iso-bib (0.3.5)
+    relaton-iso-bib (0.3.7)
       isoics (~> 0.1.6)
       relaton-bib (~> 0.3.0)
       ruby_deep_clone (~> 0.8.0)
-    relaton-itu (0.3.3)
+    relaton-itu (0.3.4)
       relaton-iso-bib (~> 0.3.0)
-    relaton-nist (0.3.4)
+    relaton-nist (0.3.5)
       relaton-bib (~> 0.3.0)
       rubyzip
-    relaton-ogc (0.1.0)
+    relaton-ogc (0.1.1)
       faraday
       relaton-iso-bib (~> 0.3.0)
     rspec (3.8.0)
@@ -96,7 +96,7 @@ GEM
     ruby-debug-ide (0.7.0)
       rake (>= 0.8.1)
     ruby_deep_clone (0.8.0)
-    rubyzip (1.2.4)
+    rubyzip (2.0.0)
     simplecov (0.17.0)
       docile (~> 1.1)
       json (>= 1.8, < 3)
