@@ -19,9 +19,10 @@ module Relaton
         value = options[k] || options[k.to_s]
         self.send("#{k}=", value)
       end
-      self.items = (self.items || []).inject([]) do |acc,item|
+      self.items = (self.items || []).inject([]) do |acc, item|
         acc << if item.is_a?(::Relaton::Bibcollection) ||
-          item.is_a?(::Relaton::Bibdata)
+          item.is_a?(::Relaton::Bibdata) || item.is_a?(::Relaton::BibcollectionNew) ||
+          item.is_a?(::Relaton::BibdataNew)
           item
         else
           new_bib_item_class(item)
@@ -50,9 +51,9 @@ module Relaton
 
     def new_bib_item_class(options)
       if options["items"]
-        ::Relaton::Bibcollection.new(options)
+        options[:new] ? ::Relaton::BibcollectionNew(options) : ::Relaton::Bibcollection.new(options)
       else
-        ::Relaton::Bibdata.new(options)
+        options[:new] ? ::Relaton::BibdataNew(options) : ::Relaton::Bibdata.new(options)
       end
     end
 

@@ -34,7 +34,7 @@ module Relaton
       def convert_content(content)
         if content.root.name == "bibdata"
           # Bibdata.from_xml(content.to_s)
-          convert_bibdata content
+          Relaton::Cli.parse_xml(content).to_hash
         else
           # Bibcollection.from_xml(content)
           title = content.at("relaton-collection/title").text
@@ -42,30 +42,11 @@ module Relaton
           collection = { "root" => { "title" => title, "author" => author } }
 
           collection["root"]["items"] = content.xpath("//bibdata").map do |bib|
-            convert_bibdata bib
+            Relaton::Cli.parse_xml(bib).to_hash
           end
 
           collection
         end
-      end
-
-      # @param content [Nokogiri::XML::Document]
-      # @return [Hash]
-      def convert_bibdata(doc)
-        if (processor = Relaton::Registry.instance.by_type(doctype(doc)))
-          processor.from_xml(doc.to_s).to_hash
-        else
-          RelatonBib::XMLParser.from_xml(doc.to_s).to_hash
-        end
-      end
-
-      # @param content [Nokogiri::XML::Document]
-      # @return [String]
-      def doctype(doc)
-        docid = doc.at "//docidentifier"
-        return docid[:type] if docid && docid[:type]
-
-        docid.text.match(/^\w+/).to_s
       end
 
       def file_content

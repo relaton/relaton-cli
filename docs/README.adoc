@@ -17,7 +17,7 @@ The following executables are included:
 
 [source,console]
 ----
-$ relaton concatenate Source-Directory Collection-File -t TITLE -g ORGANIZATION
+$ relaton concatenate Source-Directory Collection-File -t TITLE -g ORGANIZATION -n
 ----
 
 Iterates through all the Relaton YAML files in `Source-Directory`, and converts them in-place into Relaton XML.
@@ -30,6 +30,8 @@ file), a link to that file is inserted.
 
 If the `TITLE` or `ORGANIZATION` options are given, they are added to the `Collection-File` output as the
 title and author of the `relaton-collection` document.
+
+If the `-n` or `--new` option given then use the new Relaton YAML format https://github.com/relaton/relaton-bib/blob/master/docs/hash.adoc.
 
 === relaton split
 

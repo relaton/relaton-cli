@@ -87,7 +87,7 @@ module Relaton
       unless items.empty?
         items.each do |item|
           ret += "<relation type='partOf'>"
-          ret += item.to_xml(opts)
+          ret += item.to_xml(nil, opts)
           ret += "</relation>\n"
         end
       end

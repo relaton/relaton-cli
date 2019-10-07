@@ -172,16 +172,30 @@ module Relaton
 
       def bibdata_instance(document, file)
         document = clean_nokogiri_document(document)
-        bibdata = Relaton::Bibdata.from_xml(document.root)
+        bibdata = if options[:new]
+                    Relaton::BibdataNew.from_xml document.root
+                  else
+                    Relaton::Bibdata.from_xml(document.root)
+                  end
         build_bibdata_relaton(bibdata, file)
 
         bibdata
       end
 
+      # @param content [Nokogiri::XML::Document]
+      # @return [Hash]
+      def parse_doc(doc)
+        if (processor = Relaton::Registry.instance.by_type(doctype(doc)))
+          processor.from_xml(doc.to_s).to_hash
+        else
+          RelatonBib::XMLParser.from_xml(doc.to_s).to_hash
+        end
+      end
+
       def build_bibdata_relaton(bibdata, file)
         ["xml", "pdf", "doc", "html", "rxl", "txt"].each do |type|
           file = Pathname.new(file).sub_ext(".#{type}")
-          bibdata.send("#{type}=", file) if File.file?(file)
+          bibdata.send("#{type}=", file.to_s) if File.file?(file)
         end
       end
 
@@ -203,8 +217,9 @@ module Relaton
       end
 
       def convert_yamls_to_xml
+        klass = options[:new] ? YAMLConvertorNew : YAMLConvertor
         select_files_with("yaml").map do |file|
-          { file: file, content: YAMLConvertor.to_xml(file, write: false) }
+          { file: file, content: klass.to_xml(file, write: false) }
         end
       end
 

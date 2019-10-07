@@ -9,7 +9,7 @@ module Relaton
         if writable
           convert_and_write(file_content, :to_xml)
         else
-          convert_content(file_content).to_xml(nil, date_format: :full, bibdata: true)
+          convert_content(file_content).to_xml(date_format: :full, bibdata: true)
         end
       end
 

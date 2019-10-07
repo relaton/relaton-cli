@@ -88,6 +88,28 @@ RSpec.describe Relaton::Cli::RelatonFile do
         expect(doc_contributor).to eq("Ribose Inc")
         expect(xml).to include("<docidentifier>CC 36000</docidentifier>")
       end
+
+      it "uses the new Relaton XML format" do
+        Relaton::Cli::RelatonFile.concatenate(
+          "spec/fixturesnew",
+          "./tmp/concatenate.rxl",
+          title: "collection title",
+          organization: "Ribose Inc",
+          new: true,
+        )
+
+        xml = File.read("./tmp/concatenate.rxl")
+        xmldoc = Nokogiri::XML(xml)
+
+        doc_title = xmldoc.root.at("./xmlns:title").text
+        doc_contributor = xmldoc.root.at(
+          "./xmlns:contributor/xmlns:organization/xmlns:name",
+        ).text
+
+        expect(doc_title).to eq("collection title")
+        expect(doc_contributor).to eq("Ribose Inc")
+        expect(xml).to include("<docidentifier type=\"CC\">CC 36000</docidentifier>")
+      end
     end
 
     context "with YAML, RXL and linked documents" do

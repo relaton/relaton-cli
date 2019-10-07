@@ -11,5 +11,15 @@ RSpec.describe "Relaton Concatenate" do
       expect(Relaton::Cli::RelatonFile).to have_received(:concatenate).
         with("spec/fixtures", "./tmp/concatenate.rxl", title: "Title")
     end
+
+    it "sends concatenate message to the concatenator using new Relaton XML format" do
+      allow(Relaton::Cli::RelatonFile).to receive(:concatenate)
+      command = %w(concatenate spec/fixturesnew ./tmp/concatenate.rxl -t Title -n)
+
+      Relaton::Cli.start(command)
+
+      expect(Relaton::Cli::RelatonFile).to have_received(:concatenate).
+        with("spec/fixturesnew", "./tmp/concatenate.rxl", title: "Title", new: true)
+    end
   end
 end
