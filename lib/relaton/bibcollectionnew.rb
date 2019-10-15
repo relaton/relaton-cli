@@ -20,8 +20,7 @@ module Relaton
         send("#{k}=", value)
       end
       self.items = (items || []).reduce([]) do |acc, item|
-        acc << if item.is_a?(::Relaton::BibcollectionNew) ||
-            item.class >= ::RelatonBib::BibliographicItem
+        acc << if item.is_a?(::Relaton::BibcollectionNew) || item.is_a?(::Relaton::BibdataNew)
                  item
                else new_bib_item_class(item)
                end
@@ -39,7 +38,7 @@ module Relaton
 
       items = find_xpath("./relaton-collection/relation", source)&.map do |item|
         bibdata = find("./bibdata", item)
-        klass = bibdata ? Bibdata : BibcollectionNew
+        klass = bibdata ? BibdataNew : BibcollectionNew
         klass.from_xml(bibdata || item)
       end
 
@@ -47,10 +46,10 @@ module Relaton
     end
 
     def new_bib_item_class(options)
-      if options["items"]
+      if options.is_a?(Hash) && options["items"]
         ::Relaton::BibcollectionNew.new(options)
       else
-        ::RelatonBib::BibliographicItem.new(options)
+        ::Relaton::BibdataNew.new(options)
       end
     end
 
@@ -87,7 +86,7 @@ module Relaton
       unless items.empty?
         items.each do |item|
           ret += "<relation type='partOf'>"
-          ret += item.to_xml(nil, opts)
+          ret += item.to_xml(opts)
           ret += "</relation>\n"
         end
       end

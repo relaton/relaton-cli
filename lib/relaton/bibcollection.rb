@@ -20,9 +20,7 @@ module Relaton
         self.send("#{k}=", value)
       end
       self.items = (self.items || []).inject([]) do |acc, item|
-        acc << if item.is_a?(::Relaton::Bibcollection) ||
-          item.is_a?(::Relaton::Bibdata) || item.is_a?(::Relaton::BibcollectionNew) ||
-          item.is_a?(::Relaton::BibdataNew)
+        acc << if item.is_a?(::Relaton::Bibcollection) || item.is_a?(::Relaton::Bibdata)
           item
         else
           new_bib_item_class(item)

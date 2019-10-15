@@ -108,9 +108,9 @@ module Relaton
       def extract_docid(item)
         @default_filelabel += 1
         item.docidentifier.nil? and return @default_filelabel.to_s
-        item.docidentifier.is_a?(Array) or return @default_filelabel.to_s
+        # item.docidentifier.is_a?(Array) or return @default_filelabel.to_s
         item.docidentifier.empty? and return @default_filelabel.to_s
-        docidentifier_code(item.docidentifier[0].id)
+        docidentifier_code(item.docidentifier)
       end
 
       # From http://gavinmiller.io/2016/creating-a-secure-sanitization-function/

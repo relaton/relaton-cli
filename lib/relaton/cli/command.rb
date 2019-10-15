@@ -28,7 +28,7 @@ module Relaton
       desc "concatenate SOURCE-DIR COLLECTION-FILE", "Concatenate entries in DIRECTORY (containing Relaton-XML or YAML) into a Relaton Collection"
       option :title, aliases: :t,  desc: "Title of resulting Relaton collection"
       option :organization, aliases: :g, desc: "Organization owner of Relaton collection"
-      option :new, aliases: :n, type: :boolean, desc: "Use the new Relaton XML format"
+      option :new, aliases: :n, type: :boolean, desc: "Use the new Relaton YAML format"
 
       def concatenate(source_dir, outfile)
         Relaton::Cli::RelatonFile.concatenate(source_dir, outfile, options)
@@ -36,6 +36,7 @@ module Relaton
 
       desc "split Relaton-Collection-File Relaton-XML-Directory", "Split a Relaton Collection into multiple files"
       option :extension, aliases: :x, desc: "File extension of Relaton XML files, defaults to 'rxl'"
+      option :new, aliases: :n, type: :boolean, desc: "Use the new Relaton YAML format"
 
       def split(source, outdir)
         Relaton::Cli::RelatonFile.split(source, outdir, options)

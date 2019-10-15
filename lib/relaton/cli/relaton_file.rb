@@ -16,7 +16,7 @@ module Relaton
       end
 
       def concatenate
-        write_to_file(bibcollection.to_xml)
+        write_to_file(bibcollection.to_xml(options))
       end
 
       def split
@@ -81,7 +81,7 @@ module Relaton
       attr_reader :source, :options, :outdir, :outfile
 
       def bibcollection
-        ::Relaton::Bibcollection.new(
+        bib_klass.new(
           title: options[:title],
           items: concatenate_files,
           doctype: options[:doctype],
@@ -103,8 +103,7 @@ module Relaton
       end
 
       def relaton_collection
-        @relaton_collection ||=
-          Relaton::Bibcollection.from_xml(nokogiri_document(nil, source))
+        @relaton_collection ||= bib_klass.from_xml(nokogiri_document(nil, source))
       end
 
       def extract_and_write_to_files
@@ -248,7 +247,7 @@ module Relaton
       end
 
       def build_filename(file, identifier = nil, ext = "rxl")
-        identifier ||= Pathname.new(File.basename(file, ".xml")).to_s
+        identifier ||= Pathname.new(File.basename(file.to_s, ".xml")).to_s
         [sanitize_string(identifier), options[:extension] || ext].join(".")
       end
 
@@ -260,6 +259,10 @@ module Relaton
       def replace_bad_characters(string)
         bad_chars = ["/", "\\", "?", "%", "*", ":", "|", '"', "<", ">", ".", " "]
         bad_chars.inject(string.downcase) { |res, char| res.gsub(char, "-") }
+      end
+
+      def bib_klass
+        @bib_klass ||= options[:new] ? Relaton::BibcollectionNew : Relaton::Bibcollection
       end
     end
   end

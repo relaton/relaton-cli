@@ -154,6 +154,19 @@ RSpec.describe Relaton::Cli::RelatonFile do
         expect(content).to include("<bibdata type='standard'>")
         expect(content).to include("<title>Date and time -- Concepts")
       end
+
+      it "split the relaton collection in the new Relaton XML format into multiple files" do
+        output_dir = "./tmp/output"
+        collection_file = "spec/fixturesnew/sample-collection.xml"
+
+        Relaton::Cli::RelatonFile.split(collection_file, output_dir, new: true)
+        content = File.read([output_dir, "cc-34000.rxl"].join("/"))
+
+        expect(file_exist?("cc-34000.rxl")).to be true
+        expect(Dir["#{output_dir}/**"].length).to eq(6)
+        expect(content).to include('<bibdata type="standard">')
+        expect(content).to include("<title>Date and time -- Concepts")
+      end
     end
   end
 

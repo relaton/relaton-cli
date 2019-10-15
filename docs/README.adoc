@@ -37,11 +37,13 @@ If the `-n` or `--new` option given then use the new Relaton YAML format https:/
 
 [source,console]
 ----
-$ relaton split Collection-File Relaton-File-Directory -x rxl
+$ relaton split Collection-File Relaton-File-Directory -x rxl -n
 ----
 
 Splits a `Relaton-Collection-File` into multiple files in the `Relaton-File-Directory`, and it also
 suports an addional `extension` options to use different extension.
+
+If the `-n` or `--new` option given then use the new Relaton YAML format https://github.com/relaton/relaton-bib/blob/master/docs/hash.adoc.
 
 === relaton fetch
 
