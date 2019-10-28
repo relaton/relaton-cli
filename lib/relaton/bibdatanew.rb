@@ -10,7 +10,7 @@ module Relaton
       %r{(?<m>\w+)=$} =~ method
       return unless m && %w[xml pdf doc html rxl txt].include?(m)
 
-      uri = @bibitem.link.detect { |u| u.type == method }
+      uri = @bibitem.link.detect { |u| u.type == m }
       if uri
         uri.content = args[0]
       else
