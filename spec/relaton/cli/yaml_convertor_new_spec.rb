@@ -9,7 +9,9 @@ RSpec.describe Relaton::Cli::YAMLConvertorNew do
         expect(buffer).to be_equivalent_to <<~"OUTPUT"
           <bibdata type="standard">
             <fetched>#{Date.today}</fetched>
-            <title type="main" format="text/plain">Standardization documents -- Vocabulary</title>
+            <title type="title-intro" format="text/plain">Standardization documents</title>
+            <title type="title-main" format="text/plain">Vocabulary</title>
+            <title type="main" format="text/plain">Standardization documents – Vocabulary</title>
             <docidentifier type="CC">CC 36000</docidentifier>
             <date type="issued">
               <on>2018-10-25</on>
@@ -28,7 +30,7 @@ RSpec.describe Relaton::Cli::YAMLConvertorNew do
         Relaton::Cli::YAMLConvertorNew.to_xml(sample_collection_file)
 
         expect(buffer).to match(%r(<date type="issued">\s*<on>2018-10-25</on>\s*</date>))
-        expect(buffer).to include(%(<title type="main" format="text/plain">Date and time -- Calendars -- Greg))
+        expect(buffer).to include(%(<title type="main" format="text/plain">Date and time – Calendars – Greg))
         expect(buffer).to include("<title>CalConnect Standards Registry</titl")
         expect(buffer).to include("<relaton-collection xmlns=\"https://open.r")
       end
@@ -45,7 +47,9 @@ RSpec.describe Relaton::Cli::YAMLConvertorNew do
         expect(buffer).to be_equivalent_to <<~"OUTPUT"
           <bibdata type="standard">
             <fetched>#{Date.today}</fetched>
-            <title type="main" format="text/plain">Standardization documents -- Vocabulary</title>
+            <title type="title-intro" format="text/plain">Standardization documents</title>
+            <title type="title-main" format="text/plain">Vocabulary</title>
+            <title type="main" format="text/plain">Standardization documents – Vocabulary</title>
             <docidentifier type="CC">CC 36000</docidentifier>
             <date type="issued">
               <on>2018-10-25</on>
@@ -69,7 +73,10 @@ RSpec.describe Relaton::Cli::YAMLConvertorNew do
         expect(buffer.last).to be_equivalent_to <<~"OUTPUT"
           <bibdata type="standard">
             <fetched>#{Date.today}</fetched>
-            <title type="main" format="text/plain">Date and time -- Calendars -- Chinese calendar</title>
+            <title type="title-intro" format="text/plain">Date and time</title>
+            <title type="title-main" format="text/plain">Calendars</title>
+            <title type="title-part" format="text/plain">Chinese calendar</title>
+            <title type="main" format="text/plain">Date and time – Calendars – Chinese calendar</title>
             <docidentifier type="CC">CC/S 34006</docidentifier>
             <date type="issued">
               <on>2018-10-25</on>
@@ -86,7 +93,9 @@ RSpec.describe Relaton::Cli::YAMLConvertorNew do
         expect(xml).to be_equivalent_to <<~OUTPUT
           <bibdata type="standard">
             <fetched>#{Date.today}</fetched>
-            <title type="main" format="text/plain">Standardization documents -- Vocabulary</title>
+            <title type="title-intro" format="text/plain">Standardization documents</title>
+            <title type="title-main" format="text/plain">Vocabulary</title>
+            <title type="main" format="text/plain">Standardization documents – Vocabulary</title>
             <docidentifier type="CC">CC 36000</docidentifier>
             <date type="issued">
               <on>2018-10-25</on>

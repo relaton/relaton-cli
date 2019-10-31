@@ -8,7 +8,6 @@ root:
         id: CC 36000
       type: standard
       title: 
-        type: main
         content: Standardization documents -- Vocabulary
       docstatus:
         stage: proposal
@@ -21,7 +20,6 @@ root:
         id: CC 34000
       type: standard
       title: 
-        type: main
         content: Date and time -- Concepts and vocabulary
       docstatus:
         stage: proposal
@@ -34,7 +32,6 @@ root:
         id: CC 34002
       type: standard
       title: 
-        type: main
         content: Date and time -- Timezones
       docstatus:
         stage: proposal
@@ -47,7 +44,6 @@ root:
         id: CC 34003
       type: standard
       title: 
-        type: main
         content: Date and time -- Codes for calendar systems
       docstatus:
         stage: proposal
@@ -60,7 +56,6 @@ root:
         id: CC 34005
       type: standard
       title: 
-        type: main
         content: Date and time -- Calendars -- Gregorian calendar
       docstatus:
         stage: proposal
@@ -73,7 +68,6 @@ root:
         id: CC/S 34006
       type: standard
       title: 
-        type: main
         content: Date and time -- Calendars -- Chinese calendar
       docstatus:
         stage: proposal

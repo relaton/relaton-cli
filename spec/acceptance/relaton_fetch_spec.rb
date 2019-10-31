@@ -33,7 +33,7 @@ RSpec.describe "Relaton Fetch" do
 
       it "prints a warning message with suggestions for invalid type" do
         output = command("relaton fetch 'ISO 2146' --type invalid")
-        expect(output.stdout).to include("Recognised types: CN, IEC, IETF, ISO")
+        expect(output.stdout).to include("Recognised types: CC, CN, IEC, IETF, ISO, ITU, NIST, OGC")
       end
     end
 
