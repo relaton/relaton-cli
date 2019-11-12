@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    relaton-cli (0.3.13)
+    relaton-cli (0.3.14)
       liquid
       relaton (~> 0.5)
       thor
@@ -38,7 +38,7 @@ GEM
       method_source (~> 0.9.0)
     public_suffix (4.0.1)
     rake (12.3.3)
-    relaton (0.5.13)
+    relaton (0.5.14)
       relaton-calconnect (~> 0.1.0)
       relaton-gb (~> 0.6.0)
       relaton-iec (~> 0.4.0)
