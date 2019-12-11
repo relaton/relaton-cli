@@ -13,8 +13,6 @@ jobs:
         ruby: [ '2.6', '2.5', '2.4' ]
     steps:
       - uses: actions/checkout@master
-        with:
-          submodules: recursive
       - name: Use Ruby
         uses: actions/setup-ruby@v1
         with:
