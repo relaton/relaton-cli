@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    relaton-cli (0.4.0)
+    relaton-cli (0.4.1)
       liquid
       relaton (~> 0.6.0)
       thor
@@ -38,7 +38,7 @@ GEM
       method_source (~> 0.9.0)
     public_suffix (4.0.1)
     rake (12.3.3)
-    relaton (0.6.0)
+    relaton (0.6.1)
       relaton-calconnect (~> 0.2.0)
       relaton-gb (~> 0.7.0)
       relaton-iec (~> 0.5.0)
@@ -47,34 +47,34 @@ GEM
       relaton-itu (~> 0.4.0)
       relaton-nist (~> 0.4.0)
       relaton-ogc (~> 0.2.0)
-    relaton-bib (0.4.0)
+    relaton-bib (0.4.1)
       addressable
       nokogiri
-    relaton-calconnect (0.2.0)
+    relaton-calconnect (0.2.1)
       faraday
       relaton-iso-bib (~> 0.4.0)
-    relaton-gb (0.7.0)
+    relaton-gb (0.7.1)
       cnccs (~> 0.1.1)
       gb-agencies (~> 0.0.1)
       relaton-iso-bib (~> 0.4.0)
-    relaton-iec (0.5.0)
+    relaton-iec (0.5.1)
       addressable
       relaton-iso-bib (~> 0.4.0)
-    relaton-ietf (0.7.0)
+    relaton-ietf (0.7.1)
       relaton-bib (~> 0.4.0)
-    relaton-iso (0.7.0)
+    relaton-iso (0.7.1)
       relaton-iec (~> 0.5.0)
       relaton-iso-bib (~> 0.4.0)
-    relaton-iso-bib (0.4.0)
+    relaton-iso-bib (0.4.1)
       isoics (~> 0.1.6)
       relaton-bib (~> 0.4.0)
       ruby_deep_clone (~> 0.8.0)
-    relaton-itu (0.4.0)
+    relaton-itu (0.4.1)
       relaton-iso-bib (~> 0.4.0)
-    relaton-nist (0.4.0)
+    relaton-nist (0.4.1)
       relaton-bib (~> 0.4.0)
       rubyzip
-    relaton-ogc (0.2.0)
+    relaton-ogc (0.2.1)
       faraday
       relaton-iso-bib (~> 0.4.0)
     rspec (3.8.0)
