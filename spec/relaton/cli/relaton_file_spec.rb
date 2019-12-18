@@ -45,6 +45,18 @@ RSpec.describe Relaton::Cli::RelatonFile do
         expect(file_exist?("cc-cor-12990-3.rxl")).to be_falsey
         expect(content).to include("<bibdata type='standard'>")
       end
+
+      it "extracts the RFC in the output directory" do
+        Relaton::Cli::RelatonFile.extract(
+          "spec/fixtures/draft-celi-acvp-sha-00.xml", "./tmp/output"
+        )
+
+        content = File.read("./tmp/output/draft-celi-acvp-sha-00.rxl")
+
+        expect(file_exist?("draft-celi-acvp-sha-00.rxl")).to be_truthy
+        expect(file_exist?("cc-cor-12990-3.rxl")).to be_falsey
+        expect(content).to include("<bibdata type='standard'>")
+      end
     end
   end
 
@@ -52,18 +64,18 @@ RSpec.describe Relaton::Cli::RelatonFile do
     context "with YAML & RXL files in source directory" do
       it "combines both type of files into a collection" do
         Relaton::Cli::RelatonFile.concatenate(
-          "spec/fixtures", "./tmp/concatenate.rxl"
+          "spec/fixtures", "./tmp/concatenate.yml"
         )
 
-        xml = File.read("./tmp/concatenate.rxl")
-        xmldoc = Nokogiri::XML(xml)
+        hashdoc = YAML.load_file("./tmp/concatenate.yml")
 
-        expect(xmldoc.root.at("./xmlns:title")).to be_nil
-        expect(xmldoc.root.at("./xmlns:contributor")).to be_nil
+        expect(hashdoc["root"]["title"]).to be_nil
+        expect(hashdoc["root"]["author"]).to be_nil
 
-        expect(xml).to include("<docidentifier>CC 18001</docidentifier>")
-        expect(xml).to include("<docidentifier>CC 36000</docidentifier>")
-        expect(xml).not_to include("'xml'>spec/fixtures/sample-collection")
+        items = hashdoc["root"]["items"]
+        expect(items[0]["docidentifier"]).to eq("CC 18001")
+        expect(items[1]["docidentifier"]).to eq("CC 36000")
+        expect(items[2]["xml"]).not_to eq("spec/fixtures/sample-collection")
       end
     end
 
@@ -71,44 +83,33 @@ RSpec.describe Relaton::Cli::RelatonFile do
       it "combines both type of files and usages the options" do
         Relaton::Cli::RelatonFile.concatenate(
           "spec/fixtures",
-          "./tmp/concatenate.rxl",
+          "./tmp/concatenate.yml",
           title: "collection title",
           organization: "Ribose Inc",
         )
 
-        xml = File.read("./tmp/concatenate.rxl")
-        xmldoc = Nokogiri::XML(xml)
+        hashdoc = YAML.load_file("./tmp/concatenate.yml")
 
-        doc_title = xmldoc.root.at("./xmlns:title").text
-        doc_contributor = xmldoc.root.at(
-          "./xmlns:contributor/xmlns:organization/xmlns:name",
-        ).text
-
-        expect(doc_title).to eq("collection title")
-        expect(doc_contributor).to eq("Ribose Inc")
-        expect(xml).to include("<docidentifier>CC 36000</docidentifier>")
+        expect(hashdoc["root"]["title"]).to eq("collection title")
+        expect(hashdoc["root"]["author"]).to eq("Ribose Inc")
+        expect(hashdoc["root"]["items"][1]["docidentifier"]).to eq("CC 36000")
       end
 
       it "uses the new Relaton XML format" do
         Relaton::Cli::RelatonFile.concatenate(
           "spec/fixturesnew",
-          "./tmp/concatenate.rxl",
+          "./tmp/concatenate.yml",
           title: "collection title",
           organization: "Ribose Inc",
           new: true,
         )
 
-        xml = File.read("./tmp/concatenate.rxl")
-        xmldoc = Nokogiri::XML(xml)
+        hashdoc = YAML.load_file("./tmp/concatenate.yml")
 
-        doc_title = xmldoc.root.at("./xmlns:title").text
-        doc_contributor = xmldoc.root.at(
-          "./xmlns:contributor/xmlns:organization/xmlns:name",
-        ).text
-
-        expect(doc_title).to eq("collection title")
-        expect(doc_contributor).to eq("Ribose Inc")
-        expect(xml).to include("<docidentifier type=\"CC\">CC 36000</docidentifier>")
+        expect(hashdoc["root"]["title"]).to eq("collection title")
+        expect(hashdoc["root"]["author"]).to eq("Ribose Inc")
+        expect(hashdoc["root"]["items"][1]["docid"]["id"]).to eq("CC 36000")
+        expect(hashdoc["root"]["items"][1]["docid"]["type"]).to eq("CC")
       end
     end
 
@@ -118,21 +119,21 @@ RSpec.describe Relaton::Cli::RelatonFile do
         create_fixture_files("sample", file_types)
 
         Relaton::Cli::RelatonFile.concatenate(
-          "spec/fixtures", "./tmp/concatenate.rxl"
+          "spec/fixtures", "./tmp/concatenate.yml"
         )
 
         cleanup_fixture_files("sample", file_types)
-        xml = File.read("./tmp/concatenate.rxl")
-        xmldoc = Nokogiri::XML(xml)
+        hashdoc = YAML.load_file("./tmp/concatenate.yml")
+        items = hashdoc["root"]["items"]
 
-        expect(xmldoc.root.at("./xmlns:title")).to be_nil
-        expect(xmldoc.root.at("./xmlns:contributor")).to be_nil
+        expect(hashdoc["root"]["title"]).to be_nil
+        expect(hashdoc["root"]["author"]).to be_nil
 
-        expect(xml).to include("<docidentifier>CC 18001</docidentifier>")
-        expect(xml).to include("<uri type='xml'>spec/fixtures/sample.xml")
-        expect(xml).to include("<uri type='pdf'>spec/fixtures/sample.pdf")
-        expect(xml).to include("<uri type='doc'>spec/fixtures/sample.doc")
-        expect(xml).to include("<uri type='html'>spec/fixtures/sample.html")
+        expect(items[0]["docidentifier"]).to eq("CC 18001")
+        expect(items[0]["xml"]).to eq("spec/fixtures/sample.xml")
+        expect(items[0]["pdf"]).to eq("spec/fixtures/sample.pdf")
+        expect(items[0]["doc"]).to eq("spec/fixtures/sample.doc")
+        expect(items[0]["html"]).to eq("spec/fixtures/sample.html")
       end
     end
   end

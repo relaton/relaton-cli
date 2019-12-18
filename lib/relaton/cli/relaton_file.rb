@@ -16,7 +16,7 @@ module Relaton
       end
 
       def concatenate
-        write_to_file(bibcollection.to_xml(options))
+        write_to_file(bibcollection.to_yaml)
       end
 
       def split
