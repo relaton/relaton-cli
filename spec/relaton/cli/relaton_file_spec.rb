@@ -23,7 +23,9 @@ RSpec.describe Relaton::Cli::RelatonFile do
     context "with Metanorma XML and different extension" do
       it "extracts XML in output directory with provided extension" do
         Relaton::Cli::RelatonFile.extract(
-          "spec/assets/metanorma-xml", "./tmp/output", extension: "rxml"
+          "spec/assets/metanorma-xml",
+          "./tmp/output",
+          extension: "rxml",
         )
 
         expect(file_exist?("a.rxl")).to be false
@@ -36,7 +38,9 @@ RSpec.describe Relaton::Cli::RelatonFile do
     context "with single Metanorma XML file" do
       it "extracts the XML in the output directory" do
         Relaton::Cli::RelatonFile.extract(
-          "spec/assets/metanorma-xml/a.xml", "./tmp/output"
+          "spec/assets/metanorma-xml/a.xml",
+          "./tmp/output",
+          extension: "rxl",
         )
 
         content = File.read("./tmp/output/a.rxl")
@@ -48,7 +52,9 @@ RSpec.describe Relaton::Cli::RelatonFile do
 
       it "extracts the RFC in the output directory" do
         Relaton::Cli::RelatonFile.extract(
-          "spec/fixtures/draft-celi-acvp-sha-00.xml", "./tmp/output"
+          "spec/fixtures/draft-celi-acvp-sha-00.xml",
+          "./tmp/output",
+          extension: "rxl",
         )
 
         content = File.read("./tmp/output/draft-celi-acvp-sha-00.rxl")
@@ -64,7 +70,9 @@ RSpec.describe Relaton::Cli::RelatonFile do
     context "with YAML & RXL files in source directory" do
       it "combines both type of files into a collection" do
         Relaton::Cli::RelatonFile.concatenate(
-          "spec/fixtures", "./tmp/concatenate.yml"
+          "spec/fixtures",
+          "./tmp/concatenate.yml",
+          extension: "yml",
         )
 
         hashdoc = YAML.load_file("./tmp/concatenate.yml")
@@ -86,6 +94,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
           "./tmp/concatenate.yml",
           title: "collection title",
           organization: "Ribose Inc",
+          extension: "yml",
         )
 
         hashdoc = YAML.load_file("./tmp/concatenate.yml")
@@ -102,6 +111,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
           title: "collection title",
           organization: "Ribose Inc",
           new: true,
+          extension: "yml",
         )
 
         hashdoc = YAML.load_file("./tmp/concatenate.yml")
@@ -120,7 +130,9 @@ RSpec.describe Relaton::Cli::RelatonFile do
         create_fixture_files("sample", file_types)
 
         Relaton::Cli::RelatonFile.concatenate(
-          "spec/fixtures", "./tmp/concatenate.yml"
+          "spec/fixtures",
+          "./tmp/concatenate.yml",
+          extension: "yml",
         )
 
         cleanup_fixture_files("sample", file_types)
@@ -148,7 +160,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
         output_dir = "./tmp/output"
         collection_file = "spec/fixtures/sample-collection.xml"
 
-        Relaton::Cli::RelatonFile.split(collection_file, output_dir)
+        Relaton::Cli::RelatonFile.split(collection_file, output_dir, extension: "rxl")
         content = File.read([output_dir, "cc-34000.rxl"].join("/"))
 
         expect(file_exist?("cc-34000.rxl")).to be true
@@ -161,13 +173,13 @@ RSpec.describe Relaton::Cli::RelatonFile do
         output_dir = "./tmp/output"
         collection_file = "spec/fixturesnew/sample-collection.xml"
 
-        Relaton::Cli::RelatonFile.split(collection_file, output_dir, new: true)
-        content = File.read([output_dir, "cc-34000.rxl"].join("/"))
+        Relaton::Cli::RelatonFile.split(collection_file, output_dir, new: true, extension: "yaml")
+        content = File.read([output_dir, "cc-34000.yaml"].join("/"))
 
-        expect(file_exist?("cc-34000.rxl")).to be true
+        expect(file_exist?("cc-34000.yaml")).to be true
         expect(Dir["#{output_dir}/**"].length).to eq(6)
-        expect(content).to include('<bibdata type="standard">')
-        expect(content).to include("<title>Date and time -- Concepts")
+        expect(content).to include('id: CC34000')
+        expect(content).to include("title: Date and time -- Concepts and vocabulary")
       end
     end
   end

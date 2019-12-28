@@ -9,7 +9,7 @@ RSpec.describe "Relaton Concatenate" do
       Relaton::Cli.start(command)
 
       expect(Relaton::Cli::RelatonFile).to have_received(:concatenate).
-        with("spec/fixtures", "./tmp/concatenate.rxl", title: "Title")
+        with("spec/fixtures", "./tmp/concatenate.rxl", title: "Title", extension: "rxl")
     end
 
     it "sends concatenate message to the concatenator using new Relaton XML format" do
@@ -19,7 +19,7 @@ RSpec.describe "Relaton Concatenate" do
       Relaton::Cli.start(command)
 
       expect(Relaton::Cli::RelatonFile).to have_received(:concatenate).
-        with("spec/fixturesnew", "./tmp/concatenate.rxl", title: "Title", new: true)
+        with("spec/fixturesnew", "./tmp/concatenate.rxl", title: "Title", new: true, extension: "rxl")
     end
   end
 end

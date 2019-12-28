@@ -19,7 +19,7 @@ RSpec.describe "Relaton Split" do
       Relaton::Cli.start(command)
 
       expect(Relaton::Cli::RelatonFile).to have_received(:split).
-        with("spec/fixtures/sample-collection.xml", "./tmp", new: true)
+        with("spec/fixtures/sample-collection.xml", "./tmp", new: true, extension: "rxl")
     end
   end
 end

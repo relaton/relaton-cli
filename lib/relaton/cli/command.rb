@@ -19,7 +19,7 @@ module Relaton
       end
 
       desc "extract Metanorma-XML-File / Directory Relaton-XML-Directory", "Extract Relaton XML from Metanorma XML file / directory"
-      option :extension, aliases: :x, desc: "File extension of Relaton XML files, defaults to 'rxl'"
+      option :extension, aliases: :x, default: "rxl", desc: "File extension of Relaton XML files, defaults to 'rxl'"
 
       def extract(source_dir, outdir)
         Relaton::Cli::RelatonFile.extract(source_dir, outdir, options)
@@ -29,13 +29,14 @@ module Relaton
       option :title, aliases: :t,  desc: "Title of resulting Relaton collection"
       option :organization, aliases: :g, desc: "Organization owner of Relaton collection"
       option :new, aliases: :n, type: :boolean, desc: "Use the new Relaton YAML format"
+      option :extension, aliases: :x, default: "rxl", desc: "File extension of destination Relaton file, defaults to 'rxl'"
 
       def concatenate(source_dir, outfile)
         Relaton::Cli::RelatonFile.concatenate(source_dir, outfile, options)
       end
 
       desc "split Relaton-Collection-File Relaton-XML-Directory", "Split a Relaton Collection into multiple files"
-      option :extension, aliases: :x, desc: "File extension of Relaton XML files, defaults to 'rxl'"
+      option :extension, aliases: :x, default: "rxl", desc: "File extension of Relaton XML files, defaults to 'rxl'"
       option :new, aliases: :n, type: :boolean, desc: "Use the new Relaton YAML format"
 
       def split(source, outdir)
@@ -43,7 +44,7 @@ module Relaton
       end
 
       desc "yaml2xml YAML", "Convert Relaton YAML into Relaton Collection XML or separate files"
-      option :extension, aliases: :x, desc: "File extension of Relaton XML files, defaults to 'rxl'"
+      option :extension, aliases: :x, default: "rxl", desc: "File extension of Relaton XML files, defaults to 'rxl'"
       option :prefix, aliases: :p, desc: "Filename prefix of individual Relaton XML files, defaults to empty"
       option :outdir, aliases: :o,  desc: "Output to the specified directory with individual Relaton Bibdata XML files"
       option :require, aliases: :r, type: :array, desc: "Require LIBRARY prior to execution"
@@ -54,7 +55,7 @@ module Relaton
       end
 
       desc "yaml2xmlnew YAML", "Convert Relaton YAML into Relaton Collection XML or separate files"
-      option :extension, aliases: :x, desc: "File extension of Relaton XML files, defaults to 'rxl'"
+      option :extension, aliases: :x, default: "rxl", desc: "File extension of Relaton XML files, defaults to 'rxl'"
       option :prefix, aliases: :p, desc: "Filename prefix of individual Relaton XML files, defaults to empty"
       option :outdir, aliases: :o,  desc: "Output to the specified directory with individual Relaton Bibdata XML files"
       option :require, aliases: :r, type: :array, desc: "Require LIBRARY prior to execution"
@@ -65,7 +66,7 @@ module Relaton
       end
 
       desc "xml2yaml XML", "Convert Relaton XML into Relaton Bibdata / Bibcollection YAML (and separate files)"
-      option :extension, aliases: :x, desc: "File extension of Relaton YAML files, defaults to 'yaml'"
+      option :extension, aliases: :x, default: "yaml", desc: "File extension of Relaton YAML files, defaults to 'yaml'"
       option :prefix, aliases: :p, desc: "Filename prefix of Relaton XML files, defaults to empty"
       option :outdir, aliases: :o, desc: "Output to the specified directory with individual Relaton Bibdata YAML files"
       option :require, aliases: :r, type: :array, desc: "Require LIBRARY prior to execution"
@@ -76,7 +77,7 @@ module Relaton
       end
 
       desc "xml2yamlnew XML", "Convert Relaton XML into Relaton Bibdata / Bibcollection YAML (and separate files)"
-      option :extension, aliases: :x, desc: "File extension of Relaton YAML files, defaults to 'yaml'"
+      option :extension, aliases: :x, default: "yaml", desc: "File extension of Relaton YAML files, defaults to 'yaml'"
       option :prefix, aliases: :p, desc: "Filename prefix of Relaton XML files, defaults to empty"
       option :outdir, aliases: :o, desc: "Output to the specified directory with individual Relaton Bibdata YAML files"
       option :require, aliases: :r, type: :array, desc: "Require LIBRARY prior to execution"

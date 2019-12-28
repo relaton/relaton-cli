@@ -16,7 +16,7 @@ module Relaton
       end
 
       def concatenate
-        write_to_file(bibcollection.to_yaml)
+        concatenate_and_write_to_files
       end
 
       def split
@@ -128,7 +128,7 @@ module Relaton
           bibdata = Relaton::Bibdata.from_xml(bib.root)
           build_bibdata_relaton(bibdata, file)
 
-          write_to_file(bibdata.to_xml, outdir, build_filename(file))
+          write_to_file(bibdata.send(output_type), outdir, build_filename(file))
         end
       end
 
@@ -145,6 +145,10 @@ module Relaton
           end
           bibdata_instance(doc, xml[:file]) if doc.root.name == "bibdata"
         end.compact
+      end
+
+      def concatenate_and_write_to_files
+        write_to_file(bibcollection.send(output_type))
       end
 
       def split_and_write_to_files
@@ -164,9 +168,16 @@ module Relaton
         end
       end
 
-      def output_type
-        output_format = options[:extension] || "rxl"
-        (output_format == "rxl" ? "to_xml" : "to_#{output_format}").to_sym
+      def output_type(ext=options[:extension])
+        case ext
+        when "rxl", "xml"
+          :to_xml
+        when "yml", "yaml"
+          :to_yaml
+        else
+          puts "The given extension of '#{ext}' is not supported."
+          :to_xml
+        end
       end
 
       def bibdata_instance(document, file)
