@@ -1,35 +1,33 @@
 = Relaton CLI (relaton-cli): Relaton Command-line Interface
 
 image:https://img.shields.io/gem/v/relaton-cli.svg["Gem Version", link="https://rubygems.org/gems/relaton-cli"]
-image:https://img.shields.io/travis/metanorma/relaton-cli/master.svg["Build Status", link="https://travis-ci.org/metanorma/relaton-cli"]
-image:https://ci.appveyor.com/api/projects/status/fyy87flpig4q5o2u?svg=true["Appveyor Build Status", link="https://ci.appveyor.com/project/ribose/relaton-cli"]
+image:https://github.com/relaton/relaton-cli/workflows/ubuntu/badge.svg["Build Status", link="https://github.com/relaton/relaton-cli/actions?workflow=ubuntu"]
+image:https://github.com/relaton/relaton-cli/workflows/macos/badge.svg["Build Status", link="https://github.com/relaton/relaton-cli/actions?workflow=macos"]
+image:https://github.com/relaton/relaton-cli/workflows/windows/badge.svg["Build Status", link="https://github.com/relaton/relaton-cli/actions?workflow=windows"]
 image:https://codeclimate.com/github/metanorma/relaton-cli/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/metanorma/relaton-cli"]
 
 Documentation in development.
 
-Please refer to https://github.com/metanorma/relaton.
+Please refer to https://github.com/relaton/relaton.
 
-== Executables
+== Commands
 
-The following executables are included:
+The following commands are provided.
 
 === relaton concatenate
 
 [source,console]
 ----
-$ relaton concatenate Source-Directory Collection-File -t TITLE -g ORGANIZATION -n
+$ relaton concatenate Source-Directory Relaton-Collection-File -t TITLE -g ORGANIZATION -n
 ----
 
-Iterates through all the Relaton YAML files in `Source-Directory`, and converts them in-place into Relaton XML.
+Iterates through all the Relaton files (YAML and XML) in `Source-Directory`, and concatenates them into a Relaton Collection file. The extension of the Collection file can be set using the `Relaton-Collection-File` file name (i.e, if it uses an extension of `yaml`, a Relaton YAML file will be created; if `rxl`, a Relaton XML file will be created, or via the `-x [ext]` (or `--extension`) option.
 
-Iterates through all the Relaton XML files in `Source-Directory` (including those just converted from Relaton YAML),
-and outputs to `Collection-File` a `relaton-collection` document containing all the Relaton XML objects read in.
-
-For each Relaton XML file, if a document file with the same base name is identified (i.e. an XML, HTML, PDF or DOC
+For each Relaton input file in the `Source-Directory`, if a document file with the same base name is identified (i.e. an XML, HTML, PDF or DOC
 file), a link to that file is inserted.
 
 If the `TITLE` or `ORGANIZATION` options are given, they are added to the `Collection-File` output as the
-title and author of the `relaton-collection` document.
+title and author of the `Relaton-Collection-File` document.
 
 If the `-n` or `--new` option given then use the new Relaton YAML format https://github.com/relaton/relaton-bib/blob/master/docs/hash.adoc.
 
@@ -37,11 +35,11 @@ If the `-n` or `--new` option given then use the new Relaton YAML format https:/
 
 [source,console]
 ----
-$ relaton split Collection-File Relaton-File-Directory -x rxl -n
+$ relaton split Relaton-Collection-File Relaton-File-Directory -x rxl -n
 ----
 
 Splits a `Relaton-Collection-File` into multiple files in the `Relaton-File-Directory`, and it also
-suports an addional `extension` options to use different extension.
+suports an additional `-x` or `--extension` options to use different extension.
 
 If the `-n` or `--new` option given then use the new Relaton YAML format https://github.com/relaton/relaton-bib/blob/master/docs/hash.adoc.
 
@@ -217,9 +215,9 @@ Render a Relaton YAML file (`filename.yaml`) as an HTML file. The stylesheet and
 $ relaton yaml2xmlnew <filename.yaml> -o OUTPUT-DIRECTORY -x RELATON_EXTENSION -p PREFIX -r LIBRARY
 ----
 
-Convert a Relaton YAML file (`filename.yaml`) in a new format into a Relaton XML file (`filename.xml`). If the Relaton YAML file specifies multiple bibliograph items, and `OUTPUT-DIRECTORY` is nominated, also convert the file into a list of Relaton XML files for each entry, stored in that directory. The document identifier is used as the name of each Relaton XML file; the Relaton XML filename is suffixed with `RELATON_EXTENSION` (default `.rxl`) and prefixed with `PREFIX` (default empty). Any libraries that need to be required for the conversion are specified in `LIBRARY` as a space-delimited list.
+Convert a Relaton YAML file (`filename.yaml`) in a new format into a Relaton XML file (`filename.xml`). If the Relaton YAML file specifies multiple bibliographic items, and `OUTPUT-DIRECTORY` is nominated, also convert the file into a list of Relaton XML files for each entry, stored in that directory. The document identifier is used as the name of each Relaton XML file; the Relaton XML filename is suffixed with `RELATON_EXTENSION` (default `.rxl`) and prefixed with `PREFIX` (default empty). Any libraries that need to be required for the conversion are specified in `LIBRARY` as a space-delimited list.
 
-A Relaton Colleciton YAML file contains some initial metadata, and a list of metadata about each bibliographic entry:
+A Relaton Collection YAML file contains some initial metadata, and a list of metadata about each bibliographic entry:
 
 [source,yaml]
 ----
@@ -228,11 +226,11 @@ root:
   title: CalConnect Standards Registry
   items:
     - technical_committee: PUBLISH
-      docid: 
+      docid:
         type: CC
         id: CC 36000
       type: standard
-      title: 
+      title:
         type: main
         content: Standardization documents -- Vocabulary
       docstatus:
@@ -241,11 +239,11 @@ root:
         type: issued
         value:  2018-10-25
     - technical_committee: DATETIME
-      docid: 
+      docid:
         type: CC
         id: CC 34000
       type: standard
-      title: 
+      title:
         type: main
         content: Date and time -- Concepts and vocabulary
       docstatus:
@@ -255,7 +253,7 @@ root:
         value: 2018-10-25
 ----
 
-A Relaton YAML file describing an individual bibliographic entry is limited to metadata specific to that entry. Flavor gems have aditional fields. The following illustrates the common fields supported by all flavor gems (see link:https://github.com/relaton/relaton-bib/blob/master/docs/hash.adoc#yaml[Relaton YAML]):
+A Relaton YAML file describing an individual bibliographic entry is limited to metadata specific to that entry. Flavor gems have additional fields. The following illustrates the common fields supported by all flavor gems (see link:https://github.com/relaton/relaton-bib/blob/master/docs/hash.adoc#yaml[Relaton YAML]):
 
 [source,yaml]
 ----
@@ -471,3 +469,4 @@ $ relaton yaml2xmlnew <filename.yaml> [<stylesheet>] [<liquid-template-dir>]
 ----
 
 Render a Relaton YAML file in a new format (`filename.yaml`) as an HTML file. The `stylesheet` and `liquid-template-dir` directories are as for <<relaton xml2html,relaton xml2html>>.
+

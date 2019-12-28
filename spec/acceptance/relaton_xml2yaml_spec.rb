@@ -10,7 +10,7 @@ RSpec.describe "Relaton xml2yaml" do
         Relaton::Cli.start(command)
 
         expect(Relaton::Cli::XMLConvertor).to have_received(:to_yaml).
-          with("spec/fixtures/sample-collection.xml", { overwrite: false })
+          with("spec/fixtures/sample-collection.xml", overwrite: false, extension: "yaml")
       end
     end
 
