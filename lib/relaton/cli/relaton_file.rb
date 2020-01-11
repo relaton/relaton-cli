@@ -125,7 +125,7 @@ module Relaton
           bib.remove_namespaces!
           bib.root.add_namespace(nil, "xmlns")
 
-          bibdata = Relaton::Bibdata.from_xml(bib.root)
+          bibdata = Relaton::BibdataNew.from_xml(bib.root)
           build_bibdata_relaton(bibdata, file)
 
           write_to_file(bibdata.send(output_type), outdir, build_filename(file))

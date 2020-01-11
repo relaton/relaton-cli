@@ -16,7 +16,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
 
         expect(file_exist?("cc-amd-86003.rxl")).to be false
         expect(file_exist?("cc-cor-12990-3.rxl")).to be true
-        expect(content).to include("<bibdata type='standard'>")
+        expect(content).to include("<bibdata type=\"standard\">")
       end
     end
 
@@ -47,7 +47,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
 
         expect(file_exist?("a.rxl")).to be_truthy
         expect(file_exist?("cc-cor-12990-3.rxl")).to be_falsey
-        expect(content).to include("<bibdata type='standard'>")
+        expect(content).to include("<bibdata type=\"standard\">")
       end
 
       it "extracts the RFC in the output directory" do
@@ -61,7 +61,16 @@ RSpec.describe Relaton::Cli::RelatonFile do
 
         expect(file_exist?("draft-celi-acvp-sha-00.rxl")).to be_truthy
         expect(file_exist?("cc-cor-12990-3.rxl")).to be_falsey
-        expect(content).to include("<bibdata type='standard'>")
+        expect(content).to include("<bibdata type=\"standard\">")
+      end
+
+      it "extract to current directory" do
+        Relaton::Cli::RelatonFile.extract(
+          "spec/fixtures/antioch.xml", "./tmp/output", extension: "rxl"
+        )
+        expect(File.read("./tmp/output/antioch.rxl")).to include(
+          "<docnumber>draft-camelot-holy-grenade-01</docnumber>"
+        )
       end
     end
   end

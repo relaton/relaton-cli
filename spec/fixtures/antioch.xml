@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ietf-standard xmlns="https://open.ribose.com/standards/ietf">
+<bibdata type="standard">
+<title language="en" format="text/plain" type="main">The Holy Hand Grenade of Antioch</title>
+<title language="en" format="text/plain" type="abbrev">Hand Grenade of Antioch</title>
+<docidentifier>draft-camelot-holy-grenade-01</docidentifier>
+<docnumber>draft-camelot-holy-grenade-01</docnumber>
+<contributor>
+<role type="author"/>
+<person>
+<name>
+<completename>Arthur son of Uther Pendragon</completename>
+</name>
+<email>arthur.pendragon@ribose.com</email>
+<uri>http://camelot.gov.example</uri>
+</person>
+</contributor>
+<contributor>
+<role type="publisher"/>
+<organization>
+<name>Internet Engineering Task Force</name>
+<abbreviation>IETF</abbreviation>
+</organization>
+</contributor>
+<version>
+<revision-date>2018-04-15T00:00:00Z</revision-date>
+</version>
+<language>en</language>
+<script>Latn</script>
+<status>
+<stage>informational</stage>
+</status>
+<copyright>
+<from>2020</from>
+<owner>
+<organization>
+<name>Internet Engineering Task Force</name>
+<abbreviation>IETF</abbreviation>
+</organization>
+</owner>
+</copyright>
+<relation type="updates">
+<bibitem type="standard">
+  <fetched>2020-01-06</fetched>
+  <title format="text/plain" language="en" script="Latn">The Arte of ASCII: Or, An True and Accurate Representation of an Menagerie of Thynges Fabulous and Wonderful in Ye Forme of Character</title>
+  <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8140.xml</uri>
+  <uri type="src">https://www.rfc-editor.org/info/rfc8140</uri>
+  <docidentifier type="IETF">RFC 8140</docidentifier>
+  <docidentifier type="rfc-anchor">RFC8140</docidentifier>
+  <docidentifier type="DOI">10.17487/RFC8140</docidentifier>
+  <date type="published">
+    <on>2017-04</on>
+  </date>
+  <contributor>
+    <role type="author"/>
+    <person>
+      <name>
+        <completename language="en">A. Farrel</completename>
+      </name>
+      <affiliation>
+        <organization>
+          <name>IETF</name>
+          <abbreviation>IETF</abbreviation>
+        </organization>
+      </affiliation>
+    </person>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <abstract format="text/plain" language="en" script="Latn">Ever since Gutenberg discovered and patented ASCII and the corresponding "Courier New" font with its now-famous "ten" point size, artisans and artificers have striven to represent their views of the world in print.Similarly, starting from Darwin's discovery of the hippogriff and his subsequent registration of the creature as an International Trade Mark, men (and some women) have struggled to catalog the fabulous variety that is called "nature".This document supplies a number of representations of all manner of things (both elemental and hypothetical) supplied by some of our best collectors of curios and delivered in a manner that may well be reused by the cunning document author.</abstract>
+  <series type="main">
+    <title format="text/plain" language="en" script="Latn">RFC</title>
+    <number>8140</number>
+  </series>
+  <place>Fremont, CA</place>
+</bibitem>
+</relation>
+<series type="stream">
+<title>independent</title>
+</series>
+<series type="intended">
+<title>info</title>
+</series>
+<ext>
+<doctype>internet-draft</doctype>
+<area>General</area>
+<area>Operations and Management</area>
+<ipr>trust200902</ipr>
+<consensus>false</consensus>
+<sortRefs>true</sortRefs>
+<tocInclude>true</tocInclude>
+<pi>
+<comments>yes</comments>
+<notedraftinprogress>yes</notedraftinprogress>
+<toc>yes</toc>
+<sortrefs>true</sortrefs>
+</pi>
+</ext>
+</bibdata>
+<preface><foreword obligation="informative"><title>Foreword</title><p id="_487847fd-67a4-4391-b60b-78ec1ba3b077">The menagerie of beasts and artefacts depicted in RFC8140
+may be usefully supplemented by other renowned figures of
+Internet and more general lore. This document extends the
+menagerie to the seminal fable of the
+"Holy Hand Grenade of Antioch", as depicted in the
+Monty Python film "Monty Python and the Holy Grail",
+as well as "Spamalot", the musical inspired by the movie.</p>
+<note id="_07726f70-32ca-4707-af04-9b76ac98b8b3" removeInRFC="false">
+<name>Spamalot</name>
+<p id="_1e4ec905-bfff-4856-a762-1fdf9773f39f">The relevance of the musical "Spamalot" to Internet lore should be
+obvious to the reader; but in case of doubt, see also
+Section 1 ("What is Spam*?") of <eref type="inline" bibitemid="RFC2635" citeas="RFC 2635"/>.</p>
+</note></foreword></preface><sections>
+<clause id="_terminology" toc="exclude" inline-header="false" obligation="normative">
+<title>Terminology</title>
+<p id="_e293e967-c095-48a1-b4d8-5e7523ce0a79">The key words "<bcp14>MUST</bcp14>", "<bcp14>MUST NOT</bcp14>", "<bcp14>REQUIRED</bcp14>", "<bcp14>SHALL</bcp14>",
+"<bcp14>SHALL NOT</bcp14>", "<bcp14>SHOULD</bcp14>", "<bcp14>SHOULD NOT</bcp14>", "<bcp14>RECOMMENDED</bcp14>",
+"<strong>NOT RECOMMENDED</strong>", "<bcp14>MAY</bcp14>", and "<bcp14>OPTIONAL</bcp14>" in this document
+are to be interpreted as described in BCP 14 <eref type="inline" bibitemid="RFC2119" citeas="RFC 2119"/> <eref type="inline" bibitemid="RFC8174" citeas="RFC 8174"/>
+when, and only when, they appear in all capitals, as shown here.</p>
+</clause>
+<clause id="_introduction" inline-header="false" obligation="normative"><title>Introduction</title><p id="_03c97ad0-3688-4287-9d46-4e5651e2872c"><eref type="inline" bibitemid="RFC8140" citeas="RFC 8140"/> refers to the intended move of RFC formatting to
+XML2RFC v3 <eref type="inline" bibitemid="RFC7990" citeas="RFC 7990"/>, in the following terms:</p>
+<quote id="_b801f676-aad7-4635-942c-a3ed7580282d">
+<author>A. Farrel</author>
+<p id="_207d424e-ce7f-4883-89b3-e785e937f44a">Although the RFC Editor has recently dragged the IETF kicking and
+screaming into the twentieth century [RFC7990] [RFC7996], there is a
+yearning among all right-thinking Internet architects to "keep it
+simple" and to return to the olden days when pigs could be given
+thrust without anyone taking undue offence.</p>
+</quote>
+<p id="_be057223-1b7b-47fa-9926-1db75e3f5ffe">While no pigs, flying or otherwise, are involved in the transition
+to RFC XML v3, it is opportune to enhance the <eref type="inline" bibitemid="RFC8140" citeas="RFC 8140"/>
+legendarium in the service of RFC XML v3, by illustrating its
+functionality through references to the mythology of Camelot, and
+particularly the incidents at the Cave of Caerbannog.</p>
+<p id="_32eb4b42-034a-4d93-a64f-977636dfb19b">The screaming move into the twenty-<strong>first</strong> century is accompanied by
+a move back to the late twentieth century, with ASCII stylings more
+wonted in haunts like ftp://ftp.wwa.com/pub/Scarecrow (known to be
+accessible in 1996.)</p>
+<p id="_43704964-a97f-4069-9584-f41bed212d23">There are two references to rabbits in
+<em>Monty Python and the Holy Grail</em> which are expounded on herewith:</p>
+<dl id="_7a943a2a-cdab-464d-adaa-095eb776bbfa">
+<dt>Trojan Rabbit</dt>
+<dd>
+<p id="_a49e1e80-e4d6-4284-b022-4e18d34263e9">In their siege of the French-occupied castle which may already
+contain an instance of the Grail, Sir Bedevere the Wise proposes to
+use a Trojan Rabbit to infiltrate the castle, with a raiding party
+to take the French "not only by surprise, but totally unarmed."</p>
+<p id="_e8ee26ab-cf50-45b5-877f-ff6acf61058c">The proposal, unsurprisingly, proved abortive. The more so as the
+raiding party forgot to hide within the Trojan Rabbit, before the
+French soldiers took the Trojan Rabbit inside the castle.</p>
+</dd>
+<dt>Killer Rabbit of Caerbannog</dt>
+<dd>
+<p id="_6b68d83e-0474-4765-a7ce-2d3c1bc36e57">Guarding the entrance to the Cave of Caerbannog; see <xref target="caerbannog"/>.</p>
+</dd>
+</dl></clause>
+<clause id="_the_french_occupied_castle" inline-header="false" obligation="normative"><title>The French-occupied castle</title><p id="_c8c31450-075f-49fd-9f72-7e61f5307f07">The participants of that renowned exercise in cross-cultural
+communication, to wit the exchange between the
+<em>Knights of the Round Table</em>
+and the taunting French soldiers serving under <strong>Guy de Lombard</strong> are,
+properly speaking, outside the scope of this <tt>menagerie</tt>, being more
+or less human. Notwithstanding, several<sup>ish</sup> beasts both animate<sub>d</sub>
+and wooden played a significant part in this encounter; most
+notably:</p>
+<ul id="_76604b07-45f8-4f54-8954-d00c7dec8e5a">
+<li>
+<p id="_908f7799-7caa-4291-8888-fc143a461f81">The Projectile Cow, see <xref target="projectile-cow"/></p>
+</li>
+<li>
+<p id="_59bb4566-9560-4feb-ad53-462a0d5817fb">The Trojan Rabbit, see <xref target="trojan-rabbit"/></p>
+</li>
+</ul>
+<figure id="projectile-cow">
+<name>The Projectile Cow with an accompanying cannon</name>
+<pre id="_c3ce506d-9441-42a6-883c-2ff9a1442ea9" alt="The Projectile Cow with an accompanying cannon in ASCII">.-.-.-.-.-.-.-.-.-.-.-.--.-.-.-.-.-.-.--.-.-.-.-.-.-.-.--.-.
+_-_---__--__--___-___-__-____---___-________---____-____-__-
+._.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.--..-.-.-.-.-.-..--.-
+,..,.,.,.,.,..,.,,..,.,.,.,.,.,,  ^^  .,,.,.,  ^^   .,.,.,.=
+_&gt;-.-.-.-._&gt;_&gt;_&gt;_.-.-.-.-.-.-.-.  \\\  .,.,.  ///  .-.-.-.-.
+.,.,.,.,..,.,..,.,.,..,.,.,,..,.,  \ \_______/ /    .,.,.,.,
+.,.,.,.,..,.,.,.,..,,..,,.,.,.,.,.  &lt;[ {o} . ]&gt;  #   .,.,.,.
+.-.-.--.-.-.-.-.-.--.-.-.-.--.-.-.   [ ______]       .-.-.-.
+.-.--.-.-.-.--.-.-.-.--.-.-.,.,.,  / [ !  ` `]   .,.,..,.,.-
+.,.,.,.-.-,l,-,l.-,.,.,.,-.,*.    /  {_!MOO!_}    . ., . . ,
+.-.-.-.-.-.-.-.-.-.-.-.-.-.-    /M      /    -.-&lt;&gt;.,.,..-.-,
+.-.-.--.-.-.-.-.-.-.-.-.--..   /MI    LK\____    .-.-.-.-.-.
+.-.-.-.--.-.-.-.-.-.-.-.-.-   /MILK   mil_____k   ,.,.,..-,-
+.-,-.-,-.,-.-,-.`-.-/-..     //    -`  //       .-.p . .-.-.
+.-.--.-.-.-.-.-.-.-.        //   .,   //    .-.-.-.-.-.-.-.-
+.-.-.--.-.-.-.-.-.-.  %____============    .-.-.--.-.-.-.-.-
+-.-.-.-.--.-.-.-.-.-.      !  !           .,-.-.-,-,--,-.-,-
+,--.-.-,--.--.-.,--,        \ \      .-,-,--.-,--,-.---,-.-,
+,-.-.-,-,-.-,-,-.--,         +  &gt;    .-,--,-.--,-,-.-.-,--,-
+,--.-,--,-,--.---,-               .-,-,--.--,--,-.---,-,-.-.
+.,.,.,.,..,.,.,.{A\      .,.,.,.,..,.,.,.,.,.,..,.,.,.,..,.,
+.,.,.,.,.,.,.{GLASS\   .,..,.,.,.,.,..,.,.,.,.,.,.,..,.,.,.,
+,..,.,,.,,.,{OF|MILK\..,.,.,.,.,..,.,.,.,.,.,..,.,.,.,.,.,.,
+,.,..,.,,.,{ISWORTH},.,.,..,.,.,.,.,..,..,.,.,..,.,.,.,.,.,.
+.,.,.,.,.{EVERYTNG}.-.-.--..-.-.-.-.--..--.-.-.-.-.--.-.-.-.
+-.-.-.-{FORINFANTS}___--___-_-__-___--*(0~`~.,.,.,.,&gt;&lt;&gt;&lt;.&gt;&lt;&gt;
+_-__-_{BUTBETTER}-.-,-,-,-,-,-,-,-,.-^^^^.-.-.-.-.^^^7&gt;&gt;&gt;,..
+.._...{WITH_HONEY}-.-.-.-.-.-.-.-.-.-.RANDOM(BUSH)SHRUBS&gt;_..
+GRASS_GRASS_GRASS_GRASS_GRASS_SOMEROCKS&gt;GRASS&gt;GRASS&lt;GRASS&gt;PC
+SOIL_ROOTS_SOIL_SOIL_ROCKS_SOIL_GRASS_GRASS_GRASS_ROCKS_SOIL
+CLAY_ROCKS_PEBBLES_CLAY_CLAY_CLAY_CLAY_GOLD_CLAY_CLAY&gt;&lt;_WORM
+ROOTS_CLAY_SKELETON_MORESOIL_CLAY_CLAY_CLAY_CLAY_&lt;MUSHROOMS&gt;</pre>
+</figure>
+<figure id="trojan-rabbit">
+<name>The Trojan Rabbit with an automatic sliding door</name>
+<pre id="_920f9e9c-84d7-449f-a627-9c28f893e578" alt="The Trojan Rabbit with an automatic sliding door">                           ___  ____
+                          //_ \//\__\
+                            || ||  |
+                         -__||_||__|
+                       //         \--_
+                      //     ____     --___
+                     //     //   \         \-_
+                    //      \\  @/        o ||
+                   //        ----      _____||
+                  //                   //
+             //\_//__                 //
+           //--  --- \____           //
+          //          --- \______   //
+         //   , .          ----- \_//_
+        //       ,.               --- \____
+       //              .,v             --- \___
+      //                                 __ -- \_
+     ||  ,         _______________       //||     |-_
+     ||           |   |''''''''''|     // ||     |  |
+     ||     '     |   |          |        ||     |  |
+     ||           |   |          |        ||     |  |
+     ||      "    |   | 0        |     ___||___  |  |
+     ||           |   |          |     --------  |  |
+     ||___        |   |          |        ______ |  |-
+    //     \      |   |          |       //     \| _| \
+   //       \ ____|---|__________|______//       \/    |
+  ||    X    |      /                  ||    X    |   /
+   \\       /\\____/                    \\       /___/
+    \\_____/ -----                       \\_____/---
+     -----                                -----</pre>
+<note id="_25108860-2111-4477-937e-aa3475f189ee">
+<p id="_533cbd23-0088-4dc3-a79f-a481f235d71e">Image courtesy of
+<link target="https://camelot.gov.example/creatures-in-ascii/"/></p>
+</note></figure>
+
+
+<p id="_8367653e-9d36-4531-99da-f89c125d8a2f">The exchange of projectile animals was the beginning of a
+long-running fruitful relationship between the British and the
+French peoples, which
+arguably predates the traditional English enmity with the
+French.</p>
+
+</clause>
+<clause id="caerbannog" inline-header="false" obligation="normative"><title>The Mythos of Caerbannog</title><p id="_4fad0598-8cbc-4b3f-9e98-2436085df031">The <em>Cave of Caerbannog</em> has been well-established in the mythology
+of Camelot (as recounted by Monty Python) as the lair of the
+Legendary Black Beast of Arrrghhh, more commonly known today as the
+<strong>Killer Rabbit of Caerbannog</strong> <xref target="killer_rabbit_caerbannog"/>.
+It is the encounter between the Killer Rabbit of Caerbannog and the
+Knights of the Round Table, armed with the Holy Hand Grenade of
+Antioch (see the <xref target="holy_hand_grenade">following section</xref>), that we
+recount here through monospace font and multiple spaces.</p>
+<clause id="killer_rabbit_caerbannog" inline-header="false" obligation="normative"><title>The Killer Rabbit of Caerbannog</title><p id="_1fd271dc-a9cb-4ad3-9e40-0b17cbed9917">The <strong>Killer Rabbit of Caerbannog</strong>, that most formidable foe of
+the Knights and of all that is holy or carrot-like, has been
+depicted diversely in lay and in song. We venture to say,
+<em>contra</em> the claim made in <eref type="inline" displayFormat="of" bibitemid="RFC8140" citeas="RFC 8140"><locality type="section"><referenceFrom>4.1</referenceFrom></locality></eref>,
+that the Killer Rabbit of Caerbannog truly is the most afeared
+of all the creatures. Short of sanctified ordnance such as
+<xref target="holy_hand_grenade" format="title"/>, there are few remedies
+known against its awful lapine powers.</p>
+<p id="_37598977-3c14-4069-8419-1ed1dfaacd94"><xref target="killer-bunny">The following depiction</xref> of the fearsome beast
+has been sourced from
+<link target="http://camelot.gov.example/avatars/rabbit">Rabbit-SCII</link>,
+<xref target="killer-source">accompanied</xref>
+by C code that was used in this accurate depiction of the
+Killer Rabbit:</p>
+<figure id="killer-bunny">
+<name>A Photo Of The Killer Rabbit of Caerbannog Taken In Secret</name>
+<pre id="_63634760-5275-4c96-be45-e3c4779de297" alt="The Killer Bunny, in ASCII">\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+\\\\\\\\\\\\\\\\\\\\\^^^^^^^^^^^^^^^^^^^^^^\\\\\\\\\\\\\\\\\
+\\\\\\\\\\\\\\\\\\\&lt;&lt;#MWSHARPMWMWMWTEETHWMWWM&gt;&gt;&gt;\\\\\\\\\\\\
+\\\\\\\\\\\\\\\&lt;&lt;&lt;#WMMWMWDEEPMDARKWCAVEMWWMMWM##&gt;&gt;&gt;&gt;\\\\\\\\
+\\\\\\\\\\\\\&lt;&lt;#WMWMWMWMWWM/^MWMWMWMWMWMW^WMWMWMMW#&gt;&gt;&gt;\\\\\\
+\\\\\\\\\\\\&lt;&lt;#WMWMBEASTMW// \MWABBITWMW/ \MWMWMWMW##\\\\\\\
+\\\\\\\\\\##MWMWMMWMWMWMWM\\  \MWMWMWMW/  /MWMWMWMWM##\\\\\\
+\\\\\\\\##WMWMWMWMMWMWMWMWM\\  \MWMWMW/  /MWMWMWMMWMWMWM##\\
+\\\\\\\##MWMMRAVENOUSMWMWMWM\\  \====/  /MWMRABBITMWMWMWMW##
+\\\\\\##MWMWMWMWMMWMWMWMWMW[[            ]WMWMWMMWMWMWMWMWMW
+\\\\\##MWMWMWMWCARNIVOROUSW[[   3    3   ]MWMWTOOMDARKWMWMMW
+\\\\##MWMWDARKMWMWMWMWMWMWM//\     o    /MWMWMWMMWMWMWMMWMWM
+\\##MWMWMMKILLERABBITWMWMM//| \___vv___/ \WMPITCHWBLACKWMWMW
+\##MWMWMWMMWMWMWMWMWMMWMW// |   \-^^-/   |MWMWMWMMWMWMWMWMWM
+MWMWMWMMWMWVERYMDARKWMMW//  |            |MWMCAERBANNOGWMWMW
+MWMWMWMMWMWMWMWMWMWMWMM{{  /             /MWMWMMWMWMWMWMWMWM
+MULTRADARKWMWMHELPMWMWMW\\ \  |      |  |MWMCANMMWMWMWMMWMWW
+MWMWMWMWMMWMWMWMWMMWMWMWM\\ | |_     |  |_WMWMMYOUMWMMWWMWMW
+MWMMWMWMWMWMBLACKWMWMWMWWM\_|__-\-----\__-\MWMWMWMREADMWMWWM
+MWMWMWMMWMWMWMWMMWMWMWWMWMWMWMMWMWMWMWMWMWMWMWMWMWMWMMTHISWW
+MWVERYMMSCARYMWMWWMWMMWMWMWMWMWMWMWMWMWMWMWMWWMWMMWMWIWM'.',
+MWMWMMWMW======MWMMCANTWSEEMAMTHINGMMWMWMWMWMWMWMBETMMW` . `
+MWMWMWM// SKULL \MWMWMWMMWSCREAMMMWMWMWMMWMNOTMWMWMWW  ` . \
+MWMWMW|| |X||X| |MWMWCALLMMEWMMWMWMMWMWMWMWWM - ` ~ . , '
+MWMWMW||___ O __|MWMWMWMMWMWMWMWMMW'   ___________//   -_^_-
+MWMWMW \\||_|_||MWMW      '   . .     &lt;_|_|_||_|__|     \O/
+MW   \\/\||v v||  -\\-------___     .   .,         \     |
+    \\|  \_CHIN/  ==-(|CARROT/)\&gt;     \\/||//         v\/||/
+       )          /--------^-^            ,.            \|//
+ #  \(/ .\\|x//                              " ' '
+  . ,                \\||//        \||\\\//   \\</pre>
+</figure>
+<sourcecode lang="c" id="killer-source" markers="true"><name>C Code To Lure Killer Rabbit Back To Cave</name>/* Locate the Killer Rabbit */
+int type;
+unsigned char *killerRabbit =
+  LocateCreature(&amp;caerbannog, "killer rabbit");
+if( killerRabbit == 0 ){
+  puts("The Killer Rabbit of Caerbannog is out of town.");
+  return LOST_CREATURE;
+}
+
+/* Load Cave */
+unsigned char *cave = LoadPlace(&amp;caerbannog,
+  "The Cave Of Caerbannog");
+if( cave == 0 ){
+  puts("The Cave of Caerbannog must have moved.");
+  return LOST_PLACE;
+}
+
+/* Lure the Killer Rabbit back into the Cave */
+unsigned char *carrot = allocateObjectInPlace(
+  carrot("fresh"), cave);
+if( carrot == 0 ){
+  puts("No carrot, no rabbit.");
+  return LOST_LURE;
+}
+
+/* Finally, notify the Killer Rabbit to act */
+return notifyCreature(killerRabbit, &amp;carrot);</sourcecode>
+
+<p id="_4afdd80c-58fe-428d-bcb6-d9b7c9cea9eb">On the beast's encounter with the Knights of the Round Table,
+the following personnel engaged with it in combat:</p>
+<ul id="_33015d2c-6526-4f28-9d3c-a9b801bc16f0">
+<li>
+<p id="_87e7c814-8508-4592-99d2-7d68c969b60c">Killed</p>
+<ul id="_b52868dc-12cb-4c87-a73f-2d9122112571">
+<li>
+<p id="_e522255b-4e34-493c-b9db-ace591110979">Sir Bors</p>
+</li>
+<li>
+<p id="_4eb766b5-c477-4588-894e-4ca55603d334">Sir Gawain</p>
+</li>
+<li>
+<p id="_a94f7f7d-fcb5-4e5d-89f2-3b7883820f66">Sir Ector</p>
+</li>
+</ul>
+</li>
+<li>
+<p id="_ebcab3ae-17c9-4177-bb84-2341008e5d4c">Soiled Himself</p>
+<ul id="_0cacba69-34bd-4a6d-9bcf-84740b2238b6">
+<li>
+<p id="_0f117b0c-aa29-4bc6-9ef9-ef3890cd7a21">Sir Robin</p>
+</li>
+</ul>
+</li>
+<li>
+<p id="_72718df0-117b-48cf-90e2-f0d0a96df711">Panicked</p>
+<ul id="_7b723b5f-8679-4a65-8dcc-a8eae09f3276">
+<li>
+<p id="_09826e78-896b-460c-a215-28f2a46d4d6f">King Arthur</p>
+</li>
+</ul>
+</li>
+<li>
+<p id="_6d322ab0-3d88-4c70-9609-cbf634b70867">Employed Ordnance</p>
+<ul id="_d65bb067-806e-4167-9cef-bb96444a20eb">
+<li>
+<p id="_12e144d2-09c8-479a-be67-23e6b30f61d2">The Lector</p>
+</li>
+<li>
+<p id="_9632e769-5ceb-451f-b12d-5f61cb50a1bf">Brother Maynard</p>
+</li>
+</ul>
+</li>
+<li>
+<p id="_44447409-416f-4557-a8ff-6d1c136b372a">Scoffed</p>
+<ul id="_42495d53-e0d6-4da6-94a1-0ea8e72ec1a2">
+<li>
+<p id="_053d197d-971c-4f8b-a980-92e0afdcf774">Tim the Enchanter</p>
+</li>
+</ul>
+</li>
+</ul></clause>
+<clause id="holy_hand_grenade" inline-header="false" obligation="normative"><title>Holy Hand Grenade of Antioch</title><figure id="hand-grenade-figure">
+<name>The Holy Hand Grenade of Antioch (don't pull the pin)</name>
+<pre id="_336bce02-73cd-4e6c-88cd-ee779a722e4d" alt="Holy Hand Grenade of Antioch">                        ______
+                       \\/  \/
+                      __\\  /__
+                     ||  //\   |
+                     ||__\\/ __|
+                        ||  |    ,---,
+                        ||  |====`\  |
+                        ||  |    '---'
+                      ,--'*`--,
+                    _||#|***|#|
+                 _,/.-'#|* *|#`-._
+               ,,-'#####|   |#####`-.
+             ,,'########|   |########`,
+            //##########| o |##########\
+           ||###########|   |###########|
+          ||############| o |############|
+          ||------------'   '------------|
+          ||o  o  o  o  o   o  o  o  o  o|
+           |-----------------------------|
+           ||###########################|
+            \\#########################/
+             `..#####################,'
+               ``..###############_,'
+                  ``--.._____..--'
+                     `''-----''`</pre>
+</figure>
+<figure id="sovereign-orb">
+<name>The Sovereign's Orb made invisible</name>
+<image src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Coa_Illustration_Elements_Globus_cruciger.svg" id="_69cec614-ec9f-4930-87d7-c41e644b8e6e" mimetype="image/svg+xml" height="135" width="124" alt="Orb" align="right"/>
+</figure>
+<p id="_8663f5ba-ba19-45c8-933b-2e525ecc23ca">The solution to the impasse at the Cave of Caerbannog<index primary="Cave of Caerbannog"/> was
+provided by the successful deployment of the
+<strong>Holy Hand Grenade of Antioch</strong> (see <xref target="hand-grenade-figure"/>)
+<index primary="Holy Hand Grenade of Antioch"/>.
+Any similarity between the Holy Hand Grenade of Antioch and the
+mythical <em>Holy Spear of Antioch</em> is purely intentional;
+<index primary="relics" secondary="Christian"/> any similarity between the Holy Hand Grenade
+of Antioch and the <em>Sovereign's Orb of the United Kingdom</em>
+(see <xref target="sovereign-orb"/>) is putatively fortuitous.
+<index primary="relics" secondary="monarchic"/></p>
+<dl id="_4f0f038c-cea5-4440-a51f-5e9e7c562c99">
+<dt>Holy Hand Grenade of Antioch</dt>
+<dd>
+<p id="_70779fd8-b685-4929-868d-0c2f2f3f90b3">Ordnance deployed by Brother Maynard under the incantation of a
+lector, in order to dispense with the Foes of the Virtuous.
+See <xref target="hand-grenade-figure"/>.</p>
+</dd>
+<dt>Holy Spear of Antioch</dt>
+<dd>
+<p id="_02a69c6a-8757-4e09-83c5-9ab58340105e">A supposed relic of the crucifixion of Jesus Christ, this is one
+of at least four claimed instances of the lance that pierced
+Christ's side. Its historical significance lies in inspiring
+crusaders to continue their siege of Antioch in 1098.</p>
+</dd>
+<dt>Sovereign's Orb of the United Kingdom</dt>
+<dd>
+<p id="_4fb6ad4f-af3c-4cde-bf7d-659234481135">Part of the Crown Jewels of the United Kingdom, the Sovereign's
+Orb is a hollow gold sphere set with jewels and topped with a
+cross.  It was made for Charles II in 1661. See <xref target="sovereign-orb"/>.</p>
+</dd>
+</dl>
+<p id="_3690108f-6fea-4bba-b2e2-784890b3409b">The instructions in the <em>Book of Armaments</em> on the proper deployment
+of the Holy Hand Grenade of Antioch <bcp14>MAY</bcp14> be summarized as
+follows, although this summary <bcp14>SHALL NOT</bcp14> be used as a substitute
+for a reading from the Book of Armaments:</p>
+<ol id="_f05795c2-f036-4325-9eca-ae09d462890a" type="arabic">
+<li>
+<p id="_94b71915-0eaf-4669-926c-8e14cbbe5c83">Preamble: St Attila Benediction</p>
+</li>
+<li>
+<p id="_4f501dcf-5065-4ce8-aec3-c5123c3c1429">Feast of the People on Sundry Foods</p>
+<ul id="_c5e6c362-27ed-4e2f-8196-efff411c4cb4">
+<li>
+<p id="_f385539b-2150-4788-8bb7-d242796edec6">Lambs</p>
+</li>
+<li>
+<p id="_df18ede2-d2f3-4875-8f7e-10180fe9466c">Sloths</p>
+</li>
+<li>
+<p id="_2ba51183-af8a-4b53-a713-237a4b1393b9">Carp</p>
+</li>
+<li>
+<p id="_978711fc-db3e-4e7b-a9fd-9c41cac70a95">Anchovies</p>
+</li>
+<li>
+<p id="_0132b3fb-00a1-411b-ba8c-b75bd349aea1">Orangutangs</p>
+</li>
+<li>
+<p id="_b3bc358a-0f7b-4b7a-878c-669816d96db0">Breakfast Cereals</p>
+</li>
+<li>
+<p id="_94714298-d450-4155-8d6f-2b9c88ebcdf9">Fruit Bats</p>
+</li>
+<li>
+<p id="_1110ee11-43ae-4e26-8b6b-6333a653747b">
+<em>et hoc genus omne</em>
+</p>
+</li>
+</ul>
+</li>
+<li>
+<p id="_d04cdada-5436-4564-a047-0d24b8ddd4f6">Take out the Holy Pin</p>
+</li>
+<li>
+<p id="_d6753ac3-bc90-4312-b2e5-88e4a7242077">The Count</p>
+<ol id="_2dc9f4fd-3455-4a37-b0a4-2e511465d779" type="alphabet_upper">
+<li>
+<p id="_8052e11e-d6de-43f2-ab48-15a1a1eaf622">Count is to Three: no more, no less</p>
+</li>
+<li>
+<p id="_f7d478c8-7791-467f-9554-346952cd5127">Not Four</p>
+</li>
+<li>
+<p id="_eeb07143-1d3d-4d95-bebe-db195919bd7f">Nor Two, except if the count then proceeds to Three</p>
+</li>
+<li>
+<p id="_25880ee6-6a82-46a1-b463-0473517c5e07">Five is Right Out</p>
+</li>
+</ol>
+</li>
+<li>
+<p id="_d88919c0-9477-4de8-ad6d-b8d9313fbeaa">Lob the Holy Hand Grenade of Antioch towards the Foe</p>
+</li>
+<li>
+<p id="_93e5cd56-c512-470d-a9c2-3a88981fa29f">The Foe, being naughty in the <strong>LORD's</strong> sight, <bcp14>SHALL</bcp14> snuff it</p>
+</li>
+</ol>
+<p id="_f14bfcbd-e21c-41c4-8ba9-9c14bbe4eabd">This could also be represented in pseudocode as follows:</p>
+<ol id="_880b3daf-e1e0-48b7-9735-b9fd564ee68f" type="arabic">
+<li>
+<p id="_0ec20a97-9b22-40ca-acbe-f6b6d5cd9b95">Take out the Holy Pin</p>
+</li>
+<li><p id="_b5ab7305-de63-44c0-a074-38b4f8f274a9">The Count</p><sourcecode id="_74611a9a-ae73-4c33-b191-7dfeab7d6c30">integer count;
+for count := 1 step 1 until 3 do
+  say(count)
+comment Five is Right Out</sourcecode>
+</li>
+<li>
+<p id="_84472716-1b9d-4ba9-b418-f7509e3ab2b4">Lob the Holy Hand Grenade of Antioch towards the Foe</p>
+</li>
+<li>
+<p id="_556df232-9d2b-4d40-ac6d-332d2a9b86ec">Foe snuffs it</p>
+</li>
+</ol></clause></clause>
+<clause id="_dramatis_personae" inline-header="false" obligation="normative"><title>Dramatis Personae</title><p id="_27a6f149-8ec7-4cd3-b0ed-a8276674fae0">The following human (more-or-less) protagonists were involved
+in the two incidents recounted as lore of the Knights of the
+Round Table:</p>
+<table id="_bfbc8d24-167a-4688-aa12-6a61cf1969cf">
+<thead>
+<tr>
+<th align="left">French Castle</th>
+<th align="left">Cave of Caerbannog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" align="left">King Arthur</td>
+</tr>
+<tr>
+<td colspan="2" align="left">Patsy</td>
+</tr>
+<tr>
+<td colspan="2" align="left">Sir Bedevere the Wise</td>
+</tr>
+<tr>
+<td colspan="2" align="left">Sir Galahad the Pure</td>
+</tr>
+<tr>
+<td colspan="2" align="left">Sir Lancelot the Brave</td>
+</tr>
+<tr>
+<td colspan="2" align="left">Sir Robin the Not-quite-so-brave-as-Sir-Lancelot</td>
+</tr>
+<tr>
+<td align="left">French Guard with Outrageous Accent</td>
+<td align="left">Tim the Enchanter</td>
+</tr>
+<tr>
+<td align="left">Other French Guards</td>
+<td align="left">Brother Maynard</td>
+</tr>
+<tr>
+<td align="left"/>
+<td align="left">The Lector</td>
+</tr>
+<tr>
+<td rowspan="3" align="center">not yet recruited</td>
+<td align="right">Sir Bors</td>
+</tr>
+<tr>
+<td align="right">Sir Gawain</td>
+</tr>
+<tr>
+<td align="right">Sir Ector</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td align="left">Retinue of sundry knights</td>
+<td align="left">Retinue of sundry more knights than at the French Castle</td>
+</tr>
+</tfoot>
+</table>
+<clause id="_past_the_killer_rabbit" inline-header="false" obligation="normative"><title>Past the Killer Rabbit</title><p id="_b6108d39-51a7-4b36-8df9-f3edaae03fae">Once the Killer Rabbit of Caerbannog (<xref target="killer-bunny"/>) had been
+dispatched, the Knights of the Round Table uncovered the last
+words of Joseph of Arimathea, inscribed on the Cave of Caerbannog
+in Aramaic.  While the precise Aramaic wording has not survived,
+we trust the following Hebrew subtitles will serve as an
+acceptable substitute:</p>
+<quote id="_b7911c3c-72e5-467e-b02e-fb814e7183d7"><source type="inline" uri="https://context.reverso.net"/><author>Joseph of Arimathea</author><p id="_64d3d2a8-d11e-4e57-a6f3-b27f6c53c357">.כאן אולי ימצאו המילים האחרונות של יוסף מארמתיה
+.מי אשר יהיה אמיץ ובעל נפש טהורה יוכל למצוא את הגביע הקדוש בטירת אאאאאאאה</p>
+<p id="_142ce62f-c9a8-4277-abf7-771fc290c417">"Here may be found the last words of Joseph of Arimathea.
+He who is valiant and pure of spirit may find the Holy Grail
+in the castle of — Aaaargh."</p></quote></clause></clause>
+<clause id="_iana_considerations" inline-header="false" obligation="normative">
+<title>IANA Considerations</title>
+<p id="_c75f0a5f-d62b-4590-822d-7945ea32d319">IANA might consider a registry to track the mythical, especially
+ravaging beasts, such as the Killer Rabbit, who haunt the Internet.</p>
+</clause>
+<clause id="_security_considerations" inline-header="false" obligation="normative"><title>Security Considerations</title><p id="_e44a0770-d7ff-4e52-a967-8d274a30d9cc">Do not let the Killer Rabbit out under any circumstance.</p>
+<p id="_cb2b572c-eebe-422b-9b1e-ba47c1c422f1">I repeat. Do not let the Killer Rabbit (<xref target="killer-bunny"/>) out.</p></clause>
+
+
+<bibitem id="grail_film">
+  <fetched>2020-01-08</fetched>
+  <title type="main" format="text/plain" language="en" script="Latn">Monty Python and the Holy Grail</title>
+  <date type="published">
+    <on>1975</on>
+  </date>
+  <contributor>
+    <person>
+      <name>
+        <initial>G.</initial>
+        <surname>Chapman</surname>
+      </name>
+    </person>
+  </contributor>
+  <contributor>
+    <person>
+      <name>
+        <initial>J.</initial>
+        <surname>Cleese</surname>
+      </name>
+    </person>
+  </contributor>
+  <contributor>
+    <person>
+      <name>
+        <initial>E.</initial>
+        <surname>Idle</surname>
+      </name>
+    </person>
+  </contributor>
+  <contributor>
+    <person>
+      <name>
+        <initial>T.</initial>
+        <surname>Gilliam</surname>
+      </name>
+    </person>
+  </contributor>
+  <contributor>
+    <person>
+      <name>
+        <initial>T.</initial>
+        <surname>Jones</surname>
+      </name>
+    </person>
+  </contributor>
+  <contributor>
+    <person>
+      <name>
+        <initial>M.</initial>
+        <surname>Palin</surname>
+      </name>
+    </person>
+  </contributor>
+</bibitem></sections><bibliography><references id="_normative_references" obligation="informative"><title>Normative References</title> <bibitem id="RFC2119" type="standard">  <fetched>2020-01-06</fetched>  <title format="text/plain" language="en" script="Latn">Key words for use in RFCs to Indicate Requirement Levels</title>  <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml</uri>  <uri type="src">https://www.rfc-editor.org/info/rfc2119</uri>  <docidentifier type="IETF">RFC 2119</docidentifier>  <docidentifier type="rfc-anchor">RFC2119</docidentifier>  <docidentifier type="DOI">10.17487/RFC2119</docidentifier>  <date type="published">    <on>1997-03</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">S. Bradner</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">In many standards track documents several words are used to signify the requirements in the specification.  These words are often capitalized. This document defines these words as they should be interpreted in IETF documents.  This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">BCP</title>    <number>14</number>  </series>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>2119</number>  </series>  <place>Fremont, CA</place></bibitem></references><references id="_informative_references" obligation="informative"><title>Bibliography</title><bibitem id="RFC2635" type="standard">  <fetched>2020-01-06</fetched>  <title format="text/plain" language="en" script="Latn">DON'T SPEW A Set of Guidelines for Mass Unsolicited Mailings and Postings (spam*)</title>  <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2635.xml</uri>  <uri type="src">https://www.rfc-editor.org/info/rfc2635</uri>  <docidentifier type="IETF">RFC 2635</docidentifier>  <docidentifier type="rfc-anchor">RFC2635</docidentifier>  <docidentifier type="DOI">10.17487/RFC2635</docidentifier>  <date type="published">    <on>1999-06</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">S. Hambridge</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">A. Lunde</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">This document explains why mass unsolicited electronic mail messages are harmful in the Internetworking community.  This memo provides information for the Internet community.</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">FYI</title>    <number>35</number>  </series>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>2635</number>  </series>  <place>Fremont, CA</place></bibitem><bibitem id="RFC7990" type="standard">  <fetched>2020-01-06</fetched>  <title format="text/plain" language="en" script="Latn">RFC Format Framework</title>  <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7990.xml</uri>  <uri type="src">https://www.rfc-editor.org/info/rfc7990</uri>  <docidentifier type="IETF">RFC 7990</docidentifier>  <docidentifier type="rfc-anchor">RFC7990</docidentifier>  <docidentifier type="DOI">10.17487/RFC7990</docidentifier>  <date type="published">    <on>2016-12</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">H. Flanagan</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">In order to improve the readability of RFCs while supporting their archivability, the canonical format of the RFC Series will be transitioning from plain-text ASCII to XML using the xml2rfc version 3 vocabulary; different publication formats will be rendered from that base document.  With these changes comes an increase in complexity for authors, consumers, and the publisher of RFCs.  This document serves as the framework that provides the problem statement, lays out a road map of the documents that capture the specific requirements, and describes the transition plan.</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>7990</number>  </series>  <place>Fremont, CA</place></bibitem><bibitem id="RFC8140" type="standard">  <fetched>2020-01-06</fetched>  <title format="text/plain" language="en" script="Latn">The Arte of ASCII: Or, An True and Accurate Representation of an Menagerie of Thynges Fabulous and Wonderful in Ye Forme of Character</title>  <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8140.xml</uri>  <uri type="src">https://www.rfc-editor.org/info/rfc8140</uri>  <docidentifier type="IETF">RFC 8140</docidentifier>  <docidentifier type="rfc-anchor">RFC8140</docidentifier>  <docidentifier type="DOI">10.17487/RFC8140</docidentifier>  <date type="published">    <on>2017-04</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">A. Farrel</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">Ever since Gutenberg discovered and patented ASCII and the corresponding "Courier New" font with its now-famous "ten" point size, artisans and artificers have striven to represent their views of the world in print.Similarly, starting from Darwin's discovery of the hippogriff and his subsequent registration of the creature as an International Trade Mark, men (and some women) have struggled to catalog the fabulous variety that is called "nature".This document supplies a number of representations of all manner of things (both elemental and hypothetical) supplied by some of our best collectors of curios and delivered in a manner that may well be reused by the cunning document author.</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>8140</number>  </series>  <place>Fremont, CA</place></bibitem><bibitem id="RFC8174" type="standard">  <fetched>2020-01-06</fetched>  <title format="text/plain" language="en" script="Latn">Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</title>  <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml</uri>  <uri type="src">https://www.rfc-editor.org/info/rfc8174</uri>  <docidentifier type="IETF">RFC 8174</docidentifier>  <docidentifier type="rfc-anchor">RFC8174</docidentifier>  <docidentifier type="DOI">10.17487/RFC8174</docidentifier>  <date type="published">    <on>2017-05</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">B. Leiba</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">RFC 2119 specifies common key words that may be used in protocol  specifications.  This document aims to reduce the ambiguity by clarifying that only UPPERCASE usage of the key words have the  defined special meanings.</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">BCP</title>    <number>14</number>  </series>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>8174</number>  </series>  <place>Fremont, CA</place></bibitem>    </references></bibliography>
+</ietf-standard>
