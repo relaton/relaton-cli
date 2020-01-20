@@ -4,7 +4,19 @@ require "relaton/xml_document"
 require_relative "cli/command"
 
 module Relaton
+  def self.db
+    Cli.relaton
+  end
+
   module Cli
+    class RelatonDb
+      include Singleton
+
+      def db
+        @db ||= Relaton::Db.new("#{Dir.home}/.relaton/cache", nil)
+      end
+    end
+
     def self.start(arguments)
       Relaton::Cli::Command.start(arguments)
     end
@@ -17,7 +29,7 @@ module Relaton
     # whenever necessary.
     #
     def self.relaton
-      @relaton ||= Relaton::Db.new("#{Dir.home}/.relaton/cache", nil)
+      RelatonDb.instance.db
     end
 
     # @param content [Nokogiri::XML::Document]

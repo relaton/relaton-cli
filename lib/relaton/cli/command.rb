@@ -13,7 +13,7 @@ module Relaton
       option :year, aliases: :y, type: :numeric, desc: "Year the standard was published"
 
       def fetch(code)
-        Relaton::Cli.relaton
+        Relaton.db
         io = IO.new(STDOUT.fcntl(::Fcntl::F_DUPFD), mode: 'w:UTF-8')
         io.puts(fetch_document(code, options) || supported_type_message)
       end
