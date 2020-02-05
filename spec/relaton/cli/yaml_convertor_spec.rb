@@ -1,6 +1,14 @@
 require "spec_helper"
 
 RSpec.describe Relaton::Cli::YAMLConvertor do
+  let(:sample_yaml_file) { "spec/fixtures/sample.yaml" }
+  let(:sample_yaml_file_no_type) { "spec/fixtures/sample_no_type.yaml" }
+  let(:sample_collection_file) { "spec/fixtures/sample-collection.yaml" }
+  let(:collection_names) do
+    ["cc-34000", "cc-34002", "cc-34003", "cc-34005", "cc-36000", "cc-s-34006"]
+  end
+
+
   describe ".to_xml" do
     context "with a yaml file" do
       it "converts the yaml content to xml" do
@@ -18,6 +26,27 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
             </date>
             <status>
               <stage>proposal</stage>
+            </status>
+          </bibdata>
+        OUTPUT
+      end
+
+      it "converts the yaml file without docidentifier type" do
+        buffer = stub_file_write_to_io(sample_yaml_file_no_type)
+        Relaton::Cli::YAMLConvertor.to_xml(sample_yaml_file_no_type)
+        expect(buffer).to be_equivalent_to <<~OUTPUT
+          <bibdata>
+            <fetched>2020-02-05</fetched>
+            <title type="main" format="text/plain" language="en" script="Latn">Geographic information</title>
+            <title format="text/plain" language="fr" script="Latn">Information géographique</title>
+            <docidentifier type="TC211">TC211</docidentifier>
+            <date type="published">
+              <on>2014-04-01</on>
+            </date>
+            <status>
+              <stage>stage</stage>
+              <substage>substage</substage>
+              <iteration>final</iteration>
             </status>
           </bibdata>
         OUTPUT
@@ -111,10 +140,10 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
     context "document type" do
       it "ISO" do
         xml = Relaton::Cli::YAMLConvertor.to_xml(
-          "spec/fixturesnew/sample_iso.yaml", write: false
+          "spec/fixtures/sample_iso.yaml", write: false
         )
         expect(xml).to be_equivalent_to File.read(
-          "spec/fixturesnew/sample_iso.xml", encoding: "UTF-8"
+          "spec/fixtures/sample_iso.xml", encoding: "UTF-8"
         ).sub %r{(?<=<fetched>)\d{4}-\d{2}-\d{2}}, Date.today.to_s
       end
     end
@@ -139,20 +168,8 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
     end
   end
 
-  def sample_yaml_file
-    @sample_yaml_file ||= "spec/fixtures/sample.yaml"
-  end
-
-  def sample_collection_file
-    @sample_collection_file ||= "spec/fixtures/sample-collection.yaml"
-  end
-
   def stub_yaml_file_load(file)
     allow(YAML).to receive(:load_file).and_return(YAML.load_file(file))
-  end
-
-  def collection_names
-    ["cc-34000", "cc-34002", "cc-34003", "cc-34005", "cc-36000", "cc-s-34006"]
   end
 
   def stub_collections_write(files, dir:, prefix: "RCLI", ext: "yaml")

@@ -16,7 +16,6 @@ root:
         value:  2018-10-25
     - technical_committee: DATETIME
       docid: 
-        type: CC
         id: CC 34000
       type: standard
       title: 

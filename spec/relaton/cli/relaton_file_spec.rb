@@ -164,7 +164,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
     after { FileUtils.rm_rf("./tmp/output") }
 
     context "with valid collection and output dir" do
-      it "split the relaton collection into multiple files" do
+      it "split the relaton collection into multiple files in XML format" do
         output_dir = "./tmp/output"
         collection_file = "spec/fixtures/sample-collection.xml"
 
@@ -177,7 +177,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
         expect(content).to include("<title>Date and time -- Concepts")
       end
 
-      it "split the relaton collection in the new Relaton XML format into multiple files" do
+      it "split the relaton collection into multiple files in YAML format" do
         output_dir = "./tmp/output"
         collection_file = "spec/fixtures/sample-collection.xml"
 
@@ -188,6 +188,20 @@ RSpec.describe Relaton::Cli::RelatonFile do
         expect(Dir["#{output_dir}/**"].length).to eq(6)
         expect(content).to include('id: CC34000')
         expect(content).to include("title: Date and time -- Concepts and vocabulary")
+      end
+
+      it "split the relaton collection into default dir" do
+        output_dir = "./sample-collection"
+        collection_file = "spec/fixtures/sample-collection.xml"
+
+        Relaton::Cli::RelatonFile.split(collection_file, nil, new: true, extension: "yaml")
+        content = File.read([output_dir, "cc-34000.yaml"].join("/"))
+
+        expect(File.exist?("#{output_dir}/cc-34000.yaml")).to be true
+        expect(Dir["#{output_dir}/**"].length).to eq(6)
+        expect(content).to include('id: CC34000')
+        expect(content).to include("title: Date and time -- Concepts and vocabulary")
+        FileUtils.rm_rf output_dir
       end
     end
   end

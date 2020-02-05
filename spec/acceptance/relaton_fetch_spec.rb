@@ -35,6 +35,14 @@ RSpec.describe "Relaton Fetch" do
     end
 
     context "fetch code with invalid/missing type" do
+      it "calls supported_type_message method" do
+        io = double "IO"
+        expect(io).to receive(:puts).with "Recognised types: CC, CN, IEC, IETF, ISO, ITU, NIST, OGC"
+        expect(IO).to receive(:new).with(kind_of(Integer), mode: 'w:UTF-8').and_return io
+        command = Relaton::Cli::Command.new
+        command.fetch ["ISO 2146", "--type", "invalid"]
+      end
+
       it "prints a warning message for missing --type option" do
         output = command("relaton fetch 'ISO 2146'")
         expect(output.stderr).to include("required options '--type'")

@@ -175,7 +175,7 @@ module Relaton
         when "yml", "yaml"
           :to_yaml
         else
-          puts "The given extension of '#{ext}' is not supported."
+          puts "[relaton-cli] the given extension of '#{ext}' is not supported."
           :to_xml
         end
       end
@@ -186,16 +186,6 @@ module Relaton
         build_bibdata_relaton(bibdata, file)
 
         bibdata
-      end
-
-      # @param content [Nokogiri::XML::Document]
-      # @return [Hash]
-      def parse_doc(doc)
-        if (processor = Relaton::Registry.instance.by_type(doctype(doc)))
-          processor.from_xml(doc.to_s).to_hash
-        else
-          RelatonBib::XMLParser.from_xml(doc.to_s).to_hash
-        end
       end
 
       def build_bibdata_relaton(bibdata, file)

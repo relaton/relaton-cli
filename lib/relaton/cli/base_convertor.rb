@@ -45,10 +45,6 @@ module Relaton
 
       attr_reader :file, :outdir, :options, :writable, :overwrite
 
-      def default_ext
-        raise "Override this method"
-      end
-
       def convert_to_html
         Relaton::Cli::XmlToHtmlRenderer.render(
           xml_content(file),
@@ -57,9 +53,9 @@ module Relaton
         )
       end
 
-      def xml_content(file)
-        File.read(file, encoding: "utf-8")
-      end
+      # def xml_content(file)
+      #   File.read(file, encoding: "utf-8")
+      # end
 
       def install_dependencies(dependencies)
         dependencies.each { |dependency| require(dependency) }
