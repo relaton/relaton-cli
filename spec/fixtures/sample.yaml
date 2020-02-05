@@ -1,6 +1,13 @@
 technical_committee: PUBLISH
-docidentifier: "CC 36000"
-doctype: standard
-title: Standardization documents -- Vocabulary
-stage: proposal
-revdate: 2018-10-25
+docid: 
+  type: CC
+  id: CC 36000
+type: standard
+title: 
+  content: Standardization documents -- Vocabulary
+docstatus:
+  stage: proposal
+date: 
+  type: issued
+  value: 2018-10-25
+

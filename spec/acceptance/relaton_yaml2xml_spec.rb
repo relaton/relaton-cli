@@ -6,11 +6,11 @@ RSpec.describe "Relaton yaml2xml" do
       it "sends convertion message to the convertaor" do
         allow(Relaton::Cli::YAMLConvertor).to receive(:to_xml)
 
-        command = %w(yaml2xml spec/fixtures/sample.yaml)
+        command = %w(yaml2xml spec/fixturesnew/samplenew.yaml)
         Relaton::Cli.start(command)
 
         expect(Relaton::Cli::YAMLConvertor).to have_received(:to_xml).
-          with("spec/fixtures/sample.yaml", overwrite: false, extension: "rxl")
+          with("spec/fixturesnew/samplenew.yaml", overwrite: false, extension: "rxl")
       end
     end
 
@@ -18,11 +18,11 @@ RSpec.describe "Relaton yaml2xml" do
       it "sends convertion message with file and options" do
         allow(Relaton::Cli::YAMLConvertor).to receive(:to_xml)
 
-        command = %w(yaml2xml spec/fixtures/sample.yaml -x rxml -p RCL)
+        command = %w(yaml2xml spec/fixturesnew/samplenew.yaml -x rxml -p RCL)
         Relaton::Cli.start(command)
 
         expect(Relaton::Cli::YAMLConvertor).to have_received(:to_xml).with(
-          "spec/fixtures/sample.yaml",
+          "spec/fixturesnew/samplenew.yaml",
           extension: "rxml",
           prefix: "RCL",
           overwrite: false,

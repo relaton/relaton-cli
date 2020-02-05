@@ -10,7 +10,7 @@ RSpec.describe Relaton::XmlDocument do
       expect(document[:title]).to eq("Title")
       expect(document[:stage]).to eq("STAGE")
       expect(document[:script]).to eq("SCRIPT")
-      expect(document[:doctype]).to eq("TYPE")
+      expect(document[:doctype]).to eq("standard")
       expect(document[:edition]).to eq("EDITION")
       expect(document[:abstract]).to eq("ABSTRACT")
       expect(document[:language]).to eq("LANGUAGE")

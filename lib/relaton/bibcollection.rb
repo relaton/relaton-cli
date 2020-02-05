@@ -9,7 +9,7 @@ module Relaton
       items
       doctype
       author
-    ]
+    ].freeze
 
     attr_accessor *ATTRIBS
 
@@ -17,16 +17,14 @@ module Relaton
       self.items = []
       ATTRIBS.each do |k|
         value = options[k] || options[k.to_s]
-        self.send("#{k}=", value)
+        send("#{k}=", value)
       end
-      self.items = (self.items || []).inject([]) do |acc, item|
+      self.items = (items || []).reduce([]) do |acc, item|
         acc << if item.is_a?(::Relaton::Bibcollection) || item.is_a?(::Relaton::Bibdata)
-          item
-        else
-          new_bib_item_class(item)
-        end
+                 item
+               else new_bib_item_class(item)
+               end
       end
-      self
     end
 
     # arbitrary number, must sort after all bib items
@@ -39,7 +37,7 @@ module Relaton
       author = find_text("./relaton-collection/contributor[role/@type = 'author']/organization/name", source)
 
       items = find_xpath("./relaton-collection/relation", source)&.map do |item|
-        bibdata = find("./bibdata | ./bibitem", item)
+        bibdata = find("./bibdata", item)
         klass = bibdata ? Bibdata : Bibcollection
         klass.from_xml(bibdata || item)
       end
@@ -48,16 +46,16 @@ module Relaton
     end
 
     def new_bib_item_class(options)
-      if options["items"]
-        options[:new] ? ::Relaton::BibcollectionNew(options) : ::Relaton::Bibcollection.new(options)
+      if options.is_a?(Hash) && options["items"]
+        ::Relaton::Bibcollection.new(options)
       else
-        options[:new] ? ::Relaton::BibdataNew(options) : ::Relaton::Bibdata.new(options)
+        ::Relaton::Bibdata.new(options)
       end
     end
 
     def items_flattened
       items.sort_by! do |b|
-        b.doc_number
+        b.docnumber
       end
 
       items.inject([]) do |acc,item|

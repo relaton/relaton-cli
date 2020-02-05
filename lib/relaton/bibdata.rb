@@ -2,45 +2,33 @@ require "date"
 
 module Relaton
   class Bibdata
-    ATTRIBS = %i[
-      docidentifier
-      doctype
-      title
-      stage
-      relation
-      xml
-      pdf
-      doc
-      html
-      uri
-      rxl
-      txt
-      revdate
-      abstract
-      technical_committee
-      copyright_from
-      copyright_owner
-      contributor_author_role
-      contributor_author_organization
-      contributor_author_person
-      contributor_publisher_role
-      contributor_publisher_organization
-      language
-      script
-      edition
-      datetype
-      bib_rxl
-      ref
-    ]
+    URL_TYPES = %i[uri xml pdf doc html rxl txt]
 
-    attr_accessor *ATTRIBS
+    attr_reader :bibitem
 
-    def initialize(options)
-      options.each_pair do |k,v|
-        send("#{k.to_s}=", v)
-      end
-      self
+    def initialize(bibitem)
+      @bibitem = bibitem
     end
+
+    # def method_missing(method, *args)
+    #   %r{(?<m>\w+)=$} =~ method
+    #   return unless m && %w[xml pdf doc html rxl txt].include?(m)
+
+    #   uri = @bibitem.link.detect { |u| u.type == m }
+    #   if uri
+    #     uri.content = args[0]
+    #   else
+    #     @bibitem.link << RelatonBib::TypedUri.new(type: m, content: args[0])
+    #   end
+    # end
+
+    def docidentifier
+      @bibitem.docidentifier.first&.id
+    end
+
+    # def doctype
+    #   @bibitem.type
+    # end
 
     # From http://gavinmiller.io/2016/creating-a-secure-sanitization-function/
     FILENAME_BAD_CHARS = [ '/', '\\', '?', '%', '*', ':', '|', '"', '<', '>', '.', ' ' ]
@@ -58,78 +46,48 @@ module Relaton
     end
 
     def self.from_xml(source)
-      new(Relaton::XmlDocument.parse(source))
+      new(Relaton::Cli.parse_xml(source))
     end
 
     def to_xml(opts = {})
-      #datetype = stage&.casecmp("published") == 0 ? "published" : "circulated"
+      options = { bibdata: true, date_format: :full }.merge opts.select { |k,v| k.is_a? Symbol }
+      @bibitem.to_xml nil, **options
 
-      ret = ref ? "<bibitem id= '#{ref}' type='#{doctype}'>\n" : "<bibdata type='#{doctype}'>\n"
-      ret += "<fetched>#{Date.today.to_s}</fetched>\n"
-      ret += "<title>#{title}</title>\n"
-      ret += "<docidentifier>#{docidentifier}</docidentifier>\n" if docidentifier
-      ret += "<uri>#{uri}</uri>\n" if uri
-      ret += "<uri type='xml'>#{xml}</uri>\n" if xml
-      ret += "<uri type='html'>#{html}</uri>\n" if html
-      ret += "<uri type='pdf'>#{pdf}</uri>\n" if pdf
-      ret += "<uri type='doc'>#{doc}</uri>\n" if doc
-      ret += "<uri type='rxl'>#{rxl}</uri>\n" if rxl
+      # #datetype = stage&.casecmp("published") == 0 ? "published" : "circulated"
 
-      ret += "<language>#{language}</language>\n"
-      ret += "<script>#{script}</script>\n"
-
-      if copyright_from
-        ret += "<copyright>"
-        ret += "<from>#{copyright_from}</from>\n" if copyright_from
-        ret += "<owner><organization><name>#{copyright_owner}</name></organization></owner>\n" if copyright_owner
-        ret += "</copyright>"
-      end
-
-      if contributor_author_role
-        ret += "<contributor>\n"
-        ret += "<role type='author'/>\n"
-        ret += "<organization><name>#{contributor_author_organization}</name></organization>\n"
-        ret += "</contributor>\n"
-      end
-
-      if contributor_author_person
-        Array(contributor_author_person).each do |name|
-          ret += "<contributor>\n"
-          ret += "<role type='author'/>\n"
-          ret += "<person><name><completename>#{name}</completename></name></person>\n"
-          ret += "</contributor>\n"
-        end
-      end
-
-      if contributor_publisher_role
-        ret += "<contributor>\n"
-        ret += "<role type='publisher'/>\n"
-        ret += "<organization><name>#{contributor_publisher_organization}</name></organization>\n"
-        ret += "</contributor>\n"
-      end
-
-      ret += "<date type='#{datetype}'><on>#{revdate}</on></date>\n" if revdate
-      # ret += "<contributor><role type='author'/><organization><name>#{agency}</name></organization></contributor>" if agency
-      # ret += "<contributor><role type='publisher'/><organization><name>#{agency}</name></organization></contributor>" if agency
-      ret += "<edition>#{edition}</edition>\n" if edition
-      ret += "<language>#{language}</language>\n" if language
-      ret += "<script>#{script}</script>\n" if script
-      ret += "<abstract>#{abstract}</abstract>\n" if abstract
-      ret += "<status>#{stage}</status>\n" if stage
-      ret += "<editorialgroup><technical-committee>#{technical_committee}</technical-committee></editorialgroup>\n" if technical_committee
-      ret += ref ? "</bibitem>\n" : "</bibdata>\n"
+      # ret = ref ? "<bibitem id= '#{ref}' type='#{doctype}'>\n" : "<bibdata type='#{doctype}'>\n"
+      # ret += "<fetched>#{Date.today.to_s}</fetched>\n"
     end
 
     def to_h
-      ATTRIBS.inject({}) do |acc, k|
-        value = send(k)
-        acc[k.to_s] = value unless value.nil?
-        acc
+      URL_TYPES.reduce(@bibitem.to_hash) do |h, t|
+        value = self.send t
+        h[t.to_s] = value
+        h
       end
     end
 
     def to_yaml
       to_h.to_yaml
+    end
+
+    def method_missing(meth, *args)
+      if @bibitem.respond_to?(meth)
+        @bibitem.send meth, *args
+      elsif URL_TYPES.include? meth
+        link = @bibitem.link.detect { |l| l.type == meth.to_s || meth == :uri && l.type.nil? }
+        link&.content&.to_s
+      elsif URL_TYPES.include? meth.match(/^\w+(?==)/).to_s.to_sym
+        /^(?<type>\w+)/ =~ meth
+        link = @bibitem.link.detect { |l| l.type == type || type == "uri" && l.type.nil? }
+        if link
+          link.content = args[0]
+        else
+          @bibitem.link << RelatonBib::TypedUri.new(type: type, content: args[0])
+        end
+      else
+        super
+      end
     end
   end
 end

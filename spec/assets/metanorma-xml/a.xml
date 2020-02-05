@@ -1,8 +1,12 @@
 <bibdata type='standard'>
-<title>Date and time -- Representations for information interchange -- Part 1: Basic rules</title>
-<uri>standards/csd-datetime-explict/csd-datetime-explict.xml</uri>
-<docidentifier>CC 18001</docidentifier>
-<date type='published'><on>2018-10-17</on></date>
-<status>Published</status>
-<technical-committee>TC VCARD</technical-committee>
+  <title>Date and time -- Representations for information interchange -- Part 1: Basic rules</title>
+  <uri>standards/csd-datetime-explict/csd-datetime-explict.xml</uri>
+  <docidentifier>CC 18001</docidentifier>
+  <date type='published'>
+    <on>2018-10-17</on>
+  </date>
+  <status>Published</status>
+  <ext>
+    <technical-committee>TC VCARD</technical-committee>
+  </ext>
 </bibdata>

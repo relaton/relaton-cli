@@ -81,7 +81,7 @@ module Relaton
       attr_reader :source, :options, :outdir, :outfile
 
       def bibcollection
-        bib_klass.new(
+        Bibcollection.new(
           title: options[:title],
           items: concatenate_files,
           doctype: options[:doctype],
@@ -103,7 +103,7 @@ module Relaton
       end
 
       def relaton_collection
-        @relaton_collection ||= bib_klass.from_xml(nokogiri_document(nil, source))
+        @relaton_collection ||= Bibcollection.from_xml(nokogiri_document(nil, source))
       end
 
       def extract_and_write_to_files
@@ -125,7 +125,7 @@ module Relaton
           bib.remove_namespaces!
           bib.root.add_namespace(nil, "xmlns")
 
-          bibdata = Relaton::BibdataNew.from_xml(bib.root)
+          bibdata = Relaton::Bibdata.from_xml(bib.root)
           build_bibdata_relaton(bibdata, file)
 
           write_to_file(bibdata.send(output_type), outdir, build_filename(file))
@@ -182,11 +182,7 @@ module Relaton
 
       def bibdata_instance(document, file)
         document = clean_nokogiri_document(document)
-        bibdata = if options[:new]
-                    Relaton::BibdataNew.from_xml document.root
-                  else
-                    Relaton::Bibdata.from_xml(document.root)
-                  end
+        bibdata = Relaton::Bibdata.from_xml document.root
         build_bibdata_relaton(bibdata, file)
 
         bibdata
@@ -227,9 +223,8 @@ module Relaton
       end
 
       def convert_yamls_to_xml
-        klass = options[:new] ? YAMLConvertorNew : YAMLConvertor
         select_files_with("yaml").map do |file|
-          { file: file, content: klass.to_xml(file, write: false) }
+          { file: file, content: YAMLConvertor.to_xml(file, write: false) }
         end
       end
 
@@ -270,10 +265,6 @@ module Relaton
       def replace_bad_characters(string)
         bad_chars = ["/", "\\", "?", "%", "*", ":", "|", '"', "<", ">", ".", " "]
         bad_chars.inject(string.downcase) { |res, char| res.gsub(char, "-") }
-      end
-
-      def bib_klass
-        @bib_klass ||= options[:new] ? Relaton::BibcollectionNew : Relaton::Bibcollection
       end
     end
   end

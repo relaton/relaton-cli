@@ -1,7 +1,11 @@
 <bibdata type='administrative'>
-<title>Membership -- Lifecycle management -- Part 1: Onboarding</title>
-<uri>http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf</uri>
-<date type='updated'><on>2018-09-26</on></date>
-<status>withdrawn</status>
-<technical-committee>TCC</technical-committee>
+  <title>Membership -- Lifecycle management -- Part 1: Onboarding</title>
+  <uri>http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf</uri>
+  <date type='updated'>
+    <on>2018-09-26</on>
+  </date>
+  <status>withdrawn</status>
+  <ext>
+    <technical-committee>TCC</technical-committee>
+  </ext>
 </bibdata>

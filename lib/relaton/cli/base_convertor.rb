@@ -1,8 +1,6 @@
 require "fileutils"
 require "relaton/bibdata"
-require "relaton/bibdatanew"
 require "relaton/bibcollection"
-require "relaton/bibcollectionnew"
 require "relaton/cli/xml_to_html_renderer"
 
 module Relaton
@@ -84,19 +82,21 @@ module Relaton
         outfile ||= Pathname.new(file).sub_ext(extension).to_s
 
         if !File.exists?(outfile) || overwrite
-          File.open(outfile, "w:utf-8") { |file| file.write(content) }
+          File.open(outfile, "w:utf-8") do |file|
+            file.write(content)
+          end
         end
       end
 
       def write_to_file_collection(content, format)
+        # if outdir && (content.is_a?(Relaton::Bibcollection))
+        #   FileUtils.mkdir_p(outdir)
+        #   content.items_flattened.each do |item|
+        #     collection = collection_filename(item.docidentifier_code)
+        #     write_to_a_file(item_output(item, format), collection)
+        #   end
+        # end
         if outdir && (content.is_a?(Relaton::Bibcollection))
-          FileUtils.mkdir_p(outdir)
-          content.items_flattened.each do |item|
-            collection = collection_filename(item.docidentifier_code)
-            write_to_a_file(item_output(item, format), collection)
-          end
-        end
-        if outdir && (content.is_a?(Relaton::BibcollectionNew))
           FileUtils.mkdir_p(outdir)
           content.items_flattened.each do |item|
             collection = collection_filename(extract_docid(item))

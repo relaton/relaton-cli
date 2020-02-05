@@ -17,9 +17,11 @@
                 <on>2018-10-25</on>
             </date>
             <status>proposal</status>
-            <editorialgroup>
-                <technical-committee>DATETIME</technical-committee>
-            </editorialgroup>
+            <ext>
+                <editorialgroup>
+                    <technical-committee>DATETIME</technical-committee>
+                </editorialgroup>
+            </ext>
         </bibdata>
     </relation>
     <relation type="partOf">
@@ -33,9 +35,11 @@
                 <on>2018-10-25</on>
             </date>
             <status>proposal</status>
-            <editorialgroup>
-                <technical-committee>DATETIME</technical-committee>
-            </editorialgroup>
+            <ext>
+                <editorialgroup>
+                    <technical-committee>DATETIME</technical-committee>
+                </editorialgroup>
+            </ext>
         </bibdata>
     </relation>
     <relation type="partOf">
@@ -49,9 +53,11 @@
                 <on>2018-10-25</on>
             </date>
             <status>proposal</status>
-            <editorialgroup>
-                <technical-committee>DATETIME</technical-committee>
-            </editorialgroup>
+            <ext>
+                <editorialgroup>
+                    <technical-committee>DATETIME</technical-committee>
+                </editorialgroup>
+            </ext>
         </bibdata>
     </relation>
     <relation type="partOf">
@@ -65,9 +71,11 @@
                 <on>2018-10-25</on>
             </date>
             <status>proposal</status>
-            <editorialgroup>
-                <technical-committee>DATETIME</technical-committee>
-            </editorialgroup>
+            <ext>
+                <editorialgroup>
+                    <technical-committee>DATETIME</technical-committee>
+                </editorialgroup>
+            </ext>
         </bibdata>
     </relation>
     <relation type="partOf">
@@ -81,9 +89,11 @@
                 <on>2018-10-25</on>
             </date>
             <status>proposal</status>
-            <editorialgroup>
-                <technical-committee>DATETIME</technical-committee>
-            </editorialgroup>
+            <ext>
+                <editorialgroup>
+                    <technical-committee>DATETIME</technical-committee>
+                </editorialgroup>
+            </ext>
         </bibdata>
     </relation>
     <relation type="partOf">
@@ -97,9 +107,11 @@
                 <on>2018-10-25</on>
             </date>
             <status>proposal</status>
-            <editorialgroup>
-                <technical-committee>PUBLISH</technical-committee>
-            </editorialgroup>
+            <ext>
+                <editorialgroup>
+                    <technical-committee>PUBLISH</technical-committee>
+                </editorialgroup>
+            </ext>
         </bibdata>
     </relation>
 </relaton-collection>

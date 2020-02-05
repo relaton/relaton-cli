@@ -90,8 +90,8 @@ RSpec.describe Relaton::Cli::RelatonFile do
         expect(hashdoc["root"]["author"]).to be_nil
 
         items = hashdoc["root"]["items"]
-        expect(items[0]["docidentifier"]).to eq("CC 18001")
-        expect(items[1]["docidentifier"]).to eq("CC 36000")
+        expect(items[0]["docid"]["id"]).to eq("CC 18001")
+        expect(items[1]["docid"]["id"]).to eq("CC 36000")
         expect(items[2]["xml"]).not_to eq("spec/fixtures/sample-collection")
       end
     end
@@ -110,16 +110,15 @@ RSpec.describe Relaton::Cli::RelatonFile do
 
         expect(hashdoc["root"]["title"]).to eq("collection title")
         expect(hashdoc["root"]["author"]).to eq("Ribose Inc")
-        expect(hashdoc["root"]["items"][1]["docidentifier"]).to eq("CC 36000")
+        expect(hashdoc["root"]["items"][1]["docid"]["id"]).to eq("CC 36000")
       end
 
       it "uses the new Relaton XML format" do
         Relaton::Cli::RelatonFile.concatenate(
-          "spec/fixturesnew",
+          "spec/fixtures",
           "./tmp/concatenate.yml",
           title: "collection title",
           organization: "Ribose Inc",
-          new: true,
           extension: "yml",
         )
 
@@ -128,8 +127,8 @@ RSpec.describe Relaton::Cli::RelatonFile do
 
         expect(hashdoc["root"]["title"]).to eq("collection title")
         expect(hashdoc["root"]["author"]).to eq("Ribose Inc")
-        expect(items[0]["docid"]["id"]).to eq("CC 36000")
-        expect(items[0]["docid"]["type"]).to eq("CC")
+        expect(items[1]["docid"]["id"]).to eq("CC 36000")
+        expect(items[1]["docid"]["type"]).to eq("CC")
       end
     end
 
@@ -151,11 +150,11 @@ RSpec.describe Relaton::Cli::RelatonFile do
         expect(hashdoc["root"]["title"]).to be_nil
         expect(hashdoc["root"]["author"]).to be_nil
 
-        expect(items[0]["docidentifier"]).to eq("CC 18001")
-        expect(items[0]["xml"]).to eq("spec/fixtures/sample.xml")
-        expect(items[0]["pdf"]).to eq("spec/fixtures/sample.pdf")
-        expect(items[0]["doc"]).to eq("spec/fixtures/sample.doc")
-        expect(items[0]["html"]).to eq("spec/fixtures/sample.html")
+        expect(items[0]["docid"]["id"]).to eq("CC 18001")
+        expect(items[0]["link"].detect { |l| l["type"] == "xml" }["content"]).to eq("spec/fixtures/sample.xml")
+        expect(items[0]["link"].detect { |l| l["type"] == "pdf" }["content"]).to eq("spec/fixtures/sample.pdf")
+        expect(items[0]["link"].detect { |l| l["type"] == "doc" }["content"]).to eq("spec/fixtures/sample.doc")
+        expect(items[0]["link"].detect { |l| l["type"] == "html" }["content"]).to eq("spec/fixtures/sample.html")
       end
     end
   end
@@ -174,13 +173,13 @@ RSpec.describe Relaton::Cli::RelatonFile do
 
         expect(file_exist?("cc-34000.rxl")).to be true
         expect(Dir["#{output_dir}/**"].length).to eq(6)
-        expect(content).to include("<bibdata type='standard'>")
+        expect(content).to include("<bibdata type=\"standard\">")
         expect(content).to include("<title>Date and time -- Concepts")
       end
 
       it "split the relaton collection in the new Relaton XML format into multiple files" do
         output_dir = "./tmp/output"
-        collection_file = "spec/fixturesnew/sample-collection.xml"
+        collection_file = "spec/fixtures/sample-collection.xml"
 
         Relaton::Cli::RelatonFile.split(collection_file, output_dir, new: true, extension: "yaml")
         content = File.read([output_dir, "cc-34000.yaml"].join("/"))

@@ -3,38 +3,74 @@ root:
   title: CalConnect Standards Registry
   items:
     - technical_committee: PUBLISH
-      docidentifier: "CC 36000"
-      doctype: standard
-      title: Standardization documents -- Vocabulary
-      stage: proposal
-      revdate: 2018-10-25
+      docid: 
+        type: CC
+        id: CC 36000
+      type: standard
+      title: 
+        content: Standardization documents -- Vocabulary
+      docstatus:
+        stage: proposal
+      date:
+        type: issued
+        value:  2018-10-25
     - technical_committee: DATETIME
-      docidentifier: "CC 34000"
-      doctype: standard
-      title: Date and time -- Concepts and vocabulary
-      stage: proposal
-      revdate: 2018-10-25
+      docid: 
+        type: CC
+        id: CC 34000
+      type: standard
+      title: 
+        content: Date and time -- Concepts and vocabulary
+      docstatus:
+        stage: proposal
+      date:
+        type: issued
+        value: 2018-10-25
     - technical_committee: DATETIME
-      docidentifier: "CC 34002"
-      doctype: standard
-      title: Date and time -- Timezones
-      stage: proposal
-      revdate: 2018-10-25
+      docid: 
+        type: CC
+        id: CC 34002
+      type: standard
+      title: 
+        content: Date and time -- Timezones
+      docstatus:
+        stage: proposal
+      date:
+        type: issued
+        value: 2018-10-25
     - technical_committee: DATETIME
-      docidentifier: "CC 34003"
-      doctype: standard
-      title: Date and time -- Codes for calendar systems
-      stage: proposal
-      revdate: 2018-10-25
+      docid: 
+        type: CC
+        id: CC 34003
+      type: standard
+      title: 
+        content: Date and time -- Codes for calendar systems
+      docstatus:
+        stage: proposal
+      date:
+        type: issued
+        value: 2018-10-25
     - technical_committee: DATETIME
-      docidentifier: "CC 34005"
-      doctype: standard
-      title: Date and time -- Calendars -- Gregorian calendar
-      stage: proposal
-      revdate: 2018-10-25
+      docid: 
+        type: CC
+        id: CC 34005
+      type: standard
+      title: 
+        content: Date and time -- Calendars -- Gregorian calendar
+      docstatus:
+        stage: proposal
+      date:
+        type: issued
+        value: 2018-10-25
     - technical_committee: DATETIME
-      docidentifier: "CC/S 34006"
-      doctype: specification
-      title: Date and time -- Calendars -- Chinese calendar
-      stage: proposal
-      revdate: 2018-10-25
+      docid: 
+        type: CC
+        id: CC/S 34006
+      type: standard
+      title: 
+        content: Date and time -- Calendars -- Chinese calendar
+      docstatus:
+        stage: proposal
+      date:
+        type: issued
+        value: 2018-10-25
