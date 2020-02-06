@@ -36,7 +36,7 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
         Relaton::Cli::YAMLConvertor.to_xml(sample_yaml_file_no_type)
         expect(buffer).to be_equivalent_to <<~OUTPUT
           <bibdata>
-            <fetched>2020-02-05</fetched>
+            <fetched>#{Date.today.to_s}</fetched>
             <title type="main" format="text/plain" language="en" script="Latn">Geographic information</title>
             <title format="text/plain" language="fr" script="Latn">Information géographique</title>
             <docidentifier type="TC211">TC211</docidentifier>
