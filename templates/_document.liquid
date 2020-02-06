@@ -8,9 +8,9 @@
     <div class="doc-identifier">
       <h{{ depth }}>
       {% if document.html == "" %}
-        {{ document.docidentifier }}
+        {{ document.docid.id }}
       {% else %}
-        <a href="{{ document.html }}">{{ document.docidentifier }}</a>
+        <a href="{{ document.html }}">{{ document.docid.id }}</a>
       {% endif %}
       </h{{ depth }}>
     </div>
