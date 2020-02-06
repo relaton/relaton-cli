@@ -54,7 +54,7 @@ module Relaton
         end
       end
 
-      # @param content [Nokogiri::XML::Document]
+      # @param content [Hash]
       # @return [String]
       def doctype(docid)
         did = docid.is_a?(Array) ? docid.fetch(0) : docid
