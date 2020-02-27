@@ -126,9 +126,11 @@ module Relaton
           bib.root.add_namespace(nil, "xmlns")
 
           bibdata = Relaton::Bibdata.from_xml(bib.root)
-          build_bibdata_relaton(bibdata, file)
+          if bibdata
+            build_bibdata_relaton(bibdata, file)
 
-          write_to_file(bibdata.send(output_type), outdir, build_filename(file))
+            write_to_file(bibdata.send(output_type), outdir, build_filename(file))
+          end
         end
       end
 
@@ -143,7 +145,7 @@ module Relaton
             ietf = RelatonIetf::Scrapper.fetch_rfc rfc
             doc = nokogiri_document ietf.to_xml(bibdata: true)
           end
-          bibdata_instance(doc, xml[:file]) if doc.root.name == "bibdata"
+          bibdata_instance(doc, xml[:file]) if doc&.root&.name == "bibdata"
         end.compact
       end
 
@@ -183,7 +185,7 @@ module Relaton
       def bibdata_instance(document, file)
         document = clean_nokogiri_document(document)
         bibdata = Relaton::Bibdata.from_xml document.root
-        build_bibdata_relaton(bibdata, file)
+        build_bibdata_relaton(bibdata, file) if bibdata
 
         bibdata
       end

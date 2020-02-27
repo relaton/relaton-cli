@@ -46,7 +46,8 @@ module Relaton
     end
 
     def self.from_xml(source)
-      new(Relaton::Cli.parse_xml(source))
+      bi = Relaton::Cli.parse_xml(source)
+      new(bi) if bi
     end
 
     def to_xml(opts = {})
