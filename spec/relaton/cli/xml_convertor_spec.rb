@@ -41,24 +41,24 @@ RSpec.describe Relaton::Cli::XMLConvertor do
     end
   end
 
-  # describe ".to_html" do
-  #   context "with valid file and styles" do
-  #     it "converts and writes an XML document to HTML" do
-  #       buffer = stub_file_write_to_io(sample_collection_file, "html")
+  describe ".to_html" do
+    context "with valid file and styles" do
+      it "converts and writes an XML document to HTML" do
+        buffer = stub_file_write_to_io(sample_collection_file, "html")
 
-  #       Relaton::Cli::XMLConvertor.to_html(
-  #         sample_collection_file,
-  #         "spec/assets/index-style.css",
-  #         "spec/assets/templates",
-  #       )
+        Relaton::Cli::XMLConvertor.to_html(
+          sample_collection_file,
+          "spec/assets/index-style.css",
+          "spec/assets/templates",
+        )
 
-  #       expect(buffer).to include("I AM A SAMPLE STYLESHEET")
-  #         expect(buffer).to include('<a href="">CC/S 34006</a>')
-  #       expect(buffer).to include("<!DOCTYPE HTML>\n<html>\n  <head>")
-  #       expect(buffer).to include("<title>CalConnect Standards Registry</tit")
-  #     end
-  #   end
-  # end
+        expect(buffer).to include("I AM A SAMPLE STYLESHEET")
+          expect(buffer).to include('<a href="">CC/S 34006</a>')
+        expect(buffer).to include("<!DOCTYPE HTML>\n<html>\n  <head>")
+        expect(buffer).to include("<title>CalConnect Standards Registry</tit")
+      end
+    end
+  end
 
   def sample_relaton_fille
     @sample_relaton_fille ||= "spec/fixtures/sample.rxl"

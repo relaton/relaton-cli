@@ -53,9 +53,9 @@ module Relaton
         )
       end
 
-      # def xml_content(file)
-      #   File.read(file, encoding: "utf-8")
-      # end
+      def xml_content(file)
+        File.read(file, encoding: "utf-8")
+      end
 
       def install_dependencies(dependencies)
         dependencies.each { |dependency| require(dependency) }
