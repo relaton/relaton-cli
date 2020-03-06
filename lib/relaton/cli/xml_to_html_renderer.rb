@@ -61,7 +61,15 @@ module Relaton::Cli
 
     # TODO: This should be recursive, but it's not
     def hash_to_liquid(hash)
-      hash.map { |key, value| [key.to_s, empty2nil(value)] }.to_h
+      hash.map do |key, value|
+        if key == "title" && value.is_a?(Array)
+          title = value.detect { |t| t["type"] == "main" } || value.first
+          v = title ? title["content"] : nil
+        else
+          v = value
+        end
+        [key.to_s, empty2nil(v)]
+      end.to_h
     end
 
     def empty2nil(value)

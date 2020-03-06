@@ -82,7 +82,9 @@
   </relation>
   <relation type='partOf'>
     <bibdata type='specification'>
-      <title>Date and time -- Timezone -- Timezone Management</title>
+      <title type='main'>Date and time -- Timezone -- Timezone Management</title>
+      <title type='title-main'>Date and time</title>
+      <title type='title-part'>Timezone -- Timezone Management</title>
       <uri>http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf</uri>
       <docidentifier>CC/Amd 86003</docidentifier>
       <date type='published'>
