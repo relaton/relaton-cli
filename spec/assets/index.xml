@@ -58,7 +58,7 @@
   </relation>
   <relation type='partOf'>
     <bibdata type='specification'>
-      <title>Date and time -- Calendars -- Gregorian calendar</title>
+      <title type='main' format='text/plain' language='en'>Date and time -- Calendars -- Gregorian calendar</title>
       <uri>http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf</uri>
       <docidentifier>CC/S 50012</docidentifier>
       <date type='updated'>
@@ -70,7 +70,7 @@
   </relation>
   <relation type='partOf'>
     <bibdata type='specification'>
-      <title>Date and time -- Calendars -- Gregorian calendar</title>
+      <title type='main' format='text/plain' language='en'>Date and time -- Calendars -- Gregorian calendar</title>
       <uri>http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf</uri>
       <docidentifier>CC/S 50012</docidentifier>
       <date type='published'>

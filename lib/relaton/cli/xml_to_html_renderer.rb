@@ -65,6 +65,8 @@ module Relaton::Cli
         if key == "title" && value.is_a?(Array)
           title = value.detect { |t| t["type"] == "main" } || value.first
           v = title ? title["content"] : nil
+        elsif key == "title" && value.is_a?(Hash)
+          v = value["content"]
         else
           v = value
         end
