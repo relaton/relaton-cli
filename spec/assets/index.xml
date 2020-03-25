@@ -14,7 +14,7 @@
       <date type='published'>
         <on>2018-10-17</on>
       </date>
-      <status>Published</status>
+      <status><stage>Published</stage></status>
       <ext>
         <technical-committee>TC VCARD</technical-committee>
       </ext>
@@ -28,7 +28,7 @@
       <date type='updated'>
         <on>2018-10-17</on>
       </date>
-      <status>proposal</status>
+      <status><stage>proposal</stage></status>
       <technical-committee>TC PUBLISH</technical-committee>
     </bibdata>
   </relation>
@@ -40,7 +40,7 @@
       <date type='updated'>
         <on>2018-10-17</on>
       </date>
-      <status>proposal</status>
+      <status><stage>proposal</stage></status>
       <technical-committee>TC PUBLISH</technical-committee>
     </bibdata>
   </relation>
@@ -52,7 +52,7 @@
       <date type='updated'>
         <on>2004-09-25</on>
       </date>
-      <status>working-draft</status>
+      <status><stage>working-draft</stage></status>
       <technical-committee>TC PUBLISH</technical-committee>
     </bibdata>
   </relation>
@@ -64,7 +64,7 @@
       <date type='updated'>
         <on>2018-09-26</on>
       </date>
-      <status>committee-draft</status>
+      <status><stage>committee-draft</stage></status>
       <technical-committee>TC TIME</technical-committee>
     </bibdata>
   </relation>
@@ -76,7 +76,7 @@
       <date type='published'>
         <on>2018-09-26</on>
       </date>
-      <status>Published</status>
+      <status><stage>Published</stage></status>
       <technical-committee>TC TIME</technical-committee>
     </bibdata>
   </relation>
@@ -90,7 +90,7 @@
       <date type='published'>
         <on>2018-09-26</on>
       </date>
-      <status>Published</status>
+      <status><stage>Published</stage></status>
       <technical-committee>TC TIME</technical-committee>
     </bibdata>
   </relation>
@@ -102,7 +102,7 @@
       <date type='updated'>
         <on>2018-09-26</on>
       </date>
-      <status>withdrawn</status>
+      <status><stage>withdrawn</stage></status>
       <ext>
         <technical-committee>TC CALDAV</technical-committee>
       </ext>
@@ -116,7 +116,7 @@
       <date type='updated'>
         <on>2018-09-26</on>
       </date>
-      <status>withdrawn</status>
+      <status><stage>withdrawn</stage></status>
       <ext>
         <technical-committee>TCC</technical-committee>
       </ext>
@@ -130,7 +130,7 @@
       <date type='updated'>
         <on>2019-10-17</on>
       </date>
-      <status>cancelled</status>
+      <status><stage>cancelled</stage></status>
       <ext>
         <technical-committee>CALCONNECT</technical-committee>
       </ext>

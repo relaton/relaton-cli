@@ -5,7 +5,7 @@
   <date type='published'>
     <on>2018-09-26</on>
   </date>
-  <status>Published</status>
+  <status><stage>Published</stage></status>
   <ext>
     <technical-committee>TC TIME</technical-committee>
   </ext>

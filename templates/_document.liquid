@@ -32,12 +32,12 @@
     </h{{ depth | plus: 1 }}>
   </div>
 
-  <div class="doc-info {{ document.stage | downcase }}">
-    <div class="doc-stage {{ document.stage | downcase }}">
-      {{ document.stage }}
+  <div class="doc-info {{ document.docstatus.stage | downcase }}">
+    <div class="doc-stage {{ document.docstatus.stage | downcase }}">
+      {{ document.docstatus.stage }}
     </div>
     <div class="doc-dates">
-      {% unless document.stage == "published" %}
+      {% unless document.docstatus.stage == "published" %}
       <div class="doc-updated">
       {% else %}
       <div class="doc-published">

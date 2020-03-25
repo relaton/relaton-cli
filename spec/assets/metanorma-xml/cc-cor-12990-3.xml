@@ -4,7 +4,7 @@
   <date type='updated'>
     <on>2018-09-26</on>
   </date>
-  <status>withdrawn</status>
+  <status><stage>withdrawn</stage></status>
   <ext>
     <technical-committee>TCC</technical-committee>
   </ext>

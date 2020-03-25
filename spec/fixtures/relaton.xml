@@ -13,7 +13,7 @@
     <uri type="pdf">PDF</uri>
     <uri type="doc">DOC</uri>
     <uri type="rxl">RXL</uri>
-    <status>STAGE</status>
+    <status><stage>STAGE</stage></status>
     <abstract>ABSTRACT</abstract>
     <language>LANGUAGE</language>
     <script>SCRIPT</script>

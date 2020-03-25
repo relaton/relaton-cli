@@ -16,7 +16,7 @@
             <date type="">
                 <on>2018-10-25</on>
             </date>
-            <status>proposal</status>
+            <status><stage>proposal</stage></status>
             <ext>
                 <editorialgroup>
                     <technical-committee>DATETIME</technical-committee>
@@ -34,7 +34,7 @@
             <date type="">
                 <on>2018-10-25</on>
             </date>
-            <status>proposal</status>
+            <status><stage>proposal</stage></status>
             <ext>
                 <editorialgroup>
                     <technical-committee>DATETIME</technical-committee>
@@ -52,7 +52,7 @@
             <date type="">
                 <on>2018-10-25</on>
             </date>
-            <status>proposal</status>
+            <status><stage>proposal</stage></status>
             <ext>
                 <editorialgroup>
                     <technical-committee>DATETIME</technical-committee>
@@ -70,7 +70,7 @@
             <date type="">
                 <on>2018-10-25</on>
             </date>
-            <status>proposal</status>
+            <status><stage>proposal</stage></status>
             <ext>
                 <editorialgroup>
                     <technical-committee>DATETIME</technical-committee>
@@ -88,7 +88,7 @@
             <date type="">
                 <on>2018-10-25</on>
             </date>
-            <status>proposal</status>
+            <status><stage>proposal</stage></status>
             <ext>
                 <editorialgroup>
                     <technical-committee>DATETIME</technical-committee>
@@ -106,7 +106,7 @@
             <date type="">
                 <on>2018-10-25</on>
             </date>
-            <status>proposal</status>
+            <status><stage>proposal</stage></status>
             <ext>
                 <editorialgroup>
                     <technical-committee>PUBLISH</technical-committee>
