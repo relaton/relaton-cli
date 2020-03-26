@@ -8,16 +8,16 @@
     <div class="doc-identifier">
       <h{{ depth }}>
       {% if document.html == "" %}
-        {{ document.docidentifier }}
+        {{ document.docid.id }}
       {% else %}
-        <a href="{{ document.html }}">{{ document.docidentifier }}</a>
+        <a href="{{ document.html }}">{{ document.docid.id }}</a>
       {% endif %}
       </h{{ depth }}>
     </div>
 
     <div class="doc-type-wrap">
-      <div class="doc-type {{ document.doctype | downcase | split: " " | join: "-" }}">
-      {{ document.doctype }}
+      <div class="doc-type {{ document.type | downcase | split: " " | join: "-" }}">
+      {{ document.type }}
       </div>
     </div>
   </div>

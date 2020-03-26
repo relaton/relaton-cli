@@ -62,13 +62,20 @@ module Relaton::Cli
     # TODO: This should be recursive, but it's not
     def hash_to_liquid(hash)
       hash.map do |key, value|
-        if key == "title" && value.is_a?(Array)
-          title = value.detect { |t| t["type"] == "main" } || value.first
-          v = title ? title["content"] : nil
-        elsif key == "title" && value.is_a?(Hash)
-          v = value["content"]
-        else
-          v = value
+        case key
+        when "title"
+          if value.is_a?(Array)
+            title = value.detect { |t| t["type"] == "main" } || value.first
+            v = title ? title["content"] : nil
+          elsif value.is_a?(Hash) then v = value["content"]
+          else v = value
+          end
+        when "docid"
+          if value.is_a?(Array)
+            v = value.detect { |did| did["id"] !~ /^(http|https):\/\// } || value.first
+          else v = value
+          end
+        else v = value
         end
         [key.to_s, empty2nil(v)]
       end.to_h
