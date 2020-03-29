@@ -111,6 +111,5 @@ module Relaton
 
       { "root" => a }
     end
-
   end
 end

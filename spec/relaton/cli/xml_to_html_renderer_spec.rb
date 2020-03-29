@@ -9,6 +9,7 @@ RSpec.describe Relaton::Cli::XmlToHtmlRenderer do
       ).render(File.read("spec/assets/index.xml"))
 
       expect(html).to include("<html")
+      expect(html).to include("<div class=\"document\"")
       expect(html).to include("CC/Amd 86003")
       expect(html).to include("CalConnect Inc\.")
       expect(html).to include("I AM A SAMPLE STYLESHEET")
