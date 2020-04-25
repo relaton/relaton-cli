@@ -1,5 +1,4 @@
-
-lib = File.expand_path("../lib", __FILE__)
+lib = File.expand_path("lib", __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "relaton/cli/version"
 
@@ -35,7 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "simplecov"
 
   spec.add_runtime_dependency "liquid"
-  spec.add_runtime_dependency "relaton", "~> 0.11.0"
+  spec.add_runtime_dependency "relaton", "~> 1.0.0"
   spec.add_runtime_dependency "thor"
   # spec.add_runtime_dependency 'byebug'
 end
