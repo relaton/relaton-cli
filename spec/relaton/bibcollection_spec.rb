@@ -1,5 +1,3 @@
-require "spec_helper"
-
 RSpec.describe Relaton::Bibcollection do
   describe ".from_xml" do
     it "instantiate a new collection from xml" do

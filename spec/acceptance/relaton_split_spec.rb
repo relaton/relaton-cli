@@ -1,5 +1,3 @@
-require "spec_helper"
-
 RSpec.describe "Relaton Split" do
   describe "relaton split"  do
     it "sends the split message relaton file" do

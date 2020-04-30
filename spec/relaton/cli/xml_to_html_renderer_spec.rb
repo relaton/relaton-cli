@@ -1,5 +1,3 @@
-require "spec_helper"
-
 RSpec.describe Relaton::Cli::XmlToHtmlRenderer do
   describe ".render" do
     it "generates the HTML output" do

@@ -1,5 +1,3 @@
-require "spec_helper"
-
 RSpec.describe "Relaton xml2html" do
   describe "relaton xml2html" do
     it "convers the xml file to xml" do

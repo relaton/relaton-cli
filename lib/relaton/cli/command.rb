@@ -8,6 +8,7 @@ module Relaton
     class Command < Thor
       desc "fetch CODE", "Fetch Relaton XML for Standard identifier CODE"
       option :type, aliases: :t, required: true, desc: "Type of standard to get bibliographic entry for"
+      option :format, aliases: :f, desc: "Output format (xml, bibtex). Default xml."
       option :year, aliases: :y, type: :numeric, desc: "Year the standard was published"
 
       def fetch(code)
@@ -92,10 +93,19 @@ module Relaton
 
       private
 
+      # @param code [String]
+      # @param options [Hash]
+      # @option options [String] :type
+      # @option options [String, NilClass] :format
+      # @option options [Integer, NilClass] :year
       def fetch_document(code, options)
         if registered_types.include?(options[:type])
           doc = Cli.relaton.fetch(code, options[:year]&.to_s)
-          doc ? doc.to_xml : "No matching bibliographic entry found"
+          if doc
+            options[:format] == "bibtex" ? doc.to_bibtex : doc.to_xml
+          else
+            "No matching bibliographic entry found"
+          end
         end
       rescue RelatonBib::RequestError => e
         e.message

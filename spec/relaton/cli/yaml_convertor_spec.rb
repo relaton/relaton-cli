@@ -1,5 +1,3 @@
-require "spec_helper"
-
 RSpec.describe Relaton::Cli::YAMLConvertor do
   let(:sample_yaml_file) { "spec/fixtures/sample.yaml" }
   let(:sample_yaml_file_no_type) { "spec/fixtures/sample_no_type.yaml" }
@@ -7,7 +5,6 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
   let(:collection_names) do
     ["cc-34000", "cc-34002", "cc-34003", "cc-34005", "cc-36000", "cc-s-34006"]
   end
-
 
   describe ".to_xml" do
     context "with a yaml file" do

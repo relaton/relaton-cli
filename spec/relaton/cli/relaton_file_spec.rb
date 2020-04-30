@@ -1,5 +1,4 @@
 require "fileutils"
-require "spec_helper"
 
 RSpec.describe Relaton::Cli::RelatonFile do
   describe ".extract" do

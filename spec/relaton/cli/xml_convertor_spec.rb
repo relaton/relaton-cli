@@ -1,5 +1,3 @@
-require "spec_helper"
-
 RSpec.describe Relaton::Cli::XMLConvertor do
   describe ".to_yaml" do
     context "with collection xml" do

@@ -1,5 +1,3 @@
-require "spec_helper"
-
 RSpec.describe "Relaton xml2yaml" do
   describe "relaton xml2yaml" do
     context "xml file without any option specified" do

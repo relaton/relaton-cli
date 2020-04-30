@@ -1,5 +1,3 @@
-require "spec_helper"
-
 RSpec.describe "Relaton Fetch" do
   describe "relaton fetch" do
     it "calls fetch" do
@@ -17,6 +15,11 @@ RSpec.describe "Relaton Fetch" do
 
         expect(output.stdout).to include('<relation type="obsoletes">')
         expect(output.stdout).to include('<docidentifier type="ISO">ISO 2146')
+      end
+
+      it "prints out the document in BibTeX format" do
+        output = command("relaton fetch --format bibtex --type ISO 'ISO 2146'")
+        expect(output.stdout).to include "@misc{ISO2146(allparts),"
       end
     end
 

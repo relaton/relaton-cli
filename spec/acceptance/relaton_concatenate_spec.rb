@@ -1,5 +1,3 @@
-require "spec_helper"
-
 RSpec.describe "Relaton Concatenate" do
   describe "relaton concatenate" do
     it "sends concatenate message to the concatenator" do

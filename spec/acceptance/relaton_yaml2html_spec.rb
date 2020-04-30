@@ -1,5 +1,3 @@
-require "spec_helper"
-
 RSpec.describe "Relaton yaml2html" do
   describe "relaton yaml2html" do
     it "convers the yaml file to html" do

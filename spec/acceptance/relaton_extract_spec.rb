@@ -1,5 +1,3 @@
-require "spec_helper"
-
 RSpec.describe "Relaton Extract" do
   describe "relaton extract" do
     it "sends extract message to the extractor" do
