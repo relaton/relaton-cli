@@ -68,7 +68,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
           "spec/fixtures/antioch.xml", "./tmp/output", extension: "rxl"
         )
         expect(File.read("./tmp/output/antioch.rxl")).to include(
-          "<docnumber>draft-camelot-holy-grenade-01</docnumber>"
+          "<docnumber>draft-camelot-holy-grenade-01</docnumber>",
         )
       end
     end
@@ -122,12 +122,12 @@ RSpec.describe Relaton::Cli::RelatonFile do
         )
 
         hashdoc = YAML.load_file("./tmp/concatenate.yml")
-        items = hashdoc["root"]["items"].sort_by { |item| item["id"]}
+        items = hashdoc["root"]["items"].sort_by { |item| item["id"] }
 
         expect(hashdoc["root"]["title"]).to eq("collection title")
         expect(hashdoc["root"]["author"]).to eq("Ribose Inc")
-        expect(items[1]["docid"]["id"]).to eq("CC 36000")
-        expect(items[1]["docid"]["type"]).to eq("CC")
+        expect(items[2]["docid"]["id"]).to eq("CC 36000")
+        expect(items[2]["docid"]["type"]).to eq("CC")
       end
     end
 

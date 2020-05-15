@@ -137,15 +137,19 @@ module Relaton
       def concatenate_files
         xml_files = [convert_rxl_to_xml, convert_yamls_to_xml, convert_xml_to_xml]
 
-        xml_files.flatten.map do |xml|
+        xml_files.flatten.reduce([]) do |mem, xml|
           doc = nokogiri_document(xml[:content])
-          if (rfc = doc.at("//rfc"))
+          if (refs = doc.xpath("//rfc//reference")).any?
             require "relaton_ietf/scrapper"
-            #ietf = RelatonIetf::Scrapper.bib_item rfc, "rfc"
-            ietf = RelatonIetf::Scrapper.fetch_rfc rfc
-            doc = nokogiri_document ietf.to_xml(bibdata: true)
+            mem + refs.map do |rfc|
+              ietf = RelatonIetf::Scrapper.fetch_rfc rfc
+              d = nokogiri_document ietf.to_xml(bibdata: true)
+              bibdata_instance(d, xml[:file])
+            end
+          elsif doc&.root&.name == "bibdata"
+            mem << bibdata_instance(doc, xml[:file])
+          else mem
           end
-          bibdata_instance(doc, xml[:file]) if doc&.root&.name == "bibdata"
         end.compact
       end
 
