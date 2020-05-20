@@ -32,12 +32,17 @@
     </h{{ depth | plus: 1 }}>
   </div>
 
-  <div class="doc-info {{ document.docstatus.stage | downcase }}">
-    <div class="doc-stage {{ document.docstatus.stage | downcase }}">
-      {{ document.docstatus.stage }}
+  <div class="doc-info {{ document.docstatus.stage.value | downcase }}">
+    <div class="doc-stage {{ document.docstatus.stage.value | downcase }}">
+      {{ document.docstatus.stage.abbreviation }}
+      {% if document.docstatus.substage %}
+        {{ document.docstatus.stage.value }}.{{ document.docstatus.substage.value }}
+      {% else %}
+        {{ document.docstatus.stage.value }}
+      {% endif %}
     </div>
     <div class="doc-dates">
-      {% unless document.docstatus.stage == "published" %}
+      {% unless document.docstatus.stage.value == "published" %}
       <div class="doc-updated">
       {% else %}
       <div class="doc-published">

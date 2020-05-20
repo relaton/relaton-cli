@@ -10,7 +10,8 @@ root:
       title: 
         content: Standardization documents -- Vocabulary
       docstatus:
-        stage: proposal
+        stage:
+          value: proposal
       date:
         type: issued
         value:  2018-10-25
@@ -21,7 +22,8 @@ root:
       title: 
         content: Date and time -- Concepts and vocabulary
       docstatus:
-        stage: proposal
+        stage:
+          value: proposal
       date:
         type: issued
         value: 2018-10-25
@@ -33,7 +35,8 @@ root:
       title: 
         content: Date and time -- Timezones
       docstatus:
-        stage: proposal
+        stage:
+          value: proposal
       date:
         type: issued
         value: 2018-10-25
@@ -45,7 +48,8 @@ root:
       title: 
         content: Date and time -- Codes for calendar systems
       docstatus:
-        stage: proposal
+        stage:
+          value: proposal
       date:
         type: issued
         value: 2018-10-25
@@ -57,7 +61,8 @@ root:
       title: 
         content: Date and time -- Calendars -- Gregorian calendar
       docstatus:
-        stage: proposal
+        stage:
+          value: proposal
       date:
         type: issued
         value: 2018-10-25
@@ -69,7 +74,8 @@ root:
       title: 
         content: Date and time -- Calendars -- Chinese calendar
       docstatus:
-        stage: proposal
+        stage:
+          value: proposal
       date:
         type: issued
         value: 2018-10-25

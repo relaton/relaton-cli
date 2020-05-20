@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "simplecov"
 
   spec.add_runtime_dependency "liquid"
-  spec.add_runtime_dependency "relaton", "~> 1.0.0"
+  spec.add_runtime_dependency "relaton", ">= 1.0.3"
   spec.add_runtime_dependency "thor"
   # spec.add_runtime_dependency 'byebug'
 end

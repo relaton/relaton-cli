@@ -51,7 +51,7 @@ RSpec.describe Relaton::Cli::XMLConvertor do
         )
 
         expect(buffer).to include("I AM A SAMPLE STYLESHEET")
-          expect(buffer).to include('<a href="">CC/S 34006</a>')
+        expect(buffer).to include('<a href="">CC/S 34006</a>')
         expect(buffer).to include("<!DOCTYPE HTML>\n<html>\n  <head>")
         expect(buffer).to include("<title>CalConnect Standards Registry</tit")
       end

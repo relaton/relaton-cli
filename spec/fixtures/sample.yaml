@@ -6,7 +6,8 @@ type: standard
 title: 
   content: Standardization documents -- Vocabulary
 docstatus:
-  stage: proposal
+  stage:
+    value: proposal
 date: 
   type: issued
   value: 2018-10-25

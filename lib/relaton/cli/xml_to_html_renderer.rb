@@ -13,7 +13,7 @@ module Relaton::Cli
     def render(index_xml)
       Liquid::Template.
         parse(template).
-        render(build_liquid_document(index_xml), { strict_variables: true })
+        render(build_liquid_document(index_xml))
     end
 
     def uri_for_extension(uri, extension)
