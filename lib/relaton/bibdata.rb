@@ -2,7 +2,7 @@ require "date"
 
 module Relaton
   class Bibdata
-    URL_TYPES = %i[uri xml pdf doc html rxl txt]
+    URL_TYPES = %i[uri xml pdf doc html rxl txt].freeze
 
     attr_reader :bibitem
 
@@ -31,16 +31,18 @@ module Relaton
     # end
 
     # From http://gavinmiller.io/2016/creating-a-secure-sanitization-function/
-    FILENAME_BAD_CHARS = [ '/', '\\', '?', '%', '*', ':', '|', '"', '<', '>', '.', ' ' ]
+    FILENAME_BAD_CHARS = ["/", '\\', "?", "%", "*", ":", "|", '"', "<", ">",
+                          ".", " "].freeze
 
     def docidentifier_code
       return "" if docidentifier.nil?
-      a = FILENAME_BAD_CHARS.inject(docidentifier.downcase) do |result, bad_char|
-        result.gsub(bad_char, '-')
+
+      FILENAME_BAD_CHARS.reduce(docidentifier.downcase) do |result, bad_char|
+        result.gsub(bad_char, "-")
       end
     end
 
-    DOC_NUMBER_REGEX = /([\w\/]+)\s+(\d+):?(\d*)/
+    DOC_NUMBER_REGEX = /([\w\/]+)\s+(\d+):?(\d*)/.freeze
     def doc_number
       docidentifier&.match(DOC_NUMBER_REGEX) ? $2.to_i : 999999
     end
@@ -51,7 +53,9 @@ module Relaton
     end
 
     def to_xml(opts = {})
-      options = { bibdata: true, date_format: :full }.merge opts.select { |k,v| k.is_a? Symbol }
+      options = { bibdata: true, date_format: :full }.merge(
+        opts.select { |k, _v| k.is_a? Symbol },
+      )
       @bibitem.to_xml nil, **options
 
       # #datetype = stage&.casecmp("published") == 0 ? "published" : "circulated"
@@ -62,7 +66,7 @@ module Relaton
 
     def to_h
       URL_TYPES.reduce({ items: [] }.merge(@bibitem.to_hash)) do |h, t|
-        value = self.send t
+        value = send t
         h[t.to_s] = value
         h
       end
@@ -76,11 +80,15 @@ module Relaton
       if @bibitem.respond_to?(meth)
         @bibitem.send meth, *args
       elsif URL_TYPES.include? meth
-        link = @bibitem.link.detect { |l| l.type == meth.to_s || meth == :uri && l.type.nil? }
+        link = @bibitem.link.detect do |l|
+          l.type == meth.to_s || meth == :uri && l.type.nil?
+        end
         link&.content&.to_s
       elsif URL_TYPES.include? meth.match(/^\w+(?==)/).to_s.to_sym
         /^(?<type>\w+)/ =~ meth
-        link = @bibitem.link.detect { |l| l.type == type || type == "uri" && l.type.nil? }
+        link = @bibitem.link.detect do |l|
+          l.type == type || type == "uri" && l.type.nil?
+        end
         if link
           link.content = args[0]
         else

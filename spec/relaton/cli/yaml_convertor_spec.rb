@@ -177,7 +177,7 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
 
   def stub_file_write_to_io(file, ext = "rxl")
     buffer = StringIO.new
-    buffer.set_encoding 'UTF-8'
+    buffer.set_encoding "UTF-8"
 
     stub_yaml_file_load(file) if file.include?(".yaml")
 

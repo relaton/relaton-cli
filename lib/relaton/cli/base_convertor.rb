@@ -17,6 +17,7 @@ module Relaton
         install_dependencies(options[:require] || [])
       end
 
+      # @return [String] HTML
       def to_html
         content = convert_to_html
         write_to_a_file(content)
@@ -32,12 +33,13 @@ module Relaton
       # @param style [String] Stylesheet file path for styles
       # @param template [String] The liquid tempalte directory
       #
+      # @return [String] HTML
       def self.to_html(file, style = nil, template = nil)
         new(
           file,
           style: style || File.join(File.dirname(__FILE__), "../../../templates/index-style.css"),
           template: template || File.join(File.dirname(__FILE__), "../../../templates/"),
-          extension: "html"
+          extension: "html",
         ).to_html
       end
 
@@ -45,6 +47,7 @@ module Relaton
 
       attr_reader :file, :outdir, :options, :writable, :overwrite
 
+      # @return [String] HTML
       def convert_to_html
         Relaton::Cli::XmlToHtmlRenderer.render(
           xml_content(file),
@@ -53,6 +56,9 @@ module Relaton
         )
       end
 
+      # @param file [String] path to a file
+      # @return [String] the file's content
+      # @return [String] HTML
       def xml_content(file)
         File.read(file, encoding: "utf-8")
       end
@@ -92,7 +98,7 @@ module Relaton
         #     write_to_a_file(item_output(item, format), collection)
         #   end
         # end
-        if outdir && (content.is_a?(Relaton::Bibcollection))
+        if outdir && content.is_a?(Relaton::Bibcollection)
           FileUtils.mkdir_p(outdir)
           content.items_flattened.each do |item|
             collection = collection_filename(extract_docid(item))
@@ -103,19 +109,21 @@ module Relaton
 
       def extract_docid(item)
         @default_filelabel += 1
-        item.docidentifier.nil? and return @default_filelabel.to_s
+        item.docidentifier.nil? && (return @default_filelabel.to_s)
         # item.docidentifier.is_a?(Array) or return @default_filelabel.to_s
-        item.docidentifier.empty? and return @default_filelabel.to_s
+        item.docidentifier.empty? && (return @default_filelabel.to_s)
         docidentifier_code(item.docidentifier)
       end
 
       # From http://gavinmiller.io/2016/creating-a-secure-sanitization-function/
-      FILENAME_BAD_CHARS = [ '/', '\\', '?', '%', '*', ':', '|', '"', '<', '>', '.', ' ' ]
+      FILENAME_BAD_CHARS = ["/", '\\', "?", '%", "*", ":', "|", '"', "<", ">",
+                            ".", " "].freeze
 
       def docidentifier_code(docidentifier)
         return "" if docidentifier.nil?
-        a = FILENAME_BAD_CHARS.inject(docidentifier.downcase) do |result, bad_char|
-          result.gsub(bad_char, '-')
+
+        FILENAME_BAD_CHARS.reduce(docidentifier.downcase) do |result, bad_char|
+          result.gsub(bad_char, "-")
         end
       end
 

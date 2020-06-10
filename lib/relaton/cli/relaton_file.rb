@@ -89,6 +89,9 @@ module Relaton
         )
       end
 
+      # @param document [String] XML
+      # @param file [String, nil] path to file
+      # @return [Nokogiri::XML::Document]
       def nokogiri_document(document, file = nil)
         document ||= File.read(file, encoding: "utf-8")
         Nokogiri.XML(document)
@@ -186,6 +189,9 @@ module Relaton
         end
       end
 
+      # @param document [Nokogiri::XML::Document]
+      # @param file [String] path to file
+      # @return [Relaton::Bibdata]
       def bibdata_instance(document, file)
         document = clean_nokogiri_document(document)
         bibdata = Relaton::Bibdata.from_xml document.root
@@ -194,6 +200,8 @@ module Relaton
         bibdata
       end
 
+      # @param bibdata [Relaton::Bibdata]
+      # @param file [String] path to file
       def build_bibdata_relaton(bibdata, file)
         ["xml", "pdf", "doc", "html", "rxl", "txt"].each do |type|
           file = Pathname.new(file).sub_ext(".#{type}")
@@ -206,6 +214,8 @@ module Relaton
       # has an xmlns. We don't want to change the code for bibdata
       # hence this hack #bibdata_doc.root['xmlns'] = "xmlns"
       #
+      # @param document [Nokogiri::XML::Document]
+      # @return [Nokogiri::XML::Document]
       def clean_nokogiri_document(document)
         document.remove_namespaces!
         document.root.add_namespace(nil, "xmlns")

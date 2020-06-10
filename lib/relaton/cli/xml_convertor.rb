@@ -32,7 +32,7 @@ module Relaton
       # @param content [Nokogiri::XML::Document]
       # @return [Hash]
       def convert_content(content)
-        if content.root.name == "bibdata"
+        if %w[bibitem bibdata].include? content.root.name
           Bibdata.from_xml(content)
           # Relaton::Cli.parse_xml(content).to_hash
         else

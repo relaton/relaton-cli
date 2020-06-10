@@ -1,6 +1,6 @@
 require "nokogiri"
 require "liquid"
-require 'pp'
+require "pp"
 
 module Relaton::Cli
   class XmlToHtmlRenderer
@@ -10,6 +10,8 @@ module Relaton::Cli
       init_liquid_template_and_filesystem
     end
 
+    # @param index_xml [String] Relaton XML
+    # @return [String] HTML
     def render(index_xml)
       Liquid::Template.
         parse(template).
@@ -17,9 +19,7 @@ module Relaton::Cli
     end
 
     def uri_for_extension(uri, extension)
-      unless uri.nil?
-        uri.sub(/\.[^.]+$/, ".#{extension.to_s}")
-      end
+      uri&.sub(/\.[^.]+$/, ".#{extension}")
     end
 
     # Render HTML
@@ -28,6 +28,9 @@ module Relaton::Cli
     # using the specified liquid template and stylesheets. It
     # also do some minor clean during this conversion.
     #
+    # @param file [String] Relaton XML
+    # @param options [Hash]
+    # @return [String] HTML
     def self.render(file, options)
       new(options).render(file)
     end
@@ -40,16 +43,17 @@ module Relaton::Cli
       File.read(file, encoding: "utf-8")
     end
 
+    # @param source [String] Relaton XML
     def build_liquid_document(source)
       bibcollection = build_bibcollection(source)
 
-      hash_to_liquid({
+      hash_to_liquid(
         depth: 2,
         css: stylesheet,
         title: bibcollection.title,
         author: bibcollection.author,
-        documents: document_items(bibcollection)
-      })
+        documents: document_items(bibcollection),
+      )
     end
 
     def init_liquid_template_and_filesystem
@@ -59,7 +63,17 @@ module Relaton::Cli
       Liquid::Template.file_system = file_system
     end
 
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
+
     # TODO: This should be recursive, but it's not
+    # @param hash [Hash]
+    # @option hash [Integer] :dept
+    # @option hash [String] :css path to stylesheet file
+    # @option hash [String] :title
+    # @option hash [String] :author
+    # @option hash [Array<Hash>] :documents
+    #
+    # @return [Hash]
     def hash_to_liquid(hash)
       hash.map do |key, value|
         case key
@@ -71,24 +85,30 @@ module Relaton::Cli
           else v = value
           end
         when "docid"
-          if value.is_a?(Array)
-            v = value.detect { |did| did["id"] !~ /^(http|https):\/\// } || value.first
-          else v = value
-          end
+          v = if value.is_a?(Array)
+                value.detect { |did| did["id"] !~ /^(http|https):\/\// } ||
+                  value.first
+              else value
+              end
         else v = value
         end
         [key.to_s, empty2nil(v)]
       end.to_h
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
 
     def empty2nil(value)
       value unless value.is_a?(String) && value.empty? && !value.nil?
     end
 
+    # @param source [String] Relaton XML
+    # @return [Relaton::Bibcollection]
     def build_bibcollection(source)
       Relaton::Bibcollection.from_xml(Nokogiri::XML(source))
     end
 
+    # @param bibcollection [Relaton::Bibcollection]
+    # @return [Array<Hash>]
     def document_items(bibcollection)
       bibcollection.to_h["root"]["items"].map { |item| hash_to_liquid(item) }
     end
