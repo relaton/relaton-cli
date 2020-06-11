@@ -41,7 +41,7 @@ module Relaton
       )
 
       items = find_xpath("./relaton-collection/relation", source)&.map do |item|
-        bibdata = find("./bibdata", item)
+        bibdata = find("./bibdata|./bibitem", item)
         klass = bibdata ? Bibdata : Bibcollection
         klass.from_xml(bibdata || item)
       end

@@ -129,6 +129,23 @@ RSpec.describe Relaton::Cli::RelatonFile do
         expect(items[2]["docid"]["id"]).to eq("CC 36000")
         expect(items[2]["docid"]["type"]).to eq("CC")
       end
+
+      it "with IETF sample files" do
+        file = "spec/fixtures/ietf_index.rxl"
+        Relaton::Cli::RelatonFile.concatenate(
+          "spec/fixtures/documents",
+          file,
+          title: "Collection title",
+          organization: "Ribose",
+          extension: "rxl",
+        )
+
+        content = File.read file, encoding: "UTF-8"
+        expect(content).to include "<docidentifier>1149</docidentifier>"
+        expect(content).to include '<uri type="rxl">spec/fixtures/documents/example.rxl</uri>'
+        expect(content).to include "<docidentifier>draft-camelot-holy-grenade-01</docidentifier>"
+        expect(content).to include '<uri type="rxl">spec/fixtures/documents/antioch.rxl</uri>'
+      end
     end
 
     context "with YAML, RXL and linked documents" do

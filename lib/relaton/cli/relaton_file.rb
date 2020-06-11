@@ -118,7 +118,6 @@ module Relaton
             bib = nokogiri_document(bib.to_xml)
           elsif (rfc = xml.at("//rfc"))
             require "relaton_ietf/scrapper"
-            #ietf = RelatonIetf::Scrapper.bib_item rfc, "rfc"
             ietf = RelatonIetf::Scrapper.fetch_rfc rfc
             bib = nokogiri_document ietf.to_xml(bibdata: true)
           else
@@ -142,18 +141,16 @@ module Relaton
 
         xml_files.flatten.reduce([]) do |mem, xml|
           doc = nokogiri_document(xml[:content])
-          if (refs = doc.xpath("//rfc//reference")).any?
+          if (rfc = doc.at("/rfc"))
             require "relaton_ietf/scrapper"
-            mem + refs.map do |rfc|
-              ietf = RelatonIetf::Scrapper.fetch_rfc rfc
-              d = nokogiri_document ietf.to_xml(bibdata: true)
-              bibdata_instance(d, xml[:file])
-            end
-          elsif doc&.root&.name == "bibdata"
+            ietf = RelatonIetf::Scrapper.fetch_rfc rfc
+            d = nokogiri_document ietf.to_xml(bibdata: true)
+            mem << bibdata_instance(d, xml[:file])
+          elsif %w[bibitem bibdata].include? doc&.root&.name
             mem << bibdata_instance(doc, xml[:file])
           else mem
           end
-        end.compact
+        end.uniq &:id
       end
 
       def concatenate_and_write_to_files
@@ -170,7 +167,7 @@ module Relaton
         end
       end
 
-      def find_available_bibrxl_file(name, ouputdir, content)
+      def find_available_bibrxl_file(name, _ouputdir, content)
         if options[:extension] == "yaml" || options[:extension] == "yml"
           bib_rxl = Pathname.new([outdir, name].join("/")).sub_ext(".rxl")
           content.bib_rxl = bib_rxl.to_s if File.file?(bib_rxl)
@@ -270,7 +267,7 @@ module Relaton
 
       def replace_bad_characters(string)
         bad_chars = ["/", "\\", "?", "%", "*", ":", "|", '"', "<", ">", ".", " "]
-        bad_chars.inject(string.downcase) { |res, char| res.gsub(char, "-") }
+        bad_chars.reduce(string.downcase) { |res, char| res.gsub(char, "-") }
       end
     end
   end

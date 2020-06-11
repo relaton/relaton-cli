@@ -56,6 +56,16 @@ RSpec.describe Relaton::Cli::XMLConvertor do
         expect(buffer).to include("<title>CalConnect Standards Registry</tit")
       end
     end
+
+    it "ietf to html" do
+      file = "spec/fixtures/ietf_index.rxl"
+      buffer = stub_file_write_to_io(file, "html")
+      Relaton::Cli::XMLConvertor.to_html(file)
+      expect(buffer).to include '<a href="spec/fixtures/documents/example.html">1149</a>'
+      expect(buffer).to include '<a href="spec/fixtures/documents/example.rxl">Relaton XML</a>'
+      expect(buffer).to include '<a href="">draft-camelot-holy-grenade-01</a>'
+      expect(buffer).to include '<a href="spec/fixtures/documents/antioch.rxl">Relaton XML</a>'
+    end
   end
 
   def sample_relaton_fille

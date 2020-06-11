@@ -10,18 +10,6 @@ module Relaton
       @bibitem = bibitem
     end
 
-    # def method_missing(method, *args)
-    #   %r{(?<m>\w+)=$} =~ method
-    #   return unless m && %w[xml pdf doc html rxl txt].include?(m)
-
-    #   uri = @bibitem.link.detect { |u| u.type == m }
-    #   if uri
-    #     uri.content = args[0]
-    #   else
-    #     @bibitem.link << RelatonBib::TypedUri.new(type: m, content: args[0])
-    #   end
-    # end
-
     def docidentifier
       @bibitem.docidentifier.first&.id
     end
@@ -57,11 +45,6 @@ module Relaton
         opts.select { |k, _v| k.is_a? Symbol },
       )
       @bibitem.to_xml nil, **options
-
-      # #datetype = stage&.casecmp("published") == 0 ? "published" : "circulated"
-
-      # ret = ref ? "<bibitem id= '#{ref}' type='#{doctype}'>\n" : "<bibdata type='#{doctype}'>\n"
-      # ret += "<fetched>#{Date.today.to_s}</fetched>\n"
     end
 
     def to_h
@@ -75,6 +58,9 @@ module Relaton
     def to_yaml
       to_h.to_yaml
     end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
+    # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity, Style/MissingRespondToMissing
 
     def method_missing(meth, *args)
       if @bibitem.respond_to?(meth)
@@ -98,5 +84,7 @@ module Relaton
         super
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize
+    # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity, Style/MissingRespondToMissing
   end
 end

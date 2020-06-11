@@ -34,18 +34,8 @@ module Relaton
       def convert_content(content)
         if %w[bibitem bibdata].include? content.root.name
           Bibdata.from_xml(content)
-          # Relaton::Cli.parse_xml(content).to_hash
         else
           Bibcollection.from_xml(content)
-          # title = content.at("relaton-collection/title").text
-          # author = content.at("relaton-collection/contributor/organization/name").text
-          # collection = { "root" => { "title" => title, "author" => author } }
-
-          # collection["root"]["items"] = content.xpath("//bibdata").map do |bib|
-          #   Relaton::Cli.parse_xml(bib).to_hash
-          # end
-
-          # collection
         end
       end
 

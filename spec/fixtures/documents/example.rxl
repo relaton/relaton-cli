@@ -1,0 +1,277 @@
+<bibdata type="standard">
+<title language="en" format="text/plain" type="main">RFC XML v3 Example: A Standard for the Transmission of IP Datagrams on Avian Carriers</title>
+<title language="en" format="text/plain" type="abbrev">IP Datagrams on Avian Carriers</title>
+<docidentifier>1149</docidentifier>
+<docnumber>1149</docnumber>
+<contributor>
+<role type="author"/>
+<person>
+<name>
+<forename>David</forename>
+
+<surname>Waitzman</surname>
+</name>
+<phone>(617) 873-4323</phone>
+<email>dwaitzman@BBN.COM</email>
+<uri>http://bbn.com</uri>
+</person>
+</contributor>
+<contributor>
+<role type="author"/>
+<person>
+<name>
+<forename>Nick</forename>
+
+<surname>Nicholas</surname>
+</name>
+<phone>(617) 873-4323</phone>
+<email>opoudjis@gmail.com</email>
+<uri>http://opoudjis.net</uri>
+</person>
+</contributor>
+<contributor>
+<role type="publisher"/>
+<organization>
+<name>Internet Engineering Task Force</name>
+<abbreviation>IETF</abbreviation>
+</organization>
+</contributor>
+<version>
+<revision-date>1990-04-01T00:00:00Z</revision-date>
+</version>
+<language>en</language>
+<script>Latn</script>
+<status>
+<stage>published</stage>
+</status>
+<copyright>
+<from>2020</from>
+<owner>
+<organization>
+<name>Internet Engineering Task Force</name>
+<abbreviation>IETF</abbreviation>
+</organization>
+</owner>
+</copyright>
+<relation type="derivedFrom">
+<bibitem>
+<title>--</title>
+<docidentifier>https://www.rfc-editor.org/rfc/rfc1149.txt</docidentifier>
+</bibitem>
+</relation>
+<relation type="obsoletes">
+<bibitem type="standard">
+  <fetched>2020-06-09</fetched>
+  <title format="text/plain" language="en" script="Latn">Request For Comments reference guide</title>
+  <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.1000.xml</uri>
+  <uri type="src">https://www.rfc-editor.org/info/rfc1000</uri>
+  <docidentifier type="IETF">RFC 1000</docidentifier>
+  <docidentifier type="rfc-anchor">RFC1000</docidentifier>
+  <docidentifier type="DOI">10.17487/RFC1000</docidentifier>
+  <date type="published">
+    <on>1987-08</on>
+  </date>
+  <contributor>
+    <role type="author"/>
+    <person>
+      <name>
+        <completename language="en">J.K. Reynolds</completename>
+      </name>
+      <affiliation>
+        <organization>
+          <name>Internet Engineering Task Force</name>
+          <abbreviation>IETF</abbreviation>
+        </organization>
+      </affiliation>
+    </person>
+  </contributor>
+  <contributor>
+    <role type="author"/>
+    <person>
+      <name>
+        <completename language="en">J. Postel</completename>
+      </name>
+      <affiliation>
+        <organization>
+          <name>Internet Engineering Task Force</name>
+          <abbreviation>IETF</abbreviation>
+        </organization>
+      </affiliation>
+    </person>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>Internet Engineering Task Force</name>
+      <abbreviation>IETF</abbreviation>
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <abstract format="text/plain" language="en" script="Latn">This RFC Reference Guide is intended to provide a historical account by categorizing and summarizing of the Request for Comments numbers 1 through 999 issued between the years 1969-1987.  These documents have been crossed referenced to indicate which RFCs are current, obsolete, or revised.</abstract>
+  <series type="main">
+    <title format="text/plain" language="en" script="Latn">RFC</title>
+    <number>1000</number>
+  </series>
+  <place>Fremont, CA</place>
+</bibitem>
+</relation>
+<relation type="obsoletes">
+<bibitem type="standard">
+  <fetched>2020-06-09</fetched>
+  <title format="text/plain" language="en" script="Latn">IAB official protocol standards</title>
+  <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.1200.xml</uri>
+  <uri type="src">https://www.rfc-editor.org/info/rfc1200</uri>
+  <docidentifier type="IETF">RFC 1200</docidentifier>
+  <docidentifier type="rfc-anchor">RFC1200</docidentifier>
+  <docidentifier type="DOI">10.17487/RFC1200</docidentifier>
+  <date type="published">
+    <on>1991-04</on>
+  </date>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>Internet Engineering Task Force</name>
+      <abbreviation>IETF</abbreviation>
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="author"/>
+    <organization>
+      <name>Defense Advanced Research Projects Agency</name>
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="author"/>
+    <organization>
+      <name>Internet Activities Board</name>
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <abstract format="text/plain" language="en" script="Latn">This memo describes the state of standardization of protocols used in the Internet as determined by the Internet Activities Board (IAB).  An overview of the standards procedures is presented first, followed by discussions of the standardization process and the RFC document series, then the explanation of the terms is presented, the lists of protocols in each stage of standardization follows, and finally pointers to references and contacts for further information.</abstract>
+  <series type="main">
+    <title format="text/plain" language="en" script="Latn">RFC</title>
+    <number>1200</number>
+  </series>
+  <place>Fremont, CA</place>
+</bibitem>
+</relation>
+<relation type="updates">
+<bibitem type="standard">
+  <fetched>2020-06-09</fetched>
+  <title format="text/plain" language="en" script="Latn">Operational Criteria for Root Name Servers</title>
+  <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2010.xml</uri>
+  <uri type="src">https://www.rfc-editor.org/info/rfc2010</uri>
+  <docidentifier type="IETF">RFC 2010</docidentifier>
+  <docidentifier type="rfc-anchor">RFC2010</docidentifier>
+  <docidentifier type="DOI">10.17487/RFC2010</docidentifier>
+  <date type="published">
+    <on>1996-10</on>
+  </date>
+  <contributor>
+    <role type="author"/>
+    <person>
+      <name>
+        <completename language="en">B. Manning</completename>
+      </name>
+      <affiliation>
+        <organization>
+          <name>Internet Engineering Task Force</name>
+          <abbreviation>IETF</abbreviation>
+        </organization>
+      </affiliation>
+    </person>
+  </contributor>
+  <contributor>
+    <role type="author"/>
+    <person>
+      <name>
+        <completename language="en">P. Vixie</completename>
+      </name>
+      <affiliation>
+        <organization>
+          <name>Internet Engineering Task Force</name>
+          <abbreviation>IETF</abbreviation>
+        </organization>
+      </affiliation>
+    </person>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>Internet Engineering Task Force</name>
+      <abbreviation>IETF</abbreviation>
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <abstract format="text/plain" language="en" script="Latn">This document specifies the operational requirements of root name servers, including host hardware capacities, name server software revisions, network connectivity, and physical environment.  This memo provides information for the Internet community.  This memo does not specify an Internet standard of any kind.</abstract>
+  <series type="main">
+    <title format="text/plain" language="en" script="Latn">RFC</title>
+    <number>2010</number>
+  </series>
+  <place>Fremont, CA</place>
+</bibitem>
+</relation>
+<relation type="updates">
+<bibitem type="standard">
+  <fetched>2020-06-09</fetched>
+  <title format="text/plain" language="en" script="Latn">Managing the X.500 Root Naming Context</title>
+  <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2120.xml</uri>
+  <uri type="src">https://www.rfc-editor.org/info/rfc2120</uri>
+  <docidentifier type="IETF">RFC 2120</docidentifier>
+  <docidentifier type="rfc-anchor">RFC2120</docidentifier>
+  <docidentifier type="DOI">10.17487/RFC2120</docidentifier>
+  <date type="published">
+    <on>1997-03</on>
+  </date>
+  <contributor>
+    <role type="author"/>
+    <person>
+      <name>
+        <completename language="en">D. Chadwick</completename>
+      </name>
+      <affiliation>
+        <organization>
+          <name>Internet Engineering Task Force</name>
+          <abbreviation>IETF</abbreviation>
+        </organization>
+      </affiliation>
+    </person>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>Internet Engineering Task Force</name>
+      <abbreviation>IETF</abbreviation>
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <abstract format="text/plain" language="en" script="Latn">This document describes the use of 1993 ISO X.500 Standard protocols for managing the root context. Whilst the ASN.1 is compatible with that of the X.500 Standard, the actual settings of the parameters are supplementary to that of the X.500 Standard.  This memo defines an Experimental Protocol for the Internet community.</abstract>
+  <series type="main">
+    <title format="text/plain" language="en" script="Latn">RFC</title>
+    <number>2120</number>
+  </series>
+  <place>Fremont, CA</place>
+</bibitem>
+</relation>
+<series type="stream">
+<title>IETF</title>
+</series>
+<series type="intended">
+<title>std</title>
+</series>
+<ext>
+<doctype>rfc</doctype>
+<editorialgroup>
+<workgroup>Network Working Group</workgroup>
+</editorialgroup>
+<area>Internet</area>
+<ipr>trust200902</ipr>
+<pi>
+<toc>yes</toc>
+</pi>
+</ext>
+</bibdata>
