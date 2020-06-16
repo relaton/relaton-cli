@@ -2,7 +2,7 @@ RSpec.describe "Relaton Concatenate" do
   describe "relaton concatenate" do
     it "sends concatenate message to the concatenator" do
       allow(Relaton::Cli::RelatonFile).to receive(:concatenate)
-      command = %w(concatenate spec/fixtures ./tmp/concatenate.rxl -t Title)
+      command = %w(concatenate spec/fixtures ./tmp/concatenate.rxl -t Title -x rxl)
 
       Relaton::Cli.start(command)
 

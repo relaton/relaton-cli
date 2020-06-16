@@ -174,14 +174,16 @@ module Relaton
         end
       end
 
-      def output_type(ext=options[:extension])
+      def output_type(ext = options[:extension])
+        ext ||= File.extname(outfile)[1..-1] if outfile
         case ext
         when "rxl", "xml"
           :to_xml
         when "yml", "yaml"
           :to_yaml
         else
-          puts "[relaton-cli] the given extension of '#{ext}' is not supported."
+          puts "[relaton-cli] the given extension of '#{ext}' is "\
+          "not supported. Use 'rxl'."
           :to_xml
         end
       end

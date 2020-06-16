@@ -48,7 +48,7 @@ module Relaton
     end
 
     def to_h
-      URL_TYPES.reduce({ items: [] }.merge(@bibitem.to_hash)) do |h, t|
+      URL_TYPES.reduce(@bibitem.to_hash) do |h, t|
         value = send t
         h[t.to_s] = value
         h

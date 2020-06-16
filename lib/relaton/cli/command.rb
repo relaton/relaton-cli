@@ -28,7 +28,7 @@ module Relaton
       option :title, aliases: :t,  desc: "Title of resulting Relaton collection"
       option :organization, aliases: :g, desc: "Organization owner of Relaton collection"
       option :new, aliases: :n, type: :boolean, desc: "Use the new Relaton YAML format"
-      option :extension, aliases: :x, default: "rxl", desc: "File extension of destination Relaton file, defaults to 'rxl'"
+      option :extension, aliases: :x, desc: "File extension of destination Relaton file, defaults to 'rxl'"
 
       def concatenate(source_dir, outfile)
         Relaton::Cli::RelatonFile.concatenate(source_dir, outfile, options)
