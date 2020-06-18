@@ -34,20 +34,22 @@ module Relaton
     # @param content [Nokogiri::XML::Document]
     # @return [RelatonBib::BibliographicItem, RelatonIsoBib::IsoBibliongraphicItem]
     def self.parse_xml(doc)
-      if (processor = Relaton::Registry.instance.by_type(Relaton::Cli.doctype(doc)))
-        processor.from_xml(doc.to_s)
+      if (proc = Cli.processor(doc))
+        proc.from_xml(doc.to_s)
       else
         RelatonBib::XMLParser.from_xml(doc.to_s)
       end
     end
 
-    # @param content [Nokogiri::XML::Document] Document
+    # @param doc [Nokogiri::XML::Element]
     # @return [String] Type prefix
-    def self.doctype(doc)
+    def self.processor(doc)
       docid = doc.at "docidentifier"
-      return docid[:type] if docid && docid[:type]
-
-      docid&.text&.match(/^\w+/)&.to_s
+      if docid && docid[:type]
+        proc = Relaton::Registry.instance.by_type(docid[:type])
+        return proc if proc
+      end
+      Relaton::Registry.instance.by_type(docid&.text&.match(/^\w+/)&.to_s)
     end
   end
 end
