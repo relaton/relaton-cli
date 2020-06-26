@@ -8,6 +8,11 @@ title:
   - content: Information géographique
     language: fr
     script: Latn
+    type: title-main
+  - content: Information géographique
+    language: fr
+    script: Latn
+    type: main
 docstatus:
   stage:
     value: stage

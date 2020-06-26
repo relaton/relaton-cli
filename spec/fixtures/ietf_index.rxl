@@ -265,6 +265,9 @@
   <series type="intended">
     <title>std</title>
   </series>
+  <ext>
+    <doctype>rfc</doctype>
+  </ext>
 </bibdata></relation>
 <relation type='partOf'><bibdata type="standard">
   <title type="main" format="text/plain" language="en">The Holy Hand Grenade of Antioch</title>
@@ -356,5 +359,8 @@
   <series type="intended">
     <title>info</title>
   </series>
+  <ext>
+    <doctype>internet-draft</doctype>
+  </ext>
 </bibdata></relation>
 </relaton-collection>

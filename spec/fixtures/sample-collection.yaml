@@ -58,8 +58,7 @@ root:
         type: CC
         id: CC 34005
       type: standard
-      title: 
-        content: Date and time -- Calendars -- Gregorian calendar
+      title: Date and time - Calendars - Gregorian calendar
       docstatus:
         stage:
           value: proposal
@@ -71,8 +70,7 @@ root:
         type: CC
         id: CC/S 34006
       type: standard
-      title: 
-        content: Date and time -- Calendars -- Chinese calendar
+      title: Date and time - Calendars - Chinese calendar
       docstatus:
         stage:
           value: proposal

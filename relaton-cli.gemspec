@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.required_ruby_version = ">= 2.4.0"
 
-  spec.add_development_dependency "byebug", "~> 10.0"
+  spec.add_development_dependency "byebug", "~> 11.0"
   spec.add_development_dependency "debase"
   spec.add_development_dependency "equivalent-xml", "~> 0.6"
   spec.add_development_dependency "pry"
@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "simplecov"
 
   spec.add_runtime_dependency "liquid"
-  spec.add_runtime_dependency "relaton", "~> 1.1.0"
+  spec.add_runtime_dependency "relaton", "~> 1.2.0"
   spec.add_runtime_dependency "thor"
   # spec.add_runtime_dependency 'byebug'
 end
