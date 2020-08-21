@@ -39,7 +39,7 @@ module Relaton
           file,
           style: style || File.join(File.dirname(__FILE__), "../../../templates/index-style.css"),
           template: template || File.join(File.dirname(__FILE__), "../../../templates/"),
-          extension: "html",
+          extension: "html"
         ).to_html
       end
 
@@ -91,13 +91,6 @@ module Relaton
       end
 
       def write_to_file_collection(content, format)
-        # if outdir && (content.is_a?(Relaton::Bibcollection))
-        #   FileUtils.mkdir_p(outdir)
-        #   content.items_flattened.each do |item|
-        #     collection = collection_filename(item.docidentifier_code)
-        #     write_to_a_file(item_output(item, format), collection)
-        #   end
-        # end
         if outdir && content.is_a?(Relaton::Bibcollection)
           FileUtils.mkdir_p(outdir)
           content.items_flattened.each do |item|

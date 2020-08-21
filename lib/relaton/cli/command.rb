@@ -45,7 +45,7 @@ module Relaton
       desc "yaml2xml YAML", "Convert Relaton YAML into Relaton Collection XML or separate files"
       option :extension, aliases: :x, default: "rxl", desc: "File extension of Relaton XML files, defaults to 'rxl'"
       option :prefix, aliases: :p, desc: "Filename prefix of individual Relaton XML files, defaults to empty"
-      option :outdir, aliases: :o,  desc: "Output to the specified directory with individual Relaton Bibdata XML files"
+      option :outdir, aliases: :o, desc: "Output to the specified directory with individual Relaton Bibdata XML files"
       option :require, aliases: :r, type: :array, desc: "Require LIBRARY prior to execution"
       option :overwrite, aliases: :f, type: :boolean, default: false, desc: "Overwrite the existing file"
 
@@ -53,7 +53,7 @@ module Relaton
         Relaton::Cli::YAMLConvertor.to_xml(filename, options)
       end
 
-      desc "xml2yamlnew XML", "Convert Relaton XML into Relaton Bibdata / Bibcollection YAML (and separate files)"
+      desc "xml2yaml XML", "Convert Relaton XML into Relaton Bibdata / Bibcollection YAML (and separate files)"
       option :extension, aliases: :x, default: "yaml", desc: "File extension of Relaton YAML files, defaults to 'yaml'"
       option :prefix, aliases: :p, desc: "Filename prefix of Relaton XML files, defaults to empty"
       option :outdir, aliases: :o, desc: "Output to the specified directory with individual Relaton Bibdata YAML files"
@@ -80,6 +80,25 @@ module Relaton
 
       def yaml2html(file, style = nil, template = nil)
         Relaton::Cli::YAMLConvertor.to_html(file, style, template)
+      end
+
+      desc "convert XML", "Convert Relaton XML document"
+      option :format, aliases: :f, required: true, desc: "Output format (yaml, bibtex, asciibib)"
+      option :output, aliases: :o, desc: "Output to the specified file"
+
+      def convert(file)
+        item = Relaton::Cli.parse_xml Nokogiri::XML(File.read(file, encoding: "UTF-8"))
+        result = if /yaml|yml/.match?(options[:format])
+                   item.to_hash.to_yaml
+                 else item.send "to_#{options[:format]}"
+                 end
+        ext = case options[:format]
+              when "bibtex" then "bib"
+              when "asciibib" then "adoc"
+              else options[:format]
+              end
+        output = options[:output] || file.sub(/(?<=\.)[^\.]+$/, ext)
+        File.write output, result, encoding: "UTF-8"
       end
 
       private

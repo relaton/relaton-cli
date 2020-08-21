@@ -209,3 +209,11 @@ $ relaton yaml2html YAML [<stylesheet>] [<liquid-template-dir>]
 
 Render a Relaton YAML file (`filename.yaml`) as an HTML file. The `stylesheet` and `liquid-template-dir` directories are as for <<relaton-xml2html,relaton xml2html>>.
 
+=== relaton convert
+
+[source,conxole]
+----
+$ relaton convert XML -f FORMAT -o OUTPUT-FILE
+----
+
+Convert a Relaton XML document into YAML, AsciiBib, or BibTex format. Allowed -f or --format options are yaml, asciibib, bibtex. If the option -o or --output is omitted then a new file will be created in the folder where the original file is, with the same name but another appropriated extension.

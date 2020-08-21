@@ -1,6 +1,6 @@
-require 'yaml'
-require 'relaton/cli/base_convertor'
-require 'relaton_bib'
+require "yaml"
+require "relaton/cli/base_convertor"
+require "relaton_bib"
 
 module Relaton
   module Cli
@@ -33,7 +33,7 @@ module Relaton
         # @return [RelatonBib::BibliographicItem,
         #   RelatonIso::IsoBiblioraphicItem]
         def convert_single_file(content)
-          if (processor = Registry.instance.by_type(doctype(content['docid'])))
+          if (processor = Registry.instance.by_type(doctype(content["docid"])))
             processor.hash_to_bib content
           else
             RelatonBib::BibliographicItem.new(
@@ -50,14 +50,14 @@ module Relaton
           did = docid.is_a?(Array) ? docid.fetch(0) : docid
           return unless did
 
-          did['type'] || did.fetch('id')&.match(/^\w+/)&.to_s
+          did["type"] || did.fetch("id")&.match(/^\w+/)&.to_s
         end
       end
 
       private
 
       def default_ext
-        'rxl'
+        "rxl"
       end
 
       def file_content
@@ -78,12 +78,12 @@ module Relaton
       end
 
       def convert_collection(content)
-        if content.has_key?('root')
-          content['root']['items'] = content['root']['items'].map do |i|
+        if content.has_key?("root")
+          content["root"]["items"] = content["root"]["items"].map do |i|
             # RelatonBib::HashConverter::hash_to_bib(i)
             self.class.convert_single_file(i)
           end
-          Relaton::Bibcollection.new(content['root'])
+          Relaton::Bibcollection.new(content["root"])
         end
       end
 

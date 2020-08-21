@@ -1,0 +1,234 @@
+<bibitem id="ISOTC211" type="standard">
+  <fetched>2020-07-04</fetched>
+  <title type="title-main" format="text/plain">Geographic information</title>
+  <title type="main" format="text/plain">Geographic information</title>
+  <title format="text/plain" language="fr" script="Latn">Information géographique</title>
+  <uri type="src">https://www.iso.org/standard/53798.html</uri>
+  <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:53798:en</uri>
+  <uri type="rss">https://www.iso.org/contents/data/standard/05/37/53798.detail.rss</uri>
+  <uri type="doi">http://standrd.org/doi-123</uri>
+  <uri type="file">file://path/file</uri>
+  <docidentifier type="ISO">TC211</docidentifier>
+  <docidentifier type="isbn">ISBN</docidentifier>
+  <docidentifier type="lccn">LCCN</docidentifier>
+  <docidentifier type="issn" scope="series">ISSN</docidentifier>
+  <docnumber>123456</docnumber>
+  <date type="issued">
+    <on>2014</on>
+  </date>
+  <date type="published">
+    <on>2014</on>
+  </date>
+  <date type="accessed">
+    <on>2015</on>
+  </date>
+  <contributor>
+    <role type="publisher">
+      <description>Publisher role</description>
+    </role>
+    <organization>
+      <name>International Organization for Standardization</name>
+      <subdivision>division</subdivision>
+      <abbreviation>ISO</abbreviation>
+      <uri>www.iso.org</uri>
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="author"/>
+    <person>
+      <name>
+        <completename language="en">A. Bierman</completename>
+      </name>
+      <affiliation>
+        <organization>
+          <name>IETF</name>
+          <abbreviation>IETF</abbreviation>
+          <identifier type="uri">www.ietf.org</identifier>
+        </organization>
+      </affiliation>
+      <address>
+        <street>Street</street>
+        <city>City</city>
+        <state>State</state>
+        <country>Country</country>
+        <postcode>123456</postcode>
+      </address>
+      <phone>223322</phone>
+    </person>
+  </contributor>
+  <contributor>
+    <role type="publisher">
+      <description>Publisher description</description>
+    </role>
+    <role type="editor">
+      <description>Editor description</description>
+    </role>
+    <organization>
+      <name>IETF</name>
+      <abbreviation>IETF</abbreviation>
+      <identifier type="uri">www.ietf.org</identifier>
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="author"/>
+    <person>
+      <name>
+        <prefix language="en">Prefix</prefix>
+        <forename language="en">Forename</forename>
+        <initial language="en">A.</initial>
+        <surname language="en">Bierman</surname>
+        <addition language="en">Addition</addition>
+      </name>
+      <affiliation>
+        <description language="en">Description</description>
+        <organization>
+          <name>IETF</name>
+          <abbreviation>IETF</abbreviation>
+        </organization>
+      </affiliation>
+      <identifier type="uri">www.person.com</identifier>
+      <address>
+        <street>Street</street>
+        <city>City</city>
+        <state>State</state>
+        <country>Country</country>
+        <postcode>123456</postcode>
+      </address>
+      <phone>223322</phone>
+    </person>
+  </contributor>
+  <contributor>
+    <role type="distributor">
+      <description>sponsor</description>
+    </role>
+    <organization>
+      <name>Institution</name>
+    </organization>
+  </contributor>
+  <edition>1</edition>
+  <version>
+    <revision-date>2019-04-01</revision-date>
+    <draft>draft</draft>
+  </version>
+  <note>note</note>
+  <note type="annote">An note</note>
+  <note type="howpublished">How published</note>
+  <note type="comment">Comment</note>
+  <note type="tableOfContents">Table Of Contents</note>
+  <language>en</language>
+  <language>fr</language>
+  <script>Latn</script>
+  <abstract format="text/plain" language="en" script="Latn">ISO 19115-1:2014 defines the schema required for ...</abstract>
+  <abstract format="text/plain" language="fr" script="Latn">L'ISO 19115-1:2014 définit le schéma requis pour ...</abstract>
+  <status>
+    <stage abbreviation="CD">30</stage>
+    <substage>substage</substage>
+    <iteration>final</iteration>
+  </status>
+  <copyright>
+    <from>2014</from>
+    <to>2020</to>
+    <owner>
+      <organization>
+        <name>International Organization for Standardization</name>
+        <abbreviation>ISO</abbreviation>
+        <uri>www.iso.org</uri>
+      </organization>
+    </owner>
+    <scope>Scope</scope>
+  </copyright>
+  <relation type="updates">
+    <bibitem>
+      <formattedref format="text/plain">ISO 19115:2003</formattedref>
+    </bibitem>
+    <localityStack>
+      <locality type="section">
+        <referenceFrom>Reference from</referenceFrom>
+      </locality>
+    </localityStack>
+    <localityStack>
+      <locality type="chapter">
+        <referenceFrom>1</referenceFrom>
+      </locality>
+      <locality type="page">
+        <referenceFrom>2</referenceFrom>
+      </locality>
+    </localityStack>
+    <sourceLocalityStack>
+      <sourceLocality type="volume">
+        <referenceFrom>2</referenceFrom>
+      </sourceLocality>
+      <sourceLocality type="chapter">
+        <referenceFrom>3</referenceFrom>
+      </sourceLocality>
+    </sourceLocalityStack>
+  </relation>
+  <relation type="obsoletes">
+    <description format="text/plain">supersedes</description>
+    <bibitem type="standard">
+      <formattedref format="text/plain">ISO 19115:2003/Cor 1:2006</formattedref>
+    </bibitem>
+  </relation>
+  <relation type="partOf">
+    <bibitem>
+      <title type="main" format="text/plain">Book title</title>
+    </bibitem>
+  </relation>
+  <series type="main">
+    <title type="original" format="text/plain" language="en" script="Latn">ISO/IEC FDIS 10118-3</title>
+    <place>Serie's place</place>
+    <organization>Serie's organization</organization>
+    <abbreviation>ABVR</abbreviation>
+    <from>2009-02-01</from>
+    <to>2010-12-20</to>
+    <number>serie1234</number>
+    <partnumber>part5678</partnumber>
+  </series>
+  <series type="alt">
+    <formattedref format="text/plain" language="en" script="Latn">serieref</formattedref>
+  </series>
+  <series type="journal">
+    <title format="text/plain">Journal</title>
+    <number>7</number>
+  </series>
+  <series>
+    <title format="text/plain">
+      <variant language="en" script="Latn">Series</variant>
+      <variant language="fr" script="Latn">Séries</variant>
+    </title>
+  </series>
+  <medium>
+    <form>medium form</form>
+    <size>medium size</size>
+    <scale>medium scale</scale>
+  </medium>
+  <place>bib place</place>
+  <place uri="geneva.place" region="Switzelznd">Geneva</place>
+  <extent type="section">
+    <referenceFrom>Reference from</referenceFrom>
+    <referenceTo>Reference to</referenceTo>
+  </extent>
+  <extent type="chapter">
+    <referenceFrom>4</referenceFrom>
+  </extent>
+  <extent type="page">
+    <referenceFrom>10</referenceFrom>
+    <referenceTo>20</referenceTo>
+  </extent>
+  <extent type="volume">
+    <referenceFrom>1</referenceFrom>
+  </extent>
+  <accesslocation>accesslocation1</accesslocation>
+  <accesslocation>accesslocation2</accesslocation>
+  <license>License</license>
+  <classification type="type">value</classification>
+  <classification type="keyword">Keywords</classification>
+  <classification type="mendeley">Mendeley Tags</classification>
+  <keyword>Keyword</keyword>
+  <keyword>Key Word</keyword>
+  <validity>
+    <validityBegins>2010-10-10 12:21</validityBegins>
+    <validityEnds>2011-02-03 18:30</validityEnds>
+    <revision>2011-03-04 09:00</revision>
+  </validity>
+</bibitem>

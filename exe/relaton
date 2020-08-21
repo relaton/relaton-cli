@@ -18,4 +18,3 @@ end
 require "relaton/cli"
 
 Relaton::Cli.start(ARGV)
-

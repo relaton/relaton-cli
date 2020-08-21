@@ -33,7 +33,7 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
         Relaton::Cli::YAMLConvertor.to_xml(sample_yaml_file_no_type)
         expect(buffer).to be_equivalent_to <<~OUTPUT
           <bibdata>
-            <fetched>#{Date.today.to_s}</fetched>
+            <fetched>#{Date.today}</fetched>
             <title type="title-main" format="text/plain">Geographic information</title>
             <title type="main" format="text/plain">Geographic information</title>
             <title format="text/plain" language="fr" script="Latn">Information géographique</title>
@@ -158,7 +158,7 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
         Relaton::Cli::YAMLConvertor.to_html(
           sample_collection_file,
           "spec/assets/index-style.css",
-          "spec/assets/templates",
+          "spec/assets/templates"
         )
 
         expect(buffer).to include("I AM A SAMPLE STYLESHEET")

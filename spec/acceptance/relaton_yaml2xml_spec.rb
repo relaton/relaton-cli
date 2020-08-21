@@ -7,8 +7,8 @@ RSpec.describe "Relaton yaml2xml" do
         command = %w(yaml2xml spec/fixtures/sample.yaml)
         Relaton::Cli.start(command)
 
-        expect(Relaton::Cli::YAMLConvertor).to have_received(:to_xml).
-          with("spec/fixtures/sample.yaml", overwrite: false, extension: "rxl")
+        expect(Relaton::Cli::YAMLConvertor).to have_received(:to_xml)
+          .with("spec/fixtures/sample.yaml", overwrite: false, extension: "rxl")
       end
     end
 
@@ -23,7 +23,7 @@ RSpec.describe "Relaton yaml2xml" do
           "spec/fixtures/sample.yaml",
           extension: "rxml",
           prefix: "RCL",
-          overwrite: false,
+          overwrite: false
         )
       end
     end
