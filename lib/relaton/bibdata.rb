@@ -44,7 +44,7 @@ module Relaton
       options = { bibdata: true, date_format: :full }.merge(
         opts.select { |k, _v| k.is_a? Symbol }
       )
-      @bibitem.to_xml nil, **options
+      @bibitem.to_xml **options
     end
 
     def to_h
