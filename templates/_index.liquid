@@ -17,7 +17,12 @@
   <body>
     <header>
       <div id="topbar-inner">
-        <div id="title-bar"><span>{{ author }}</span></div>
+        <div id="title-bar">
+          <div class="doc-access">
+            Generated: {{ date }}{% if metanorma_v != nil %} {{ metanorma_v }}{% endif %}
+          </div>
+          <span>{{ author }}</span>
+        </div>
       </div>
       <div class="title-section">
         <div class="coverpage">
@@ -34,6 +39,9 @@
     </main>
     <footer>
       <div class="copyright">
+        <div class="doc-access">
+          Generated: {{ date }}{% if metanorma_v != nil %} {{ metanorma_v }}{% endif %}
+        </div>
         <p class="year">&copy; {{ author }}</p>
         <p class="message">All rights reserved. Unless otherwise specified, no part of this publication may be reproduced or utilized otherwise in any form or by any means, electronic or mechanical, including photocopying, or posting on the internet or an intranet, without prior written permission.</p>
       </div>

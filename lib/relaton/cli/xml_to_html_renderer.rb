@@ -13,9 +13,9 @@ module Relaton::Cli
     # @param index_xml [String] Relaton XML
     # @return [String] HTML
     def render(index_xml)
-      Liquid::Template.
-        parse(template).
-        render(build_liquid_document(index_xml))
+      Liquid::Template
+        .parse(template)
+        .render(build_liquid_document(index_xml))
     end
 
     def uri_for_extension(uri, extension)
@@ -46,13 +46,19 @@ module Relaton::Cli
     # @param source [String] Relaton XML
     def build_liquid_document(source)
       bibcollection = build_bibcollection(source)
-
+      begin
+        mnv = `metanorma -v`
+      rescue Errno::ENOENT
+        mnv = ""
+      end
       hash_to_liquid(
         depth: 2,
         css: stylesheet,
         title: bibcollection.title,
+        date: Date.today.to_s,
+        metanorma_v: mnv.lines.first&.strip,
         author: bibcollection.author,
-        documents: document_items(bibcollection),
+        documents: document_items(bibcollection)
       )
     end
 

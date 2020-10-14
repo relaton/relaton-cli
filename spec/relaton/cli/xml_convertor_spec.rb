@@ -47,10 +47,11 @@ RSpec.describe Relaton::Cli::XMLConvertor do
         Relaton::Cli::XMLConvertor.to_html(
           sample_collection_file,
           "spec/assets/index-style.css",
-          "spec/assets/templates",
+          "spec/assets/templates"
         )
 
         expect(buffer).to include("I AM A SAMPLE STYLESHEET")
+        expect(buffer).to include("Generated: #{Date.today}")
         expect(buffer).to include('<a href="">CC/S 34006</a>')
         expect(buffer).to include("<!DOCTYPE HTML>\n<html>\n  <head>")
         expect(buffer).to include("<title>CalConnect Standards Registry</tit")

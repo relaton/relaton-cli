@@ -6,8 +6,8 @@ RSpec.describe "Relaton xml2html" do
 
       Relaton::Cli.start(command)
 
-      expect(Relaton::Cli::XMLConvertor).to have_received(:to_html).
-        with("sample.xml", "style.css", "templates")
+      expect(Relaton::Cli::XMLConvertor).to have_received(:to_html)
+        .with("sample.xml", "style.css", "templates")
     end
   end
 end

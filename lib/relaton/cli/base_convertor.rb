@@ -52,7 +52,7 @@ module Relaton
         Relaton::Cli::XmlToHtmlRenderer.render(
           xml_content(file),
           stylesheet: options[:style],
-          liquid_dir: options[:template],
+          liquid_dir: options[:template]
         )
       end
 
