@@ -8,10 +8,7 @@ module Relaton
 
     attr_accessor *ATTRIBS
 
-    # rubocop:disable Metrics/MethodLength
-
-    def initialize(options)
-      self.items = []
+    def initialize(options) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
       ATTRIBS.each do |k|
         value = options[k] || options[k.to_s]
         send("#{k}=", value)
@@ -23,7 +20,6 @@ module Relaton
                end
       end
     end
-    # rubocop:enable Metrics/MethodLength
 
     # arbitrary number, must sort after all bib items
     def doc_number
@@ -36,8 +32,8 @@ module Relaton
     def self.from_xml(source)
       title = find_text("./relaton-collection/title", source)
       author = find_text(
-        "./relaton-collection/contributor[role/@type='author']/organization/name",
-        source,
+        "./relaton-collection/contributor[role/@type='author']/organization/"\
+        "name", source
       )
 
       items = find_xpath("./relaton-collection/relation", source)&.map do |item|
@@ -51,17 +47,19 @@ module Relaton
     # rubocop:enable Metrics/MethodLength
 
     def new_bib_item_class(options)
-      if options.is_a?(Hash) && options["items"]
-        ::Relaton::Bibcollection.new(options)
-      else
-        ::Relaton::Bibdata.new(options)
+      if options.is_a?(Hash)
+        if options["items"]
+          ::Relaton::Bibcollection.new(options)
+        else ::Relaton::Cli::YAMLConvertor.convert_single_file options
+        end
+      else ::Relaton::Bibdata.new(options)
       end
     end
 
     def items_flattened
       items.sort_by! &:docnumber
 
-      items.reduce([]) do |acc,item|
+      items.reduce([]) do |acc, item|
         acc << if item.is_a? ::Relaton::Bibcollection
                  item.items_flattened
                else

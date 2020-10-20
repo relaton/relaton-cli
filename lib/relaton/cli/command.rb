@@ -1,6 +1,7 @@
 require "relaton/cli/relaton_file"
 require "relaton/cli/xml_convertor"
 require "relaton/cli/yaml_convertor"
+require "relaton/cli/subcommand_collection"
 require "fcntl"
 
 module Relaton
@@ -13,7 +14,7 @@ module Relaton
 
       def fetch(code)
         Relaton.db
-        io = IO.new(STDOUT.fcntl(::Fcntl::F_DUPFD), mode: 'w:UTF-8')
+        io = IO.new(STDOUT.fcntl(::Fcntl::F_DUPFD), mode: "w:UTF-8")
         io.puts(fetch_document(code, options) || supported_type_message)
       end
 
@@ -86,8 +87,9 @@ module Relaton
       option :format, aliases: :f, required: true, desc: "Output format (yaml, bibtex, asciibib)"
       option :output, aliases: :o, desc: "Output to the specified file"
 
-      def convert(file)
-        item = Relaton::Cli.parse_xml Nokogiri::XML(File.read(file, encoding: "UTF-8"))
+      def convert(file) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+        xml = Nokogiri::XML(File.read(file, encoding: "UTF-8"))
+        item = Relaton::Cli.parse_xml xml
         result = if /yaml|yml/.match?(options[:format])
                    item.to_hash.to_yaml
                  else item.send "to_#{options[:format]}"
@@ -100,6 +102,9 @@ module Relaton
         output = options[:output] || file.sub(/(?<=\.)[^\.]+$/, ext)
         File.write output, result, encoding: "UTF-8"
       end
+
+      desc "collection SUBCOMMAND", "Collection manipulations"
+      subcommand "collection", SubcommandCollection
 
       private
 
