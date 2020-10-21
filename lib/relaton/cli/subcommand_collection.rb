@@ -3,12 +3,13 @@ require "relaton/cli/full_text_search"
 module Relaton
   module Cli
     class SubcommandCollection < Thor
-      desc "create", "Create collection"
-      option :dir, desc: "Directory to store collection. Default is "\
-        "$HOME/.relaton/collections."
+      desc "create COLLECTION", "Create collection"
+      option :dir, alias: :d, desc: "Directory to store collection. Default "\
+        "is $HOME/.relaton/collections."
       option :author, desc: "Author"
       option :title, desc: "Title"
       option :doctype, desc: "Documents type"
+
       def create(file)
         dir = directory
         col = Relaton::Bibcollection.new options
@@ -16,7 +17,8 @@ module Relaton
         File.write File.join(dir, file), col.to_yaml, encoding: "UTF-8"
       end
 
-      desc "info", "View collection information"
+      desc "info COLLECTION", "View collection information"
+
       def info(file) # rubocop:disable Metrics/AbcSize
         puts "Collection: #{File.basename file}"
         puts "Last updated: #{File.mtime file}"
@@ -28,8 +30,9 @@ module Relaton
       end
 
       desc "list", "List collections"
-      option :dir, desc: "Directory with collections. Default is "\
+      option :dir, alias: :d, desc: "Directory with collections. Default is "\
         "$HOME/.relaton/collections."
+
       def list
         Dir[File.join(directory, "*")].each do |f|
           yml = read_yaml f
@@ -39,15 +42,16 @@ module Relaton
 
       map ls: :list
 
-      desc "get", "Fetch document from collection"
-      option :collection, desc: "Collection to fetch document. By default "\
-        "fetch the first match across all collections."
-      option :dir, desc: "Directory with collections. Default is "\
+      desc "get CODE", "Fetch document from collection by ID"
+      option :collection, alias: :c, desc: "Collection to fetch document. By "\
+        "default fetch the first match across all collections."
+      option :dir, alias: :d, desc: "Directory with collections. Default is "\
         "$HOME/.relaton/collections."
+
       def get(docid)
         collections.each do |col|
           col[:collection].items.each do |item|
-            if item.docidentifier.detect { |di| di.id == docid }
+            if item.docidentifier == docid
               puts item.to_xml bibdata: true
               return
             end
@@ -55,11 +59,12 @@ module Relaton
         end
       end
 
-      desc "find", "Full-text search"
-      option :collection, desc: "Collection to search text. By default "\
-        "search across all collections."
-      option :dir, desc: "Directory with collections. Default is "\
+      desc "find TEXT", "Full-text search"
+      option :collection, alias: :c, desc: "Collection to search text. "\
+        "By default search across all collections."
+      option :dir, alias: :d, desc: "Directory with collections. Default is "\
         "$HOME/.relaton/collections."
+
       def find(text)
         collections.each do |col|
           searcher = Relaton::FullTextSeatch.new(col[:collection])
@@ -72,6 +77,28 @@ module Relaton
       end
 
       map search: :find
+
+      desc "fetch CODE", "Fetch a document and store it into a collection"
+      option :type, aliases: :t, required: true, desc: "Type of standard to "\
+        "get bibliographic entry for"
+      option :year, aliases: :y, type: :numeric, desc: "Year the standard was "\
+        "published"
+      option :collection, aliases: :c, required: true, desc: "Collection "\
+        "to store a document"
+      option :dir, aliases: :d, desc: "Directory with collections. Default is "\
+        "$HOME/.relaton/collections."
+
+      def fetch(code)
+        doc = Cli.relaton.fetch(code, options[:year]&.to_s)
+        if doc
+          colfile = File.join directory, options[:collection]
+          hash = YAML.load_file colfile
+          coll = Relaton::Bibcollection.new hash["root"]
+          coll << doc
+          File.write colfile, coll.to_yaml, encoding: "UTF-8"
+        else "No matching bibliographic entry found"
+        end
+      end
 
       private
 
@@ -93,7 +120,8 @@ module Relaton
         Dir[File.join directory, file].reduce([]) do |m, f|
           yml = read_yaml f
           if yml && yml["root"]
-            m << { collection: Relaton::Bibcollection.new(yml["root"]), file: f }
+            m << { collection: Relaton::Bibcollection.new(yml["root"]),
+                   file: f }
           end
           m
         end

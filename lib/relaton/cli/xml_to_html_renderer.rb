@@ -43,6 +43,7 @@ module Relaton::Cli
       File.read(file, encoding: "utf-8")
     end
 
+    # rubocop:disable Metrics/MethodLength
     # @param source [String] Relaton XML
     def build_liquid_document(source)
       bibcollection = build_bibcollection(source)
@@ -69,7 +70,7 @@ module Relaton::Cli
       Liquid::Template.file_system = file_system
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     # TODO: This should be recursive, but it's not
     # @param hash [Hash]

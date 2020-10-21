@@ -74,8 +74,7 @@ RSpec.describe "Relaton Fetch" do
     end
 
     it "raise request error" do
-      require "relaton_bib"
-      relaton = double
+      relaton = double("relaton")
       expect(relaton).to receive(:fetch).and_raise RelatonBib::RequestError
       expect(Relaton::Db).to receive(:new).and_return relaton
       command = Relaton::Cli::Command.new
@@ -83,6 +82,7 @@ RSpec.describe "Relaton Fetch" do
       expect(command.send(:fetch_document, "ISO 2146", type: "ISO")).to eq(
         "RelatonBib::RequestError"
       )
+      Relaton::Cli::RelatonDb.instance.instance_variable_set :@db, nil
     end
   end
 end

@@ -1,0 +1,90 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://standards.calconnect.org/csd/cc-10005.rxl
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.0.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - binary/octet-stream
+      Content-Length:
+      - '924'
+      Connection:
+      - keep-alive
+      Date:
+      - Tue, 20 Oct 2020 22:32:25 GMT
+      Last-Modified:
+      - Tue, 23 Jun 2020 03:53:51 GMT
+      Etag:
+      - '"a11e39b56e56179e8559a626fa0c798f"'
+      Server:
+      - AmazonS3
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 76991fdca074ecae847653e013587ff8.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - ZAG50-C1
+      X-Amz-Cf-Id:
+      - Wszhr6pwn7ZT5QabuKppF_IkVc4f7TDavJelSytRe5JKjG7WGHMQew==
+    body:
+      encoding: UTF-8
+      string: |-
+        <bibdata type="standard">
+        <title language="en" format="text/plain">Guidelines for the implementation of the CalConnect patent policy</title>
+        <docidentifier type="csd">CC/DIR 10005:2019</docidentifier>
+        <docnumber>10005</docnumber>
+        <date type="published">
+        <on>2019-06-13</on>
+        </date>
+        <contributor>
+        <role type="author"/>
+        <organization>
+        <name>CalConnect</name>
+        </organization>
+        </contributor>
+        <contributor>
+        <role type="publisher"/>
+        <organization>
+        <name>CalConnect</name>
+        </organization>
+        </contributor>
+        <edition>1</edition>
+        <version>
+        <revision-date>2019-06-13</revision-date>
+        </version>
+        <language>en</language>
+        <script>Latn</script>
+        <status>
+        <stage>published</stage>
+        </status>
+        <copyright>
+        <from>2019</from>
+        <owner>
+        <organization>
+        <name>CalConnect</name>
+        </organization>
+        </owner>
+        </copyright>
+        <ext>
+        <doctype>directive</doctype>
+        <editorialgroup>
+        <technical-committee>PUBLISH</technical-committee>
+        </editorialgroup>
+        </ext>
+        </bibdata>
+  recorded_at: Tue, 20 Oct 2020 22:32:24 GMT
+recorded_with: VCR 6.0.0

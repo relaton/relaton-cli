@@ -40,6 +40,7 @@ module Relaton
 
     private
 
+    # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
     def print_attrs(attrs, indent)
       ind = " " * indent
       if attrs.is_a? String then puts ind + attrs
@@ -58,7 +59,7 @@ module Relaton
 
     # @param item [Relaton::Bibdata]
     # @return [Hash]
-    def result(item) # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
+    def result(item)
       if item.is_a? String
         message $~ if item.match regex
       elsif item.respond_to? :reduce
@@ -75,6 +76,7 @@ module Relaton
         end
       end
     end
+    # rubocop:enable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
 
     # @param match [MatchData]
     # @return [String]

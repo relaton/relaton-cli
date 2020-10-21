@@ -1,12 +1,7 @@
 require "bundler/setup"
-require "rspec/matchers"
-require "equivalent-xml"
 require "fileutils"
-require "simplecov"
 
-SimpleCov.start do
-  add_filter "/spec/"
-end
+Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
 
 require "relaton/cli"
 
@@ -22,50 +17,49 @@ RSpec.configure do |config|
   end
 end
 
-ISOXML_BLANK_HDR = <<~"HDR"
-<iso-standard xmlns="http://riboseinc.com/isoxml">
-<bibdata type="article">
-  <title>
-  </title>
-  <title>
-  </title>
-  <docidentifier>
-    <project-number>ISO </project-number>
-  </docidentifier>
-  <contributor>
-    <role type="author"/>
-    <organization>
-      <name>International Organization for Standardization</name>
-      <abbreviation>ISO</abbreviation>
-    </organization>
-  </contributor>
-  <contributor>
-    <role type="publisher"/>
-    <organization>
-      <name>International Organization for Standardization</name>
-      <abbreviation>ISO</abbreviation>
-    </organization>
-  </contributor>
-  <script>Latn</script>
-  <status>
-    <stage>60</stage>
-    <substage>60</substage>
-  </status>
-  <copyright>
-    <from>#{Time.new.year}</from>
-    <owner>
+ISOXML_BLANK_HDR = <<~"HDR".freeze
+  <iso-standard xmlns="http://riboseinc.com/isoxml">
+  <bibdata type="article">
+    <title>
+    </title>
+    <title>
+    </title>
+    <docidentifier>
+      <project-number>ISO </project-number>
+    </docidentifier>
+    <contributor>
+      <role type="author"/>
       <organization>
         <name>International Organization for Standardization</name>
         <abbreviation>ISO</abbreviation>
       </organization>
-    </owner>
-  </copyright>
-  <editorialgroup>
-    <technical-committee/>
-    <subcommittee/>
-    <workgroup/>
-  </editorialgroup>
-</bibdata>
-</iso-standard>
+    </contributor>
+    <contributor>
+      <role type="publisher"/>
+      <organization>
+        <name>International Organization for Standardization</name>
+        <abbreviation>ISO</abbreviation>
+      </organization>
+    </contributor>
+    <script>Latn</script>
+    <status>
+      <stage>60</stage>
+      <substage>60</substage>
+    </status>
+    <copyright>
+      <from>#{Time.new.year}</from>
+      <owner>
+        <organization>
+          <name>International Organization for Standardization</name>
+          <abbreviation>ISO</abbreviation>
+        </organization>
+      </owner>
+    </copyright>
+    <editorialgroup>
+      <technical-committee/>
+      <subcommittee/>
+      <workgroup/>
+    </editorialgroup>
+  </bibdata>
+  </iso-standard>
 HDR
-

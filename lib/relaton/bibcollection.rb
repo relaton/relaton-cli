@@ -8,6 +8,7 @@ module Relaton
 
     attr_accessor *ATTRIBS
 
+    # @param options [Hash]
     def initialize(options) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
       ATTRIBS.each do |k|
         value = options[k] || options[k.to_s]
@@ -24,6 +25,12 @@ module Relaton
     # arbitrary number, must sort after all bib items
     def doc_number
       9999999
+    end
+
+    # Add a dcoument to the collection
+    # @param doc [RelatonBib::BibliographicItem]
+    def <<(doc)
+      items << new_bib_item_class(doc)
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -44,31 +51,8 @@ module Relaton
 
       new(title: title, author: author, items: items)
     end
-    # rubocop:enable Metrics/MethodLength
 
-    def new_bib_item_class(options)
-      if options.is_a?(Hash)
-        if options["items"]
-          ::Relaton::Bibcollection.new(options)
-        else ::Relaton::Cli::YAMLConvertor.convert_single_file options
-        end
-      else ::Relaton::Bibdata.new(options)
-      end
-    end
-
-    def items_flattened
-      items.sort_by! &:docnumber
-
-      items.reduce([]) do |acc, item|
-        acc << if item.is_a? ::Relaton::Bibcollection
-                 item.items_flattened
-               else
-                 item
-               end
-      end
-    end
-
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize
 
     # @param opts [Hash]
     # @return [String] XML
@@ -97,6 +81,30 @@ module Relaton
       ret += "</relaton-collection>\n"
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+    def new_bib_item_class(options)
+      if options.is_a?(Hash)
+        if options["items"]
+          ::Relaton::Bibcollection.new(options)
+        else
+          bibitem = ::Relaton::Cli::YAMLConvertor.convert_single_file options
+          ::Relaton::Bibdata.new bibitem
+        end
+      else ::Relaton::Bibdata.new(options)
+      end
+    end
+
+    def items_flattened
+      items.sort_by! &:doc_number
+
+      items.reduce([]) do |acc, item|
+        acc << if item.is_a? ::Relaton::Bibcollection
+                 item.items_flattened
+               else
+                 item
+               end
+      end
+    end
 
     def to_yaml
       to_h.to_yaml

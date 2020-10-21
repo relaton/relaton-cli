@@ -79,4 +79,21 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
       ).to_stdout
     end
   end
+
+  context "fetch document" do
+    it "and store into collection" do
+      dir = "spec/fixtures"
+      coll = "sample-collection.yaml"
+      file = File.join dir, coll
+      expect(File).to receive(:write).and_call_original
+      expect(File).to receive(:write).with file, /CC\/DIR\s10005/, kind_of(Hash)
+
+      VCR.use_cassette "cc_dir_10005" do
+        Relaton::Cli::Command.start [
+          "collection", "fetch", "CC/DIR 10005", "-t", "CC", "-d", dir,
+          "-c", coll
+        ]
+      end
+    end
+  end
 end
