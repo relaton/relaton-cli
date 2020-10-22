@@ -28,9 +28,9 @@ module Relaton
     end
 
     # Add a dcoument to the collection
-    # @param doc [RelatonBib::BibliographicItem]
-    def <<(doc)
-      items << new_bib_item_class(doc)
+    # @param item [RelatonBib::BibliographicItem]
+    def <<(item)
+      items << new_bib_item_class(item)
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -80,19 +80,25 @@ module Relaton
       end
       ret += "</relaton-collection>\n"
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize
 
-    def new_bib_item_class(options)
-      if options.is_a?(Hash)
-        if options["items"]
-          ::Relaton::Bibcollection.new(options)
+    # @param item [Hash, RelatonBib::BibliographicItem, Relatin::Bibdata,
+    #   Relaton::Bibcollection]
+    # @return [Relaton::Bibdata, Relaton::Bibcollection]
+    def new_bib_item_class(item)
+      if item.is_a?(Hash)
+        if item["items"]
+          ::Relaton::Bibcollection.new(item)
         else
-          bibitem = ::Relaton::Cli::YAMLConvertor.convert_single_file options
+          bibitem = ::Relaton::Cli::YAMLConvertor.convert_single_file item
           ::Relaton::Bibdata.new bibitem
         end
-      else ::Relaton::Bibdata.new(options)
+      elsif item.is_a?(Relaton::Bibdata) || item.is_a?(Relaton::Bibcollection)
+        item
+      else ::Relaton::Bibdata.new(item)
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     def items_flattened
       items.sort_by! &:doc_number

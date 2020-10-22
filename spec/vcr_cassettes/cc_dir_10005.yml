@@ -2,6 +2,48 @@
 http_interactions:
 - request:
     method: get
+    uri: https://standards.calconnect.org/relaton/index.yaml
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      If-None-Match:
+      - '"8afffdb652d26176976bfe87c344ccbf"'
+      User-Agent:
+      - Faraday v1.0.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 304
+      message: Not Modified
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 22 Oct 2020 11:29:25 GMT
+      Last-Modified:
+      - Tue, 23 Jun 2020 03:53:57 GMT
+      Etag:
+      - '"8afffdb652d26176976bfe87c344ccbf"'
+      Server:
+      - AmazonS3
+      X-Cache:
+      - RefreshHit from cloudfront
+      Via:
+      - 1.1 38a3f663851a0597e7026100a58b9b39.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - ZAG50-C1
+      X-Amz-Cf-Id:
+      - Pt8QSDE-suLApnAtx-tf3nX5tdeAutg2EJEmMx7h7N3cw9aK6BUPiQ==
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Thu, 22 Oct 2020 11:29:24 GMT
+- request:
+    method: get
     uri: https://standards.calconnect.org/csd/cc-10005.rxl
     body:
       encoding: US-ASCII
@@ -24,22 +66,22 @@ http_interactions:
       - '924'
       Connection:
       - keep-alive
-      Date:
-      - Tue, 20 Oct 2020 22:32:25 GMT
       Last-Modified:
       - Tue, 23 Jun 2020 03:53:51 GMT
-      Etag:
-      - '"a11e39b56e56179e8559a626fa0c798f"'
       Server:
       - AmazonS3
+      Date:
+      - Thu, 22 Oct 2020 11:29:25 GMT
+      Etag:
+      - '"a11e39b56e56179e8559a626fa0c798f"'
       X-Cache:
-      - Miss from cloudfront
+      - RefreshHit from cloudfront
       Via:
-      - 1.1 76991fdca074ecae847653e013587ff8.cloudfront.net (CloudFront)
+      - 1.1 996a6dcadb486dbb9da5040a9ab13af3.cloudfront.net (CloudFront)
       X-Amz-Cf-Pop:
       - ZAG50-C1
       X-Amz-Cf-Id:
-      - Wszhr6pwn7ZT5QabuKppF_IkVc4f7TDavJelSytRe5JKjG7WGHMQew==
+      - LUs1Phip5ufs76NK7RmwC1OJuzB1tUPCndym9ctEZVJGlrhUDG7jGQ==
     body:
       encoding: UTF-8
       string: |-
@@ -86,5 +128,5 @@ http_interactions:
         </editorialgroup>
         </ext>
         </bibdata>
-  recorded_at: Tue, 20 Oct 2020 22:32:24 GMT
+  recorded_at: Thu, 22 Oct 2020 11:29:25 GMT
 recorded_with: VCR 6.0.0
