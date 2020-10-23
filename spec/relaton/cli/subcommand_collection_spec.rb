@@ -1,11 +1,13 @@
 RSpec.describe Relaton::Cli::SubcommandCollection do
+  let(:dir) { "spec/fixtures" }
+
   it "create collection" do
     file = "collection.yaml"
-    dir = "tmp"
-    path = File.join dir, file
+    tmp = "tmp"
+    path = File.join tmp, file
     Relaton::Cli::Command.start(
       [
-        "collection", "create", file, "-d", dir, "--title", "Title",
+        "collection", "create", file, "-d", tmp, "--title", "Title",
         "--author", "Author", "--doctype", "ISO"
       ]
     )
@@ -28,17 +30,27 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
     }x
     expect do
       Relaton::Cli::Command.start(
-        ["collection", "info", "spec/fixtures/sample-collection.yaml"]
+        ["collection", "info", "sample-collection.yaml", "-d", dir]
       )
     end.to output(out).to_stdout
   end
 
-  it "list collection" do
-    expect do
-      Relaton::Cli::Command.start(
-        ["collection", "ls", "-d", "spec/fixtures"]
-      )
-    end.to output("sample-collection.yaml\n").to_stdout
+  context "list" do
+    it "collections" do
+      expect do
+        Relaton::Cli::Command.start(
+          ["collection", "ls", "-d", dir]
+        )
+      end.to output("sample-collection.yaml\n").to_stdout
+    end
+
+    it "entries" do
+      expect do
+        Relaton::Cli::Command.start(
+          ["collection", "ls", "-e", "-d", dir]
+        )
+      end.to output(/CC 36000/).to_stdout
+    end
   end
 
   context "get document by docid" do
@@ -46,17 +58,55 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
       expect do
         Relaton::Cli::Command.start(
           ["collection", "get", "CC 34005", "-c", "sample-collection.yaml",
-           "-d", "spec/fixtures"]
+           "-d", dir]
         )
-      end.to output(/<docidentifier type="CC">CC 34005/).to_stdout
+      end.to output(/Document identifier: CC 34005/).to_stdout
     end
 
     it "across all collections" do
       expect do
         Relaton::Cli::Command.start(
-          ["collection", "get", "CC 34005", "-d", "spec/fixtures"]
+          ["collection", "get", "CC 34005", "-d", dir]
         )
-      end.to output(/<docidentifier type="CC">CC 34005/).to_stdout
+      end.to output(/Document identifier: CC 34005/).to_stdout
+    end
+
+    context "and output it in" do
+      it "Asciibib format" do
+        expect do
+          Relaton::Cli::Command.start(
+            ["collection", "get", "CC 34005", "-d", dir, "-f", "abb"]
+          )
+        end.to output(/id:: CC34005/).to_stdout
+      end
+
+      it "XML format" do
+        expect do
+          Relaton::Cli::Command.start(
+            ["collection", "get", "CC 34005", "-d", dir, "-f", "xml"]
+          )
+        end.to output(/<docidentifier type="CC">CC 34005/).to_stdout
+      end
+    end
+
+    context "and write it to" do
+      it "Asciibib file" do
+        file = "tmp/cc_34005.abb"
+        expect(File).to receive(:write).with file, /id:: CC34005/, kind_of(Hash)
+        Relaton::Cli::Command.start(
+          ["collection", "get", "CC 34005", "-d", dir, "-o", file]
+        )
+      end
+
+      it "XML file" do
+        file = "tmp/cc_34005.xml"
+        expect(File).to receive(:write).with(
+          file, /<docidentifier type="CC">CC 34005/, kind_of(Hash)
+        )
+        Relaton::Cli::Command.start(
+          ["collection", "get", "CC 34005", "-d", dir, "-o", file]
+        )
+      end
     end
   end
 
@@ -64,7 +114,7 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
     it "in document identifier" do
       expect do
         Relaton::Cli::Command.start(
-          ["collection", "search", "34006", "-d", "spec/fixtures"]
+          ["collection", "search", "34006", "-d", dir]
         )
       end.to output(/CC\/S \e\[4m34006\e\[24m/).to_stdout
     end
@@ -72,7 +122,7 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
     it "in titles" do
       expect do
         Relaton::Cli::Command.start(
-          ["collection", "search", "Calendars", "-d", "spec/fixtures"]
+          ["collection", "search", "Calendars", "-d", dir]
         )
       end.to output(
         /Date and time - \e\[4mCalendars\e\[24m - Gregorian calenda\.{3}/
@@ -98,7 +148,6 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
   end
 
   context "import into collection an XML" do
-    let(:dir) { "spec/fixtures" }
     let(:coll) { "sample-collection.yaml" }
 
     before(:example) do

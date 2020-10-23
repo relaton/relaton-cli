@@ -18,12 +18,15 @@ module Relaton
       end
 
       desc "info COLLECTION", "View collection information"
+      option :dir, aliases: :d, desc: "Directory to store collection. Default "\
+        "is $HOME/.relaton/collections."
 
       def info(file) # rubocop:disable Metrics/AbcSize
-        puts "Collection: #{File.basename file}"
-        puts "Last updated: #{File.mtime file}"
-        puts "File size: #{File.size file}"
-        col = Relaton::Bibcollection.new YAML.load_file(file)["root"]
+        path = File.join directory, file
+        puts "Collection: #{File.basename path}"
+        puts "Last updated: #{File.mtime path}"
+        puts "File size: #{File.size path}"
+        col = Relaton::Bibcollection.new YAML.load_file(path)["root"]
         puts "Number of items: #{col.items.size}"
         puts "Author: #{col.author}"
         puts "Title: #{col.title}"
@@ -32,11 +35,15 @@ module Relaton
       desc "list", "List collections"
       option :dir, aliases: :d, desc: "Directory with collections. Default is "\
         "$HOME/.relaton/collections."
+      option :entries, aliases: :e, type: :boolean, desc: "Show entries"
 
       def list
         Dir[File.join(directory, "*")].each do |f|
           yml = read_yaml f
-          puts File.basename f if yml && yml["root"]
+          if yml && yml["root"]
+            puts File.basename f
+            puts_entries yml
+          end
         end
       end
 
@@ -47,12 +54,16 @@ module Relaton
         "By default fetch the first match across all collections."
       option :dir, aliases: :d, desc: "Directory with collections. Default is "\
         "$HOME/.relaton/collections."
+      option :format, aliases: :f, desc: "Output format (xml, abb). "\
+        "If not defined the output in a human-readable form."
+      option :output, aliases: :o, desc: "Output to the specified file. The "\
+        " file's extension (abb, xml) defines output format."
 
       def get(docid)
         collections.each do |col|
           col[:collection].items.each do |item|
             if item.docidentifier == docid
-              puts item.to_xml bibdata: true
+              output_item(item)
               return
             end
           end
@@ -147,6 +158,38 @@ module Relaton
           end
           m
         end
+      end
+
+      # Puts document IDs for each item in tthe cokllection
+      # @param hash [Hash] Relaton collection
+      def puts_entries(hash)
+        return unless options[:entries]
+
+        Relaton::Bibcollection.new(hash["root"]).items.each do |b|
+          puts "  " + b.docidentifier
+        end
+      end
+
+      # @param item [Relaton::Bibdata]
+      def output_item(item)
+        case options[:format]
+        when "xml" then puts item.to_xml bibdata: true
+        when "abb" then puts item.to_asciibib
+        else puts_human_readable_item item
+        end
+        out = case options[:output]
+              when /\.abb$/ then item.to_asciibib
+              when /\.xml$/ then item.to_xml bibitem: true
+              end
+        File.write options[:output], out, encoding: "UTF-8" if out
+      end
+
+      # @param item [Relaton::Bibdata]
+      def puts_human_readable_item(item) # rubocop:disable Metrics/AbcSize
+        puts "Document identifier: #{item.docidentifier}"
+        puts "Title: #{item.title.first.title.content}"
+        puts "Status: #{item.status.stage}"
+        item.date.each { |d| puts "Date #{d.type}: #{d.on || d.from}" }
       end
     end
   end
