@@ -12,9 +12,14 @@ module Relaton
 
       def create(file)
         dir = directory
+        file_path = File.join dir, file
         col = Relaton::Bibcollection.new options
-        Dir.mkdir dir unless Dir.exist? dir
-        File.write File.join(dir, file), col.to_yaml, encoding: "UTF-8"
+        if File.exist? file_path
+          warn "Collection #{file} aready exist"
+        else
+          Dir.mkdir dir unless Dir.exist? dir
+          File.write file_path, col.to_yaml, encoding: "UTF-8"
+        end
       end
 
       desc "info COLLECTION", "View collection information"
@@ -113,20 +118,35 @@ module Relaton
       desc "import FILE", "Import document or collection from an XML file "\
         "into another collection"
       option :collection, aliases: :c, required: true, desc: "Collection "\
-        "to store a document"
+        "to store a document. If collection doesn't exist then it'll be created."
       option :dir, aliases: :d, desc: "Directory with collections. Default is "\
         "$HOME/.relaton/collections."
 
-      def import(file) # rubocop:disable Metrics/AbcSize
+      def import(file) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
         collfile = File.join directory, options[:collection]
         coll = read_collection collfile
         xml = Nokogiri::XML File.read(file, encoding: "UTF-8")
         if xml.at "relaton-collection"
-          Relaton::Bibcollection.from_xml(xml).items.each { |i| coll << i }
+          if coll
+            coll << Relaton::Bibcollection.from_xml(xml)
+          else
+            coll = Relaton::Bibcollection.from_xml(xml)
+          end
         else
+          coll ||= Relaton::Bibcollection.new({})
           coll << Relaton::Bibdata.from_xml(xml)
         end
         File.write collfile, coll.to_yaml, encoding: "UTF-8"
+      end
+
+      desc "export COLLECTION", "Export collection into XML file"
+      option :dir, aliases: :d, desc: "Directory with collections. Default is "\
+        "$HOME/.relaton/collections."
+
+      def export(file)
+        coll = read_collection File.join(directory, file)
+        outfile = file.sub(/\.\w+$/, "") + ".xml"
+        File.write outfile, coll.to_xml(bibdata: true), encoding: "UTF-8"
       end
 
       private
@@ -143,8 +163,12 @@ module Relaton
       rescue Psych::SyntaxError
       end
 
+      # @param file [String]
+      # @return [Relaton::Bibcollection, nil]
       def read_collection(file)
-        Relaton::Bibcollection.new YAML.load_file(file)
+        return unless File.file?(file)
+
+        Relaton::Bibcollection.new YAML.load_file(file)["root"]
       end
 
       # @return [Array<Hash>]
