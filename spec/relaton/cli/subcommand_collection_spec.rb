@@ -143,7 +143,7 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
       coll = "sample-collection.yaml"
       file = File.join dir, coll
       expect(File).to receive(:write).with file, /CC\/DIR\s10005/, kind_of(Hash)
-      expect(File).to receive(:write).and_call_original.at_most(3).times
+      expect(File).to receive(:write).and_call_original.at_most(4).times
 
       VCR.use_cassette "cc_dir_10005" do
         Relaton::Cli::Command.start [
