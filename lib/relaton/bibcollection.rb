@@ -9,17 +9,12 @@ module Relaton
     attr_accessor *ATTRIBS
 
     # @param options [Hash]
-    def initialize(options) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+    def initialize(options)
       ATTRIBS.each do |k|
         value = options[k] || options[k.to_s]
         send("#{k}=", value)
       end
-      self.items = (items || []).reduce([]) do |acc, item|
-        acc << if item.is_a?(Bibcollection) || item.is_a?(Bibdata)
-                 item
-               else new_bib_item_class(item)
-               end
-      end
+      reduce_items
     end
 
     # arbitrary number, must sort after all bib items
@@ -127,6 +122,17 @@ module Relaton
       a["items"] = a["items"].map(&:to_h)
 
       { "root" => a }
+    end
+
+    private
+
+    def reduce_items
+      self.items = (items || []).reduce([]) do |acc, item|
+        acc << if item.is_a?(Bibcollection) || item.is_a?(Bibdata)
+                 item
+               else new_bib_item_class(item)
+               end
+      end
     end
   end
 end

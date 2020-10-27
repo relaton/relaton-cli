@@ -161,6 +161,7 @@ module Relaton
       def read_yaml(file)
         YAML.load_file file if File.file? file
       rescue Psych::SyntaxError
+        warn "[relaton-cli] WARNING: the file #{file} isn't a collection."
       end
 
       # @param file [String]
