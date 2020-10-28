@@ -1,0 +1,20 @@
+<relaton-collection xmlns="https://open.ribose.com/relaton-xml">
+  <title>CalConnect Standards Registry</title>
+  <contributor>
+    <role type="author" />
+    <organization>
+      <name>The Calendaring and Scheduling Consortium</name>
+    </organization>
+  </contributor>
+  <relation type="partOf">
+    <bibdata xmlns="https://open.ribose.com/relaton-xml" type="standard">
+      <fetched>2019-08-21</fetched>
+      <title type="main" format="text/plain">Date and time -- Representations for information interchange -- Part 1: Basic rules</title>
+      <docidentifier type="CC">CC 18001</docidentifier>
+      <uri>standards/csd-datetime-explict/csd-datetime-explict.xml</uri>
+      <date type="published"><on>2018-10-17</on></date>
+      <status><stage>published</stage></status>
+      <ext><technical-committee>TC VCARD</technical-committee></ext>
+    </bibdata>
+  </relation>
+</relaton-collection>

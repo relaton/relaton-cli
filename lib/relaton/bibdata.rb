@@ -4,8 +4,10 @@ module Relaton
   class Bibdata
     URL_TYPES = %i[uri xml pdf doc html rxl txt].freeze
 
+    # @return [RelatonBib::BibliographicItem]
     attr_reader :bibitem
 
+    # @param bibitem [RelatonBib::BibliographicItem]
     def initialize(bibitem)
       @bibitem = bibitem
     end

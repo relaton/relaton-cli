@@ -32,6 +32,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec-core", "~> 3.4"
   spec.add_development_dependency "ruby-debug-ide"
   spec.add_development_dependency "simplecov"
+  spec.add_development_dependency "vcr"
+  spec.add_development_dependency "webmock"
 
   spec.add_runtime_dependency "liquid"
   spec.add_runtime_dependency "relaton", "~> 1.5.0"

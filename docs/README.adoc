@@ -50,8 +50,7 @@ Fetch the Relaton XML entry corresponding to the document identifier `CODE`.
 
 * `YEAR` is optional, and specifies the year of publication of the standard.
 * `FORMAT` is optional, and specifies the output format; the recognised values for `FORMAT` are `xml` (default), `bibtex`.
-* `TYPE` specifies the standards class library to be used, that the identifier is part of; the recognised
-values for `TYPE` are `isobib`, `ietfbib`, `iecbib`, `gbbib`.
+* `TYPE` specifies the standards class library to be used, that the identifier is part of. The recognised values for `TYPE` are `BIPM`, `CC`, `CN`, `IEC`, `IEEE`, `IETF`, `IHO`, `ISO`, `ITU`, `NIST`, `OGC`, `OMG`, `UN`, `W3C`.
 
 === relaton extract
 
@@ -217,3 +216,94 @@ $ relaton convert XML -f FORMAT -o OUTPUT-FILE
 ----
 
 Convert a Relaton XML document into YAML, AsciiBib, or BibTex format. Allowed -f or --format options are yaml, asciibib, bibtex. If the option -o or --output is omitted then a new file will be created in the folder where the original file is, with the same name but another appropriated extension.
+
+=== relaton collection
+
+The `relaton collection` is a set of subcommands for collections manipulations.
+
+==== relaton collection create
+
+----
+$ relaton collection create COLLECTION -d DIRECTORY --author AUTHOR --title TITLE --doctype DOCTYPE
+----
+
+Create new empty collection with name `COLLECTION`.
+* `DIRECTORY` is optional, and specifies path to a directory with collections. Default is `$HOME/.relaton/collections`.
+* `AUTHOR`, `TITLE`, and `DOCTYPE` are optional.
+
+==== relaton collection info
+
+----
+$ relaton collection info COLLECTION -d DIRECTORY
+----
+
+Show information about `COLLECTION` (number of items, file size of collection, last updated, name, metadata).
+* `DIRECTORY` is optional, and specifies path to a directory with collections. Default is `$HOME/.relaton/collections`.
+
+==== relaton collection list
+
+----
+$ relaton collection list -d DIRECTORY -e
+----
+
+List all collections.
+* `DIRECTORY` is optional, and specifies path to a directory with collections. Default is `$HOME/.relaton/collections`.
+* When parametr `-e` is defined the id of each entry id will be listed.
+
+==== relaton collection get
+
+----
+$ relaton collection get CODE -c COLLECTION -d DIRECTORY -f FORMAT -o FILE
+----
+
+Get a document matched to `CODE` from `COLLECTION`.
+
+* `COLLECTION` is optional name of collection. If undefined then fetch the first match across all collections in `DIRECTORY`.
+* `DIRECTORY` is optional, and specifies path to a directory with collections. Default is `$HOME/.relaton/collections`.
+* `FORMAT` is optional. If udefined then print documern in a human-readable form. Allowed values are `abb` (AsciiBib) or `xml` (XML).
+* `FILE` is optional. When it's defined then save document with given file name. File's extension defines format of the file. Possible extensions are `abb` (AsciiBib) or `xml` (XML).
+
+==== relaton collection find
+
+----
+$ relaton collection find TEXT -c COLLECTION -d DIRECTORY
+----
+
+Full-text search through a collection or all collections.
+
+* `COLLECTION` is optional name of collection. If udefined then search across all collections.
+* `DIRECTORY` is optional, and specifies path to a directory with collections. Default is `$HOME/.relaton/collections`.
+
+==== relaton collection fetch
+
+----
+$ relaton collection fetch CODE -t TYPE -y YEAR -c COLLECTION -d DIRECTORY
+----
+
+Fetch the Relaton XML entry corresponding to the document identifier `CODE` and save it into `COLLECTION`.
+
+* `TYPE` specifies the standards class library to be used, that the identifier is part of. The recognised values for `TYPE` are `BIPM`, `CC`, `CN`, `IEC`, `IEEE`, `IETF`, `IHO`, `ISO`, `ITU`, `NIST`, `OGC`, `OMG`, `UN`, `W3C`.
+* `YEAR` is optional, and specifies the year of publication of the standard.
+* `COLLECTION` is a name of collection.
+* `DIRECTORY` is optional, and specifies path to a directory with collections. Default is `$HOME/.relaton/collections`.
+
+==== relaton collection export
+
+----
+$ relaton collection export COLLECTION -d DIRECTORY
+----
+
+Export `COLLECTION` into XML file.
+
+* `DIRECTORY` is optional, and specifies path to a directory with collections. Default is `$HOME/.relaton/collections`.
+
+==== relaton collection import
+
+----
+$ relaton collection import FILE -c COLLECTION -d DIRECTORY
+----
+
+Import document or collection from XML `FILE` into `COLLECTION`.
+
+* `COLLECTION` is optional. If collection doesn't exist then it will be created.
+* `DIRECTORY` is optional, and specifies path to a directory with collections. Default is `$HOME/.relaton/collections`.
