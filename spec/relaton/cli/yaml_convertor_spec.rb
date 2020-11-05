@@ -37,7 +37,7 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
             <title type="title-main" format="text/plain">Geographic information</title>
             <title type="main" format="text/plain">Geographic information</title>
             <title format="text/plain" language="fr" script="Latn">Information géographique</title>
-            <docidentifier type="TC211">TC211</docidentifier>
+            <docidentifier>TC211</docidentifier>
             <date type="published">
               <on>2014-04-01</on>
             </date>

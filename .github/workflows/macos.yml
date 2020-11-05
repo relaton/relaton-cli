@@ -26,6 +26,8 @@ jobs:
       - name: Update gems
         run: |
           sudo gem install bundler --force
+          ruby -v | grep 2.5 && bundle config set build.debase --with-cflags="-Wno-error=implicit-function-declaration"
+          ruby -v | grep 2.5 && bundle config set build.ruby-debug-ide --with-cflags="-Wno-error=implicit-function-declaration"
           bundle install --jobs 4 --retry 3
       - name: Run specs
         run: |
