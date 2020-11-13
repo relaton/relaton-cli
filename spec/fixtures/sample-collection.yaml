@@ -14,7 +14,7 @@ root:
           value: proposal
       date:
         type: issued
-        value:  2018-10-25
+        value:  '2018-10-25'
     - technical_committee: DATETIME
       docid: 
         id: CC 34000
@@ -26,7 +26,7 @@ root:
           value: proposal
       date:
         type: issued
-        value: 2018-10-25
+        value: '2018-10-25'
     - technical_committee: DATETIME
       docid: 
         type: CC
@@ -39,7 +39,7 @@ root:
           value: proposal
       date:
         type: issued
-        value: 2018-10-25
+        value: '2018-10-25'
     - technical_committee: DATETIME
       docid: 
         type: CC
@@ -52,7 +52,7 @@ root:
           value: proposal
       date:
         type: issued
-        value: 2018-10-25
+        value: '2018-10-25'
     - technical_committee: DATETIME
       docid: 
         type: CC
@@ -64,7 +64,7 @@ root:
           value: proposal
       date:
         type: issued
-        value: 2018-10-25
+        value: '2018-10-25'
     - technical_committee: DATETIME
       docid: 
         type: CC
@@ -76,4 +76,4 @@ root:
           value: proposal
       date:
         type: issued
-        value: 2018-10-25
+        value: '2018-10-25'

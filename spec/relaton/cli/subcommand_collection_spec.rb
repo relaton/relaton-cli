@@ -144,6 +144,9 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
       file = File.join dir, coll
       expect(File).to receive(:write).with file, /CC\/DIR\s10005/, kind_of(Hash)
       expect(File).to receive(:write).and_call_original.at_most(5).times
+      expect(File).to receive(:exist?).with(/etag\.txt/).and_return false
+      expect(File).to receive(:exist?).with(/bibliography\.yml/).and_return false
+      expect(File).to receive(:exist?).and_call_original.at_least :once
 
       VCR.use_cassette "cc_dir_10005" do
         Relaton::Cli::Command.start [
