@@ -150,7 +150,7 @@ module Relaton
             mem << bibdata_instance(doc, xml[:file])
           else mem
           end
-        end.uniq &:id
+        end
       end
 
       def concatenate_and_write_to_files

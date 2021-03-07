@@ -24,7 +24,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
         Relaton::Cli::RelatonFile.extract(
           "spec/assets/metanorma-xml",
           "./tmp/output",
-          extension: "rxml",
+          extension: "rxml"
         )
 
         expect(file_exist?("a.rxl")).to be false
@@ -39,7 +39,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
         Relaton::Cli::RelatonFile.extract(
           "spec/assets/metanorma-xml/a.xml",
           "./tmp/output",
-          extension: "rxl",
+          extension: "rxl"
         )
 
         content = File.read("./tmp/output/a.rxl")
@@ -53,7 +53,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
         Relaton::Cli::RelatonFile.extract(
           "spec/fixtures/draft-celi-acvp-sha-00.xml",
           "./tmp/output",
-          extension: "rxl",
+          extension: "rxl"
         )
 
         content = File.read("./tmp/output/draft-celi-acvp-sha-00.rxl")
@@ -68,7 +68,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
           "spec/fixtures/antioch.xml", "./tmp/output", extension: "rxl"
         )
         expect(File.read("./tmp/output/antioch.rxl")).to include(
-          "<docnumber>draft-camelot-holy-grenade-01</docnumber>",
+          "<docnumber>draft-camelot-holy-grenade-01</docnumber>"
         )
       end
     end
@@ -80,7 +80,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
         Relaton::Cli::RelatonFile.concatenate(
           "spec/fixtures",
           "./tmp/concatenate.yml",
-          extension: "yml",
+          extension: "yml"
         )
 
         hashdoc = YAML.load_file("./tmp/concatenate.yml")
@@ -102,7 +102,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
           "./tmp/concatenate.yml",
           title: "collection title",
           organization: "Ribose Inc",
-          extension: "yml",
+          extension: "yml"
         )
 
         hashdoc = YAML.load_file("./tmp/concatenate.yml")
@@ -118,7 +118,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
           "./tmp/concatenate.yml",
           title: "collection title",
           organization: "Ribose Inc",
-          extension: "yml",
+          extension: "yml"
         )
 
         hashdoc = YAML.load_file("./tmp/concatenate.yml")
@@ -126,8 +126,8 @@ RSpec.describe Relaton::Cli::RelatonFile do
 
         expect(hashdoc["root"]["title"]).to eq("collection title")
         expect(hashdoc["root"]["author"]).to eq("Ribose Inc")
-        expect(items[2]["docid"]["id"]).to eq("CC 36000")
-        expect(items[2]["docid"]["type"]).to eq("CC")
+        expect(items[3]["docid"]["id"]).to eq("CC 36000")
+        expect(items[3]["docid"]["type"]).to eq("CC")
       end
 
       it "with IETF sample files" do
@@ -137,7 +137,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
           file,
           title: "Collection title",
           organization: "Ribose",
-          extension: "rxl",
+          extension: "rxl"
         )
 
         content = File.read file, encoding: "UTF-8"
@@ -156,7 +156,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
         Relaton::Cli::RelatonFile.concatenate(
           "spec/fixtures",
           "./tmp/concatenate.yml",
-          extension: "yml",
+          extension: "yml"
         )
 
         cleanup_fixture_files("sample", file_types)
@@ -202,7 +202,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
 
         expect(file_exist?("cc-34000.yaml")).to be true
         expect(Dir["#{output_dir}/**"].length).to eq(6)
-        expect(content).to include('id: CC34000')
+        expect(content).to include("id: CC34000")
         expect(content).to include("title: Date and time -- Concepts and vocabulary")
       end
 
@@ -215,7 +215,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
 
         expect(File.exist?("#{output_dir}/cc-34000.yaml")).to be true
         expect(Dir["#{output_dir}/**"].length).to eq(6)
-        expect(content).to include('id: CC34000')
+        expect(content).to include("id: CC34000")
         expect(content).to include("title: Date and time -- Concepts and vocabulary")
         FileUtils.rm_rf output_dir
       end

@@ -363,4 +363,127 @@
     <doctype>internet-draft</doctype>
   </ext>
 </bibdata></relation>
+<relation type='partOf'><bibdata type="standard">
+  <fetched>2021-03-07</fetched>
+  <title format="text/plain" language="en" script="Latn">The Holy Hand Grenade of Antioch</title>
+  <uri type="xml">spec/fixtures/documents/antioch.rfc.xml</uri>
+  <docidentifier type="IETF">draft-camelot-holy-grenade-01</docidentifier>
+  <contributor>
+    <role type="author"/>
+    <person>
+      <name>
+        <completename language="en">Arthur son of Uther Pendragon</completename>
+      </name>
+      <affiliation>
+        <organization>
+          <name>Internet Engineering Task Force</name>
+          <abbreviation>IETF</abbreviation>
+        </organization>
+      </affiliation>
+      <address>
+        <street/>
+        <city/>
+        <country/>
+      </address>
+      <email>arthur.pendragon@ribose.com</email>
+      <uri>http://camelot.gov.example</uri>
+    </person>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>Internet Engineering Task Force</name>
+      <abbreviation>IETF</abbreviation>
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <abstract format="text/plain" language="en" script="Latn">The menagerie of beasts and artefacts depicted in RFC8140
+may be usefully supplemented by other renowned figures of
+Internet and more general lore. This document extends the
+menagerie to the seminal fable of the
+"Holy Hand Grenade of Antioch", as depicted in the
+Monty Python film "Monty Python and the Holy Grail",
+as well as "Spamalot", the musical inspired by the movie.</abstract>
+  <place>Fremont, CA</place>
+  <ext>
+    <doctype>rfc</doctype>
+  </ext>
+</bibdata></relation>
+<relation type='partOf'><bibdata type="standard">
+  <fetched>2021-03-07</fetched>
+  <title format="text/plain" language="en" script="Latn">RFC XML v3 Example: A Standard for the Transmission of IP Datagrams on Avian Carriers</title>
+  <uri type="xml">spec/fixtures/documents/example.rfc.xml</uri>
+  <docidentifier type="IETF">1149</docidentifier>
+  <contributor>
+    <role type="author"/>
+    <person>
+      <name>
+        <initial language="en">D</initial>
+        <surname language="en">Waitzman</surname>
+      </name>
+      <affiliation>
+        <organization>
+          <name>Internet Engineering Task Force</name>
+          <abbreviation>IETF</abbreviation>
+        </organization>
+      </affiliation>
+      <address>
+        <street/>
+        <city/>
+        <country/>
+      </address>
+      <phone>(617) 873-4323</phone>
+      <email>dwaitzman@BBN.COM</email>
+      <uri>http://bbn.com</uri>
+    </person>
+  </contributor>
+  <contributor>
+    <role type="author"/>
+    <person>
+      <name>
+        <initial language="en">N</initial>
+        <surname language="en">Nicholas</surname>
+      </name>
+      <affiliation>
+        <organization>
+          <name>Internet Engineering Task Force</name>
+          <abbreviation>IETF</abbreviation>
+        </organization>
+      </affiliation>
+      <address>
+        <street/>
+        <city/>
+        <country/>
+      </address>
+      <phone>(617) 873-4323</phone>
+      <email>opoudjis@gmail.com</email>
+      <uri>http://opoudjis.net</uri>
+    </person>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>Internet Engineering Task Force</name>
+      <abbreviation>IETF</abbreviation>
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <abstract format="text/plain" language="en" script="Latn">Avian carriers can provide high delay, low throughput, and low
+altitude service.  The connection topology is limited to a single
+point-to-point path for each carrier, used with standard carriers,
+but many carriers can be used without significant interference with
+each other, outside of early spring.  This is because of the 3D ether
+space available to the carriers, in contrast to the 1D ether used by
+IEEE802.3.  The carriers have an intrinsic collision avoidance
+system, which increases availability.  Unlike some network
+technologies, such as packet radio, communication is not limited to
+line-of-sight distance.  Connection oriented service is available in
+some cities, usually based upon a central hub topology.</abstract>
+  <place>Fremont, CA</place>
+  <ext>
+    <doctype>rfc</doctype>
+  </ext>
+</bibdata></relation>
 </relaton-collection>
