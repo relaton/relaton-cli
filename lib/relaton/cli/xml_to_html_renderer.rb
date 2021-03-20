@@ -32,7 +32,7 @@ module Relaton::Cli
     # @param options [Hash]
     # @return [String] HTML
     def self.render(file, options)
-      new(options).render(file)
+      new(**options).render(file)
     end
 
     private

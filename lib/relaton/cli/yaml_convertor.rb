@@ -37,7 +37,7 @@ module Relaton
             processor.hash_to_bib content
           else
             RelatonBib::BibliographicItem.new(
-              RelatonBib::HashConverter::hash_to_bib(content)
+              **RelatonBib::HashConverter::hash_to_bib(content)
             )
           end
         end
