@@ -13,6 +13,15 @@ RSpec.describe "Relaton Fetch" do
       Relaton::Cli.start(command)
     end
 
+    it "calls fetch with lowercase type" do
+      db = double
+      expect(db).to receive(:fetch).with("ISO 2146", nil)
+      expect(Relaton::Cli).to receive(:relaton).and_return(db).exactly(2).times
+
+      command = ["fetch", "--type", "iso", "ISO 2146"]
+      Relaton::Cli.start(command)
+    end
+
     context "fetch code with a type" do
       it "prints out the document for valid code and type" do
         output = `relaton fetch --type ISO 'ISO 2146'`

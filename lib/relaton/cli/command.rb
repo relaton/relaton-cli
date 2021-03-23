@@ -35,8 +35,8 @@ module Relaton
       option :title, aliases: :t,  desc: "Title of resulting Relaton collection"
       option :organization, aliases: :g, desc: "Organization owner of Relaton "\
         "collection"
-      option :new, aliases: :n, type: :boolean, desc: "Use the new Relaton "\
-        "YAML format"
+      # option :new, aliases: :n, type: :boolean, desc: "Use the new Relaton "\
+      #   "YAML format"
       option :extension, aliases: :x, desc: "File extension of destination "\
         "Relaton file, defaults to 'rxl'"
 
@@ -48,8 +48,8 @@ module Relaton
         "Relaton Collection into multiple files"
       option :extension, aliases: :x, default: "rxl", desc: "File extension "\
         "of Relaton XML files, defaults to 'rxl'"
-      option :new, aliases: :n, type: :boolean, desc: "Use the new Relaton "\
-        "YAML format"
+      # option :new, aliases: :n, type: :boolean, desc: "Use the new Relaton "\
+      #   "YAML format"
 
       def split(source, outdir)
         Relaton::Cli::RelatonFile.split(source, outdir, options)
@@ -146,13 +146,13 @@ module Relaton
       # @option options [String] :type
       # @option options [String, NilClass] :format
       # @option options [Integer, NilClass] :year
-      def fetch_document(code, options)
-        if registered_types.include?(options[:type])
+      def fetch_document(code, options) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+        type = options[:type]&.upcase
+        if registered_types.include?(type)
           doc = Cli.relaton.fetch(code, options[:year]&.to_s)
           if doc
             options[:format] == "bibtex" ? doc.to_bibtex : doc.to_xml
-          else
-            "No matching bibliographic entry found"
+          else "No matching bibliographic entry found"
           end
         end
       rescue RelatonBib::RequestError => e
