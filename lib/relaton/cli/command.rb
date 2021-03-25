@@ -10,7 +10,7 @@ module Relaton
       desc "fetch CODE", "Fetch Relaton XML for Standard identifier CODE"
       option :type, aliases: :t, required: true, desc: "Type of standard to "\
         "get bibliographic entry for"
-      option :format, aliases: :f, desc: "Output format (xml, bibtex). "\
+      option :format, aliases: :f, desc: "Output format (xml, yaml, bibtex). "\
         "Default xml."
       option :year, aliases: :y, type: :numeric, desc: "Year the standard was "\
         "published"
@@ -146,12 +146,17 @@ module Relaton
       # @option options [String] :type
       # @option options [String, NilClass] :format
       # @option options [Integer, NilClass] :year
-      def fetch_document(code, options) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+      # @return [String]
+      def fetch_document(code, options) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength,Metrics/AbcSize
         type = options[:type]&.upcase
         if registered_types.include?(type)
           doc = Cli.relaton.fetch(code, options[:year]&.to_s)
           if doc
-            options[:format] == "bibtex" ? doc.to_bibtex : doc.to_xml
+            case options[:format]
+            when "yaml", "yml" then doc.to_hash.to_yaml
+            when "bibtex" then doc.to_bibtex
+            else doc.to_xml
+            end
           else "No matching bibliographic entry found"
           end
         end

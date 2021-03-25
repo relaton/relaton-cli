@@ -22,6 +22,42 @@ RSpec.describe "Relaton Fetch" do
       Relaton::Cli.start(command)
     end
 
+    it "calls fetch and return XML" do
+      io = double "IO"
+      expect(io).to receive(:puts) do |arg|
+        expect(arg).to include '<docidentifier type="ISO">ISO 2146 (all parts)</docidentifier>'
+      end
+      expect(IO).to receive(:new).and_return io
+      VCR.use_cassette "iso_2146" do
+        command = ["fetch", "--type", "iso", "ISO 2146"]
+        Relaton::Cli.start(command)
+      end
+    end
+
+    it "calls fetch and return YAML" do
+      io = double "IO"
+      expect(io).to receive(:puts) do |arg|
+        expect(arg).to include "- id: ISO 2146 (all parts)"
+      end
+      expect(IO).to receive(:new).and_return io
+      VCR.use_cassette "iso_2146" do
+        command = ["fetch", "--type", "iso", "--format", "yaml", "ISO 2146"]
+        Relaton::Cli.start(command)
+      end
+    end
+
+    it "calls fetch and return BibTex" do
+      io = double "IO"
+      expect(io).to receive(:puts) do |arg|
+        expect(arg).to include "@misc{ISO2146(allparts)"
+      end
+      expect(IO).to receive(:new).and_return io
+      VCR.use_cassette "iso_2146" do
+        command = ["fetch", "--type", "iso", "--format", "bibtex", "ISO 2146"]
+        Relaton::Cli.start(command)
+      end
+    end
+
     context "fetch code with a type" do
       it "prints out the document for valid code and type" do
         output = `relaton fetch --type ISO 'ISO 2146'`
@@ -82,9 +118,9 @@ RSpec.describe "Relaton Fetch" do
     end
 
     it "raise request error" do
-      relaton = double("relaton")
-      expect(relaton).to receive(:fetch).and_raise RelatonBib::RequestError
-      expect(Relaton::Db).to receive(:new).and_return relaton
+      db = double("DB")
+      expect(db).to receive(:fetch).and_raise RelatonBib::RequestError
+      expect(Relaton::Cli).to receive(:relaton).and_return(db)
       command = Relaton::Cli::Command.new
       expect(command).to receive(:registered_types).and_return ["ISO"]
       expect(command.send(:fetch_document, "ISO 2146", type: "ISO")).to eq(
