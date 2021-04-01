@@ -2,21 +2,29 @@ require "relaton/cli/relaton_file"
 require "relaton/cli/xml_convertor"
 require "relaton/cli/yaml_convertor"
 require "relaton/cli/subcommand_collection"
+require "relaton/cli/subcommand_db"
 require "fcntl"
 
 module Relaton
   module Cli
     class Command < Thor
+      include Relaton::Cli
+
       desc "fetch CODE", "Fetch Relaton XML for Standard identifier CODE"
-      option :type, aliases: :t, required: true, desc: "Type of standard to "\
+      option :type, aliases: :t, desc: "Type of standard to "\
         "get bibliographic entry for"
       option :format, aliases: :f, desc: "Output format (xml, yaml, bibtex). "\
         "Default xml."
       option :year, aliases: :y, type: :numeric, desc: "Year the standard was "\
         "published"
+      option :"all-parts", type: :boolean, desc: "Fetch all parts"
+      option :"keep-year", type: :boolean, desc: "Undated reference should "\
+        "return actual reference with year"
+      option :retries, aliases: :r, type: :numeric, desc: "Number of network "\
+        "retries. Default 1."
 
       def fetch(code)
-        Relaton.db
+        # Relaton.db
         io = IO.new(STDOUT.fcntl(::Fcntl::F_DUPFD), mode: "w:UTF-8")
         io.puts(fetch_document(code, options) || supported_type_message)
       end
@@ -139,39 +147,50 @@ module Relaton
       desc "collection SUBCOMMAND", "Collection manipulations"
       subcommand "collection", SubcommandCollection
 
-      private
+      desc "db SUBCOMMAND", "Cache DB manipulation"
+      subcommand "db", SubcommandDb
+    end
 
-      # @param code [String]
-      # @param options [Hash]
-      # @option options [String] :type
-      # @option options [String, NilClass] :format
-      # @option options [Integer, NilClass] :year
-      # @return [String]
-      def fetch_document(code, options) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength,Metrics/AbcSize
-        type = options[:type]&.upcase
-        if registered_types.include?(type)
-          doc = Cli.relaton.fetch(code, options[:year]&.to_s)
-          if doc
-            case options[:format]
-            when "yaml", "yml" then doc.to_hash.to_yaml
-            when "bibtex" then doc.to_bibtex
-            else doc.to_xml
-            end
-          else "No matching bibliographic entry found"
-          end
-        end
-      rescue RelatonBib::RequestError => e
-        e.message
-      end
+    private
 
-      def supported_type_message
-        ["Recognised types:", registered_types.sort.join(", ")].join(" ")
+    # @param code [String]
+    # @param options [Hash]
+    # @option options [String] :type
+    # @option options [String, NilClass] :format
+    # @option options [Integer, NilClass] :year
+    # @return [String, nil]
+    def fetch_document(code, options) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/AbcSize
+      year = options[:year]&.to_s
+      if (processor = Relaton::Registry.instance.by_type options[:type]&.upcase)
+        doc = Relaton.db.fetch_std code, year, processor.short, options.dup
+      elsif options[:type] then return
+      else doc = Relaton.db.fetch(code, year, options.dup)
       end
+      return "No matching bibliographic entry found" unless doc
 
-      def registered_types
-        @registered_types ||=
-          Relaton::Registry.instance.processors.each.map { |_n, pr| pr.prefix }
+      serialize doc, options[:format]
+    rescue RelatonBib::RequestError => e
+      e.message
+    end
+
+    # @param doc [RelatonBib::BibliographicItem]
+    # @param format [String]
+    # @return [String]
+    def serialize(doc, format)
+      case format
+      when "yaml", "yml" then doc.to_hash.to_yaml
+      when "bibtex" then doc.to_bibtex
+      else doc.to_xml
       end
+    end
+
+    def supported_type_message
+      ["Recognised types:", registered_types.sort.join(", ")].join(" ")
+    end
+
+    def registered_types
+      @registered_types ||=
+        Relaton::Registry.instance.processors.each.map { |_n, pr| pr.prefix }
     end
   end
 end

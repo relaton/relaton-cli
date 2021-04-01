@@ -41,14 +41,17 @@ suports an additional `-x` or `--extension` options to use different extension.
 
 [source,console]
 ----
-$ relaton fetch CODE -t TYPE -f FORMAT -y YEAR
+$ relaton fetch CODE -t TYPE -f FORMAT -y YEAR -r RETRIES --all-parts --keep-year
 ----
 
 Fetch the Relaton XML entry corresponding to the document identifier `CODE`.
 
 * `YEAR` is optional, and specifies the year of publication of the standard.
 * `FORMAT` is optional, and specifies the output format; the recognised values for `FORMAT` are `xml` (default), yaml, `bibtex`.
-* `TYPE` specifies the standards class library to be used, that the identifier is part of. The recognised values for `TYPE` are `BIPM`, `CC`, `CN`, `IEC`, `IEEE`, `IETF`, `IHO`, `ISO`, `ITU`, `NIST`, `OGC`, `OMG`, `UN`, `W3C`.
+* `TYPE` is optional, specifies the standards class library to be used, that the identifier is part of. The recognised values for `TYPE` are `BIPM`, `CC`, `CIE`, `CN`, `ECMA`, `IEC`, `IEEE`, `IETF`, `IHO`, `ISO`, `ITU`, `NIST`, `OGC`, `OMG`, `UN`, `W3C`.
+* `RETRIES` is optional, number of network retries (default 1).
+* `--all-parts` fetch all parts.
+* `--keep-year` undated reference should return actual reference with year.
 
 === relaton extract
 
@@ -305,3 +308,107 @@ Import document or collection from XML `FILE` into `COLLECTION`.
 
 * `COLLECTION` is optional. If collection doesn't exist then it will be created.
 * `DIRECTORY` is optional, and specifies path to a directory with collections. Default is `$HOME/.relaton/collections`.
+
+=== Cache DB manipulation
+
+==== Create caache DB
+
+----
+$ relaton db create DIR
+----
+
+Creates a new cache DB in a directory `DIR` (optional, deafult is `/home/USER/.relaton/dbpath`). In case the target directory exists it will be used as a cache DB.
+
+----
+$ relaton db create
+Cache DB is in "/Users/user/.relaton/cache"
+
+$ relaton db create cachedb
+Cache DB is in "/Users/user/RubyProjects/relaton-cli/cachedb"
+----
+
+==== Move cache DB
+
+----
+$ relaton db mv DIR
+----
+
+Move cache DB to another place `DIR`.
+
+----
+$ relaton db mv cache_dir
+Cache DB is moved to "/Users/user/RubyProjects/relaton-cli/cache_dir"
+----
+
+==== Clear cache DB
+
+Delete all entries from a chache DB.
+
+----
+$ relaton db clear
+----
+
+==== Fetch from cache DB
+
+----
+$ relaton db fetch -t TYPE -f FORMAT -y YEAR
+----
+
+Fetch an entry from a cache DB. See [relaton fetch](#relaton-fetch) for the arguments explanation.
+
+==== Fetch all
+
+Fetch all entries from a chache DB.
+
+----
+$ relaton db fetch_all TEXT -e EDITION -y YEAR -f FORMAT
+----
+
+* `TEXT` (optional) search for a certan string
+* `EDITION` (optional) filter documets with a certain edition
+* `YEAR` (optional) filter documents by a year
+* `FORMAT` (optional) specify the output format. Recognised values are `xml` (default), yaml, `bibtex`.
+
+----
+$ relaton db fetch_all
+<bibitem id="ISO/IECDIR1" type="international-standard">
+...
+
+$ relaton db fetch_all 'Procedures for the technical work'
+<bibitem id="ISO/IECDIR1" type="international-standard">
+  <fetched>2021-04-01</fetched>
+  <title type="title-main" format="text/plain" language="en" script="Latn">Procedures for the technical work</title>
+...
+
+$ relaton db fetch_all -e 3                               
+<bibitem id="ISO2146-2010" type="standard">
+...
+<edition>3</edition>
+...
+
+$ relaton db fetch_all -e 8 -y 2018
+<bibitem id="ISO/IECDIR2IEC" type="international-standard">
+  <fetched>2021-04-01</fetched>
+  <title type="title-main" format="text/plain" language="en" script="Latn">Principles and rules for the structure and drafting of ISO and IEC documents</title>
+  <uri type="obp">https://www.iec.ch/members_experts/refdocs/iec/isoiecdir2%7Bed8.0.RLV%7Den.pdf</uri>
+  <docidentifier type="ISO">ISO/IEC DIR 2 IEC</docidentifier>
+  <date type="published">
+    <on>2018-05-01</on>
+  </date>
+  <edition>8</edition>
+...
+----
+
+==== Get document type
+
+----
+$ relaton db doctype REF
+----
+
+Takes a reference `REF` and retuern a document type.
+
+----
+$ relaton db doctype 'CN(GB/T 1.1)'
+Chinese Standard
+GB/T 1.1
+----

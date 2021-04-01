@@ -105,13 +105,13 @@ module Relaton
         "$HOME/.relaton/collections."
 
       def fetch(code)
-        doc = Cli.relaton.fetch(code, options[:year]&.to_s)
+        doc = Relaton.db.fetch(code, options[:year]&.to_s)
         if doc
           colfile = File.join directory, options[:collection]
           coll = read_collection colfile
           coll << doc
           File.write colfile, coll.to_yaml, encoding: "UTF-8"
-        else "No matching bibliographic entry found"
+        else warn "No matching bibliographic entry found"
         end
       end
 

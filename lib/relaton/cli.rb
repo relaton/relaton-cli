@@ -3,16 +3,35 @@ require "relaton"
 require_relative "cli/command"
 
 module Relaton
-  def self.db
-    Cli.relaton
+  def self.db(dir = nil)
+    Cli.relaton dir
   end
 
   module Cli
     class RelatonDb
       include Singleton
 
-      def db
-        @db ||= Relaton::Db.new("#{Dir.home}/.relaton/cache", nil)
+      DBCONF = "#{Dir.home}/.relaton/dbpath".freeze
+
+      # @param dir [String, nil]
+      # @return [Relaton::Db]
+      def db(dir)
+        if dir
+          File.write DBCONF, dir, encoding: "UTF-8"
+          @db = Relaton::Db.new dir, nil
+        else
+          @db ||= Relaton::Db.new dbpath, nil
+        end
+      end
+
+      private
+
+      # @return [String] path to DB
+      def dbpath
+        if File.exist?(DBCONF)
+          File.read(DBCONF, encoding: "UTF-8")
+        else "#{Dir.home}/.relaton/cache"
+        end
       end
     end
 
@@ -28,8 +47,10 @@ module Relaton
       # easier we have added it as a class method so we can use this
       # whenever necessary.
       #
-      def relaton
-        RelatonDb.instance.db
+      # @param dir [String, nil]
+      # @return [Relaton::Db]
+      def relaton(dir)
+        RelatonDb.instance.db dir
       end
 
       # @param content [Nokogiri::XML::Document]
