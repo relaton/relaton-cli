@@ -40,7 +40,7 @@ module Relaton
         "published"
 
       def fetch(code)
-        io = IO.new(STDOUT.fcntl(::Fcntl::F_DUPFD), mode: "w:UTF-8")
+        io = IO.new($stdout.fcntl(::Fcntl::F_DUPFD), mode: "w:UTF-8")
         opts = options.merge(fetch_db: true)
         io.puts(fetch_document(code, opts) || supported_type_message)
       end
@@ -53,7 +53,7 @@ module Relaton
         "Default xml."
 
       def fetch_all(text = nil) # rubocop:disable Metrics/AbcSize
-        io = IO.new(STDOUT.fcntl(::Fcntl::F_DUPFD), mode: "w:UTF-8")
+        io = IO.new($stdout.fcntl(::Fcntl::F_DUPFD), mode: "w:UTF-8")
         opts = options.each_with_object({}) do |(k, v), o|
           o[k.to_sym] = v unless k == "format"
         end
@@ -65,7 +65,7 @@ module Relaton
       desc "doctype REF", "Detect document type from REF"
 
       def doctype(ref)
-        io = IO.new(STDOUT.fcntl(::Fcntl::F_DUPFD), mode: "w:UTF-8")
+        io = IO.new($stdout.fcntl(::Fcntl::F_DUPFD), mode: "w:UTF-8")
         io.puts Relaton.db.docid_type(ref)
       end
     end

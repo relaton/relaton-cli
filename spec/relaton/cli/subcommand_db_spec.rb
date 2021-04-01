@@ -57,7 +57,7 @@ RSpec.describe Relaton::Cli::SubcommandDb do
       expect(File).to receive(:write)
         .with(Relaton::Cli::RelatonDb::DBCONF, new_dir, encoding: "UTF-8")
       expect { Relaton::Cli.start ["db", "mv", "new_dir"] }
-        .to output(/Cache DB is moved to \"#{new_dir}\"/).to_stderr
+        .to output(/Cache DB is moved to "#{new_dir}"/).to_stderr
     end
 
     it "clear cache DB" do
