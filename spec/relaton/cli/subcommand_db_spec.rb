@@ -86,12 +86,18 @@ RSpec.describe Relaton::Cli::SubcommandDb do
         before(:each) { expect(io).to receive(:puts).with(out) }
 
         it do
-          expect(db).to receive(:fetch_all).with(nil, {}).and_return [bib]
+          expect(db).to receive(:fetch_all) do |arg|
+            expect(arg).to be_nil
+            [bib]
+          end
           Relaton::Cli.start ["db", "fetch_all"]
         end
 
         it "filter by text" do
-          expect(db).to receive(:fetch_all).with("ISO 2146", {}).and_return [bib]
+          expect(db).to receive(:fetch_all) do |arg|
+            expect(arg).to eq "ISO 2146"
+            [bib]
+          end
           Relaton::Cli.start ["db", "fetch_all", "ISO 2146"]
         end
 
@@ -113,7 +119,10 @@ RSpec.describe Relaton::Cli::SubcommandDb do
           out = { title: "Title" }
           bib = double "BibItem", to_hash: out
           expect(io).to receive(:puts).with(out.to_yaml)
-          expect(db).to receive(:fetch_all).with(nil, {}).and_return [bib]
+          expect(db).to receive(:fetch_all) do |arg|
+            expect(arg).to be_nil
+            [bib]
+          end
           Relaton::Cli.start ["db", "fetch_all", "-f", "yaml"]
         end
       end
@@ -123,7 +132,10 @@ RSpec.describe Relaton::Cli::SubcommandDb do
           out = "@manual{ISOTC211, tile = {Geographic information}}"
           bib = double "BibItem", to_bibtex: out
           expect(io).to receive(:puts).with(out)
-          expect(db).to receive(:fetch_all).with(nil, {}).and_return [bib]
+          expect(db).to receive(:fetch_all) do |arg|
+            expect(arg).to be_nil
+            [bib]
+          end
           Relaton::Cli.start ["db", "fetch_all", "-f", "bibtex"]
         end
       end
