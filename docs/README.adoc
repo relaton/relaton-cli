@@ -311,7 +311,7 @@ Import document or collection from XML `FILE` into `COLLECTION`.
 
 === Cache DB manipulation
 
-==== Create caache DB
+==== Create cache DB
 
 ----
 $ relaton db create DIR
