@@ -32,4 +32,19 @@ RSpec.describe Relaton::Cli::Command do
       File.delete output
     end
   end
+
+  it "use verbose mode" do
+    bib = double "BibItem", to_xml: "<bibitem />"
+    db = double "DB"
+    expect(db).to receive(:fetch) do |arg|
+      expect(arg).to eq "ISO 2146"
+      bib
+    end
+    expect(db).to receive(:fetch).with("ISO 2146", nil, verbose: true)
+    expect(Relaton::Cli).to receive(:relaton).and_return(db).twice
+    Relaton::Cli.start ["fetch", "ISO 2146"]
+    expect(Relaton.configuration.logs).to eq %i[info error]
+    Relaton::Cli.start ["fetch", "ISO 2146", "-v"]
+    expect(Relaton.configuration.logs).to eq %i[info error warning]
+  end
 end

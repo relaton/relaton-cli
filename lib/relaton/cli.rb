@@ -1,4 +1,5 @@
 require "thor"
+require "thor/hollaback"
 require "relaton"
 require_relative "cli/command"
 

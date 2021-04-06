@@ -9,6 +9,8 @@ module Relaton
   module Cli
     class Command < Thor
       include Relaton::Cli
+      class_before :relaton_config
+      class_option :verbose, aliases: :v, type: :boolean, desc: "Output warnings"
 
       desc "fetch CODE", "Fetch Relaton XML for Standard identifier CODE"
       option :type, aliases: :t, desc: "Type of standard to "\
@@ -24,7 +26,6 @@ module Relaton
         "retries. Default 1."
 
       def fetch(code)
-        # Relaton.db
         io = IO.new(STDOUT.fcntl(::Fcntl::F_DUPFD), mode: "w:UTF-8")
         io.puts(fetch_document(code, options) || supported_type_message)
       end
@@ -43,8 +44,6 @@ module Relaton
       option :title, aliases: :t,  desc: "Title of resulting Relaton collection"
       option :organization, aliases: :g, desc: "Organization owner of Relaton "\
         "collection"
-      # option :new, aliases: :n, type: :boolean, desc: "Use the new Relaton "\
-      #   "YAML format"
       option :extension, aliases: :x, desc: "File extension of destination "\
         "Relaton file, defaults to 'rxl'"
 
@@ -56,8 +55,6 @@ module Relaton
         "Relaton Collection into multiple files"
       option :extension, aliases: :x, default: "rxl", desc: "File extension "\
         "of Relaton XML files, defaults to 'rxl'"
-      # option :new, aliases: :n, type: :boolean, desc: "Use the new Relaton "\
-      #   "YAML format"
 
       def split(source, outdir)
         Relaton::Cli::RelatonFile.split(source, outdir, options)
@@ -149,6 +146,16 @@ module Relaton
 
       desc "db SUBCOMMAND", "Cache DB manipulation"
       subcommand "db", SubcommandDb
+
+      no_commands do
+        def relaton_config
+          log_types = %i[info error]
+          log_types << :warning if options[:verbose]
+          Relaton.configure do |conf|
+            conf.logs = log_types
+          end
+        end
+      end
     end
 
     private

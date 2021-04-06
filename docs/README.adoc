@@ -10,6 +10,7 @@ Please refer to https://github.com/relaton/relaton.
 
 == Commands
 
+Each command has an option `--verbose` (short form is `-v`). Use the option to get warnings in the commands outpput.
 The following commands are provided.
 
 === relaton concatenate

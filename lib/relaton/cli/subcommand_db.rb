@@ -2,6 +2,7 @@ module Relaton
   module Cli
     class SubcommandDb < Thor
       include Relaton::Cli
+      class_option :verbose, aliases: :v, type: :boolean, desc: "Output warnings"
 
       desc "create DIR", "Create new cache DB. Default DIR is "\
         "/home/user/.relaon/cache/"

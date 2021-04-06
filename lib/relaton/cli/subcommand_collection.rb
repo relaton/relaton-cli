@@ -3,6 +3,9 @@ require "relaton/cli/full_text_search"
 module Relaton
   module Cli
     class SubcommandCollection < Thor
+      include Relaton::Cli
+      class_option :verbose, aliases: :v, type: :boolean, desc: "Output warnings"
+
       desc "create COLLECTION", "Create collection"
       option :dir, aliases: :d, desc: "Directory to store collection. Default "\
         "is $HOME/.relaton/collections."
@@ -104,7 +107,7 @@ module Relaton
       option :dir, aliases: :d, desc: "Directory with collections. Default is "\
         "$HOME/.relaton/collections."
 
-      def fetch(code)
+      def fetch(code) # rubocop:disable Metrics/AbcSize
         doc = Relaton.db.fetch(code, options[:year]&.to_s)
         if doc
           colfile = File.join directory, options[:collection]
@@ -117,8 +120,8 @@ module Relaton
 
       desc "import FILE", "Import document or collection from an XML file "\
         "into another collection"
-      option :collection, aliases: :c, required: true, desc: "Collection "\
-        "to store a document. If collection doesn't exist then it'll be created."
+      option :collection, aliases: :c, required: true, desc: "Collection to "\
+        "store a document. If collection doesn't exist then it'll be created."
       option :dir, aliases: :d, desc: "Directory with collections. Default is "\
         "$HOME/.relaton/collections."
 
