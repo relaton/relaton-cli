@@ -24,40 +24,46 @@ RSpec.describe "Relaton Fetch" do
       Relaton::Cli.start(command)
     end
 
-    it "calls fetch and return XML" do
-      io = double "IO"
-      expect(io).to receive(:puts) do |arg|
-        expect(arg).to include '<docidentifier type="ISO">ISO 2146 (all parts)'\
-          "</docidentifier>"
+    context do
+      let(:io) { double "IO" }
+      before (:each) do
+        RSpec::Mocks.space.proxy_for(IO).reset
+        expect(IO).to receive(:new) do |arg1, arg2, &_block|
+          if arg1.is_a?(Integer) then io
+          else yield arg1, arg2
+          end
+        end.at_most(2).times
       end
-      expect(IO).to receive(:new).and_return io
-      VCR.use_cassette "iso_2146" do
-        command = ["fetch", "--type", "iso", "ISO 2146"]
-        Relaton::Cli.start(command)
-      end
-    end
 
-    it "calls fetch and return YAML" do
-      io = double "IO"
-      expect(io).to receive(:puts) do |arg|
-        expect(arg).to include "- id: ISO 2146 (all parts)"
+      it "calls fetch and return XML" do
+        expect(io).to receive(:puts) do |arg|
+          expect(arg).to include '<docidentifier type="ISO">ISO 2146 (all parts)'\
+            "</docidentifier>"
+        end
+        VCR.use_cassette "iso_2146" do
+          command = ["fetch", "--type", "iso", "ISO 2146"]
+          Relaton::Cli.start(command)
+        end
       end
-      expect(IO).to receive(:new).and_return io
-      VCR.use_cassette "iso_2146" do
-        command = ["fetch", "--type", "iso", "--format", "yaml", "ISO 2146"]
-        Relaton::Cli.start(command)
-      end
-    end
 
-    it "calls fetch and return BibTex" do
-      io = double "IO"
-      expect(io).to receive(:puts) do |arg|
-        expect(arg).to include "@misc{ISO2146(allparts)"
+      it "calls fetch and return YAML" do
+        expect(io).to receive(:puts) do |arg|
+          expect(arg).to include "- id: ISO 2146 (all parts)"
+        end
+        VCR.use_cassette "iso_2146" do
+          command = ["fetch", "--type", "iso", "--format", "yaml", "ISO 2146"]
+          Relaton::Cli.start(command)
+        end
       end
-      expect(IO).to receive(:new).and_return io
-      VCR.use_cassette "iso_2146" do
-        command = ["fetch", "--type", "iso", "--format", "bibtex", "ISO 2146"]
-        Relaton::Cli.start(command)
+
+      it "calls fetch and return BibTex" do
+        expect(io).to receive(:puts) do |arg|
+          expect(arg).to include "@misc{ISO2146(allparts)"
+        end
+        VCR.use_cassette "iso_2146" do
+          command = ["fetch", "--type", "iso", "--format", "bibtex", "ISO 2146"]
+          Relaton::Cli.start(command)
+        end
       end
     end
 
@@ -92,8 +98,8 @@ RSpec.describe "Relaton Fetch" do
     context "fetch code with invalid/missing type" do
       it "calls supported_type_message method" do
         io = double "IO"
-        expect(io).to receive(:puts).with "Recognised types: BIPM, CC, CIE, "\
-        "CN, ECMA, IEC, IEEE, IETF, IHO, ISO, ITU, NIST, OGC, OMG, UN, W3C"
+        expect(io).to receive(:puts).with "Recognised types: BIPM, BSI, CC, "\
+        "CIE, CN, ECMA, IEC, IEEE, IETF, IHO, ISO, ITU, NIST, OGC, OMG, UN, W3C"
         expect(IO).to receive(:new).with(kind_of(Integer), mode: "w:UTF-8")
           .and_return io
         Relaton::Cli.start ["fetch", "ISO 2146", "--type", "invalid"]
@@ -107,8 +113,8 @@ RSpec.describe "Relaton Fetch" do
       it "prints a warning message with suggestions for invalid type" do
         output = `relaton fetch 'ISO 2146' --type invalid`
         expect(output).to include(
-          "Recognised types: BIPM, CC, CIE, CN, ECMA, IEC, IEEE, IETF, IHO, "\
-          "ISO, ITU, NIST, OGC, OMG, UN, W3C"
+          "Recognised types: BIPM, BSI, CC, CIE, CN, ECMA, IEC, IEEE, IETF, "\
+          "IHO, ISO, ITU, NIST, OGC, OMG, UN, W3C"
         )
       end
     end
