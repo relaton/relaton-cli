@@ -1,4 +1,98 @@
 <relaton-collection xmlns="https://open.ribose.com/relaton-xml"><title>Collection title</title><contributor><role type='author'/><organization><name>Ribose</name></organization></contributor><relation type='partOf'><bibdata type="standard">
+  <title type="main" format="text/plain" language="en">The Holy Hand Grenade of Antioch</title>
+  <title type="abbrev" format="text/plain" language="en">Hand Grenade of Antioch</title>
+  <uri type="xml">spec/fixtures/documents/antioch.xml</uri>
+  <uri type="rxl">spec/fixtures/documents/antioch.rxl</uri>
+  <docidentifier>draft-camelot-holy-grenade-01</docidentifier>
+  <docnumber>draft-camelot-holy-grenade-01</docnumber>
+  <contributor>
+    <role type="author"/>
+    <person>
+      <name>
+        <completename>Arthur son of Uther Pendragon</completename>
+      </name>
+      <email>arthur.pendragon@ribose.com</email>
+      <uri>http://camelot.gov.example</uri>
+    </person>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>Internet Engineering Task Force</name>
+      <abbreviation>IETF</abbreviation>
+    </organization>
+  </contributor>
+  <version>
+    <revision-date>2018-04-15T00:00:00Z</revision-date>
+  </version>
+  <language>en</language>
+  <script>Latn</script>
+  <status>
+    <stage>informational</stage>
+  </status>
+  <copyright>
+    <from>2020</from>
+    <owner>
+      <organization>
+        <name>Internet Engineering Task Force</name>
+        <abbreviation>IETF</abbreviation>
+      </organization>
+    </owner>
+  </copyright>
+  <relation type="updates">
+    <bibitem type="standard">
+      <fetched>2020-06-09</fetched>
+      <title format="text/plain" language="en" script="Latn">The Arte of ASCII: Or, An True and Accurate Representation of an Menagerie of Thynges Fabulous and Wonderful in Ye Forme of Character</title>
+      <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8140.xml</uri>
+      <uri type="src">https://www.rfc-editor.org/info/rfc8140</uri>
+      <docidentifier type="IETF">RFC 8140</docidentifier>
+      <docidentifier type="rfc-anchor">RFC8140</docidentifier>
+      <docidentifier type="DOI">10.17487/RFC8140</docidentifier>
+      <date type="published">
+        <on>2017-04-01</on>
+      </date>
+      <contributor>
+        <role type="author"/>
+        <person>
+          <name>
+            <completename language="en">A. Farrel</completename>
+          </name>
+          <affiliation>
+            <organization>
+              <name>Internet Engineering Task Force</name>
+              <abbreviation>IETF</abbreviation>
+            </organization>
+          </affiliation>
+        </person>
+      </contributor>
+      <contributor>
+        <role type="publisher"/>
+        <organization>
+          <name>Internet Engineering Task Force</name>
+          <abbreviation>IETF</abbreviation>
+        </organization>
+      </contributor>
+      <language>en</language>
+      <script>Latn</script>
+      <abstract format="text/plain" language="en" script="Latn">Ever since Gutenberg discovered and patented ASCII and the corresponding "Courier New" font with its now-famous "ten" point size, artisans and artificers have striven to represent their views of the world in print.Similarly, starting from Darwin's discovery of the hippogriff and his subsequent registration of the creature as an International Trade Mark, men (and some women) have struggled to catalog the fabulous variety that is called "nature".This document supplies a number of representations of all manner of things (both elemental and hypothetical) supplied by some of our best collectors of curios and delivered in a manner that may well be reused by the cunning document author.</abstract>
+      <series type="main">
+        <title format="text/plain" language="en" script="Latn">RFC</title>
+        <number>8140</number>
+      </series>
+      <place>Fremont, CA</place>
+    </bibitem>
+  </relation>
+  <series type="stream">
+    <title>independent</title>
+  </series>
+  <series type="intended">
+    <title>info</title>
+  </series>
+  <ext>
+    <doctype>internet-draft</doctype>
+  </ext>
+</bibdata></relation>
+<relation type='partOf'><bibdata type="standard">
   <title type="main" format="text/plain" language="en">RFC XML v3 Example: A Standard for the Transmission of IP Datagrams on Avian Carriers</title>
   <title type="abbrev" format="text/plain" language="en">IP Datagrams on Avian Carriers</title>
   <uri type="xml">spec/fixtures/documents/example.xml</uri>
@@ -267,100 +361,6 @@
   </series>
   <ext>
     <doctype>rfc</doctype>
-  </ext>
-</bibdata></relation>
-<relation type='partOf'><bibdata type="standard">
-  <title type="main" format="text/plain" language="en">The Holy Hand Grenade of Antioch</title>
-  <title type="abbrev" format="text/plain" language="en">Hand Grenade of Antioch</title>
-  <uri type="xml">spec/fixtures/documents/antioch.xml</uri>
-  <uri type="rxl">spec/fixtures/documents/antioch.rxl</uri>
-  <docidentifier>draft-camelot-holy-grenade-01</docidentifier>
-  <docnumber>draft-camelot-holy-grenade-01</docnumber>
-  <contributor>
-    <role type="author"/>
-    <person>
-      <name>
-        <completename>Arthur son of Uther Pendragon</completename>
-      </name>
-      <email>arthur.pendragon@ribose.com</email>
-      <uri>http://camelot.gov.example</uri>
-    </person>
-  </contributor>
-  <contributor>
-    <role type="publisher"/>
-    <organization>
-      <name>Internet Engineering Task Force</name>
-      <abbreviation>IETF</abbreviation>
-    </organization>
-  </contributor>
-  <version>
-    <revision-date>2018-04-15T00:00:00Z</revision-date>
-  </version>
-  <language>en</language>
-  <script>Latn</script>
-  <status>
-    <stage>informational</stage>
-  </status>
-  <copyright>
-    <from>2020</from>
-    <owner>
-      <organization>
-        <name>Internet Engineering Task Force</name>
-        <abbreviation>IETF</abbreviation>
-      </organization>
-    </owner>
-  </copyright>
-  <relation type="updates">
-    <bibitem type="standard">
-      <fetched>2020-06-09</fetched>
-      <title format="text/plain" language="en" script="Latn">The Arte of ASCII: Or, An True and Accurate Representation of an Menagerie of Thynges Fabulous and Wonderful in Ye Forme of Character</title>
-      <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8140.xml</uri>
-      <uri type="src">https://www.rfc-editor.org/info/rfc8140</uri>
-      <docidentifier type="IETF">RFC 8140</docidentifier>
-      <docidentifier type="rfc-anchor">RFC8140</docidentifier>
-      <docidentifier type="DOI">10.17487/RFC8140</docidentifier>
-      <date type="published">
-        <on>2017-04-01</on>
-      </date>
-      <contributor>
-        <role type="author"/>
-        <person>
-          <name>
-            <completename language="en">A. Farrel</completename>
-          </name>
-          <affiliation>
-            <organization>
-              <name>Internet Engineering Task Force</name>
-              <abbreviation>IETF</abbreviation>
-            </organization>
-          </affiliation>
-        </person>
-      </contributor>
-      <contributor>
-        <role type="publisher"/>
-        <organization>
-          <name>Internet Engineering Task Force</name>
-          <abbreviation>IETF</abbreviation>
-        </organization>
-      </contributor>
-      <language>en</language>
-      <script>Latn</script>
-      <abstract format="text/plain" language="en" script="Latn">Ever since Gutenberg discovered and patented ASCII and the corresponding "Courier New" font with its now-famous "ten" point size, artisans and artificers have striven to represent their views of the world in print.Similarly, starting from Darwin's discovery of the hippogriff and his subsequent registration of the creature as an International Trade Mark, men (and some women) have struggled to catalog the fabulous variety that is called "nature".This document supplies a number of representations of all manner of things (both elemental and hypothetical) supplied by some of our best collectors of curios and delivered in a manner that may well be reused by the cunning document author.</abstract>
-      <series type="main">
-        <title format="text/plain" language="en" script="Latn">RFC</title>
-        <number>8140</number>
-      </series>
-      <place>Fremont, CA</place>
-    </bibitem>
-  </relation>
-  <series type="stream">
-    <title>independent</title>
-  </series>
-  <series type="intended">
-    <title>info</title>
-  </series>
-  <ext>
-    <doctype>internet-draft</doctype>
   </ext>
 </bibdata></relation>
 <relation type='partOf'><bibdata type="standard">

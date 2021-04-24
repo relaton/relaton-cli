@@ -28,9 +28,9 @@ RSpec.describe "Relaton Fetch" do
       let(:io) { double "IO" }
       before (:each) do
         RSpec::Mocks.space.proxy_for(IO).reset
-        expect(IO).to receive(:new) do |arg1, arg2, &_block|
+        expect(IO).to receive(:new) do |arg1, arg2, &block|
           if arg1.is_a?(Integer) then io
-          else yield arg1, arg2
+          else block.call(arg1, arg2)
           end
         end.at_most(2).times
       end
