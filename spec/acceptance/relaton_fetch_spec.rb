@@ -37,8 +37,8 @@ RSpec.describe "Relaton Fetch" do
 
       it "calls fetch and return XML" do
         expect(io).to receive(:puts) do |arg|
-          expect(arg).to include '<docidentifier type="ISO">ISO 2146 (all parts)'\
-            "</docidentifier>"
+          expect(arg).to include '<docidentifier type="ISO">ISO 2146 '\
+            "(all parts)</docidentifier>"
         end
         VCR.use_cassette "iso_2146" do
           command = ["fetch", "--type", "iso", "ISO 2146"]
@@ -114,7 +114,7 @@ RSpec.describe "Relaton Fetch" do
         output = `relaton fetch 'ISO 2146' --type invalid`
         expect(output).to include(
           "Recognised types: BIPM, BSI, CC, CIE, CN, ECMA, IEC, IEEE, IETF, "\
-          "IHO, ISO, ITU, NIST, OGC, OMG, UN, W3C"
+          "IHO, ISO, ITU, NIST, OGC, OMG, UN, W3C",
         )
       end
     end
@@ -133,7 +133,7 @@ RSpec.describe "Relaton Fetch" do
       command = Relaton::Cli::Command.new
       # expect(command).to receive(:registered_types).and_return ["ISO"]
       expect(command.send(:fetch_document, "ISO 2146", type: "ISO")).to eq(
-        "RelatonBib::RequestError"
+        "RelatonBib::RequestError",
       )
       Relaton::Cli::RelatonDb.instance.instance_variable_set :@db, nil
     end
