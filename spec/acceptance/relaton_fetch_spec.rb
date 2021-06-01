@@ -98,7 +98,7 @@ RSpec.describe "Relaton Fetch" do
     context "fetch code with invalid/missing type" do
       it "calls supported_type_message method" do
         io = double "IO"
-        expect(io).to receive(:puts).with "Recognised types: BIPM, BSI, CC, "\
+        expect(io).to receive(:puts).with "Recognised types: BIPM, BSI, CC, CEN, "\
         "CIE, CN, ECMA, IEC, IEEE, IETF, IHO, ISO, ITU, NIST, OGC, OMG, UN, W3C"
         expect(IO).to receive(:new).with(kind_of(Integer), mode: "w:UTF-8")
           .and_return io
@@ -113,7 +113,7 @@ RSpec.describe "Relaton Fetch" do
       it "prints a warning message with suggestions for invalid type" do
         output = `relaton fetch 'ISO 2146' --type invalid`
         expect(output).to include(
-          "Recognised types: BIPM, BSI, CC, CIE, CN, ECMA, IEC, IEEE, IETF, "\
+          "Recognised types: BIPM, BSI, CC, CEN, CIE, CN, ECMA, IEC, IEEE, IETF, "\
           "IHO, ISO, ITU, NIST, OGC, OMG, UN, W3C",
         )
       end
