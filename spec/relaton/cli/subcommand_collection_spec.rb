@@ -10,7 +10,7 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
         [
           "collection", "create", file, "-d", tmp, "--title", "Title",
           "--author", "Author", "--doctype", "ISO"
-        ]
+        ],
       )
       expect(File.exist?(path)).to be true
       yaml = YAML.load_file path
@@ -39,7 +39,7 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
     }x
     expect do
       Relaton::Cli::Command.start(
-        ["collection", "info", "sample-collection.yaml", "-d", dir]
+        ["collection", "info", "sample-collection.yaml", "-d", dir],
       )
     end.to output(out).to_stdout
   end
@@ -48,7 +48,7 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
     it "collections" do
       expect do
         Relaton::Cli::Command.start(
-          ["collection", "ls", "-d", dir]
+          ["collection", "ls", "-d", dir],
         )
       end.to output("sample-collection.yaml\n").to_stdout
     end
@@ -56,7 +56,7 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
     it "entries" do
       expect do
         Relaton::Cli::Command.start(
-          ["collection", "ls", "-e", "-d", dir]
+          ["collection", "ls", "-e", "-d", dir],
         )
       end.to output(/CC 36000/).to_stdout
     end
@@ -100,7 +100,7 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
         file = "tmp/cc_34005.abb"
         expect(File).to receive(:write).with file, /id:: CC34005/, kind_of(Hash)
         Relaton::Cli::Command.start(
-          ["collection", "get", "CC 34005", "-d", dir, "-o", file]
+          ["collection", "get", "CC 34005", "-d", dir, "-o", file],
         )
       end
 
@@ -110,7 +110,7 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
           file, /<docidentifier type="CC">CC 34005/, kind_of(Hash)
         )
         Relaton::Cli::Command.start(
-          ["collection", "get", "CC 34005", "-d", dir, "-o", file]
+          ["collection", "get", "CC 34005", "-d", dir, "-o", file],
         )
       end
     end
@@ -142,7 +142,7 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
       dir = "spec/fixtures"
       coll = "sample-collection.yaml"
       file = File.join dir, coll
-      expect(File).to receive(:write).with file, /CC\/DIR\s10005/, kind_of(Hash)
+      expect(File).to receive(:write).with(file, /CC\/DIR\s10005/, kind_of(Hash)).at_most :once
       expect(File).to receive(:write).and_call_original.at_most(5).times
       expect(File).to receive(:exist?).with(/etag\.txt/).and_return false
       expect(File).to receive(:exist?).with(/bibliography\.yml/).and_return false
@@ -160,9 +160,9 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
   it "export collection" do
     dir = "spec/fixtures"
     file = "sample-collection.yaml"
-    outfile = file.sub(/\.\w+$/, "") + ".xml"
+    outfile = "#{file.sub(/\.\w+$/, '')}.xml"
     expect(File).to receive(:write).with(
-      outfile, /<docidentifier type=\"CC\">CC\s36000<\/docidentifier>/,
+      outfile, /<docidentifier type="CC">CC\s36000<\/docidentifier>/,
       kind_of(Hash)
     )
     Relaton::Cli::Command.start ["collection", "export", file, "-d", dir]

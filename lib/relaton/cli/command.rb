@@ -26,7 +26,7 @@ module Relaton
         "retries. Default 1."
 
       def fetch(code)
-        io = IO.new(STDOUT.fcntl(::Fcntl::F_DUPFD), mode: "w:UTF-8")
+        io = IO.new($stdout.fcntl(::Fcntl::F_DUPFD), mode: "w:UTF-8")
         io.puts(fetch_document(code, options) || supported_type_message)
       end
 
@@ -137,7 +137,7 @@ module Relaton
               when "asciibib" then "adoc"
               else options[:format]
               end
-        output = options[:output] || file.sub(/(?<=\.)[^\.]+$/, ext)
+        output = options[:output] || file.sub(/(?<=\.)[^.]+$/, ext)
         File.write output, result, encoding: "UTF-8"
       end
 
