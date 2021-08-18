@@ -310,38 +310,38 @@ Import document or collection from XML `FILE` into `COLLECTION`.
 * `COLLECTION` is optional. If collection doesn't exist then it will be created.
 * `DIRECTORY` is optional, and specifies path to a directory with collections. Default is `$HOME/.relaton/collections`.
 
-=== Cache DB manipulation
+=== Dadabase manipulation
 
-==== Create cache DB
+==== Create database
 
 ----
 $ relaton db create DIR
 ----
 
-Creates a new cache DB in a directory `DIR` (optional, deafult is `/home/USER/.relaton/dbpath`). In case the target directory exists it will be used as a cache DB.
+Creates a new database in a directory `DIR` (optional, deafult is `/home/USER/.relaton/dbpath`). In case the target directory exists it will be used as a database.
 
 ----
 $ relaton db create
-Cache DB is in "/Users/user/.relaton/cache"
+Database is in "/Users/user/.relaton/cache"
 
 $ relaton db create cachedb
-Cache DB is in "/Users/user/RubyProjects/relaton-cli/cachedb"
+Database is in "/Users/user/RubyProjects/relaton-cli/cachedb"
 ----
 
-==== Move cache DB
+==== Move database
 
 ----
 $ relaton db mv DIR
 ----
 
-Move cache DB to another place `DIR`.
+Move database to another place `DIR`.
 
 ----
 $ relaton db mv cache_dir
-Cache DB is moved to "/Users/user/RubyProjects/relaton-cli/cache_dir"
+Database is moved to "/Users/user/RubyProjects/relaton-cli/cache_dir"
 ----
 
-==== Clear cache DB
+==== Clear database
 
 Delete all entries from a chache DB.
 
@@ -349,13 +349,13 @@ Delete all entries from a chache DB.
 $ relaton db clear
 ----
 
-==== Fetch from cache DB
+==== Fetch from database
 
 ----
 $ relaton db fetch -t TYPE -f FORMAT -y YEAR
 ----
 
-Fetch an entry from a cache DB. See [relaton fetch](#relaton-fetch) for the arguments explanation.
+Fetch an entry from a database. See [relaton fetch](#relaton-fetch) for the arguments explanation.
 
 ==== Fetch all
 
