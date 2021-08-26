@@ -37,8 +37,8 @@ RSpec.describe "Relaton Fetch" do
 
       it "calls fetch and return XML" do
         expect(io).to receive(:puts) do |arg|
-          expect(arg).to include '<docidentifier type="ISO">ISO 2146 '\
-            "(all parts)</docidentifier>"
+          expect(arg).to include '<docidentifier type="ISO">ISO 2146'\
+                                 ":2010</docidentifier>"
         end
         VCR.use_cassette "iso_2146" do
           command = ["fetch", "--type", "iso", "ISO 2146"]
@@ -48,7 +48,7 @@ RSpec.describe "Relaton Fetch" do
 
       it "calls fetch and return YAML" do
         expect(io).to receive(:puts) do |arg|
-          expect(arg).to include "- id: ISO 2146 (all parts)"
+          expect(arg).to include "- id: ISO 2146:2010"
         end
         VCR.use_cassette "iso_2146" do
           command = ["fetch", "--type", "iso", "--format", "yaml", "ISO 2146"]
@@ -58,7 +58,7 @@ RSpec.describe "Relaton Fetch" do
 
       it "calls fetch and return BibTex" do
         expect(io).to receive(:puts) do |arg|
-          expect(arg).to include "@misc{ISO2146(allparts)"
+          expect(arg).to include "@misc{ISO2146-2010,"
         end
         VCR.use_cassette "iso_2146" do
           command = ["fetch", "--type", "iso", "--format", "bibtex", "ISO 2146"]
@@ -77,7 +77,7 @@ RSpec.describe "Relaton Fetch" do
 
       it "prints out the document in BibTeX format" do
         output = `relaton fetch --format bibtex --type ISO 'ISO 2146'`
-        expect(output).to include("@misc{ISO2146(allparts),")
+        expect(output).to include("@misc{ISO2146-2010,")
       end
     end
 

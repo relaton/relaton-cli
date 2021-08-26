@@ -14,14 +14,14 @@ module Relaton
 
       desc "fetch CODE", "Fetch Relaton XML for Standard identifier CODE"
       option :type, aliases: :t, desc: "Type of standard to "\
-        "get bibliographic entry for"
+                                       "get bibliographic entry for"
       option :format, aliases: :f, desc: "Output format (xml, yaml, bibtex). "\
-        "Default xml."
+                                         "Default xml."
       option :year, aliases: :y, type: :numeric, desc: "Year the standard was "\
-        "published"
+                                                       "published"
       option :"all-parts", type: :boolean, desc: "Fetch all parts"
       option :"keep-year", type: :boolean, desc: "Undated reference should "\
-        "return actual reference with year"
+                                                 "return actual reference with year"
       option :retries, aliases: :r, type: :numeric, desc: "Number of network "\
         "retries. Default 1."
 
@@ -43,7 +43,7 @@ module Relaton
         "DIRECTORY (containing Relaton-XML or YAML) into a Relaton Collection"
       option :title, aliases: :t,  desc: "Title of resulting Relaton collection"
       option :organization, aliases: :g, desc: "Organization owner of Relaton "\
-        "collection"
+                                               "collection"
       option :extension, aliases: :x, desc: "File extension of destination "\
         "Relaton file, defaults to 'rxl'"
 
@@ -61,15 +61,15 @@ module Relaton
       end
 
       desc "yaml2xml YAML", "Convert Relaton YAML into Relaton Collection XML "\
-        "or separate files"
+                            "or separate files"
       option :extension, aliases: :x, default: "rxl", desc: "File extension "\
         "of Relaton XML files, defaults to 'rxl'"
       option :prefix, aliases: :p, desc: "Filename prefix of individual "\
-        "Relaton XML files, defaults to empty"
+                                         "Relaton XML files, defaults to empty"
       option :outdir, aliases: :o, desc: "Output to the specified directory "\
         "with individual Relaton Bibdata XML files"
       option :require, aliases: :r, type: :array, desc: "Require LIBRARY "\
-        "prior to execution"
+                                                        "prior to execution"
       option :overwrite, aliases: :f, type: :boolean, default: false,
                          desc: "Overwrite the existing file"
 
@@ -78,15 +78,15 @@ module Relaton
       end
 
       desc "xml2yaml XML", "Convert Relaton XML into Relaton Bibdata / "\
-        "Bibcollection YAML (and separate files)"
+                           "Bibcollection YAML (and separate files)"
       option :extension, aliases: :x, default: "yaml", desc: "File extension "\
         "of Relaton YAML files, defaults to 'yaml'"
       option :prefix, aliases: :p, desc: "Filename prefix of Relaton XML "\
-        "files, defaults to empty"
+                                         "files, defaults to empty"
       option :outdir, aliases: :o, desc: "Output to the specified directory "\
-        "with individual Relaton Bibdata YAML files"
+                                         "with individual Relaton Bibdata YAML files"
       option :require, aliases: :r, type: :array, desc: "Require LIBRARY "\
-        "prior to execution"
+                                                        "prior to execution"
       option :overwrite, aliases: :f, type: :boolean, default: false,
                          desc: "Overwrite the existing file"
 
@@ -95,9 +95,9 @@ module Relaton
       end
 
       desc "xml2html RELATON-INDEX-XML", "Convert Relaton Collection XML into "\
-        "HTML"
+                                         "HTML"
       option :stylesheet, aliases: :s, desc: "Stylesheet file path for "\
-        "rendering HTML index"
+                                             "rendering HTML index"
       option :templatedir, aliases: :t, desc: "Liquid template directory for "\
         "rendering Relaton items and collection"
       option :overwrite, aliases: :f, type: :boolean, default: false,
@@ -108,9 +108,9 @@ module Relaton
       end
 
       desc "yaml2html RELATON-INDEX-YAML", "Concatenate Relaton Collection "\
-        "YAML into HTML"
+                                           "YAML into HTML"
       option :stylesheet, aliases: :s, desc: "Stylesheet file path for "\
-        "rendering HTML index"
+                                             "rendering HTML index"
       option :templatedir, aliases: :t, desc: "Liquid template directory for "\
         "rendering Relaton items and collection"
       option :overwrite, aliases: :f, type: :boolean, default: false,
