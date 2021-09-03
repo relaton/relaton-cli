@@ -1,8 +1,9 @@
 RSpec.describe "Relaton fetch-data" do
   it "send fetch-data message to DataFetcher" do
-    expect(Relaton::Cli::DataFetcher).to receive(:fetch)
+    ri = Relaton::Registry.instance
+    expect(RelatonNist::DataFetcher).to receive(:fetch).with(output: "dir", format: "xml")
       .with "dataset", output: "dir", format: "xml"
-    command = %w[fetch-data dataset -o dir -f xml]
+    command = %w[fetch-data nist-tech-pubs -o dir -f xml]
     Relaton::Cli.start command
   end
 end
