@@ -1,6 +1,7 @@
 require "relaton/cli/relaton_file"
 require "relaton/cli/xml_convertor"
 require "relaton/cli/yaml_convertor"
+require "relaton/cli/data_fetcher"
 require "relaton/cli/subcommand_collection"
 require "relaton/cli/subcommand_db"
 require "fcntl"
@@ -139,6 +140,14 @@ module Relaton
               end
         output = options[:output] || file.sub(/(?<=\.)[^.]+$/, ext)
         File.write output, result, encoding: "UTF-8"
+      end
+
+      desc "fetch-data SOURCE", "Fetch all the documents from a source"
+      option :output, aliases: :o, desc: "Output dir. Default: ./data/"
+      option :format, aliases: :f, desc: "Output format (yaml, xml). Default: yaml"
+
+      def fetch_data(source)
+        DataFetcher.fetch source, options
       end
 
       desc "collection SUBCOMMAND", "Collection manipulations"

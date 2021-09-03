@@ -54,7 +54,23 @@ Fetch the Relaton XML entry corresponding to the document identifier `CODE`.
 * `--all-parts` fetch all parts.
 * `--keep-year` undated reference should return actual reference with year.
 
-=== relaton extract
+=== relaton fetch-data
+
+[source,console]
+----
+$ relaton fetch-data DATASET -o DIR -f FORMAT
+----
+
+Fetch all the documents from a `DATASET` source and save them to a folder `DIR` in format `FORMAT`.
+
+Foloowing datasets are availabe:
+
+* `nist-tech-pubs` - https://raw.githubusercontent.com/usnistgov/NIST-Tech-Pubs/nist-pages/xml/allrecords.xml
+
+Options:
+
+* `DIR` - floder name to store documents (default `./data`).
+* `FORMAT` - format in which the documents are saved. Possimle formats are: `yaml`, `xml` (default `yaml`).
 
 [source,console]
 ----
