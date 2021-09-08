@@ -66,6 +66,7 @@ Fetch all the documents from a `DATASET` source and save them to a folder `DIR` 
 Foloowing datasets are availabe:
 
 * `nist-tech-pubs` - https://raw.githubusercontent.com/usnistgov/NIST-Tech-Pubs/nist-pages/xml/allrecords.xml
+* `cie-techstreet` - https://standards.cencenelec.eu
 
 Options:
 
