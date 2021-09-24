@@ -76,6 +76,8 @@ Options:
 * `DIR` - floder name to store documents (default `./data`).
 * `FORMAT` - format in which the documents are saved. Possimle formats are: `yaml`, `xml` (default `yaml`).
 
+=== relaton extract
+
 [source,console]
 ----
 $ relaton extract Metanorma-XML-Directory Relaton-XML-Directory -x EXTENSION
