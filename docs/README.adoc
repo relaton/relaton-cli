@@ -68,6 +68,8 @@ Foloowing datasets are availabe:
 * `nist-tech-pubs` - https://raw.githubusercontent.com/usnistgov/NIST-Tech-Pubs/nist-pages/xml/allrecords.xml
 * `cie-techstreet` - https://www.techstreet.com/cie/searches/31156444
 * `calconnect-org` - https://standards.calconnect.org/relaton/index.yaml
+* `ogc-naming-authority` - https://raw.githubusercontent.com/opengeospatial/NamingAuthority/master/incubation/bibliography/bibliography.json
+* `ieee-rawbib` - looks for the IEEE dataset in local `./ieee-rawbib` directory. The dataset could be downloaded from https://github.com/ietf-ribose/ieee-rawbib repository
 
 Options:
 
