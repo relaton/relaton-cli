@@ -74,7 +74,7 @@ Foloowing datasets are availabe:
 Options:
 
 * `DIR` - floder name to store documents (default `./data`).
-* `FORMAT` - format in which the documents are saved. Possimle formats are: `yaml`, `xml` (default `yaml`).
+* `FORMAT` - format in which the documents are saved. Possimle formats are: `yaml`, `xml`, `bibxml` (default `yaml`).
 
 === relaton extract
 

@@ -144,7 +144,7 @@ module Relaton
 
       desc "fetch-data SOURCE", "Fetch all the documents from a source"
       option :output, aliases: :o, desc: "Output dir. Default: ./data/"
-      option :format, aliases: :f, desc: "Output format (yaml, xml). Default: yaml"
+      option :format, aliases: :f, desc: "Output format (yaml, xml, bibxml). Default: yaml"
 
       def fetch_data(source)
         DataFetcher.fetch source, options
