@@ -49,7 +49,7 @@ Fetch the Relaton XML entry corresponding to the document identifier `CODE`.
 
 * `YEAR` is optional, and specifies the year of publication of the standard.
 * `FORMAT` is optional, and specifies the output format; the recognised values for `FORMAT` are `xml` (default), yaml, `bibtex`.
-* `TYPE` is optional, specifies the standards class library to be used, that the identifier is part of. The recognised values for `TYPE` are `BIPM`, `CC`, `CIE`, `CN`, `ECMA`, `IEC`, `IEEE`, `IETF`, `IHO`, `ISO`, `ITU`, `NIST`, `OGC`, `OMG`, `UN`, `W3C`.
+* `TYPE` is optional, specifies the standards class library to be used, that the identifier is part of. The recognised values for `TYPE` are `3GPP, BIPM, BSI, CC, CEN, CIE, CN, ECMA, IANA, IEC, IEEE, IETF, IHO, ISO, ITU, NIST, OGC, OMG, UN, W3C`.
 * `RETRIES` is optional, number of network retries (default 1).
 * `--all-parts` fetch all parts.
 * `--keep-year` undated reference should return actual reference with year.
@@ -72,6 +72,7 @@ Foloowing datasets are availabe:
 * `ieee-rawbib` - looks for the IEEE dataset in local `./ieee-rawbib` directory. The dataset could be downloaded from https://github.com/ietf-ribose/ieee-rawbib repository
 * `w3c-rdf` - http://www.w3.org/2002/01/tr-automation/tr.rdf
 * `iana-registries` - https://github.com/ietf-ribose/iana-registries
+* `status-smg-3GPP` - ftp://www.3gpp.org/Information/Databases/Spec_Status/
 
 Options:
 

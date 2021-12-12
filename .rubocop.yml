@@ -2,6 +2,8 @@
 # https://github.com/riboseinc/oss-guides
 # All project-specific additions and overrides should be specified in this file.
 
+require: rubocop-rails
+
 inherit_from:
   - https://raw.githubusercontent.com/riboseinc/oss-guides/master/ci/rubocop.yml
 AllCops:
