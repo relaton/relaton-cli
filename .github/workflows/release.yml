@@ -35,7 +35,7 @@ jobs:
 
       - name: publish to rubygems.org
         env:
-          RUBYGEMS_API_KEY: ${{secrets.METANORMA_CI_RUBYGEMS_API_KEY}}
+          RUBYGEMS_API_KEY: ${{secrets.RELATON_CI_RUBYGEMS_API_KEY}}
         run: |
           envsubst << 'EOF' > ~/.gem/credentials
           ---
