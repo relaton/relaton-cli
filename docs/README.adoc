@@ -73,9 +73,9 @@ Foloowing datasets are availabe:
 * `w3c-rdf` - http://www.w3.org/2002/01/tr-automation/tr.rdf
 * `iana-registries` - https://github.com/ietf-ribose/iana-registries
 * `status-smg-3GPP` - ftp://www.3gpp.org/Information/Databases/Spec_Status/
-* `ietf-rfcsubseries` - https://www.rfc-editor.org/rfc-index.xml (only in special XML https://github.com/relaton/relaton-ietf#fetch-data[format])
+* `ietf-rfcsubseries` - https://www.rfc-editor.org/rfc-index.xml (`<bcp-entry>`, `<fyi-entry>`, `<std-entry>`)
 * `ietf-internet-drafts` - https://www.ietf.org/lib/dt/sprint/bibxml-ids.tgz
-* `ietf-rfc-entries` - https://www.rfc-editor.org/rfc-index.xml
+* `ietf-rfc-entries` - https://www.rfc-editor.org/rfc-index.xml (`<rfc-entry>`)
 
 Options:
 
