@@ -117,8 +117,8 @@ module Relaton
           if (bib = xml.at("//bibdata"))
             bib = nokogiri_document(bib.to_xml)
           elsif (rfc = xml.at("//rfc"))
-            require "relaton_ietf/scrapper"
-            ietf = RelatonIetf::Scrapper.fetch_rfc rfc
+            require "relaton_ietf/bibxml_parser"
+            ietf = RelatonIetf::BibXMLParser.fetch_rfc rfc
             bib = nokogiri_document ietf.to_xml(bibdata: true)
           else
             next
@@ -142,8 +142,8 @@ module Relaton
         xml_files.flatten.reduce([]) do |mem, xml|
           doc = nokogiri_document(xml[:content])
           if (rfc = doc.at("/rfc"))
-            require "relaton_ietf/scrapper"
-            ietf = RelatonIetf::Scrapper.fetch_rfc rfc
+            require "relaton_ietf/bibxml_parser"
+            ietf = RelatonIetf::BibXMLParser.fetch_rfc rfc
             d = nokogiri_document ietf.to_xml(bibdata: true)
             mem << bibdata_instance(d, xml[:file])
           elsif %w[bibitem bibdata].include? doc&.root&.name

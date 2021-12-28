@@ -23,8 +23,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
       it "extracts XML in output directory with provided extension" do
         Relaton::Cli::RelatonFile.extract(
           "spec/assets/metanorma-xml",
-          "./tmp/output",
-          extension: "rxml"
+          "./tmp/output", extension: "rxml"
         )
 
         expect(file_exist?("a.rxl")).to be false
@@ -38,8 +37,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
       it "extracts the XML in the output directory" do
         Relaton::Cli::RelatonFile.extract(
           "spec/assets/metanorma-xml/a.xml",
-          "./tmp/output",
-          extension: "rxl"
+          "./tmp/output", extension: "rxl"
         )
 
         content = File.read("./tmp/output/a.rxl")
@@ -52,8 +50,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
       it "extracts the RFC in the output directory" do
         Relaton::Cli::RelatonFile.extract(
           "spec/fixtures/draft-celi-acvp-sha-00.xml",
-          "./tmp/output",
-          extension: "rxl"
+          "./tmp/output", extension: "rxl"
         )
 
         content = File.read("./tmp/output/draft-celi-acvp-sha-00.rxl")
@@ -68,7 +65,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
           "spec/fixtures/antioch.xml", "./tmp/output", extension: "rxl"
         )
         expect(File.read("./tmp/output/antioch.rxl")).to include(
-          "<docnumber>draft-camelot-holy-grenade-01</docnumber>"
+          "<docnumber>draft-camelot-holy-grenade-01</docnumber>",
         )
       end
     end
@@ -78,9 +75,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
     context "with YAML & RXL files in source directory" do
       it "combines both type of files into a collection" do
         Relaton::Cli::RelatonFile.concatenate(
-          "spec/fixtures",
-          "./tmp/concatenate.yml",
-          extension: "yml"
+          "spec/fixtures", "./tmp/concatenate.yml", extension: "yml"
         )
 
         hashdoc = YAML.load_file("./tmp/concatenate.yml")
@@ -98,10 +93,8 @@ RSpec.describe Relaton::Cli::RelatonFile do
     context "with YAML, RXL files and custom options" do
       it "combines both type of files and usages the options" do
         Relaton::Cli::RelatonFile.concatenate(
-          "spec/fixtures",
-          "./tmp/concatenate.yml",
-          title: "collection title",
-          organization: "Ribose Inc",
+          "spec/fixtures", "./tmp/concatenate.yml",
+          title: "collection title", organization: "Ribose Inc",
           extension: "yml"
         )
 
@@ -114,10 +107,8 @@ RSpec.describe Relaton::Cli::RelatonFile do
 
       it "uses the new Relaton XML format" do
         Relaton::Cli::RelatonFile.concatenate(
-          "spec/fixtures",
-          "./tmp/concatenate.yml",
-          title: "collection title",
-          organization: "Ribose Inc",
+          "spec/fixtures", "./tmp/concatenate.yml",
+          title: "collection title", organization: "Ribose Inc",
           extension: "yml"
         )
 
@@ -133,10 +124,8 @@ RSpec.describe Relaton::Cli::RelatonFile do
       it "with IETF sample files" do
         file = "spec/fixtures/ietf_index.rxl"
         Relaton::Cli::RelatonFile.concatenate(
-          "spec/fixtures/documents",
-          file,
-          title: "Collection title",
-          organization: "Ribose",
+          "spec/fixtures/documents", file,
+          title: "Collection title", organization: "Ribose",
           extension: "rxl"
         )
 
@@ -154,9 +143,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
         create_fixture_files("sample", file_types)
 
         Relaton::Cli::RelatonFile.concatenate(
-          "spec/fixtures",
-          "./tmp/concatenate.yml",
-          extension: "yml"
+          "spec/fixtures", "./tmp/concatenate.yml", extension: "yml"
         )
 
         cleanup_fixture_files("sample", file_types)

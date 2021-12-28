@@ -364,10 +364,10 @@
   </ext>
 </bibdata></relation>
 <relation type='partOf'><bibdata type="standard">
-  <fetched>2021-12-19</fetched>
+  <fetched>2021-12-28</fetched>
   <title format="text/plain" language="en" script="Latn">The Holy Hand Grenade of Antioch</title>
   <uri type="xml">spec/fixtures/documents/antioch.rfc.xml</uri>
-  <docidentifier type="IETF">draft-camelot-holy-grenade-01</docidentifier>
+  <docidentifier type="IETF" scope="docName">draft-camelot-holy-grenade-01</docidentifier>
   <docidentifier type="Internet-Draft">draft-camelot-holy-grenade-01</docidentifier>
   <contributor>
     <role type="publisher"/>
@@ -393,14 +393,7 @@
   <language>en</language>
   <script>Latn</script>
   <abstract format="text/html" language="en" script="Latn">
-    <t anchor="_b4b63ef5-a374-41d2-9ea3-9d77e05aa3a4">The menagerie of beasts and artefacts depicted in RFC8140
-may be usefully supplemented by other renowned figures of
-Internet and more general lore. This document extends the
-menagerie to the seminal fable of the
-"Holy Hand Grenade of Antioch", as depicted in the
-Monty Python film "Monty Python and the Holy Grail",
-as well as "Spamalot", the musical inspired by the movie.
-</t>
+    <t anchor="_b4b63ef5-a374-41d2-9ea3-9d77e05aa3a4">The menagerie of beasts and artefacts depicted in RFC8140 may be usefully supplemented by other renowned figures of Internet and more general lore. This document extends the menagerie to the seminal fable of the "Holy Hand Grenade of Antioch", as depicted in the Monty Python film "Monty Python and the Holy Grail", as well as "Spamalot", the musical inspired by the movie.</t>
   </abstract>
   <place>Fremont, CA</place>
   <ext>
@@ -408,10 +401,10 @@ as well as "Spamalot", the musical inspired by the movie.
   </ext>
 </bibdata></relation>
 <relation type='partOf'><bibdata type="standard">
-  <fetched>2021-12-19</fetched>
+  <fetched>2021-12-28</fetched>
   <title format="text/plain" language="en" script="Latn">RFC XML v3 Example: A Standard for the Transmission of IP Datagrams on Avian Carriers</title>
   <uri type="xml">spec/fixtures/documents/example.rfc.xml</uri>
-  <docidentifier type="IETF">1149</docidentifier>
+  <docidentifier type="IETF" scope="number">1149</docidentifier>
   <contributor>
     <role type="publisher"/>
     <organization>
@@ -454,18 +447,7 @@ as well as "Spamalot", the musical inspired by the movie.
   <language>en</language>
   <script>Latn</script>
   <abstract format="text/html" language="en" script="Latn">
-    <t anchor="_af6b0e6b-ae5b-46c6-8d6d-a694e985db67">Avian carriers can provide high delay, low throughput, and low
-altitude service.  The connection topology is limited to a single
-point-to-point path for each carrier, used with standard carriers,
-but many carriers can be used without significant interference with
-each other, outside of early spring.  This is because of the 3D ether
-space available to the carriers, in contrast to the 1D ether used by
-IEEE802.3.  The carriers have an intrinsic collision avoidance
-system, which increases availability.  Unlike some network
-technologies, such as packet radio, communication is not limited to
-line-of-sight distance.  Connection oriented service is available in
-some cities, usually based upon a central hub topology.
-</t>
+    <t anchor="_af6b0e6b-ae5b-46c6-8d6d-a694e985db67">Avian carriers can provide high delay, low throughput, and low altitude service. The connection topology is limited to a single point-to-point path for each carrier, used with standard carriers, but many carriers can be used without significant interference with each other, outside of early spring. This is because of the 3D ether space available to the carriers, in contrast to the 1D ether used by IEEE802.3. The carriers have an intrinsic collision avoidance system, which increases availability. Unlike some network technologies, such as packet radio, communication is not limited to line-of-sight distance. Connection oriented service is available in some cities, usually based upon a central hub topology.</t>
   </abstract>
   <place>Fremont, CA</place>
   <ext>
