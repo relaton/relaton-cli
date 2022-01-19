@@ -74,7 +74,7 @@ Foloowing datasets are availabe:
 * `iana-registries` - https://github.com/ietf-ribose/iana-registries
 * `status-smg-3GPP` - ftp://www.3gpp.org/Information/Databases/Spec_Status/
 * `ietf-rfcsubseries` - https://www.rfc-editor.org/rfc-index.xml (`<bcp-entry>`, `<fyi-entry>`, `<std-entry>`)
-* `ietf-internet-drafts` - https://www.ietf.org/lib/dt/sprint/bibxml-ids.tgz
+* `ietf-internet-drafts` - looks for the Internet-Drafts dataset in local `./bibxml-ids` directory. The dataset could be downloaded using `rsync -avcizxL rsync.ietf.org::bibxml-ids ./bibxml-ids` command.
 * `ietf-rfc-entries` - https://www.rfc-editor.org/rfc-index.xml (`<rfc-entry>`)
 
 Options:

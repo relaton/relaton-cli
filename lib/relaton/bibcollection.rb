@@ -6,7 +6,7 @@ module Relaton
 
     ATTRIBS = %i[title items doctype author].freeze
 
-    attr_accessor *ATTRIBS
+    attr_accessor(*ATTRIBS)
 
     # @param options [Hash]
     def initialize(options)

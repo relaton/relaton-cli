@@ -84,8 +84,8 @@ RSpec.describe Relaton::Cli::RelatonFile do
         expect(hashdoc["root"]["author"]).to be_nil
 
         items = hashdoc["root"]["items"]
-        expect(items[0]["docid"]["id"]).to eq("CC 18001")
-        expect(items[1]["docid"]["id"]).to eq("CC 36000")
+        expect(items[0]["docid"][0]["id"]).to eq("CC 18001")
+        expect(items[1]["docid"][0]["id"]).to eq("CC 36000")
         expect(items[2]["xml"]).not_to eq("spec/fixtures/sample-collection")
       end
     end
@@ -102,7 +102,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
 
         expect(hashdoc["root"]["title"]).to eq("collection title")
         expect(hashdoc["root"]["author"]).to eq("Ribose Inc")
-        expect(hashdoc["root"]["items"][1]["docid"]["id"]).to eq("CC 36000")
+        expect(hashdoc["root"]["items"][1]["docid"][0]["id"]).to eq("CC 36000")
       end
 
       it "uses the new Relaton XML format" do
@@ -117,8 +117,8 @@ RSpec.describe Relaton::Cli::RelatonFile do
 
         expect(hashdoc["root"]["title"]).to eq("collection title")
         expect(hashdoc["root"]["author"]).to eq("Ribose Inc")
-        expect(items[3]["docid"]["id"]).to eq("CC 36000")
-        expect(items[3]["docid"]["type"]).to eq("CC")
+        expect(items[3]["docid"][0]["id"]).to eq("CC 36000")
+        expect(items[3]["docid"][0]["type"]).to eq("CC")
       end
 
       it "with IETF sample files" do
@@ -153,7 +153,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
         expect(hashdoc["root"]["title"]).to be_nil
         expect(hashdoc["root"]["author"]).to be_nil
 
-        expect(items[0]["docid"]["id"]).to eq("CC 18001")
+        expect(items[0]["docid"][0]["id"]).to eq("CC 18001")
         expect(items[0]["link"].detect { |l| l["type"] == "xml" }["content"]).to eq("spec/fixtures/sample.xml")
         expect(items[0]["link"].detect { |l| l["type"] == "pdf" }["content"]).to eq("spec/fixtures/sample.pdf")
         expect(items[0]["link"].detect { |l| l["type"] == "doc" }["content"]).to eq("spec/fixtures/sample.doc")
@@ -190,7 +190,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
         expect(file_exist?("cc-34000.yaml")).to be true
         expect(Dir["#{output_dir}/**"].length).to eq(6)
         expect(content).to include("id: CC34000")
-        expect(content).to include("title: Date and time -- Concepts and vocabulary")
+        expect(content).to include("title:\n- Date and time -- Concepts and vocabulary")
       end
 
       it "split the relaton collection into default dir" do
@@ -203,7 +203,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
         expect(File.exist?("#{output_dir}/cc-34000.yaml")).to be true
         expect(Dir["#{output_dir}/**"].length).to eq(6)
         expect(content).to include("id: CC34000")
-        expect(content).to include("title: Date and time -- Concepts and vocabulary")
+        expect(content).to include("title:\n- Date and time -- Concepts and vocabulary")
         FileUtils.rm_rf output_dir
       end
     end
