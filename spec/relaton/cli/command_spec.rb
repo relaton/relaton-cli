@@ -40,7 +40,8 @@ RSpec.describe Relaton::Cli::Command do
       expect(arg).to eq "ISO 2146"
       bib
     end
-    expect(db).to receive(:fetch).with("ISO 2146", nil, verbose: true)
+    opts = Thor::CoreExt::HashWithIndifferentAccess.new verbose: true
+    expect(db).to receive(:fetch).with("ISO 2146", nil, opts)
     expect(Relaton::Cli).to receive(:relaton).and_return(db).twice
     Relaton::Cli.start ["fetch", "ISO 2146"]
     expect(Relaton.configuration.logs).to eq %i[info error]

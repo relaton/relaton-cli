@@ -69,7 +69,8 @@ RSpec.describe Relaton::Cli::SubcommandDb do
     it "fetch code from cache DB" do
       out = '<bibitem id="ISO2146"></bibitem>'
       bib = double "BibItem", to_xml: out
-      expect(db).to receive(:fetch).with("ISO 2146", nil, fetch_db: true)
+      opts = Thor::CoreExt::HashWithIndifferentAccess.new fetch_db: true
+      expect(db).to receive(:fetch).with("ISO 2146", nil, opts)
         .and_return bib
       expect(IO).to receive(:new).and_return io
       expect(io).to receive(:puts).with out

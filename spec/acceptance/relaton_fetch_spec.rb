@@ -6,8 +6,8 @@ RSpec.describe "Relaton Fetch" do
   describe "relaton fetch" do
     it "calls fetch" do
       db = double
-      expect(db).to receive(:fetch_std)
-        .with("ISO 2146", nil, :relaton_iso, type: "ISO")
+      opts = Thor::CoreExt::HashWithIndifferentAccess.new type: "ISO"
+      expect(db).to receive(:fetch_std).with "ISO 2146", nil, :relaton_iso, opts
       expect(Relaton::Cli).to receive(:relaton).and_return(db)
 
       command = ["fetch", "--type", "ISO", "ISO 2146"]
@@ -16,8 +16,8 @@ RSpec.describe "Relaton Fetch" do
 
     it "calls fetch with lowercase type" do
       db = double
-      expect(db).to receive(:fetch_std)
-        .with("ISO 2146", nil, :relaton_iso, type: "iso")
+      opts = Thor::CoreExt::HashWithIndifferentAccess.new type: "iso"
+      expect(db).to receive(:fetch_std).with "ISO 2146", nil, :relaton_iso, opts
       expect(Relaton::Cli).to receive(:relaton).and_return(db)
 
       command = ["fetch", "--type", "iso", "ISO 2146"]

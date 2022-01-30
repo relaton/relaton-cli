@@ -364,7 +364,7 @@
   </ext>
 </bibdata></relation>
 <relation type='partOf'><bibdata type="standard">
-  <fetched>2022-01-19</fetched>
+  <fetched>2022-01-30</fetched>
   <title format="text/plain" language="en" script="Latn">The Holy Hand Grenade of Antioch</title>
   <uri type="xml">spec/fixtures/documents/antioch.rfc.xml</uri>
   <docidentifier type="IETF">draft-camelot-holy-grenade-01</docidentifier>
@@ -402,7 +402,7 @@
   </ext>
 </bibdata></relation>
 <relation type='partOf'><bibdata type="standard">
-  <fetched>2022-01-19</fetched>
+  <fetched>2022-01-30</fetched>
   <title format="text/plain" language="en" script="Latn">RFC XML v3 Example: A Standard for the Transmission of IP Datagrams on Avian Carriers</title>
   <uri type="xml">spec/fixtures/documents/example.rfc.xml</uri>
   <docidentifier type="IETF">1149</docidentifier>
