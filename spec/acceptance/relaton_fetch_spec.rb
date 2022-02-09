@@ -37,8 +37,8 @@ RSpec.describe "Relaton Fetch" do
 
       it "calls fetch and return XML" do
         expect(io).to receive(:puts) do |arg|
-          expect(arg).to include '<docidentifier type="ISO">ISO 2146'\
-                                 ":2010</docidentifier>"
+          expect(arg).to include '<docidentifier type="ISO" primary="true">'\
+                                 "ISO 2146:2010</docidentifier>"
         end
         VCR.use_cassette "iso_2146" do
           command = ["fetch", "--type", "iso", "ISO 2146"]
@@ -72,7 +72,7 @@ RSpec.describe "Relaton Fetch" do
         output = `relaton fetch --type ISO 'ISO 2146'`
 
         expect(output).to include('<relation type="obsoletes">')
-        expect(output).to include('<docidentifier type="ISO">ISO 2146')
+        expect(output).to include('<docidentifier type="ISO" primary="true">ISO 2146')
       end
 
       it "prints out the document in BibTeX format" do
@@ -86,7 +86,7 @@ RSpec.describe "Relaton Fetch" do
         output = `relaton fetch -t ISO -y 2010 'ISO 2146'`
 
         expect(output).to include('<relation type="obsoletes">')
-        expect(output).to include('<docidentifier type="ISO">ISO 2146')
+        expect(output).to include('<docidentifier type="ISO" primary="true">ISO 2146')
       end
 
       it "prints out a warning messages for wrong date" do
