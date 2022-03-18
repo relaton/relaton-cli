@@ -36,7 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "webmock"
 
   spec.add_runtime_dependency "liquid", "~> 4"
-  spec.add_runtime_dependency "relaton", "~> 1.10.1"
+  spec.add_runtime_dependency "relaton", "~> 1.10.3"
   spec.add_runtime_dependency "thor"
   spec.add_runtime_dependency "thor-hollaback"
 end

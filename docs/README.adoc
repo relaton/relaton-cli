@@ -76,6 +76,7 @@ Foloowing datasets are availabe:
 * `ietf-rfcsubseries` - https://www.rfc-editor.org/rfc-index.xml (`<bcp-entry>`, `<fyi-entry>`, `<std-entry>`)
 * `ietf-internet-drafts` - looks for the Internet-Drafts dataset in local `./bibxml-ids` directory. The dataset could be downloaded using `rsync -avcizxL rsync.ietf.org::bibxml-ids ./bibxml-ids` command.
 * `ietf-rfc-entries` - https://www.rfc-editor.org/rfc-index.xml (`<rfc-entry>`)
+* `oasis-open` - https://www.oasis-open.org/standards/
 
 Options:
 
