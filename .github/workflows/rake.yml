@@ -10,27 +10,4 @@ on:
 
 jobs:
   rake:
-    name: Test on Ruby ${{ matrix.ruby }} ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.experimental }}
-    strategy:
-      fail-fast: false
-      matrix:
-        ruby: [ '3.0', '2.7', '2.6' ]
-        os: [ ubuntu-latest, windows-latest, macos-latest ]
-        experimental: [ false ]
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: true
-
-      # https://github.com/ruby-debug/debase/issues/89#issuecomment-686827382
-      - if: matrix.os == 'macos-latest' && matrix.ruby == '2.5'
-        run: echo BUNDLE_BUILD__DEBASE="--with-cflags=\"-Wno-error=implicit-function-declaration\"" >> $GITHUB_ENV
-
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: ${{ matrix.ruby }}
-          bundler-cache: true
-
-      - run: bundle exec rake
+    uses: relaton/support/.github/workflows/rake.yml@master
