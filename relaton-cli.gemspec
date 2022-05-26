@@ -34,6 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "simplecov"
   spec.add_development_dependency "vcr"
   spec.add_development_dependency "webmock"
+  spec.add_development_dependency "metanorma-cli"
 
   spec.add_runtime_dependency "liquid", "~> 4"
   spec.add_runtime_dependency "relaton", "~> 1.12.0"
