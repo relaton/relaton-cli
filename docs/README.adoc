@@ -77,6 +77,8 @@ Foloowing datasets are availabe:
 * `ietf-internet-drafts` - looks for the Internet-Drafts dataset in local `./bibxml-ids` directory. The dataset could be downloaded using `rsync -avcizxL rsync.ietf.org::bibxml-ids ./bibxml-ids` command.
 * `ietf-rfc-entries` - https://www.rfc-editor.org/rfc-index.xml (`<rfc-entry>`)
 * `oasis-open` - https://www.oasis-open.org/standards/
+* `bipm-data-outcomes` - looks for the BIPM dataset in local `./bipm-data-outcomes` directory. The dataset could be downloaded from https://github.com/metanorma/bipm-data-outcomes repository
+* `si-brochure` - looks for the SI-Brochure dataset in local `./bipm-si-brocure` directory. The dataset could be downloaded from https://github.com/metanorma/bipm-si-brochure repository
 
 Options:
 
@@ -195,6 +197,7 @@ root:
       docid:
         type: CC
         id: CC 36000
+        primary: true
       type: standard
       title:
         type: main
@@ -208,6 +211,7 @@ root:
       docid:
         type: CC
         id: CC 34000
+        primary: true
       type: standard
       title:
         type: main
@@ -421,7 +425,7 @@ $ relaton db fetch_all -e 8 -y 2018
   <fetched>2021-04-01</fetched>
   <title type="title-main" format="text/plain" language="en" script="Latn">Principles and rules for the structure and drafting of ISO and IEC documents</title>
   <uri type="obp">https://www.iec.ch/members_experts/refdocs/iec/isoiecdir2%7Bed8.0.RLV%7Den.pdf</uri>
-  <docidentifier type="ISO">ISO/IEC DIR 2 IEC</docidentifier>
+  <docidentifier type="ISO" primary="true">ISO/IEC DIR 2 IEC</docidentifier>
   <date type="published">
     <on>2018-05-01</on>
   </date>

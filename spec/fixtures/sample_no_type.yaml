@@ -1,6 +1,7 @@
 technical_committee: PUBLISH
 docid: 
   - id: TC211
+    primary: true
 doctype: standard
 title: 
   - Geographic information

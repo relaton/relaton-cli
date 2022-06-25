@@ -1,6 +1,6 @@
 <bibdata xmlns="https://open.ribose.com/relaton-xml" type="standard">
     <title>Title</title>
-    <docidentifier>ID</docidentifier>
+    <docidentifier primary="true">ID</docidentifier>
     <date type="fred">
         <on>1002-01-01</on>
     </date>

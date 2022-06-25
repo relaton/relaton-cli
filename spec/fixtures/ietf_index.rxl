@@ -3,7 +3,7 @@
   <title type="abbrev" format="text/plain" language="en">Hand Grenade of Antioch</title>
   <uri type="xml">spec/fixtures/documents/antioch.xml</uri>
   <uri type="rxl">spec/fixtures/documents/antioch.rxl</uri>
-  <docidentifier>draft-camelot-holy-grenade-01</docidentifier>
+  <docidentifier primary="true">draft-camelot-holy-grenade-01</docidentifier>
   <docnumber>draft-camelot-holy-grenade-01</docnumber>
   <contributor>
     <role type="author"/>
@@ -45,8 +45,7 @@
       <title format="text/plain" language="en" script="Latn">The Arte of ASCII: Or, An True and Accurate Representation of an Menagerie of Thynges Fabulous and Wonderful in Ye Forme of Character</title>
       <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8140.xml</uri>
       <uri type="src">https://www.rfc-editor.org/info/rfc8140</uri>
-      <docidentifier type="IETF">RFC 8140</docidentifier>
-      <docidentifier type="rfc-anchor">RFC8140</docidentifier>
+      <docidentifier type="IETF" primary="true">RFC 8140</docidentifier>
       <docidentifier type="DOI">10.17487/RFC8140</docidentifier>
       <date type="published">
         <on>2017-04-01</on>
@@ -99,7 +98,7 @@
   <uri type="html">spec/fixtures/documents/example.html</uri>
   <uri type="rxl">spec/fixtures/documents/example.rxl</uri>
   <uri type="txt">spec/fixtures/documents/example.txt</uri>
-  <docidentifier>1149</docidentifier>
+  <docidentifier primary="true">1149</docidentifier>
   <docnumber>1149</docnumber>
   <contributor>
     <role type="author"/>
@@ -152,7 +151,7 @@
   <relation type="derivedFrom">
     <bibitem>
       <title>--</title>
-      <docidentifier>https://www.rfc-editor.org/rfc/rfc1149.txt</docidentifier>
+      <docidentifier primary="true">https://www.rfc-editor.org/rfc/rfc1149.txt</docidentifier>
     </bibitem>
   </relation>
   <relation type="obsoletes">
@@ -161,8 +160,7 @@
       <title format="text/plain" language="en" script="Latn">Request For Comments reference guide</title>
       <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.1000.xml</uri>
       <uri type="src">https://www.rfc-editor.org/info/rfc1000</uri>
-      <docidentifier type="IETF">RFC 1000</docidentifier>
-      <docidentifier type="rfc-anchor">RFC1000</docidentifier>
+      <docidentifier type="IETF" primary="true">RFC 1000</docidentifier>
       <docidentifier type="DOI">10.17487/RFC1000</docidentifier>
       <date type="published">
         <on>1987-08-01</on>
@@ -218,8 +216,7 @@
       <title format="text/plain" language="en" script="Latn">IAB official protocol standards</title>
       <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.1200.xml</uri>
       <uri type="src">https://www.rfc-editor.org/info/rfc1200</uri>
-      <docidentifier type="IETF">RFC 1200</docidentifier>
-      <docidentifier type="rfc-anchor">RFC1200</docidentifier>
+      <docidentifier type="IETF" primary="true">RFC 1200</docidentifier>
       <docidentifier type="DOI">10.17487/RFC1200</docidentifier>
       <date type="published">
         <on>1991-04-01</on>
@@ -259,8 +256,7 @@
       <title format="text/plain" language="en" script="Latn">Operational Criteria for Root Name Servers</title>
       <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2010.xml</uri>
       <uri type="src">https://www.rfc-editor.org/info/rfc2010</uri>
-      <docidentifier type="IETF">RFC 2010</docidentifier>
-      <docidentifier type="rfc-anchor">RFC2010</docidentifier>
+      <docidentifier type="IETF" primary="true">RFC 2010</docidentifier>
       <docidentifier type="DOI">10.17487/RFC2010</docidentifier>
       <date type="published">
         <on>1996-10-01</on>
@@ -316,8 +312,7 @@
       <title format="text/plain" language="en" script="Latn">Managing the X.500 Root Naming Context</title>
       <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2120.xml</uri>
       <uri type="src">https://www.rfc-editor.org/info/rfc2120</uri>
-      <docidentifier type="IETF">RFC 2120</docidentifier>
-      <docidentifier type="rfc-anchor">RFC2120</docidentifier>
+      <docidentifier type="IETF" primary="true">RFC 2120</docidentifier>
       <docidentifier type="DOI">10.17487/RFC2120</docidentifier>
       <date type="published">
         <on>1997-03-01</on>
@@ -364,7 +359,7 @@
   </ext>
 </bibdata></relation>
 <relation type='partOf'><bibdata type="standard">
-  <fetched>2022-04-10</fetched>
+  <fetched>2022-06-25</fetched>
   <title format="text/plain" language="en" script="Latn">The Holy Hand Grenade of Antioch</title>
   <uri type="xml">spec/fixtures/documents/antioch.rfc.xml</uri>
   <docidentifier type="Internet-Draft" primary="true">draft-camelot-holy-grenade-01</docidentifier>
@@ -392,15 +387,13 @@
   </contributor>
   <language>en</language>
   <script>Latn</script>
-  <abstract format="text/html" language="en" script="Latn">
-    <t anchor="_b4b63ef5-a374-41d2-9ea3-9d77e05aa3a4">The menagerie of beasts and artefacts depicted in RFC8140 may be usefully supplemented by other renowned figures of Internet and more general lore. This document extends the menagerie to the seminal fable of the "Holy Hand Grenade of Antioch", as depicted in the Monty Python film "Monty Python and the Holy Grail", as well as "Spamalot", the musical inspired by the movie.</t>
-  </abstract>
+  <abstract format="text/html" language="en" script="Latn">&amp;lt;t anchor="_b4b63ef5-a374-41d2-9ea3-9d77e05aa3a4"&amp;gt;The menagerie of beasts and artefacts depicted in RFC8140 may be usefully supplemented by other renowned figures of Internet and more general lore. This document extends the menagerie to the seminal fable of the "Holy Hand Grenade of Antioch", as depicted in the Monty Python film "Monty Python and the Holy Grail", as well as "Spamalot", the musical inspired by the movie.&amp;lt;/p&amp;gt;</abstract>
   <ext>
     <doctype>rfc</doctype>
   </ext>
 </bibdata></relation>
 <relation type='partOf'><bibdata type="standard">
-  <fetched>2022-04-10</fetched>
+  <fetched>2022-06-25</fetched>
   <title format="text/plain" language="en" script="Latn">RFC XML v3 Example: A Standard for the Transmission of IP Datagrams on Avian Carriers</title>
   <uri type="xml">spec/fixtures/documents/example.rfc.xml</uri>
   <docidentifier type="IETF" primary="true">1149</docidentifier>
@@ -446,11 +439,12 @@
   </contributor>
   <language>en</language>
   <script>Latn</script>
-  <abstract format="text/html" language="en" script="Latn">
-    <t anchor="_af6b0e6b-ae5b-46c6-8d6d-a694e985db67">Avian carriers can provide high delay, low throughput, and low altitude service. The connection topology is limited to a single point-to-point path for each carrier, used with standard carriers, but many carriers can be used without significant interference with each other, outside of early spring. This is because of the 3D ether space available to the carriers, in contrast to the 1D ether used by IEEE802.3. The carriers have an intrinsic collision avoidance system, which increases availability. Unlike some network technologies, such as packet radio, communication is not limited to line-of-sight distance. Connection oriented service is available in some cities, usually based upon a central hub topology.</t>
-  </abstract>
+  <abstract format="text/html" language="en" script="Latn">&amp;lt;t anchor="_af6b0e6b-ae5b-46c6-8d6d-a694e985db67"&amp;gt;Avian carriers can provide high delay, low throughput, and low altitude service. The connection topology is limited to a single point-to-point path for each carrier, used with standard carriers, but many carriers can be used without significant interference with each other, outside of early spring. This is because of the 3D ether space available to the carriers, in contrast to the 1D ether used by IEEE802.3. The carriers have an intrinsic collision avoidance system, which increases availability. Unlike some network technologies, such as packet radio, communication is not limited to line-of-sight distance. Connection oriented service is available in some cities, usually based upon a central hub topology.&amp;lt;/p&amp;gt;</abstract>
   <ext>
     <doctype>rfc</doctype>
+    <editorialgroup>
+      <committee>Network Working Group</committee>
+    </editorialgroup>
   </ext>
 </bibdata></relation>
 </relaton-collection>

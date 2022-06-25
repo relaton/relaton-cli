@@ -1,7 +1,7 @@
 <bibdata type="standard">
 <title language="en" format="text/plain" type="main">RFC XML v3 Example: A Standard for the Transmission of IP Datagrams on Avian Carriers</title>
 <title language="en" format="text/plain" type="abbrev">IP Datagrams on Avian Carriers</title>
-<docidentifier>1149</docidentifier>
+<docidentifier primary="true">1149</docidentifier>
 <docnumber>1149</docnumber>
 <contributor>
 <role type="author"/>
@@ -56,7 +56,7 @@
 <relation type="derivedFrom">
 <bibitem>
 <title>--</title>
-<docidentifier>https://www.rfc-editor.org/rfc/rfc1149.txt</docidentifier>
+<docidentifier primary="true">https://www.rfc-editor.org/rfc/rfc1149.txt</docidentifier>
 </bibitem>
 </relation>
 <relation type="obsoletes">
@@ -65,8 +65,7 @@
   <title format="text/plain" language="en" script="Latn">Request For Comments reference guide</title>
   <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.1000.xml</uri>
   <uri type="src">https://www.rfc-editor.org/info/rfc1000</uri>
-  <docidentifier type="IETF">RFC 1000</docidentifier>
-  <docidentifier type="rfc-anchor">RFC1000</docidentifier>
+  <docidentifier primary="true" type="IETF">RFC 1000</docidentifier>
   <docidentifier type="DOI">10.17487/RFC1000</docidentifier>
   <date type="published">
     <on>1987-08</on>
@@ -122,8 +121,7 @@
   <title format="text/plain" language="en" script="Latn">IAB official protocol standards</title>
   <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.1200.xml</uri>
   <uri type="src">https://www.rfc-editor.org/info/rfc1200</uri>
-  <docidentifier type="IETF">RFC 1200</docidentifier>
-  <docidentifier type="rfc-anchor">RFC1200</docidentifier>
+  <docidentifier primary="true" type="IETF">RFC 1200</docidentifier>
   <docidentifier type="DOI">10.17487/RFC1200</docidentifier>
   <date type="published">
     <on>1991-04</on>
@@ -163,8 +161,7 @@
   <title format="text/plain" language="en" script="Latn">Operational Criteria for Root Name Servers</title>
   <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2010.xml</uri>
   <uri type="src">https://www.rfc-editor.org/info/rfc2010</uri>
-  <docidentifier type="IETF">RFC 2010</docidentifier>
-  <docidentifier type="rfc-anchor">RFC2010</docidentifier>
+  <docidentifier primary="true" type="IETF">RFC 2010</docidentifier>
   <docidentifier type="DOI">10.17487/RFC2010</docidentifier>
   <date type="published">
     <on>1996-10</on>
@@ -220,8 +217,7 @@
   <title format="text/plain" language="en" script="Latn">Managing the X.500 Root Naming Context</title>
   <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2120.xml</uri>
   <uri type="src">https://www.rfc-editor.org/info/rfc2120</uri>
-  <docidentifier type="IETF">RFC 2120</docidentifier>
-  <docidentifier type="rfc-anchor">RFC2120</docidentifier>
+  <docidentifier primary="true" type="IETF">RFC 2120</docidentifier>
   <docidentifier type="DOI">10.17487/RFC2120</docidentifier>
   <date type="published">
     <on>1997-03</on>

@@ -4,7 +4,7 @@
     <bibdata type='standard'>
       <title>Date and time -- Representations for information interchange -- Part 1: Basic rules</title>
       <uri>standards/csd-datetime-explict/csd-datetime-explict.xml</uri>
-      <docidentifier>CC 18001</docidentifier>
+      <docidentifier primary="true">CC 18001</docidentifier>
       <date type='published'>
         <on>2018-10-17</on>
       </date>
@@ -18,7 +18,7 @@
     <bibdata type='governance'>
       <title>Standardization and publication</title>
       <uri>standards/csd-standardization/csd-standardization.xml</uri>
-      <docidentifier>CC/DIR 10001</docidentifier>
+      <docidentifier primary="true">CC/DIR 10001</docidentifier>
       <date type='updated'>
         <on>2018-10-17</on>
       </date>
@@ -32,7 +32,7 @@
     <bibdata type='governance'>
       <title>Standard document requirements</title>
       <uri>standards/csd-document-requirements/csd-document-requirements.xml</uri>
-      <docidentifier>CC/DIR 10002</docidentifier>
+      <docidentifier primary="true">CC/DIR 10002</docidentifier>
       <date type='updated'>
         <on>2018-10-17</on>
       </date>
@@ -46,7 +46,7 @@
     <bibdata type='guide'>
       <title>Standardization -- Vocabulary</title>
       <uri>standards/csd-standardization-vocabulary/csd-standardization-vocabulary.xml</uri>
-      <docidentifier>CC/Guide 33000</docidentifier>
+      <docidentifier primary="true">CC/Guide 33000</docidentifier>
       <date type='updated'>
         <on>2004-09-25</on>
       </date>
@@ -60,7 +60,7 @@
     <bibdata type='specification'>
       <title>Date and time -- Calendars -- Gregorian calendar</title>
       <uri>http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf</uri>
-      <docidentifier>CC/S 50012</docidentifier>
+      <docidentifier primary="true">CC/S 50012</docidentifier>
       <date type='updated'>
         <on>2018-09-26</on>
       </date>
@@ -74,7 +74,7 @@
     <bibdata type='specification'>
       <title>Date and time -- Calendars -- Gregorian calendar</title>
       <uri>http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf</uri>
-      <docidentifier>CC/S 50012</docidentifier>
+      <docidentifier primary="true">CC/S 50012</docidentifier>
       <date type='published'>
         <on>2018-09-26</on>
       </date>
@@ -88,12 +88,11 @@
     <bibdata type='specification'>
       <title>Date and time -- Timezone -- Timezone Management</title>
       <uri>http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf</uri>
-      <docidentifier>CC/Amd 86003</docidentifier>
+      <docidentifier primary="true">CC/Amd 86003</docidentifier>
       <date type='published'>
         <on>2018-09-26</on>
       </date>
       <status><stage>Published</stage></status>
-      <ext>
       <ext>
         <technical-committee>TC TIME</technical-committee>
       </ext>
@@ -103,7 +102,7 @@
     <bibdata type='corrigendum'>
       <title>Technical corrigendum on CC 12990</title>
       <uri>http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf</uri>
-      <docidentifier>CC/Cor 12990-3</docidentifier>
+      <docidentifier primary="true">CC/Cor 12990-3</docidentifier>
       <date type='updated'>
         <on>2018-09-26</on>
       </date>
@@ -117,7 +116,7 @@
     <bibdata type='administrative'>
       <title>Membership -- Lifecycle management -- Part 1: Onboarding</title>
       <uri>http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf</uri>
-      <docidentifier>CC/Cor 12990-3</docidentifier>
+      <docidentifier primary="true">CC/Cor 12990-3</docidentifier>
       <date type='updated'>
         <on>2018-09-26</on>
       </date>
@@ -131,7 +130,7 @@
     <bibdata type='report'>
       <title>CalConnect XLIII -- Position on the European Union daylight-savings timezone change</title>
       <uri>http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf</uri>
-      <docidentifier>CC/R 3101</docidentifier>
+      <docidentifier primary="true">CC/R 3101</docidentifier>
       <date type='updated'>
         <on>2019-10-17</on>
       </date>

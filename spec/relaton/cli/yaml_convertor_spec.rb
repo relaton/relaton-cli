@@ -13,11 +13,10 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
         Relaton::Cli::YAMLConvertor.to_xml(sample_yaml_file)
         expect(buffer).to be_equivalent_to <<~"OUTPUT"
           <bibdata type="standard">
-            <fetched>#{Date.today}</fetched>
             <title type="title-intro" format="text/plain">Standardization documents</title>
             <title type="title-main" format="text/plain">Vocabulary</title>
             <title type="main" format="text/plain">Standardization documents - Vocabulary</title>
-            <docidentifier type="CC">CC 36000</docidentifier>
+            <docidentifier primary="true" type="CC">CC 36000</docidentifier>
             <date type="issued">
               <on>2018-10-25</on>
             </date>
@@ -33,11 +32,10 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
         Relaton::Cli::YAMLConvertor.to_xml(sample_yaml_file_no_type)
         expect(buffer).to be_equivalent_to <<~OUTPUT
           <bibdata>
-            <fetched>#{Date.today}</fetched>
             <title type="title-main" format="text/plain">Geographic information</title>
             <title type="main" format="text/plain">Geographic information</title>
             <title format="text/plain" language="fr" script="Latn">Information géographique</title>
-            <docidentifier>TC211</docidentifier>
+            <docidentifier primary="true">TC211</docidentifier>
             <date type="published">
               <on>2014-04-01</on>
             </date>
@@ -76,11 +74,10 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
 
         expect(buffer).to be_equivalent_to <<~"OUTPUT"
           <bibdata type="standard">
-            <fetched>#{Date.today}</fetched>
             <title type="title-intro" format="text/plain">Standardization documents</title>
             <title type="title-main" format="text/plain">Vocabulary</title>
             <title type="main" format="text/plain">Standardization documents - Vocabulary</title>
-            <docidentifier type="CC">CC 36000</docidentifier>
+            <docidentifier primary="true" type="CC">CC 36000</docidentifier>
             <date type="issued">
               <on>2018-10-25</on>
             </date>
@@ -102,12 +99,11 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
         expect(buffer.count).to eq(6)
         expect(buffer.last).to be_equivalent_to <<~"OUTPUT"
           <bibdata type="standard">
-            <fetched>#{Date.today}</fetched>
             <title type="title-intro" format="text/plain">Date and time</title>
             <title type="title-main" format="text/plain">Calendars</title>
             <title type="title-part" format="text/plain">Chinese calendar</title>
             <title type="main" format="text/plain">Date and time - Calendars - Chinese calendar</title>
-            <docidentifier type="CC">CC/S 34006</docidentifier>
+            <docidentifier primary="true" type="CC">CC/S 34006</docidentifier>
             <date type="issued">
               <on>2018-10-25</on>
             </date>
@@ -122,11 +118,10 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
         xml = Relaton::Cli::YAMLConvertor.to_xml(sample_yaml_file, write: false)
         expect(xml).to be_equivalent_to <<~OUTPUT
           <bibdata type="standard">
-            <fetched>#{Date.today}</fetched>
             <title type="title-intro" format="text/plain">Standardization documents</title>
             <title type="title-main" format="text/plain">Vocabulary</title>
             <title type="main" format="text/plain">Standardization documents - Vocabulary</title>
-            <docidentifier type="CC">CC 36000</docidentifier>
+            <docidentifier primary="true" type="CC">CC 36000</docidentifier>
             <date type="issued">
               <on>2018-10-25</on>
             </date>
@@ -145,7 +140,7 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
         )
         expect(xml).to be_equivalent_to File.read(
           "spec/fixtures/sample_iso.xml", encoding: "UTF-8"
-        ).sub %r{(?<=<fetched>)\d{4}-\d{2}-\d{2}}, Date.today.to_s
+        )
       end
     end
   end
@@ -158,7 +153,7 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
         Relaton::Cli::YAMLConvertor.to_html(
           sample_collection_file,
           "spec/assets/index-style.css",
-          "spec/assets/templates"
+          "spec/assets/templates",
         )
 
         expect(buffer).to include("I AM A SAMPLE STYLESHEET")

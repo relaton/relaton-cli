@@ -6,6 +6,7 @@ root:
       docid: 
         type: CC
         id: CC 36000
+        primary: true
       type: standard
       title: 
         content: Standardization documents -- Vocabulary
@@ -18,6 +19,7 @@ root:
     - technical_committee: DATETIME
       docid: 
         id: CC 34000
+        primary: true
       type: standard
       title: 
         content: Date and time -- Concepts and vocabulary
@@ -31,6 +33,7 @@ root:
       docid: 
         type: CC
         id: CC 34002
+        primary: true
       type: standard
       title: 
         content: Date and time -- Timezones
@@ -44,6 +47,7 @@ root:
       docid: 
         type: CC
         id: CC 34003
+        primary: true
       type: standard
       title: 
         content: Date and time -- Codes for calendar systems
@@ -57,6 +61,7 @@ root:
       docid: 
         type: CC
         id: CC 34005
+        primary: true
       type: standard
       title: Date and time - Calendars - Gregorian calendar
       docstatus:
@@ -69,6 +74,7 @@ root:
       docid: 
         type: CC
         id: CC/S 34006
+        primary: true
       type: standard
       title: Date and time - Calendars - Chinese calendar
       docstatus:

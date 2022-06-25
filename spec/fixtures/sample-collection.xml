@@ -10,7 +10,7 @@
         <bibdata type="standard">
             <fetched>2018-11-09</fetched>
             <title>Date and time -- Concepts and vocabulary</title>
-            <docidentifier>CC 34000</docidentifier>
+            <docidentifier primary="true">CC 34000</docidentifier>
             <language></language>
             <script></script>
             <date type="">
@@ -28,7 +28,7 @@
         <bibdata type="standard">
             <fetched>2018-11-09</fetched>
             <title>Date and time -- Timezones</title>
-            <docidentifier>CC 34002</docidentifier>
+            <docidentifier primary="true">CC 34002</docidentifier>
             <language></language>
             <script></script>
             <date type="">
@@ -46,7 +46,7 @@
         <bibdata type="standard">
             <fetched>2018-11-09</fetched>
             <title>Date and time -- Codes for calendar systems</title>
-            <docidentifier>CC 34003</docidentifier>
+            <docidentifier primary="true">CC 34003</docidentifier>
             <language></language>
             <script></script>
             <date type="">
@@ -64,7 +64,7 @@
         <bibdata type="standard">
             <fetched>2018-11-09</fetched>
             <title>Date and time -- Calendars -- Gregorian calendar</title>
-            <docidentifier>CC 34005</docidentifier>
+            <docidentifier primary="true">CC 34005</docidentifier>
             <language></language>
             <script></script>
             <date type="">
@@ -82,7 +82,7 @@
         <bibdata type="specification">
             <fetched>2018-11-09</fetched>
             <title>Date and time -- Calendars -- Chinese calendar</title>
-            <docidentifier>CC/S 34006</docidentifier>
+            <docidentifier primary="true">CC/S 34006</docidentifier>
             <language></language>
             <script></script>
             <date type="">
@@ -100,7 +100,7 @@
         <bibdata type="standard">
             <fetched>2018-11-09</fetched>
             <title>Standardization documents -- Vocabulary</title>
-            <docidentifier>CC 36000</docidentifier>
+            <docidentifier primary="true">CC 36000</docidentifier>
             <language></language>
             <script></script>
             <date type="">

@@ -130,9 +130,9 @@ RSpec.describe Relaton::Cli::RelatonFile do
         )
 
         content = File.read file, encoding: "UTF-8"
-        expect(content).to include "<docidentifier>1149</docidentifier>"
+        expect(content).to include "<docidentifier primary=\"true\">1149</docidentifier>"
         expect(content).to include '<uri type="rxl">spec/fixtures/documents/example.rxl</uri>'
-        expect(content).to include "<docidentifier>draft-camelot-holy-grenade-01</docidentifier>"
+        expect(content).to include "<docidentifier primary=\"true\">draft-camelot-holy-grenade-01</docidentifier>"
         expect(content).to include '<uri type="rxl">spec/fixtures/documents/antioch.rxl</uri>'
       end
     end

@@ -2,6 +2,7 @@ technical_committee: PUBLISH
 docid: 
   - id: TC211
     type: ISO
+    primary: true
 doctype: standard
 title: 
   - Geographic information

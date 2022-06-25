@@ -8,7 +8,7 @@
   <uri type="rss">https://www.iso.org/contents/data/standard/05/37/53798.detail.rss</uri>
   <uri type="doi">http://standrd.org/doi-123</uri>
   <uri type="file">file://path/file</uri>
-  <docidentifier type="ISO">TC211</docidentifier>
+  <docidentifier primary="true" type="ISO">TC211</docidentifier>
   <docidentifier type="isbn">ISBN</docidentifier>
   <docidentifier type="lccn">LCCN</docidentifier>
   <docidentifier type="issn" scope="series">ISSN</docidentifier>
@@ -186,6 +186,7 @@
   </series>
   <series type="alt">
     <formattedref format="text/plain" language="en" script="Latn">serieref</formattedref>
+    <title>Series Title</title>
   </series>
   <series type="journal">
     <title format="text/plain">Journal</title>

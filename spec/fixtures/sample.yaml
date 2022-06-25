@@ -2,6 +2,7 @@ technical_committee: PUBLISH
 docid: 
   type: CC
   id: CC 36000
+  primary: true
 type: standard
 title: Standardization documents - Vocabulary
 docstatus:

@@ -44,9 +44,9 @@ module Relaton
 
     def to_xml(opts = {})
       options = { bibdata: true, date_format: :full }.merge(
-        opts.select { |k, _v| k.is_a? Symbol }
+        opts.select { |k, _v| k.is_a? Symbol },
       )
-      @bibitem.to_xml **options
+      @bibitem.to_xml(**options)
     end
 
     def to_h
@@ -69,13 +69,13 @@ module Relaton
         @bibitem.send meth, *args
       elsif URL_TYPES.include? meth
         link = @bibitem.link.detect do |l|
-          l.type == meth.to_s || meth == :uri && l.type.nil?
+          l.type == meth.to_s || (meth == :uri && l.type.nil?)
         end
         link&.content&.to_s
       elsif URL_TYPES.include? meth.match(/^\w+(?==)/).to_s.to_sym
         /^(?<type>\w+)/ =~ meth
         link = @bibitem.link.detect do |l|
-          l.type == type || type == "uri" && l.type.nil?
+          l.type == type || (type == "uri" && l.type.nil?)
         end
         if link
           link.content = args[0]

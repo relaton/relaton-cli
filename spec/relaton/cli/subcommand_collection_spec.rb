@@ -90,7 +90,7 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
       end
 
       context "XML format" do
-        let(:out_regex) { /<docidentifier type="CC">CC 34005/ }
+        let(:out_regex) { /<docidentifier type="CC" primary="true">CC 34005/ }
         include_examples "get", nil, "xml"
       end
     end
@@ -107,7 +107,7 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
       it "XML file" do
         file = "tmp/cc_34005.xml"
         expect(File).to receive(:write).with(
-          file, /<docidentifier type="CC">CC 34005/, kind_of(Hash)
+          file, /<docidentifier type="CC" primary="true">CC 34005/, kind_of(Hash)
         )
         Relaton::Cli::Command.start(
           ["collection", "get", "CC 34005", "-d", dir, "-o", file],
@@ -162,7 +162,7 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
     file = "sample-collection.yaml"
     outfile = "#{file.sub(/\.\w+$/, '')}.xml"
     expect(File).to receive(:write).with(
-      outfile, /<docidentifier type="CC">CC\s36000<\/docidentifier>/,
+      outfile, /<docidentifier type="CC" primary="true">CC\s36000<\/docidentifier>/,
       kind_of(Hash)
     )
     Relaton::Cli::Command.start ["collection", "export", file, "-d", dir]

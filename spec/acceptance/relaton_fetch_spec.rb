@@ -123,7 +123,7 @@ RSpec.describe "Relaton Fetch" do
 
     context "fetch code with undefined standard" do
       it "prints out a warning message for undefined standard" do
-        output = `relaton fetch -t ISO 'ISO ABCDEFGH'`
+        output = `relaton fetch -t ISO 'ISO 123456'`
         expect(output).to include("No matching bibliographic entry found")
       end
     end

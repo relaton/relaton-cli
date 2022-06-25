@@ -90,7 +90,7 @@ http_interactions:
       string: |-
         <bibdata type="standard">
         <title language="en" format="text/plain">Guidelines for the implementation of the CalConnect patent policy</title>
-        <docidentifier type="csd">CC/DIR 10005:2019</docidentifier>
+        <docidentifier primary="true" type="csd">CC/DIR 10005:2019</docidentifier>
         <docnumber>10005</docnumber>
         <date type="published">
         <on>2019-06-13</on>
