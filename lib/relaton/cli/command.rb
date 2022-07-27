@@ -196,7 +196,7 @@ module Relaton
       case format
       when "yaml", "yml" then doc.to_hash.to_yaml
       when "bibtex" then doc.to_bibtex
-      else doc.to_xml
+      else doc.to_xml bibdata: true
       end
     end
 

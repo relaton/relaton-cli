@@ -23,7 +23,7 @@ RSpec.describe "Relaton yaml2xml" do
           "spec/fixtures/sample.yaml",
           extension: "rxml",
           prefix: "RCL",
-          overwrite: false
+          overwrite: false,
         )
       end
     end
