@@ -7,7 +7,7 @@ RSpec.describe Relaton::Cli::XMLConvertor do
 
         expect(buffer).to include("id: CC 34000")
         expect(buffer).to include("id: CC/S 34006")
-        expect(buffer).to include("title:\n    - Date and time -- Calendars")
+        expect(buffer).to include("title:\n    - content: Date and time -- Calendars")
         expect(buffer).to include("root:\n  title: CalConnect Standards")
       end
     end
@@ -23,7 +23,7 @@ RSpec.describe Relaton::Cli::XMLConvertor do
 
         expect(buffer.count).to eq(6)
         expect(buffer.last).to include("id: CC/S 34006")
-        expect(buffer.last).to include("title:\n- Date and time -- Calendars")
+        expect(buffer.last).to include("title:\n- content: Date and time -- Calendars")
       end
     end
 

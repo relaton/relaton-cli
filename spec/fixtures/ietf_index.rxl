@@ -359,7 +359,7 @@
   </ext>
 </bibdata></relation>
 <relation type='partOf'><bibdata type="standard">
-  <fetched>2022-07-27</fetched>
+  <fetched>2022-08-21</fetched>
   <title format="text/plain" language="en" script="Latn">The Holy Hand Grenade of Antioch</title>
   <uri type="xml">spec/fixtures/documents/antioch.rfc.xml</uri>
   <docidentifier type="Internet-Draft" primary="true">draft-camelot-holy-grenade-01</docidentifier>
@@ -387,13 +387,13 @@
   </contributor>
   <language>en</language>
   <script>Latn</script>
-  <abstract format="text/html" language="en" script="Latn">&amp;lt;t anchor="_b4b63ef5-a374-41d2-9ea3-9d77e05aa3a4"&amp;gt;The menagerie of beasts and artefacts depicted in RFC8140 may be usefully supplemented by other renowned figures of Internet and more general lore. This document extends the menagerie to the seminal fable of the "Holy Hand Grenade of Antioch", as depicted in the Monty Python film "Monty Python and the Holy Grail", as well as "Spamalot", the musical inspired by the movie.&amp;lt;/p&amp;gt;</abstract>
+  <abstract format="text/html" language="en" script="Latn">&amp;lt;t&amp;gt;&amp;lt;/&amp;gt;The menagerie of beasts and artefacts depicted in RFC8140 may be usefully supplemented by other renowned figures of Internet and more general lore. This document extends the menagerie to the seminal fable of the "Holy Hand Grenade of Antioch", as depicted in the Monty Python film "Monty Python and the Holy Grail", as well as "Spamalot", the musical inspired by the movie.&amp;lt;/p&amp;gt;</abstract>
   <ext>
     <doctype>rfc</doctype>
   </ext>
 </bibdata></relation>
 <relation type='partOf'><bibdata type="standard">
-  <fetched>2022-07-27</fetched>
+  <fetched>2022-08-21</fetched>
   <title format="text/plain" language="en" script="Latn">RFC XML v3 Example: A Standard for the Transmission of IP Datagrams on Avian Carriers</title>
   <uri type="xml">spec/fixtures/documents/example.rfc.xml</uri>
   <docidentifier type="IETF" primary="true">1149</docidentifier>
@@ -409,7 +409,7 @@
     <role type="author"/>
     <person>
       <name>
-        <initial language="en">D</initial>
+        <formatted-initials language="en">D</formatted-initials>
         <surname language="en">Waitzman</surname>
       </name>
       <address>
@@ -425,7 +425,7 @@
     <role type="author"/>
     <person>
       <name>
-        <initial language="en">N</initial>
+        <formatted-initials language="en">N</formatted-initials>
         <surname language="en">Nicholas</surname>
       </name>
       <address>
@@ -439,7 +439,7 @@
   </contributor>
   <language>en</language>
   <script>Latn</script>
-  <abstract format="text/html" language="en" script="Latn">&amp;lt;t anchor="_af6b0e6b-ae5b-46c6-8d6d-a694e985db67"&amp;gt;Avian carriers can provide high delay, low throughput, and low altitude service. The connection topology is limited to a single point-to-point path for each carrier, used with standard carriers, but many carriers can be used without significant interference with each other, outside of early spring. This is because of the 3D ether space available to the carriers, in contrast to the 1D ether used by IEEE802.3. The carriers have an intrinsic collision avoidance system, which increases availability. Unlike some network technologies, such as packet radio, communication is not limited to line-of-sight distance. Connection oriented service is available in some cities, usually based upon a central hub topology.&amp;lt;/p&amp;gt;</abstract>
+  <abstract format="text/html" language="en" script="Latn">&amp;lt;t&amp;gt;&amp;lt;/&amp;gt;Avian carriers can provide high delay, low throughput, and low altitude service. The connection topology is limited to a single point-to-point path for each carrier, used with standard carriers, but many carriers can be used without significant interference with each other, outside of early spring. This is because of the 3D ether space available to the carriers, in contrast to the 1D ether used by IEEE802.3. The carriers have an intrinsic collision avoidance system, which increases availability. Unlike some network technologies, such as packet radio, communication is not limited to line-of-sight distance. Connection oriented service is available in some cities, usually based upon a central hub topology.&amp;lt;/p&amp;gt;</abstract>
   <ext>
     <doctype>rfc</doctype>
     <editorialgroup>
