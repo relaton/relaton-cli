@@ -109,7 +109,7 @@ module Relaton
         @relaton_collection ||= Bibcollection.from_xml(nokogiri_document(nil, source))
       end
 
-      def extract_and_write_to_files
+      def extract_and_write_to_files # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         select_source_files.each do |file|
           xml = nokogiri_document(nil, file)
           xml.remove_namespaces!

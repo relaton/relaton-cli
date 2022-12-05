@@ -1,4 +1,4 @@
-<relaton-collection xmlns="https://open.ribose.com/relaton-xml"><title>Collection title</title><contributor><role type='author'/><organization><name>Ribose</name></organization></contributor><relation type='partOf'><bibdata type="standard">
+<relaton-collection xmlns="https://open.ribose.com/relaton-xml"><title>Collection title</title><contributor><role type='author'/><organization><name>Ribose</name></organization></contributor><relation type='partOf'><bibdata type="standard" schema-version="v1.2.1">
   <title type="main" format="text/plain" language="en">The Holy Hand Grenade of Antioch</title>
   <title type="abbrev" format="text/plain" language="en">Hand Grenade of Antioch</title>
   <uri type="xml">spec/fixtures/documents/antioch.xml</uri>
@@ -91,7 +91,7 @@
     <doctype>internet-draft</doctype>
   </ext>
 </bibdata></relation>
-<relation type='partOf'><bibdata type="standard">
+<relation type='partOf'><bibdata type="standard" schema-version="v1.2.1">
   <title type="main" format="text/plain" language="en">RFC XML v3 Example: A Standard for the Transmission of IP Datagrams on Avian Carriers</title>
   <title type="abbrev" format="text/plain" language="en">IP Datagrams on Avian Carriers</title>
   <uri type="xml">spec/fixtures/documents/example.xml</uri>
@@ -358,8 +358,7 @@
     <doctype>rfc</doctype>
   </ext>
 </bibdata></relation>
-<relation type='partOf'><bibdata type="standard">
-  <fetched>2022-08-21</fetched>
+<relation type='partOf'><bibdata type="standard" schema-version="v1.2.1">
   <title format="text/plain" language="en" script="Latn">The Holy Hand Grenade of Antioch</title>
   <uri type="xml">spec/fixtures/documents/antioch.rfc.xml</uri>
   <docidentifier type="Internet-Draft" primary="true">draft-camelot-holy-grenade-01</docidentifier>
@@ -377,23 +376,18 @@
       <name>
         <completename language="en">Arthur son of Uther Pendragon</completename>
       </name>
-      <address>
-        <city/>
-        <country/>
-      </address>
       <email>arthur.pendragon@ribose.com</email>
       <uri>http://camelot.gov.example</uri>
     </person>
   </contributor>
   <language>en</language>
   <script>Latn</script>
-  <abstract format="text/html" language="en" script="Latn">&amp;lt;t&amp;gt;&amp;lt;/&amp;gt;The menagerie of beasts and artefacts depicted in RFC8140 may be usefully supplemented by other renowned figures of Internet and more general lore. This document extends the menagerie to the seminal fable of the "Holy Hand Grenade of Antioch", as depicted in the Monty Python film "Monty Python and the Holy Grail", as well as "Spamalot", the musical inspired by the movie.&amp;lt;/p&amp;gt;</abstract>
+  <abstract format="text/html" language="en" script="Latn">The menagerie of beasts and artefacts depicted in RFC8140 may be usefully supplemented by other renowned figures of Internet and more general lore. This document extends the menagerie to the seminal fable of the "Holy Hand Grenade of Antioch", as depicted in the Monty Python film "Monty Python and the Holy Grail", as well as "Spamalot", the musical inspired by the movie.</abstract>
   <ext>
     <doctype>rfc</doctype>
   </ext>
 </bibdata></relation>
-<relation type='partOf'><bibdata type="standard">
-  <fetched>2022-08-21</fetched>
+<relation type='partOf'><bibdata type="standard" schema-version="v1.2.1">
   <title format="text/plain" language="en" script="Latn">RFC XML v3 Example: A Standard for the Transmission of IP Datagrams on Avian Carriers</title>
   <uri type="xml">spec/fixtures/documents/example.rfc.xml</uri>
   <docidentifier type="IETF" primary="true">1149</docidentifier>
@@ -409,13 +403,10 @@
     <role type="author"/>
     <person>
       <name>
+        <forename initial="D"/>
         <formatted-initials language="en">D</formatted-initials>
         <surname language="en">Waitzman</surname>
       </name>
-      <address>
-        <city/>
-        <country/>
-      </address>
       <phone>(617) 873-4323</phone>
       <email>dwaitzman@BBN.COM</email>
       <uri>http://bbn.com</uri>
@@ -425,13 +416,10 @@
     <role type="author"/>
     <person>
       <name>
+        <forename initial="N"/>
         <formatted-initials language="en">N</formatted-initials>
         <surname language="en">Nicholas</surname>
       </name>
-      <address>
-        <city/>
-        <country/>
-      </address>
       <phone>(617) 873-4323</phone>
       <email>opoudjis@gmail.com</email>
       <uri>http://opoudjis.net</uri>
@@ -439,8 +427,8 @@
   </contributor>
   <language>en</language>
   <script>Latn</script>
-  <abstract format="text/html" language="en" script="Latn">&amp;lt;t&amp;gt;&amp;lt;/&amp;gt;Avian carriers can provide high delay, low throughput, and low altitude service. The connection topology is limited to a single point-to-point path for each carrier, used with standard carriers, but many carriers can be used without significant interference with each other, outside of early spring. This is because of the 3D ether space available to the carriers, in contrast to the 1D ether used by IEEE802.3. The carriers have an intrinsic collision avoidance system, which increases availability. Unlike some network technologies, such as packet radio, communication is not limited to line-of-sight distance. Connection oriented service is available in some cities, usually based upon a central hub topology.&amp;lt;/p&amp;gt;</abstract>
-  <ext>
+  <abstract format="text/html" language="en" script="Latn">Avian carriers can provide high delay, low throughput, and low altitude service. The connection topology is limited to a single point-to-point path for each carrier, used with standard carriers, but many carriers can be used without significant interference with each other, outside of early spring. This is because of the 3D ether space available to the carriers, in contrast to the 1D ether used by IEEE802.3. The carriers have an intrinsic collision avoidance system, which increases availability. Unlike some network technologies, such as packet radio, communication is not limited to line-of-sight distance. Connection oriented service is available in some cities, usually based upon a central hub topology.</abstract>
+  <ext schema-version="v1.0.0">
     <doctype>rfc</doctype>
     <editorialgroup>
       <committee>Network Working Group</committee>

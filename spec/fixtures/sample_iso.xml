@@ -1,4 +1,4 @@
-<bibdata type="standard">
+<bibdata type="standard" schema-version="v1.2.1">
   <title type="title-main" format="text/plain">Geographic information</title>
   <title type="main" format="text/plain">Geographic information</title>
   <title type="title-main" format="text/plain" language="fr" script="Latn">Information géographique</title>
@@ -18,7 +18,7 @@
     <substage>substage</substage>
     <iteration>final</iteration>
   </status>
-  <ext>
+  <ext schema-version="v1.0.0">
     <doctype>standard</doctype>
   </ext>
 </bibdata>

@@ -7,8 +7,8 @@ module Relaton
       class_option :verbose, aliases: :v, type: :boolean, desc: "Output warnings"
 
       desc "create COLLECTION", "Create collection"
-      option :dir, aliases: :d, desc: "Directory to store collection. Default "\
-        "is $HOME/.relaton/collections."
+      option :dir, aliases: :d, desc: "Directory to store collection. " \
+                                      "Default is $HOME/.relaton/collections."
       option :author, desc: "Author"
       option :title, desc: "Title"
       option :doctype, desc: "Documents type"
@@ -20,14 +20,14 @@ module Relaton
         if File.exist? file_path
           warn "Collection #{file} aready exist"
         else
-          Dir.mkdir dir unless Dir.exist? dir
+          FileUtils.mkdir_p dir # unless Dir.exist? dir
           File.write file_path, col.to_yaml, encoding: "UTF-8"
         end
       end
 
       desc "info COLLECTION", "View collection information"
-      option :dir, aliases: :d, desc: "Directory to store collection. Default "\
-        "is $HOME/.relaton/collections."
+      option :dir, aliases: :d, desc: "Directory to store collection. " \
+                                      "Default is $HOME/.relaton/collections."
 
       def info(file) # rubocop:disable Metrics/AbcSize
         path = File.join directory, file
@@ -41,8 +41,8 @@ module Relaton
       end
 
       desc "list", "List collections"
-      option :dir, aliases: :d, desc: "Directory with collections. Default is "\
-        "$HOME/.relaton/collections."
+      option :dir, aliases: :d, desc: "Directory with collections. Default " \
+                                      "is $HOME/.relaton/collections."
       option :entries, aliases: :e, type: :boolean, desc: "Show entries"
 
       def list
@@ -58,13 +58,13 @@ module Relaton
       map ls: :list
 
       desc "get CODE", "Fetch document from collection by ID"
-      option :collection, aliases: :c, desc: "Collection to fetch document. "\
+      option :collection, aliases: :c, desc: "Collection to fetch document. " \
         "By default fetch the first match across all collections."
-      option :dir, aliases: :d, desc: "Directory with collections. Default is "\
-        "$HOME/.relaton/collections."
-      option :format, aliases: :f, desc: "Output format (xml, abb). "\
+      option :dir, aliases: :d, desc: "Directory with collections. Default " \
+                                      "is $HOME/.relaton/collections."
+      option :format, aliases: :f, desc: "Output format (xml, abb). " \
         "If not defined the output in a human-readable form."
-      option :output, aliases: :o, desc: "Output to the specified file. The "\
+      option :output, aliases: :o, desc: "Output to the specified file. The " \
         " file's extension (abb, xml) defines output format."
 
       def get(docid)
@@ -79,10 +79,10 @@ module Relaton
       end
 
       desc "find TEXT", "Full-text search"
-      option :collection, aliases: :c, desc: "Collection to search text. "\
+      option :collection, aliases: :c, desc: "Collection to search text. " \
         "By default search across all collections."
-      option :dir, aliases: :d, desc: "Directory with collections. Default is "\
-        "$HOME/.relaton/collections."
+      option :dir, aliases: :d, desc: "Directory with collections. Default is " \
+                                      "$HOME/.relaton/collections."
 
       def find(text)
         collections.each do |col|
@@ -98,14 +98,14 @@ module Relaton
       map search: :find
 
       desc "fetch CODE", "Fetch a document and store it into a collection"
-      option :type, aliases: :t, required: true, desc: "Type of standard to "\
-        "get bibliographic entry for"
-      option :year, aliases: :y, type: :numeric, desc: "Year the standard was "\
-        "published"
-      option :collection, aliases: :c, required: true, desc: "Collection "\
-        "to store a document"
-      option :dir, aliases: :d, desc: "Directory with collections. Default is "\
-        "$HOME/.relaton/collections."
+      option :type, aliases: :t, required: true,
+                    desc: "Type of standard to get bibliographic entry for"
+      option :year, aliases: :y, type: :numeric,
+                    desc: "Year the standard was published"
+      option :collection, aliases: :c, required: true,
+                          desc: "Collection to store a document"
+      option :dir, aliases: :d, desc: "Directory with collections. Default is " \
+                                      "$HOME/.relaton/collections."
 
       def fetch(code) # rubocop:disable Metrics/AbcSize
         doc = Relaton.db.fetch(code, options[:year]&.to_s)
@@ -118,12 +118,13 @@ module Relaton
         end
       end
 
-      desc "import FILE", "Import document or collection from an XML file "\
-        "into another collection"
-      option :collection, aliases: :c, required: true, desc: "Collection to "\
-        "store a document. If collection doesn't exist then it'll be created."
-      option :dir, aliases: :d, desc: "Directory with collections. Default is "\
-        "$HOME/.relaton/collections."
+      desc "import FILE", "Import document or collection from an XML file " \
+                          "into another collection"
+      option :collection, aliases: :c, required: true,
+                          desc: "Collection to store a document. If " \
+                                "collection doesn't exist then it'll be created."
+      option :dir, aliases: :d, desc: "Directory with collections. Default is " \
+                                      "$HOME/.relaton/collections."
 
       def import(file) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
         collfile = File.join directory, options[:collection]
@@ -143,12 +144,12 @@ module Relaton
       end
 
       desc "export COLLECTION", "Export collection into XML file"
-      option :dir, aliases: :d, desc: "Directory with collections. Default is "\
-        "$HOME/.relaton/collections."
+      option :dir, aliases: :d, desc: "Directory with collections. Default is " \
+                                      "$HOME/.relaton/collections."
 
       def export(file)
         coll = read_collection File.join(directory, file)
-        outfile = file.sub(/\.\w+$/, "") + ".xml"
+        outfile = "#{file.sub(/\.\w+$/, '')}.xml"
         File.write outfile, coll.to_xml(bibdata: true), encoding: "UTF-8"
       end
 
@@ -194,7 +195,7 @@ module Relaton
         return unless options[:entries]
 
         Relaton::Bibcollection.new(hash["root"]).items.each do |b|
-          puts "  " + b.docidentifier
+          puts "  #{b.docidentifier}"
         end
       end
 

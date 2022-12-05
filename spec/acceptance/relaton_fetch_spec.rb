@@ -37,7 +37,7 @@ RSpec.describe "Relaton Fetch" do
 
       it "calls fetch and return XML" do
         expect(io).to receive(:puts) do |arg|
-          expect(arg).to match(/^<bibdata type="standard">/)
+          expect(arg).to match(/^<bibdata type="standard" schema-version="v\d\.\d\.\d">/)
           expect(arg).to include '<docidentifier type="ISO" primary="true">'\
                                  "ISO 2146:2010</docidentifier>"
         end

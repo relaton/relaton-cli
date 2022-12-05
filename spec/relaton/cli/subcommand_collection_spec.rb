@@ -142,18 +142,26 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
       dir = "spec/fixtures"
       coll = "sample-collection.yaml"
       file = File.join dir, coll
-      expect(File).to receive(:write).with(file, /CC\/DIR\s10005/, kind_of(Hash)).at_most :once
-      expect(File).to receive(:write).and_call_original.at_most(5).times
-      expect(File).to receive(:exist?).with(/etag\.txt/).and_return false
-      expect(File).to receive(:exist?).with(/bibliography\.yml/).and_return false
-      expect(File).to receive(:exist?).and_call_original.at_least :once
+      # expect(File).to receive(:write).with(file, /CC\/DIR\s10005/, kind_of(Hash)).at_most :once
+      # expect(File).to receive(:write).and_call_original.at_most(5).times
+      # expect(File).to receive(:exist?).with(/etag\.txt/).and_return false
+      # expect(File).to receive(:exist?).with(/bibliography\.yml/).and_return false
+      # expect(File).to receive(:exist?).and_call_original.at_least :once
 
-      VCR.use_cassette "cc_dir_10005" do
-        Relaton::Cli::Command.start [
-          "collection", "fetch", "CC/DIR 10005", "-t", "CC", "-d", dir,
-          "-c", coll
-        ]
-      end
+      db = double "db"
+      expect(Relaton).to receive(:db).and_return db
+      expect(db).to receive(:fetch).with("CC/DIR 10005", nil).and_return :doc
+      expect(File).to receive(:file?).with(file).and_return true
+      expect(YAML).to receive(:load_file).with(file).and_return "root" => :coll
+      expect(Relaton::Bibcollection).to receive(:new).with(:coll).and_return []
+      expect(File).to receive(:write).with(file, "---\n- :doc\n", kind_of(Hash))
+
+      # VCR.use_cassette "cc_dir_10005" do
+      Relaton::Cli::Command.start [
+        "collection", "fetch", "CC/DIR 10005", "-t", "CC", "-d", dir,
+        "-c", coll
+      ]
+      # end
     end
   end
 
