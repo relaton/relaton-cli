@@ -61,25 +61,26 @@ Fetch the Relaton XML entry corresponding to the document identifier `CODE`.
 $ relaton fetch-data DATASET -o DIR -f FORMAT
 ----
 
-Fetch all the documents from a `DATASET` source and save them to a folder `DIR` in format `FORMAT`.
+Fetch all the documents from a `DATASET` source and save them to a folder `DIR` in the format `FORMAT`.
 
-Foloowing datasets are availabe:
+Following datasets are available:
 
 * `nist-tech-pubs` - https://raw.githubusercontent.com/usnistgov/NIST-Tech-Pubs/nist-pages/xml/allrecords.xml
 * `cie-techstreet` - https://www.techstreet.com/cie/searches/31156444
 * `calconnect-org` - https://standards.calconnect.org/relaton/index.yaml
 * `ogc-naming-authority` - https://raw.githubusercontent.com/opengeospatial/NamingAuthority/master/incubation/bibliography/bibliography.json
-* `ieee-rawbib` - looks for the IEEE dataset in local `./ieee-rawbib` directory. The dataset could be downloaded from https://github.com/ietf-ribose/ieee-rawbib repository
+* `ieee-rawbib` - looks for the IEEE dataset in the local `./ieee-rawbib` directory. The dataset could be downloaded from https://github.com/ietf-ribose/ieee-rawbib repository
 * `w3c-rdf` - http://www.w3.org/2002/01/tr-automation/tr.rdf
 * `w3c-tr-archive` - looks for the W3C archive dataset in local `./w3c-tr-archive` directory. The dataset could be downloaded from https://github.com/relaton/w3c-tr-archive repository
 * `iana-registries` - https://github.com/ietf-ribose/iana-registries
-* `status-smg-3GPP` - ftp://www.3gpp.org/Information/Databases/Spec_Status/
+* `status-smg-3GPP` - updates previously downloaded data if a new archive is available in ftp://www.3gpp.org/Information/Databases/Spec_Status/
+* `status-smg-3GPP-force` - download data from the latest archive in ftp://www.3gpp.org/Information/Databases/Spec_Status/
 * `ietf-rfcsubseries` - https://www.rfc-editor.org/rfc-index.xml (`<bcp-entry>`, `<fyi-entry>`, `<std-entry>`)
-* `ietf-internet-drafts` - looks for the Internet-Drafts dataset in local `./bibxml-ids` directory. The dataset could be downloaded using `rsync -avcizxL rsync.ietf.org::bibxml-ids ./bibxml-ids` command.
+* `ietf-internet-drafts` - looks for the Internet-Drafts dataset in the local `./bibxml-ids` directory. The dataset could be downloaded using `rsync -avcizxL rsync.ietf.org::bibxml-ids ./bibxml-ids` command.
 * `ietf-rfc-entries` - https://www.rfc-editor.org/rfc-index.xml (`<rfc-entry>`)
 * `oasis-open` - https://www.oasis-open.org/standards/
-* `bipm-data-outcomes` - looks for the BIPM dataset in local `./bipm-data-outcomes` directory. The dataset could be downloaded from https://github.com/metanorma/bipm-data-outcomes repository
-* `si-brochure` - looks for the SI-Brochure dataset in local `./bipm-si-brocure` directory. The dataset could be downloaded from https://github.com/metanorma/bipm-si-brochure repository
+* `bipm-data-outcomes` - looks for the BIPM dataset in the local `./bipm-data-outcomes` directory. The dataset could be downloaded from https://github.com/metanorma/bipm-data-outcomes repository
+* `si-brochure` - looks for the SI-Brochure dataset in the local `./bipm-si-brocure` directory. The dataset could be downloaded from https://github.com/metanorma/bipm-si-brochure repository
 
 Options:
 
