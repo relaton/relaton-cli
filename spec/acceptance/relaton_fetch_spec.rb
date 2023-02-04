@@ -41,7 +41,7 @@ RSpec.describe "Relaton Fetch" do
           expect(arg).to include '<docidentifier type="ISO" primary="true">'\
                                  "ISO 2146:2010</docidentifier>"
         end
-        VCR.use_cassette "iso_2146" do
+        VCR.use_cassette "iso_2146", allow_playback_repeats: true do
           command = ["fetch", "--type", "iso", "ISO 2146"]
           Relaton::Cli.start(command)
         end
@@ -51,7 +51,7 @@ RSpec.describe "Relaton Fetch" do
         expect(io).to receive(:puts) do |arg|
           expect(arg).to include "- id: ISO 2146:2010"
         end
-        VCR.use_cassette "iso_2146" do
+        VCR.use_cassette "iso_2146", allow_playback_repeats: true do
           command = ["fetch", "--type", "iso", "--format", "yaml", "ISO 2146"]
           Relaton::Cli.start(command)
         end
@@ -61,7 +61,7 @@ RSpec.describe "Relaton Fetch" do
         expect(io).to receive(:puts) do |arg|
           expect(arg).to include "@misc{ISO2146,"
         end
-        VCR.use_cassette "iso_2146" do
+        VCR.use_cassette "iso_2146", allow_playback_repeats: true do
           command = ["fetch", "--type", "iso", "--format", "bibtex", "ISO 2146"]
           Relaton::Cli.start(command)
         end
