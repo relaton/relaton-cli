@@ -252,7 +252,7 @@ module Relaton
       def build_dirname(filename)
         basename = File.basename(filename)&.gsub(/.(xml|rxl)/, "")
         directory_name = sanitize_string(basename)
-        Dir.mkdir(directory_name) unless File.exists?(directory_name)
+        FileUtils.mkdir_p(directory_name) # unless File.exists?(directory_name)
 
         directory_name
       end

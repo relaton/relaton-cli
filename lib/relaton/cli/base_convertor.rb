@@ -83,7 +83,7 @@ module Relaton
       def write_to_a_file(content, outfile = nil)
         outfile ||= Pathname.new(file).sub_ext(extension).to_s
 
-        if !File.exists?(outfile) || overwrite
+        if !File.exist?(outfile) || overwrite
           File.open(outfile, "w:utf-8") do |file|
             file.write(content)
           end
