@@ -12,6 +12,9 @@ on:
         default: 'skip'
   push:
     tags: [ v* ]
+  repository_dispatch:
+    types: [ do-release ]
+
 
 jobs:
   release:
