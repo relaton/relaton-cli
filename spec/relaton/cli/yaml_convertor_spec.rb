@@ -12,7 +12,7 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
         buffer = stub_file_write_to_io(sample_yaml_file)
         Relaton::Cli::YAMLConvertor.to_xml(sample_yaml_file)
         expect(buffer).to be_equivalent_to <<~"OUTPUT"
-          <bibdata type="standard" schema-version="v1.2.1">
+          <bibdata type="standard" schema-version="v1.2.3">
             <title type="title-intro" format="text/plain">Standardization documents</title>
             <title type="title-main" format="text/plain">Vocabulary</title>
             <title type="main" format="text/plain">Standardization documents - Vocabulary</title>
@@ -31,7 +31,7 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
         buffer = stub_file_write_to_io(sample_yaml_file_no_type)
         Relaton::Cli::YAMLConvertor.to_xml(sample_yaml_file_no_type)
         expect(buffer).to be_equivalent_to <<~OUTPUT
-          <bibdata schema-version="v1.2.1">
+          <bibdata schema-version="v1.2.3">
             <title type="title-main" format="text/plain">Geographic information</title>
             <title type="main" format="text/plain">Geographic information</title>
             <title format="text/plain" language="fr" script="Latn">Information géographique</title>
@@ -73,7 +73,7 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
         )
 
         expect(buffer).to be_equivalent_to <<~"OUTPUT"
-          <bibdata type="standard" schema-version="v1.2.1">
+          <bibdata type="standard" schema-version="v1.2.3">
             <title type="title-intro" format="text/plain">Standardization documents</title>
             <title type="title-main" format="text/plain">Vocabulary</title>
             <title type="main" format="text/plain">Standardization documents - Vocabulary</title>
@@ -98,7 +98,7 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
 
         expect(buffer.count).to eq(6)
         expect(buffer.last).to be_equivalent_to <<~"OUTPUT"
-          <bibdata type="standard" schema-version="v1.2.1">
+          <bibdata type="standard" schema-version="v1.2.3">
             <title type="title-intro" format="text/plain">Date and time</title>
             <title type="title-main" format="text/plain">Calendars</title>
             <title type="title-part" format="text/plain">Chinese calendar</title>
@@ -117,7 +117,7 @@ RSpec.describe Relaton::Cli::YAMLConvertor do
       it "don't write" do
         xml = Relaton::Cli::YAMLConvertor.to_xml(sample_yaml_file, write: false)
         expect(xml).to be_equivalent_to <<~OUTPUT
-          <bibdata type="standard" schema-version="v1.2.1">
+          <bibdata type="standard" schema-version="v1.2.3">
             <title type="title-intro" format="text/plain">Standardization documents</title>
             <title type="title-main" format="text/plain">Vocabulary</title>
             <title type="main" format="text/plain">Standardization documents - Vocabulary</title>

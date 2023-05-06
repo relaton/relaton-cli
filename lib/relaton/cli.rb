@@ -1,6 +1,7 @@
 require "thor"
 require "thor/hollaback"
 require "relaton"
+require "relaton/cli/version"
 require_relative "cli/command"
 
 module Relaton
@@ -37,6 +38,19 @@ module Relaton
     end
 
     class << self
+      def version
+        registry = Relaton::Registry.instance
+        puts "CLI => #{Relaton::Cli::VERSION}"
+        puts "relaton => #{Relaton::VERSION}"
+        puts "relaton-bib => #{RelatonBib::VERSION}"
+        puts "relaton-iso-bib => #{RelatonIsoBib::VERSION}"
+        registry.processors.each_key do |k|
+          klass = "#{k.to_s.split('_').map(&:capitalize).join}::VERSION"
+          version = Kernel.const_get(klass)
+          puts "#{k.to_s.sub('_', '-')} => #{version}"
+        end
+      end
+
       def start(arguments)
         Relaton::Cli::Command.start(arguments)
       end

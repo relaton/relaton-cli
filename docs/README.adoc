@@ -81,6 +81,7 @@ The following datasets are available:
 * `oasis-open` - https://www.oasis-open.org/standards/
 * `bipm-data-outcomes` - looks for the BIPM dataset in the local `./bipm-data-outcomes` directory. The dataset could be downloaded from https://github.com/metanorma/bipm-data-outcomes repository
 * `si-brochure` - looks for the SI-Brochure dataset in the local `./bipm-si-brocure` directory. The dataset could be downloaded from https://github.com/metanorma/bipm-si-brochure repository
+* `ecma-standards` - https://www.ecma-international.org/publications/standards/
 
 Options:
 
@@ -253,6 +254,38 @@ $ relaton convert XML -f FORMAT -o OUTPUT-FILE
 ----
 
 Convert a Relaton XML document into YAML, AsciiBib, or BibTex format. Allowed -f or --format options are yaml, asciibib, bibtex. If the option -o or --output is omitted then a new file will be created in the folder where the original file is, with the same name but another appropriated extension.
+
+=== relaton version
+----
+$ relaton version
+CLI => 1.15.2
+relaton => 1.15.1
+relaton-bib => 1.14.11
+relaton-iso-bib => 1.14.0
+relaton-gb => 1.14.0
+relaton-iec => 1.14.3
+relaton-ietf => 1.14.3
+relaton-iso => 1.15.1
+relaton-itu => 1.14.1
+relaton-nist => 1.14.3
+relaton-ogc => 1.14.1
+relaton-calconnect => 1.14.0
+relaton-omg => 1.14.0
+relaton-un => 1.14.1
+relaton-w3c => 1.14.1
+relaton-ieee => 1.14.6
+relaton-iho => 1.14.2
+relaton-bipm => 1.14.6
+relaton-ecma => 1.14.1
+relaton-cie => 1.14.0
+relaton-bsi => 1.14.5
+relaton-cen => 1.14.0
+relaton-iana => 1.14.1
+relaton-3gpp => 1.14.3
+relaton-oasis => 1.14.2
+relaton-doi => 1.14.3
+relaton-jis => 1.14.1
+----
 
 === relaton collection
 

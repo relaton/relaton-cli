@@ -15,7 +15,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
 
         expect(file_exist?("cc-amd-86003.rxl")).to be false
         expect(file_exist?("cc-cor-12990-3.rxl")).to be true
-        expect(content).to include('<bibdata type="standard" schema-version="v1.2.1">')
+        expect(content).to match(/<bibdata type="standard" schema-version="v[\d.]+">/)
       end
     end
 
@@ -44,7 +44,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
 
         expect(file_exist?("a.rxl")).to be_truthy
         expect(file_exist?("cc-cor-12990-3.rxl")).to be_falsey
-        expect(content).to include('<bibdata type="standard" schema-version="v1.2.1">')
+        expect(content).to match(/<bibdata type="standard" schema-version="v[\d.]+">/)
       end
 
       it "extracts the RFC in the output directory" do
@@ -57,7 +57,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
 
         expect(file_exist?("draft-celi-acvp-sha-00.rxl")).to be_truthy
         expect(file_exist?("cc-cor-12990-3.rxl")).to be_falsey
-        expect(content).to include('<bibdata type="standard" schema-version="v1.2.1">')
+        expect(content).to match(/<bibdata type="standard" schema-version="v[\d.]+">/)
       end
 
       it "extract to current directory" do
@@ -176,7 +176,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
 
         expect(file_exist?("cc-34000.rxl")).to be true
         expect(Dir["#{output_dir}/**"].length).to eq(6)
-        expect(content).to include('<bibdata type="standard" schema-version="v1.2.1">')
+        expect(content).to match(/<bibdata type="standard" schema-version="v[\d.]+">/)
         expect(content).to include("<title>Date and time -- Concepts")
       end
 
