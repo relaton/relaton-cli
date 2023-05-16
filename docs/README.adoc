@@ -258,7 +258,7 @@ Convert a Relaton XML document into YAML, AsciiBib, or BibTex format. Allowed -f
 === relaton version
 ----
 $ relaton version
-CLI => 1.15.2
+CLI => 1.15.3
 relaton => 1.15.1
 relaton-bib => 1.14.11
 relaton-iso-bib => 1.14.0

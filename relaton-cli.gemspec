@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec-core", "~> 3.4"
 
   spec.add_runtime_dependency "liquid", "~> 5"
-  spec.add_runtime_dependency "relaton", "~> 1.15.1"
+  spec.add_runtime_dependency "relaton", "~> 1.15.2"
   spec.add_runtime_dependency "thor"
   spec.add_runtime_dependency "thor-hollaback"
 end
