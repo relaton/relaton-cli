@@ -82,6 +82,7 @@ The following datasets are available:
 * `bipm-data-outcomes` - looks for the BIPM dataset in the local `./bipm-data-outcomes` directory. The dataset could be downloaded from https://github.com/metanorma/bipm-data-outcomes repository
 * `si-brochure` - looks for the SI-Brochure dataset in the local `./bipm-si-brocure` directory. The dataset could be downloaded from https://github.com/metanorma/bipm-si-brochure repository
 * `ecma-standards` - https://www.ecma-international.org/publications/standards/
+* `itu-r` - https://extranet.itu.int/brdocsearch
 
 Options:
 
