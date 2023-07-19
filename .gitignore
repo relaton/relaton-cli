@@ -8,6 +8,7 @@
 /tmp/
 /.pryrc
 /.rubocop-https*
+/vendor/
 
 .rspec_status
 .vscode/

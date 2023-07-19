@@ -20,16 +20,10 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
-  spec.required_ruby_version = ">= 2.6.0"
-
-  spec.add_development_dependency "byebug", "~> 11.0"
-  spec.add_development_dependency "equivalent-xml", "~> 0.6"
-  spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "rspec-command", "~> 1.0.3"
-  spec.add_development_dependency "rspec-core", "~> 3.4"
+  spec.required_ruby_version = ">= 2.7.0"
 
   spec.add_runtime_dependency "liquid", "~> 5"
-  spec.add_runtime_dependency "relaton", "~> 1.15.2"
+  spec.add_runtime_dependency "relaton", "~> 1.15.4"
   spec.add_runtime_dependency "thor"
   spec.add_runtime_dependency "thor-hollaback"
 end

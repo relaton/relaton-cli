@@ -102,7 +102,7 @@ RSpec.describe "Relaton Fetch" do
         expect(io).to receive(:puts).with(
           "Recognised types: 3GPP, BIPM, BSI, CC, CEN, CIE, CN, DOI, ECMA, " \
           "IANA, IEC, IEEE, IETF, IHO, ISO, ITU, JIS, NIST, OASIS, OGC, OMG, " \
-          "UN, W3C",
+          "UN, W3C, XEP",
         )
         expect(IO).to receive(:new).with(kind_of(Integer), mode: "w:UTF-8")
           .and_return io
@@ -119,7 +119,7 @@ RSpec.describe "Relaton Fetch" do
         expect(output).to include(
           "Recognised types: 3GPP, BIPM, BSI, CC, CEN, CIE, CN, DOI, ECMA, " \
           "IANA, IEC, IEEE, IETF, IHO, ISO, ITU, JIS, NIST, OASIS, OGC, OMG, " \
-          "UN, W3C",
+          "UN, W3C, XEP",
         )
       end
     end
