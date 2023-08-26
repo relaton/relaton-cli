@@ -402,7 +402,7 @@
   <language>en</language>
   <script>Latn</script>
   <abstract format="text/html" language="en" script="Latn">Avian carriers can provide high delay, low throughput, and low altitude service. The connection topology is limited to a single point-to-point path for each carrier, used with standard carriers, but many carriers can be used without significant interference with each other, outside of early spring. This is because of the 3D ether space available to the carriers, in contrast to the 1D ether used by IEEE802.3. The carriers have an intrinsic collision avoidance system, which increases availability. Unlike some network technologies, such as packet radio, communication is not limited to line-of-sight distance. Connection oriented service is available in some cities, usually based upon a central hub topology.</abstract>
-  <ext schema-version="v1.0.0">
+  <ext schema-version="v1.0.1">
     <doctype>rfc</doctype>
     <editorialgroup>
       <committee>Network Working Group</committee>

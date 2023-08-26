@@ -83,6 +83,7 @@ The following datasets are available:
 * `si-brochure` - looks for the SI-Brochure dataset in the local `./bipm-si-brocure` directory. The dataset could be downloaded from https://github.com/metanorma/bipm-si-brochure repository
 * `ecma-standards` - https://www.ecma-international.org/publications/standards/
 * `itu-r` - https://extranet.itu.int/brdocsearch
+* `ccsds` - https://public.ccsds.org/Publications/AllPubs.aspx
 
 Options:
 
@@ -450,7 +451,7 @@ $ relaton db fetch_all 'Procedures for the technical work'
   <title type="title-main" format="text/plain" language="en" script="Latn">Procedures for the technical work</title>
 ...
 
-$ relaton db fetch_all -e 3                               
+$ relaton db fetch_all -e 3
 <bibitem id="ISO2146-2010" type="standard">
 ...
 <edition>3</edition>
