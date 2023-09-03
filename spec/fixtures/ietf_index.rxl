@@ -1,4 +1,4 @@
-<relaton-collection xmlns="https://open.ribose.com/relaton-xml"><title>Collection title</title><contributor><role type='author'/><organization><name>Ribose</name></organization></contributor><relation type='partOf'><bibdata type="standard" schema-version="v1.2.3">
+<relaton-collection xmlns="https://open.ribose.com/relaton-xml"><title>Collection title</title><contributor><role type='author'/><organization><name>Ribose</name></organization></contributor><relation type='partOf'><bibdata type="standard" schema-version="v1.2.4">
   <title type="main" format="text/plain" language="en">The Holy Hand Grenade of Antioch</title>
   <title type="abbrev" format="text/plain" language="en">Hand Grenade of Antioch</title>
   <uri type="xml">spec/fixtures/documents/antioch.xml</uri>
@@ -91,7 +91,7 @@
     <doctype>internet-draft</doctype>
   </ext>
 </bibdata></relation>
-<relation type='partOf'><bibdata type="standard" schema-version="v1.2.3">
+<relation type='partOf'><bibdata type="standard" schema-version="v1.2.4">
   <title type="main" format="text/plain" language="en">RFC XML v3 Example: A Standard for the Transmission of IP Datagrams on Avian Carriers</title>
   <title type="abbrev" format="text/plain" language="en">IP Datagrams on Avian Carriers</title>
   <uri type="xml">spec/fixtures/documents/example.xml</uri>
@@ -358,7 +358,7 @@
     <doctype>rfc</doctype>
   </ext>
 </bibdata></relation>
-<relation type='partOf'><bibdata type="standard" schema-version="v1.2.3">
+<relation type='partOf'><bibdata type="standard" schema-version="v1.2.4">
   <title format="text/plain" language="en" script="Latn">The Holy Hand Grenade of Antioch</title>
   <uri type="xml">spec/fixtures/documents/antioch.rfc.xml</uri>
   <docidentifier type="Internet-Draft" primary="true">draft-camelot-holy-grenade-01</docidentifier>
@@ -387,7 +387,7 @@
     <doctype>rfc</doctype>
   </ext>
 </bibdata></relation>
-<relation type='partOf'><bibdata type="standard" schema-version="v1.2.3">
+<relation type='partOf'><bibdata type="standard" schema-version="v1.2.4">
   <title format="text/plain" language="en" script="Latn">RFC XML v3 Example: A Standard for the Transmission of IP Datagrams on Avian Carriers</title>
   <uri type="xml">spec/fixtures/documents/example.rfc.xml</uri>
   <docidentifier type="IETF" primary="true">1149</docidentifier>
