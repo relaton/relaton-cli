@@ -4,24 +4,33 @@
 
 RSpec.describe "Relaton Fetch" do
   describe "relaton fetch" do
-    it "calls fetch" do
-      db = double
-      opts = Thor::CoreExt::HashWithIndifferentAccess.new type: "ISO"
-      expect(db).to receive(:fetch_std).with "ISO 2146", nil, :relaton_iso, opts
-      expect(Relaton::Cli).to receive(:relaton).and_return(db)
+    let(:db) { double("DB") }
 
-      command = ["fetch", "--type", "ISO", "ISO 2146"]
-      Relaton::Cli.start(command)
-    end
+    context do
+      before do
+        expect(Relaton::Cli).to receive(:relaton).and_return(db)
+      end
 
-    it "calls fetch with lowercase type" do
-      db = double
-      opts = Thor::CoreExt::HashWithIndifferentAccess.new type: "iso"
-      expect(db).to receive(:fetch_std).with "ISO 2146", nil, :relaton_iso, opts
-      expect(Relaton::Cli).to receive(:relaton).and_return(db)
+      it "calls fetch" do
+        expect(db).to receive(:fetch_std).with "ISO 2146", nil, :relaton_iso, type: "ISO"
 
-      command = ["fetch", "--type", "iso", "ISO 2146"]
-      Relaton::Cli.start(command)
+        command = ["fetch", "--type", "ISO", "ISO 2146"]
+        Relaton::Cli.start(command)
+      end
+
+      it "calls fetch with lowercase type" do
+        expect(db).to receive(:fetch_std).with "ISO 2146", nil, :relaton_iso, type: "iso"
+
+        command = ["fetch", "--type", "iso", "ISO 2146"]
+        Relaton::Cli.start(command)
+      end
+
+      it "ignore cache" do
+        expect(db).to receive(:fetch).with "ISO 2146", nil, no_cache: true
+
+        command = ["fetch", "--no-cache", "ISO 2146"]
+        Relaton::Cli.start(command)
+      end
     end
 
     context do
@@ -132,7 +141,6 @@ RSpec.describe "Relaton Fetch" do
     end
 
     it "raise request error" do
-      db = double("DB")
       expect(db).to receive(:fetch_std).and_raise RelatonBib::RequestError
       expect(Relaton::Cli).to receive(:relaton).and_return(db)
       command = Relaton::Cli::Command.new

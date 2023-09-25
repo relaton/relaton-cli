@@ -20,16 +20,17 @@ module Relaton
       end
 
       desc "fetch CODE", "Fetch Relaton XML for Standard identifier CODE"
-      option :type, aliases: :t, desc: "Type of standard to " \
-                                       "get bibliographic entry for"
-      option :format, aliases: :f, desc: "Output format (xml, yaml, bibtex). " \
-                                         "Default xml."
+      option :type, aliases: :t,
+                    desc: "Type of standard to get bibliographic entry for"
+      option :format, aliases: :f,
+                      desc: "Output format (xml, yaml, bibtex). Default xml."
       option :year, aliases: :y, type: :numeric, desc: "Year the standard was published"
       option :"all-parts", type: :boolean, desc: "Fetch all parts"
-      option :"keep-year", type: :boolean, desc: "Undated reference should " \
-                                                 "return actual reference with year"
-      option :retries, aliases: :r, type: :numeric, desc: "Number of network " \
-                                                          "retries. Default 1."
+      option :"keep-year", type: :boolean,
+                           desc: "Undated reference should return actual reference with year"
+      option :retries, aliases: :r, type: :numeric,
+                       desc: "Number of network retries. Default 1."
+      option :"no-cache", type: :boolean, desc: "Ignore cache"
 
       def fetch(code)
         io = IO.new($stdout.fcntl(::Fcntl::F_DUPFD), mode: "w:UTF-8")
@@ -160,10 +161,9 @@ module Relaton
 
       no_commands do
         def relaton_config
-          log_types = %i[info error]
-          log_types << :warning if options[:verbose]
+          log_type = options[:verbose] ? ::Logger::INFO : ::Logger::WARN
           Relaton.configure do |conf|
-            conf.logs = log_types
+            conf.logger.level = log_type
           end
         end
       end
@@ -177,12 +177,13 @@ module Relaton
     # @option options [String, NilClass] :format
     # @option options [Integer, NilClass] :year
     # @return [String, nil]
-    def fetch_document(code, options) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/AbcSize
+    def fetch_document(code, options) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/AbcSize,Metrics/MethodLength
       year = options[:year]&.to_s
+      dup_opts = options.dup.transform_keys { |k| k.to_s.gsub("-", "_").to_sym }
       if (processor = Relaton::Registry.instance.by_type options[:type]&.upcase)
-        doc = Relaton.db.fetch_std code, year, processor.short, options.dup
+        doc = Relaton.db.fetch_std code, year, processor.short, **dup_opts
       elsif options[:type] then return
-      else doc = Relaton.db.fetch(code, year, options.dup)
+      else doc = Relaton.db.fetch(code, year, **dup_opts)
       end
       return "No matching bibliographic entry found" unless doc
 

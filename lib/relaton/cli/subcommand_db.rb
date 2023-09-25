@@ -10,7 +10,7 @@ module Relaton
       def create(dir = nil)
         db = Relaton.db (dir && File.expand_path(dir))
         path = db.instance_variable_get(:@db).dir
-        warn "Cache DB is in \"#{path}\""
+        Util.warn "Cache DB is in `#{path}`"
       end
 
       desc "mv DIR", "Move cache DB to a new directory"
@@ -20,7 +20,7 @@ module Relaton
         path = Relaton.db.mv new_path
         if path
           File.write Cli::RelatonDb::DBCONF, path, encoding: "UTF-8"
-          warn "Cache DB is moved to \"#{path}\""
+          Util.warn "Cache DB is moved to `#{path}`"
         end
       end
 
@@ -29,7 +29,7 @@ module Relaton
       def clear
         db = Relaton.db
         db.clear
-        warn "Cache DB is cleared"
+        Util.warn "Cache DB is cleared"
       end
 
       desc "fetch CODE", "Fetch Relaton XML for Standard identifier CODE " \

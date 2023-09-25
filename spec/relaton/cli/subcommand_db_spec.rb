@@ -3,6 +3,7 @@ RSpec.describe Relaton::Cli::SubcommandDb do
   let(:default_db_path) { "#{Dir.home}/.relaton/cache" }
   before(:each) do
     Relaton::Cli::RelatonDb.instance.instance_variable_set :@db, nil
+    Relaton::Cli.instance_variable_set :@configuration, nil
   end
 
   context "create DB" do
@@ -20,7 +21,7 @@ RSpec.describe Relaton::Cli::SubcommandDb do
         .and_return false
       db_mock default_db_path
       expect { Relaton::Cli::Command.start ["db", "create"] }
-        .to output(/Cache DB is in "#{default_db_path}"/).to_stderr
+        .to output(/\[relaton-cli\] Cache DB is in `#{default_db_path}`/).to_stderr
     end
 
     it "in specified dir" do
@@ -29,7 +30,7 @@ RSpec.describe Relaton::Cli::SubcommandDb do
       )
       db_mock custom_dir
       expect { Relaton::Cli::Command.start ["db", "create", "custom_dir"] }
-        .to output(/Cache DB is in "#{custom_dir}"/).to_stderr
+        .to output(/Cache DB is in `#{custom_dir}`/).to_stderr
     end
 
     it "in dir from DB config" do
@@ -40,7 +41,7 @@ RSpec.describe Relaton::Cli::SubcommandDb do
       ).and_return custom_dir
       db_mock custom_dir
       expect { Relaton::Cli::Command.start ["db", "create"] }
-        .to output(/Cache DB is in "#{custom_dir}"/).to_stderr
+        .to output(/Cache DB is in `#{custom_dir}`/).to_stderr
     end
   end
 
@@ -57,7 +58,7 @@ RSpec.describe Relaton::Cli::SubcommandDb do
       expect(File).to receive(:write)
         .with(Relaton::Cli::RelatonDb::DBCONF, new_dir, encoding: "UTF-8")
       expect { Relaton::Cli.start ["db", "mv", "new_dir"] }
-        .to output(/Cache DB is moved to "#{new_dir}"/).to_stderr
+        .to output(/Cache DB is moved to `#{new_dir}`/).to_stderr
     end
 
     it "clear cache DB" do
@@ -69,8 +70,7 @@ RSpec.describe Relaton::Cli::SubcommandDb do
     it "fetch code from cache DB" do
       out = '<bibitem id="ISO2146"></bibitem>'
       bib = double "BibItem", to_xml: out
-      opts = Thor::CoreExt::HashWithIndifferentAccess.new fetch_db: true
-      expect(db).to receive(:fetch).with("ISO 2146", nil, opts)
+      expect(db).to receive(:fetch).with("ISO 2146", nil, fetch_db: true)
         .and_return bib
       expect(IO).to receive(:new).and_return io
       expect(io).to receive(:puts).with out

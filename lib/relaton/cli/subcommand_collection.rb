@@ -18,7 +18,7 @@ module Relaton
         file_path = File.join dir, file
         col = Relaton::Bibcollection.new options
         if File.exist? file_path
-          warn "Collection #{file} aready exist"
+          Util.warn "Collection `#{file}` aready exist"
         else
           FileUtils.mkdir_p dir # unless Dir.exist? dir
           File.write file_path, col.to_yaml, encoding: "UTF-8"
@@ -114,7 +114,7 @@ module Relaton
           coll = read_collection colfile
           coll << doc
           File.write colfile, coll.to_yaml, encoding: "UTF-8"
-        else warn "No matching bibliographic entry found"
+        else Util.warn "No matching bibliographic entry found"
         end
       end
 
@@ -161,11 +161,12 @@ module Relaton
       end
 
       # @param file [String]
-      # @return [Hash]
+      # @return [Hash, nil]
       def read_yaml(file)
         YAML.load_file file if File.file? file
       rescue Psych::SyntaxError
-        warn "[relaton-cli] WARNING: the file #{file} isn't a collection."
+        Util.warn "WARNING: the file `#{file}` isn't a collection."
+        nil
       end
 
       # @param file [String]
