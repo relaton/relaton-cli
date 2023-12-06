@@ -110,7 +110,7 @@ RSpec.describe "Relaton Fetch" do
         io = double "IO"
         expect(io).to receive(:puts).with(
           "Recognised types: 3GPP, BIPM, BSI, CC, CCSDS, CEN, CIE, CN, DOI, " \
-          "ECMA, IANA, IEC, IEEE, IETF, IHO, ISO, ITU, JIS, NIST, OASIS, " \
+          "ECMA, ETSI, IANA, IEC, IEEE, IETF, IHO, ISO, ITU, JIS, NIST, OASIS, " \
           "OGC, OMG, UN, W3C, XEP",
         )
         expect(IO).to receive(:new).with(kind_of(Integer), mode: "w:UTF-8")
@@ -127,7 +127,7 @@ RSpec.describe "Relaton Fetch" do
         output = `relaton fetch 'ISO 2146' --type invalid`
         expect(output).to include(
           "Recognised types: 3GPP, BIPM, BSI, CC, CCSDS, CEN, CIE, CN, DOI, " \
-          "ECMA, IANA, IEC, IEEE, IETF, IHO, ISO, ITU, JIS, NIST, OASIS, " \
+          "ECMA, ETSI, IANA, IEC, IEEE, IETF, IHO, ISO, ITU, JIS, NIST, OASIS, " \
           "OGC, OMG, UN, W3C, XEP",
         )
       end
