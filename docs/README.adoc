@@ -49,7 +49,7 @@ Fetch the Relaton XML entry corresponding to the document identifier `CODE`.
 
 * `YEAR` is optional and specifies the year of publication of the standard.
 * `FORMAT` is optional, and specifies the output format; the recognized values for `FORMAT` are `xml` (default), yaml, `bibtex`.
-* `TYPE` is optional and specifies the standards class library to be used, that the identifier is part of. The recognized values for `TYPE` are `3GPP, BIPM, BSI, CC, CCSDS, CEN, CIE, CN, ECMA, IANA, IEC, IEEE, IETF, IHO, ISO, ITU, NIST, OASIS, OGC, OMG, UN, W3C, XSF`.
+* `TYPE` is optional and specifies the standards class library to be used, that the identifier is part of. The recognized values for `TYPE` are: `3GPP`, `BIPM`, `CCTF`, `CCDS`, `CGPM`, `CIPM`, `JCRB`, `JCGM`, `BSI`, `BS`, `PD`, `CC`, `CCSDS`, `CEN`, `EN`, `ENV`, `CWA`, `HD`, `CR`, `CIE`, `DOI`, `ECMA`, `ETSI`, `CN`, `GB`, `GB/T`, `GB/Z`, `IANA`, `IEC`, `CISPR`, `IEV`, `IEEE`, `ANSI`, `NACE`, `AIEE`, `ASA`, `IRE`, `IETF`, `RFC`, `BCP`, `FYI`, `STD`, `I-D`, `IHO`, `ISBN`, `ISO`, `ISO/IEC`, `ITU`, `JIS`, `TR`, `NIST`, `NBS`, `NISTGCR`, `ITL Bulletin`, `JPCRD`, `NISTIR`, `CSRC`, `FIPS`, `OASIS`, `OGC`, `OMG`, `UN`, `W3C`, `XEP`.
 * `RETRIES` is optional, number of network retries (default 1).
 * `--all-parts` fetch all parts.
 * `--keep-year` undated reference should return an actual reference with year.
@@ -89,8 +89,8 @@ The following datasets are available:
 
 Options:
 
-* `DIR` - floder name to store documents (default `./data`).
-* `FORMAT` - format in which the documents are saved. Possimle formats are: `yaml`, `xml`, `bibxml` (default `yaml`).
+* `DIR` - folder name to store documents (default `./data`).
+* `FORMAT` - format in which the documents are saved. Possible formats are: `yaml`, `xml`, `bibxml` (default `yaml`).
 
 === relaton extract
 
@@ -262,38 +262,42 @@ Convert a Relaton XML document into YAML, AsciiBib, or BibTex format. Allowed -f
 === relaton version
 ----
 $ relaton version
-CLI => 1.15.3
-relaton => 1.15.1
-relaton-bib => 1.14.11
-relaton-iso-bib => 1.14.0
-relaton-gb => 1.14.0
-relaton-iec => 1.14.3
-relaton-ietf => 1.14.3
-relaton-iso => 1.15.1
-relaton-itu => 1.14.1
-relaton-nist => 1.14.3
-relaton-ogc => 1.14.1
-relaton-calconnect => 1.14.0
-relaton-omg => 1.14.0
-relaton-un => 1.14.1
-relaton-w3c => 1.14.1
-relaton-ieee => 1.14.6
-relaton-iho => 1.14.2
-relaton-bipm => 1.14.6
-relaton-ecma => 1.14.1
-relaton-cie => 1.14.0
-relaton-bsi => 1.14.5
-relaton-cen => 1.14.0
-relaton-iana => 1.14.1
-relaton-3gpp => 1.14.3
-relaton-oasis => 1.14.2
-relaton-doi => 1.14.3
-relaton-jis => 1.14.1
+CLI => 1.17.2
+relaton => 1.17.2
+relaton-bib => 1.17.2
+relaton-iso-bib => 1.17.0
+relaton-gb => 1.17.0
+relaton-iec => 1.17.0
+relaton-ietf => 1.17.0
+relaton-iso => 1.17.0
+relaton-itu => 1.17.0
+relaton-nist => 1.17.0
+relaton-ogc => 1.17.1
+relaton-calconnect => 1.17.0
+relaton-omg => 1.17.0
+relaton-un => 1.17.0
+relaton-w3c => 1.17.2
+relaton-ieee => 1.17.0
+relaton-iho => 1.17.0
+relaton-bipm => 1.17.0
+relaton-ecma => 1.17.0
+relaton-cie => 1.17.0
+relaton-bsi => 1.17.0
+relaton-cen => 1.17.0
+relaton-iana => 1.17.0
+relaton-3gpp => 1.17.0
+relaton-oasis => 1.17.0
+relaton-doi => 1.17.0
+relaton-jis => 1.17.0
+relaton-xsf => 1.17.0
+relaton-ccsds => 1.17.0
+relaton-etsi => 1.17.0
+relaton-isbn => 1.17.0
 ----
 
 === relaton collection
 
-The `relaton collection` is a set of subcommands for collections manipulations.
+The `relaton collection` is a set of subcommands for collection manipulations.
 
 ==== relaton collection create
 
@@ -301,8 +305,8 @@ The `relaton collection` is a set of subcommands for collections manipulations.
 $ relaton collection create COLLECTION -d DIRECTORY --author AUTHOR --title TITLE --doctype DOCTYPE
 ----
 
-Create new empty collection with name `COLLECTION`.
-* `DIRECTORY` is optional, and specifies path to a directory with collections. Default is `$HOME/.relaton/collections`.
+Create a new empty collection with the name `COLLECTION`.
+* `DIRECTORY` - optional, and specifies a path to a directory with collections. The default value is `$HOME/.relaton/collections`.
 * `AUTHOR`, `TITLE`, and `DOCTYPE` are optional.
 
 ==== relaton collection info
@@ -312,7 +316,7 @@ $ relaton collection info COLLECTION -d DIRECTORY
 ----
 
 Show information about `COLLECTION` (number of items, file size of collection, last updated, name, metadata).
-* `DIRECTORY` is optional, and specifies path to a directory with collections. Default is `$HOME/.relaton/collections`.
+* `DIRECTORY` is optional, and specifies the path to a directory with collections. The default value is `$HOME/.relaton/collections`.
 
 ==== relaton collection list
 
@@ -321,8 +325,8 @@ $ relaton collection list -d DIRECTORY -e
 ----
 
 List all collections.
-* `DIRECTORY` is optional, and specifies path to a directory with collections. Default is `$HOME/.relaton/collections`.
-* When parametr `-e` is defined the id of each entry id will be listed.
+* `DIRECTORY` - optional, and specifies the path to a directory with collections. The default value is `$HOME/.relaton/collections`.
+* When parameter `-e` is defined the id of each entry id will be listed.
 
 ==== relaton collection get
 
@@ -332,10 +336,10 @@ $ relaton collection get CODE -c COLLECTION -d DIRECTORY -f FORMAT -o FILE
 
 Get a document matched to `CODE` from `COLLECTION`.
 
-* `COLLECTION` is optional name of collection. If undefined then fetch the first match across all collections in `DIRECTORY`.
-* `DIRECTORY` is optional, and specifies path to a directory with collections. Default is `$HOME/.relaton/collections`.
-* `FORMAT` is optional. If udefined then print documern in a human-readable form. Allowed values are `abb` (AsciiBib) or `xml` (XML).
-* `FILE` is optional. When it's defined then save document with given file name. File's extension defines format of the file. Possible extensions are `abb` (AsciiBib) or `xml` (XML).
+* `COLLECTION` - optional name of a collection. If undefined then fetch the first match across all collections in `DIRECTORY`.
+* `DIRECTORY` - optional, and specifies a path to a directory with collections. The default value is `$HOME/.relaton/collections`.
+* `FORMAT` - optional. If undefined then print a document in a human-readable form. Allowed values are `abb` (AsciiBib) or `xml` (XML).
+* `FILE` is optional. When it's defined then save a document with the given file name. The file's extension defines the format of the file. Possible extensions are `abb` (AsciiBib) or `xml` (XML).
 
 ==== relaton collection find
 
@@ -345,8 +349,8 @@ $ relaton collection find TEXT -c COLLECTION -d DIRECTORY
 
 Full-text search through a collection or all collections.
 
-* `COLLECTION` is optional name of collection. If udefined then search across all collections.
-* `DIRECTORY` is optional, and specifies path to a directory with collections. Default is `$HOME/.relaton/collections`.
+* `COLLECTION` - optional name of a collection. If undefined then search across all collections.
+* `DIRECTORY` - optional, and specifies a path to a directory with collections. The default value is `$HOME/.relaton/collections`.
 
 ==== relaton collection fetch
 
@@ -356,10 +360,10 @@ $ relaton collection fetch CODE -t TYPE -y YEAR -c COLLECTION -d DIRECTORY
 
 Fetch the Relaton XML entry corresponding to the document identifier `CODE` and save it into `COLLECTION`.
 
-* `TYPE` specifies the standards class library to be used, that the identifier is part of. The recognised values for `TYPE` are `BIPM`, `CC`, `CN`, `IEC`, `IEEE`, `IETF`, `IHO`, `ISO`, `ITU`, `NIST`, `OGC`, `OMG`, `UN`, `W3C`.
+* `TYPE` specifies the standards class library to be used, that the identifier is part of. The recognized values for `TYPE` are: `3GPP`, `BIPM`, `CCTF`, `CCDS`, `CGPM`, `CIPM`, `JCRB`, `JCGM`, `BSI`, `BS`, `PD`, `CC`, `CCSDS`, `CEN`, `EN`, `ENV`, `CWA`, `HD`, `CR`, `CIE`, `DOI`, `ECMA`, `ETSI`, `CN`, `GB`, `GB/T`, `GB/Z`, `IANA`, `IEC`, `CISPR`, `IEV`, `IEEE`, `ANSI`, `NACE`, `AIEE`, `ASA`, `IRE`, `IETF`, `RFC`, `BCP`, `FYI`, `STD`, `I-D`, `IHO`, `ISBN`, `ISO`, `ISO/IEC`, `ITU`, `JIS`, `TR`, `NIST`, `NBS`, `NISTGCR`, `ITL Bulletin`, `JPCRD`, `NISTIR`, `CSRC`, `FIPS`, `OASIS`, `OGC`, `OMG`, `UN`, `W3C`, `XEP`.
 * `YEAR` is optional, and specifies the year of publication of the standard.
-* `COLLECTION` is a name of collection.
-* `DIRECTORY` is optional, and specifies path to a directory with collections. Default is `$HOME/.relaton/collections`.
+* `COLLECTION` - a name of a collection.
+* `DIRECTORY` - optional, and specifies a path to a directory with collections. The default value is `$HOME/.relaton/collections`.
 
 ==== relaton collection export
 
@@ -367,9 +371,9 @@ Fetch the Relaton XML entry corresponding to the document identifier `CODE` and 
 $ relaton collection export COLLECTION -d DIRECTORY
 ----
 
-Export `COLLECTION` into XML file.
+Export `COLLECTION` into an XML file.
 
-* `DIRECTORY` is optional, and specifies path to a directory with collections. Default is `$HOME/.relaton/collections`.
+* `DIRECTORY` - optional, and specifies a path to a directory with collections. The default value is `$HOME/.relaton/collections`.
 
 ==== relaton collection import
 
@@ -379,8 +383,8 @@ $ relaton collection import FILE -c COLLECTION -d DIRECTORY
 
 Import document or collection from XML `FILE` into `COLLECTION`.
 
-* `COLLECTION` is optional. If collection doesn't exist then it will be created.
-* `DIRECTORY` is optional, and specifies path to a directory with collections. Default is `$HOME/.relaton/collections`.
+* `COLLECTION` - optional. If a collection doesn't exist then it will be created.
+* `DIRECTORY` - optional, and specifies a path to a directory with collections. The default value is `$HOME/.relaton/collections`.
 
 === Dadabase manipulation
 
@@ -390,7 +394,7 @@ Import document or collection from XML `FILE` into `COLLECTION`.
 $ relaton db create DIR
 ----
 
-Creates a new database in a directory `DIR` (optional, deafult is `/home/USER/.relaton/dbpath`). In case the target directory exists it will be used as a database.
+Creates a new database in a directory `DIR` (optional, the default value is `/home/USER/.relaton/dbpath`). In case the target directory exists it will be used as a database.
 
 ----
 $ relaton db create
@@ -406,7 +410,7 @@ $ relaton db create cachedb
 $ relaton db mv DIR
 ----
 
-Move database to another place `DIR`.
+Move a database to another place `DIR`.
 
 ----
 $ relaton db mv cache_dir
@@ -415,7 +419,7 @@ $ relaton db mv cache_dir
 
 ==== Clear database
 
-Delete all entries from a chache DB.
+Delete all entries from a cache DB.
 
 ----
 $ relaton db clear
@@ -427,20 +431,20 @@ $ relaton db clear
 $ relaton db fetch -t TYPE -f FORMAT -y YEAR
 ----
 
-Fetch an entry from a database. See [relaton fetch](#relaton-fetch) for the arguments explanation.
+Fetch an entry from a database. See [relaton fetch](#relaton-fetch) for the explanation of the arguments.
 
 ==== Fetch all
 
-Fetch all entries from a chache DB.
+Fetch all entries from a cache DB.
 
 ----
 $ relaton db fetch_all TEXT -e EDITION -y YEAR -f FORMAT
 ----
 
-* `TEXT` (optional) search for a certan string
-* `EDITION` (optional) filter documets with a certain edition
+* `TEXT` (optional) search for a certain string
+* `EDITION` (optional) filter documents with a certain edition
 * `YEAR` (optional) filter documents by a year
-* `FORMAT` (optional) specify the output format. Recognised values are `xml` (default), yaml, `bibtex`.
+* `FORMAT` (optional) specifies the output format. Recognized values are `xml` (default), yaml, `bibtex`.
 
 ----
 $ relaton db fetch_all
@@ -478,7 +482,7 @@ $ relaton db fetch_all -e 8 -y 2018
 $ relaton db doctype REF
 ----
 
-Takes a reference `REF` and retuern a document type.
+Takes a reference `REF` and returns a document type.
 
 ----
 $ relaton db doctype 'CN(GB/T 1.1)'
