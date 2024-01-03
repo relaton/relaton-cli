@@ -10,4 +10,4 @@ on:
 
 jobs:
   rake:
-    uses: relaton/support/.github/workflows/rake.yml@master
+    uses: relaton/support/.github/workflows/rake.yml@main
