@@ -114,7 +114,7 @@ module Relaton
           coll = read_collection colfile
           coll << doc
           File.write colfile, coll.to_yaml, encoding: "UTF-8"
-        else Util.warn "No matching bibliographic entry found"
+        else Util.info "No matching bibliographic entry found"
         end
       end
 
@@ -165,7 +165,7 @@ module Relaton
       def read_yaml(file)
         YAML.load_file file if File.file? file
       rescue Psych::SyntaxError
-        Util.warn "WARNING: the file `#{file}` isn't a collection."
+        Util.error "the file `#{file}` isn't a collection."
         nil
       end
 

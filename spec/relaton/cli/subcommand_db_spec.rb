@@ -17,11 +17,11 @@ RSpec.describe Relaton::Cli::SubcommandDb do
     end
 
     it "in default dir" do
-      expect(File).to receive(:exist?).with(Relaton::Cli::RelatonDb::DBCONF)
-        .and_return false
+      expect(File).to receive(:exist?).with(Relaton::Cli::RelatonDb::DBCONF).and_return false
+      allow(File).to receive(:exist?).and_call_original
       db_mock default_db_path
       expect { Relaton::Cli::Command.start ["db", "create"] }
-        .to output(/\[relaton-cli\] Cache DB is in `#{default_db_path}`/).to_stderr
+        .to output(/\[relaton-cli\] WARN: Cache DB is in `#{default_db_path}`/).to_stderr_from_any_process
     end
 
     it "in specified dir" do
@@ -30,7 +30,7 @@ RSpec.describe Relaton::Cli::SubcommandDb do
       )
       db_mock custom_dir
       expect { Relaton::Cli::Command.start ["db", "create", "custom_dir"] }
-        .to output(/Cache DB is in `#{custom_dir}`/).to_stderr
+        .to output(/Cache DB is in `#{custom_dir}`/).to_stderr_from_any_process
     end
 
     it "in dir from DB config" do
@@ -41,7 +41,7 @@ RSpec.describe Relaton::Cli::SubcommandDb do
       ).and_return custom_dir
       db_mock custom_dir
       expect { Relaton::Cli::Command.start ["db", "create"] }
-        .to output(/Cache DB is in `#{custom_dir}`/).to_stderr
+        .to output(/Cache DB is in `#{custom_dir}`/).to_stderr_from_any_process
     end
   end
 
@@ -52,19 +52,19 @@ RSpec.describe Relaton::Cli::SubcommandDb do
 
     it "move cache db" do
       new_dir = File.expand_path("new_dir")
-      expect(File).to receive(:exist?).with(Relaton::Cli::RelatonDb::DBCONF)
-        .and_return false
+      expect(File).to receive(:exist?).with(Relaton::Cli::RelatonDb::DBCONF).and_return false
+      allow(File).to receive(:exist?).and_call_original
       expect(db).to receive(:mv).with(new_dir).and_return new_dir
       expect(File).to receive(:write)
         .with(Relaton::Cli::RelatonDb::DBCONF, new_dir, encoding: "UTF-8")
       expect { Relaton::Cli.start ["db", "mv", "new_dir"] }
-        .to output(/Cache DB is moved to `#{new_dir}`/).to_stderr
+        .to output(/Cache DB is moved to `#{new_dir}`/).to_stderr_from_any_process
     end
 
     it "clear cache DB" do
       expect(db).to receive(:clear)
       expect { Relaton::Cli.start ["db", "clear"] }
-        .to output(/Cache DB is cleared/).to_stderr
+        .to output(/Cache DB is cleared/).to_stderr_from_any_process
     end
 
     it "fetch code from cache DB" do

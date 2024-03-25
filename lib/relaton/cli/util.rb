@@ -2,10 +2,7 @@ module Relaton
   module Cli
     module Util
       extend RelatonBib::Util
-
-      def self.logger
-        Relaton::Cli.configuration.logger
-      end
+      PROGNAME = "relaton-cli".freeze
     end
   end
 end
