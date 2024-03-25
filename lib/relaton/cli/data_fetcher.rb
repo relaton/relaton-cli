@@ -4,7 +4,7 @@ module Relaton
       def fetch(source, options)
         processor = Relaton::Registry.instance.find_processor_by_dataset source
         unless processor
-          Util.warn "WARNING: no processor found for `#{source}`"
+          Util.warn "no processor found for `#{source}`"
           return
         end
 

@@ -161,9 +161,12 @@ module Relaton
 
       no_commands do
         def relaton_config
-          log_type = options[:verbose] ? ::Logger::INFO : ::Logger::WARN
-          Relaton.configure do |conf|
-            conf.logger.level = log_type
+          Relaton::Logger.configure do |conf|
+            if options[:verbose]
+              conf.logger_pool.first.add_level :info
+            else
+              conf.logger_pool.first.remove_level :info
+            end
           end
         end
       end

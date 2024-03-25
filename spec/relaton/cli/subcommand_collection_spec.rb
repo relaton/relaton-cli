@@ -24,7 +24,7 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
       file = "sample-collection.yaml"
       expect do
         Relaton::Cli::Command.start ["collection", "create", file, "-d", dir]
-      end.to output(/Collection `#{file}` aready exist/).to_stderr
+      end.to output(/Collection `#{file}` aready exist/).to_stderr_from_any_process
     end
   end
 
