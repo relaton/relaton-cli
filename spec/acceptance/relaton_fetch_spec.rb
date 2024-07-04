@@ -42,6 +42,11 @@ RSpec.describe "Relaton Fetch" do
           else block.call(arg1, arg2)
           end
         end.at_most(2).times
+
+        # Force to download index file
+        require "relaton/index"
+        allow_any_instance_of(Relaton::Index::Type).to receive(:actual?).and_return(false)
+        allow_any_instance_of(Relaton::Index::FileIO).to receive(:check_file).and_return(nil)
       end
 
       it "calls fetch and return XML" do
