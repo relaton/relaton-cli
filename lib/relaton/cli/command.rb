@@ -163,9 +163,9 @@ module Relaton
         def relaton_config
           Relaton::Logger.configure do |conf|
             if options[:verbose]
-              conf.logger_pool.first.add_level :info
+              conf.logger_pool[:default].add_level :info
             else
-              conf.logger_pool.first.remove_level :info
+              conf.logger_pool[:default].remove_level :info
             end
           end
         end
