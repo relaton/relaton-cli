@@ -2,7 +2,6 @@ require "thor"
 require "thor/hollaback"
 require "relaton"
 require "relaton/cli/version"
-require_relative "cli/config"
 require_relative "cli/util"
 require_relative "cli/command"
 

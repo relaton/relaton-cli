@@ -78,8 +78,8 @@ RSpec.describe Relaton::Cli::Command do
     expect(db).to receive(:fetch).with("ISO 2146", nil, verbose: true)
     expect(Relaton::Cli).to receive(:relaton).and_return(db).twice
     Relaton::Cli.start ["fetch", "ISO 2146"]
-    expect(Relaton.configuration.logger.level).to eq Logger::WARN
+    expect(Relaton.logger_pool[:default].level).to eq Logger::WARN
     Relaton::Cli.start ["fetch", "ISO 2146", "-v"]
-    expect(Relaton.configuration.logger.level).to eq Logger::INFO
+    expect(Relaton.logger_pool[:default].level).to eq Logger::INFO
   end
 end

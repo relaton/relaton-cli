@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 3.0.0"
 
   spec.add_runtime_dependency "liquid", "~> 5"
-  spec.add_runtime_dependency "relaton", "~> 1.18.2"
+  spec.add_runtime_dependency "relaton", "~> 1.19.0"
   spec.add_runtime_dependency "thor"
   spec.add_runtime_dependency "thor-hollaback"
 end
