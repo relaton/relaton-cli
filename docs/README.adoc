@@ -49,7 +49,7 @@ Fetch the Relaton XML entry corresponding to the document identifier `CODE`.
 
 * `YEAR` is optional and specifies the year of publication of the standard.
 * `FORMAT` is optional, and specifies the output format; the recognized values for `FORMAT` are `xml` (default), yaml, `bibtex`.
-* `TYPE` is optional and specifies the standards class library to be used, that the identifier is part of. The recognized values for `TYPE` are: `3GPP`, `BIPM`, `CCTF`, `CCDS`, `CGPM`, `CIPM`, `JCRB`, `JCGM`, `BSI`, `BS`, `PD`, `CC`, `CCSDS`, `CEN`, `EN`, `ENV`, `CWA`, `HD`, `CR`, `CIE`, `DOI`, `ECMA`, `ETSI`, `CN`, `GB`, `GB/T`, `GB/Z`, `IANA`, `IEC`, `CISPR`, `IEV`, `IEEE`, `ANSI`, `NACE`, `AIEE`, `ASA`, `IRE`, `IETF`, `RFC`, `BCP`, `FYI`, `STD`, `I-D`, `IHO`, `ISBN`, `ISO`, `ISO/IEC`, `ITU`, `JIS`, `TR`, `NIST`, `NBS`, `NISTGCR`, `ITL Bulletin`, `JPCRD`, `NISTIR`, `CSRC`, `FIPS`, `OASIS`, `OGC`, `OMG`, `UN`, `W3C`, `XEP`.
+* `TYPE` is optional and specifies the standards class library to be used, that the identifier is part of. The recognized values for `TYPE` are: `3GPP`, `BIPM`, `CCTF`, `CCDS`, `CGPM`, `CIPM`, `JCRB`, `JCGM`, `BSI`, `BS`, `PD`, `CC`, `CCSDS`, `CEN`, `EN`, `ENV`, `CWA`, `HD`, `CR`, `CIE`, `DOI`, `ECMA`, `ETSI`, `CN`, `GB`, `GB/T`, `GB/Z`, `IANA`, `IEC`, `CISPR`, `IEV`, `IEEE`, `ANSI`, `NACE`, `AIEE`, `ASA`, `IRE`, `IETF`, `RFC`, `BCP`, `FYI`, `STD`, `I-D`, `IHO`, `ISBN`, `ISO`, `ISO/IEC`, `ITU`, `JIS`, `TR`, `NIST`, `NBS`, `NISTGCR`, `ITL Bulletin`, `JPCRD`, `NISTIR`, `CSRC`, `FIPS`, `OASIS`, `OGC`, `OMG`, `UN`, `W3C`, `XEP`, `PLATEAU`.
 * `RETRIES` is optional, number of network retries (default 1).
 * `--all-parts` fetch all parts.
 * `--keep-year` undated reference should return an actual reference with year.
@@ -66,7 +66,7 @@ Fetch all the documents from a `DATASET` source and save them to a folder `DIR` 
 
 The following datasets are available:
 
-* `nist-tech-pubs` - https://raw.githubusercontent.com/usnistgov/NIST-Tech-Pubs/nist-pages/xml/allrecords.xml
+* `nist-tech-pubs` - https://github.com/usnistgov/NIST-Tech-Pubs/releases/download/May2024/allrecords-MODS.xml
 * `cie-techstreet` - https://www.techstreet.com/cie/searches/31156444
 * `calconnect-org` - https://standards.calconnect.org/relaton/index.yaml
 * `ogc-naming-authority` - https://raw.githubusercontent.com/opengeospatial/NamingAuthority/master/incubation/bibliography/bibliography.json
@@ -74,8 +74,8 @@ The following datasets are available:
 * `w3c-rdf` - http://www.w3.org/2002/01/tr-automation/tr.rdf
 * `w3c-tr-archive` - looks for the W3C archive dataset in local `./w3c-tr-archive` directory. The dataset could be downloaded from https://github.com/relaton/w3c-tr-archive repository
 * `iana-registries` - https://github.com/ietf-ribose/iana-registries
-* `status-smg-3GPP` - updates previously downloaded data if a new archive is available in ftp://www.3gpp.org/Information/Databases/Spec_Status/
-* `status-smg-3GPP-force` - download data from the latest archive in ftp://www.3gpp.org/Information/Databases/Spec_Status/
+* `status-smg-3GPP` - updates previously downloaded data if a new archive is available in ftp://www.3gpp.org/Information/Databases/
+* `status-smg-3GPP-force` - download data from the latest archive in ftp://www.3gpp.org/Information/Databases/
 * `ietf-rfcsubseries` - https://www.rfc-editor.org/rfc-index.xml (`<bcp-entry>`, `<fyi-entry>`, `<std-entry>`)
 * `ietf-internet-drafts` - looks for the Internet-Drafts dataset in the local `./bibxml-ids` directory. The dataset could be downloaded using `rsync -avcizxL rsync.ietf.org::bibxml-ids ./bibxml-ids` command.
 * `ietf-rfc-entries` - https://www.rfc-editor.org/rfc-index.xml (`<rfc-entry>`)
@@ -86,6 +86,8 @@ The following datasets are available:
 * `itu-r` - https://extranet.itu.int/brdocsearch
 * `ccsds` - https://public.ccsds.org/Publications/AllPubs.aspx
 * `etsi-csv` - https://www.etsi.org/
+* `plateau-handbooks` - https://www.mlit.go.jp/plateau/_next/data/1.3.0/libraries/handbooks.json
+* `plateau-technical-reports` - https://www.mlit.go.jp/plateau/_next/data/1.3.0/libraries/technical-reports.json
 
 Options:
 

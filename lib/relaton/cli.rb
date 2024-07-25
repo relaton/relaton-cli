@@ -46,7 +46,8 @@ module Relaton
         puts "relaton-bib => #{RelatonBib::VERSION}"
         puts "relaton-iso-bib => #{RelatonIsoBib::VERSION}"
         registry.processors.each_key do |k|
-          klass = "#{k.to_s.split('_').map(&:capitalize).join}::VERSION"
+          klass = registry.send(:camel_case, k.to_s)
+          klass = "#{klass}::VERSION"
           version = Kernel.const_get(klass)
           puts "#{k.to_s.sub('_', '-')} => #{version}"
         end

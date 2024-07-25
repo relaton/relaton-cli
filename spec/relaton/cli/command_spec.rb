@@ -31,6 +31,10 @@ RSpec.describe Relaton::Cli::Command do
       relaton-doi\s=>\s[\d.]+\n
       relaton-jis\s=>\s[\d.]+\n
       relaton-xsf\s=>\s[\d.]+\n
+      relaton-ccsds\s=>\s[\d.]+\n
+      relaton-etsi\s=>\s[\d.]+\n
+      relaton-isbn\s=>\s[\d.]+\n
+      relaton\/plateau\s=>\s[\d.]+\n
     }xo).to_stdout
   end
 
