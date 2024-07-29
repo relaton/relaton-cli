@@ -40,12 +40,15 @@ module Relaton
 
     class << self
       def version
+        require "relaton_bib"
+        require "relaton_iso_bib"
         registry = Relaton::Registry.instance
         puts "CLI => #{Relaton::Cli::VERSION}"
         puts "relaton => #{Relaton::VERSION}"
         puts "relaton-bib => #{RelatonBib::VERSION}"
         puts "relaton-iso-bib => #{RelatonIsoBib::VERSION}"
         registry.processors.each_key do |k|
+          require k.to_s
           klass = registry.send(:camel_case, k.to_s)
           klass = "#{klass}::VERSION"
           version = Kernel.const_get(klass)
