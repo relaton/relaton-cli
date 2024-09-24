@@ -16,10 +16,16 @@
     </div>
 
     <div class="doc-type-wrap">
-      <div class="doc-type {{ document.type | downcase | split: " " | join: "-" }}">
-      {{ document.doctype }}
+      <div class="doc-type {{ document.doctype.type | downcase | split: " " | join: "-" }}">
+      {{ document.doctype.type }}
       </div>
     </div>
+
+  {% if document.edition.content %}
+    <div class="doc-identifier">
+      Edition: {{ document.edition.content }}
+    </div>
+  {% endif %}  
   </div>
 
   <div class="doc-title">
