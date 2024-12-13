@@ -88,6 +88,7 @@ The following datasets are available:
 * `etsi-csv` - https://www.etsi.org/
 * `plateau-handbooks` - https://www.mlit.go.jp/plateau/_next/data/1.3.0/libraries/handbooks.json
 * `plateau-technical-reports` - https://www.mlit.go.jp/plateau/_next/data/1.3.0/libraries/technical-reports.json
+* `jis-webdesk` - https://webdesk.jsa.or.jp/books/W11M0270
 
 Options:
 
