@@ -64,7 +64,7 @@ RSpec.describe Relaton::Cli::XMLConvertor do
       Relaton::Cli::XMLConvertor.to_html(file)
       expect(buffer).to include '<a href="spec/fixtures/documents/example.html">1149</a>'
       expect(buffer).to include '<a href="spec/fixtures/documents/example.rxl">Relaton XML</a>'
-      expect(buffer).to include '<a href="">draft-camelot-holy-grenade-01</a>'
+      expect(buffer).to include '<a href="spec/fixtures/documents/antioch.rfc.xml">draft-camelot-holy-grenade-01</a>'
       expect(buffer).to include '<a href="spec/fixtures/documents/antioch.rxl">Relaton XML</a>'
     end
   end
