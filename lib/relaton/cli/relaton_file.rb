@@ -121,7 +121,7 @@ module Relaton
           elsif (rfc = xml.at("//rfc"))
             require "relaton_ietf/bibxml_parser"
             ietf = RelatonIetf::BibXMLParser.fetch_rfc rfc
-            bib = nokogiri_document ietf.to_xml(bibdata: true)
+            bib = nokogiri_document(ietf.to_xml(bibdata: true))
           else
             next
           end

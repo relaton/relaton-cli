@@ -22,7 +22,8 @@ RSpec.describe Relaton::Cli::XmlToHtmlRenderer do
   describe "#uri_for_extension" do
     it "replace file extension with the provided one" do
       xmltohtml = Relaton::Cli::XmlToHtmlRenderer.new(
-        stylesheet: "spec/assets/index-style.css", liquid_dir: "templates",
+        stylesheet: "spec/assets/index-style.css",
+        liquid_dir: "templates",
       )
 
       expect(
