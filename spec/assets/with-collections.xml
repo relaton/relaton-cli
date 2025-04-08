@@ -1,0 +1,96 @@
+<relaton-collection xmlns="https://open.ribose.com/relaton-xml"><title>ZZZ examples</title><contributor><role type='author'/><organization><name>Zzz Zzz Zzz</name></organization></contributor><relation type='partOf'><bibdata type="standard" schema-version="v1.2.9">
+  <title type="main" format="text/plain" language="en">ZZZ Document</title>
+  <uri type="xml">./documents/doc-1/document.xml</uri>
+  <uri type="pdf">./documents/doc-1/document.pdf</uri>
+  <uri type="doc">./documents/doc-1/document.doc</uri>
+  <uri type="html">./documents/doc-1/document.html</uri>
+  <uri type="rxl">./documents/doc-1/document.rxl</uri>
+  <docidentifier type="ZZZ" primary="true">SG 1-A80</docidentifier>
+  <docidentifier type="ZZZ-lang">SG 1-A80-E</docidentifier>
+  <docnumber>80</docnumber>
+  <date type="published">
+    <on>2133-07-07</on>
+  </date>
+  <contributor>
+    <role type="author"/>
+    <organization>
+      <name>Zzz Zzz Zzz</name>
+      <abbreviation>ZZZ</abbreviation>
+    </organization>
+  </contributor>
+  <version>
+    <draft>2</draft>
+  </version>
+  <language>en</language>
+  <script>Latn</script>
+  <abstract/>
+  <status>
+    <stage>draft</stage>
+  </status>
+  <copyright>
+    <from>2025</from>
+    <owner>
+      <organization>
+        <name>Zzz Zzz Zzz</name>
+        <abbreviation>ZZZ</abbreviation>
+      </organization>
+    </owner>
+  </copyright>
+  <keyword>Authoring</keyword>
+  <keyword>metanorma</keyword>
+  <keyword>technical-report</keyword>
+  <keyword>template</keyword>
+  <ext schema-version="v1.0.0">
+    <doctype>contribution</doctype>
+    <editorialgroup>
+      <bureau>A</bureau>
+      <group type="study-group">
+        <name>Sample Group 1</name>
+        <acronym>SG 1</acronym>
+        <period>
+          <start>2020</start>
+          <end>2025</end>
+        </period>
+      </group>
+    </editorialgroup>
+    <structuredidentifier>
+      <bureau>A</bureau>
+      <docnumber>80</docnumber>
+    </structuredidentifier>
+  </ext>
+</bibdata></relation>
+<relation type='partOf'><bibdata type="collection" schema-version="v1.2.9">
+  <title format="text/plain" language="en">Sample ZZZ Collection 1</title>
+  <uri type="xml">./documents/collections/collection-1/collection.xml</uri>
+  <uri type="pdf">./documents/collections/collection-1/collection.pdf</uri>
+  <uri type="doc">./documents/collections/collection-1/collection.doc</uri>
+  <uri type="rxl">./documents/collections/collection-1/collection.rxl</uri>
+  <docidentifier type="ZZZ">SG1-0001</docidentifier>
+  <copyright>
+    <from>2019</from>
+    <owner>
+      <organization>
+        <name>Zzz Zzz Zzz</name>
+        <abbreviation>ZZZ</abbreviation>
+      </organization>
+    </owner>
+  </copyright>
+</bibdata></relation>
+<relation type='partOf'><bibdata type="collection" schema-version="v1.2.9">
+  <title format="text/plain" language="en">Sample ZZZ Collection 2</title>
+  <uri type="xml">./documents/collections/collection-2/collection.xml</uri>
+  <uri type="pdf">./documents/collections/collection-2/collection.pdf</uri>
+  <uri type="doc">./documents/collections/collection-2/collection.doc</uri>
+  <uri type="rxl">./documents/collections/collection-2/collection.rxl</uri>
+  <docidentifier type="ZZZ">SG1-0002</docidentifier>
+  <copyright>
+    <from>2020</from>
+    <owner>
+      <organization>
+        <name>Zzz Zzz Zzz</name>
+        <abbreviation>ZZZ</abbreviation>
+      </organization>
+    </owner>
+  </copyright>
+</bibdata></relation>
+</relaton-collection>

@@ -50,6 +50,7 @@
     </h{{ depth | plus: 1 }}>
   </div>
 
+  {% if document.docstatus %}
   <div class="doc-info {{ document.docstatus.stage.value | downcase }}">
     <div class="doc-stage {{ document.docstatus.stage.value | downcase }}">
       {{ document.docstatus.stage.abbreviation }}
@@ -69,6 +70,7 @@
       </div>
     </div>
   </div>
+  {% endif %}
 
   <div class="doc-bib">
     <div class="doc-bib-relaton">

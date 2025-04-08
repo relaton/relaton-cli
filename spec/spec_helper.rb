@@ -4,6 +4,7 @@ require "fileutils"
 Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
 
 require "relaton/cli"
+require "rspec/html"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
