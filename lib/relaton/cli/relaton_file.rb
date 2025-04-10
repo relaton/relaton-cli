@@ -89,6 +89,8 @@ module Relaton
         )
       end
 
+      # Turn an XML string into a Nokogiri XML document.
+      #
       # @param document [String] XML
       # @param file [String, nil] path to file
       # @return [Nokogiri::XML::Document]
@@ -119,7 +121,7 @@ module Relaton
           elsif (rfc = xml.at("//rfc"))
             require "relaton_ietf/bibxml_parser"
             ietf = RelatonIetf::BibXMLParser.fetch_rfc rfc
-            bib = nokogiri_document ietf.to_xml(bibdata: true)
+            bib = nokogiri_document(ietf.to_xml(bibdata: true))
           else
             next
           end
@@ -136,6 +138,9 @@ module Relaton
         end
       end
 
+      # Map all relevant files to the corresponding bibdata instances
+      #
+      # @return [Array<Relaton::Bibdata>]
       def concatenate_files
         xml_files = [convert_rxl_to_xml, convert_yamls_to_xml, convert_xml_to_xml]
 
@@ -188,6 +193,10 @@ module Relaton
         end
       end
 
+      # Create a bibdata instance from the XML document,
+      # while also adding file paths of related artifacts
+      # as URI elements to the bibdata instance.
+      #
       # @param document [Nokogiri::XML::Document]
       # @param file [String] path to file
       # @return [Relaton::Bibdata]
@@ -199,6 +208,11 @@ module Relaton
         bibdata
       end
 
+      # For each file type, add to the bibdata:
+      #   - a URI element that points to the file of that file type
+      #
+      # The URI element generation is skipped if the file does not exist.
+      #
       # @param bibdata [Relaton::Bibdata]
       # @param file [String] path to file
       def build_bibdata_relaton(bibdata, file)

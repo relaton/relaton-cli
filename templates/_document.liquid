@@ -4,13 +4,25 @@
 <div class="document">
 {%- endif -%}
 
+  {%- if document.html != blank and document.html != nil -%}
+  {%-   assign default_link = document.html -%}
+  {%- elsif document.pdf != blank and document.pdf != nil -%}
+  {%-   assign default_link = document.pdf -%}
+  {%- elsif document.doc != blank and document.doc != nil -%}
+  {%-   assign default_link = document.doc -%}
+  {%- elsif document.xml != blank and document.xml != nil -%}
+  {%-   assign default_link = document.xml -%}
+  {%- else -%}
+  {%-   assign default_link = nil -%}
+  {%- endif -%}
+
   <div class="doc-line">
     <div class="doc-identifier">
       <h{{ depth }}>
-      {% if document.html == "" %}
-        {{ document.docid.id }}
+      {% if default_link %}
+        <a href="{{ default_link }}">{{ document.docid.id }}</a>
       {% else %}
-        <a href="{{ document.html }}">{{ document.docid.id }}</a>
+        {{ document.docid.id }}
       {% endif %}
       </h{{ depth }}>
     </div>
@@ -25,19 +37,20 @@
     <div class="doc-identifier">
       Edition: {{ document.edition.content }}
     </div>
-  {% endif %}  
+  {% endif %}
   </div>
 
   <div class="doc-title">
     <h{{ depth | plus: 1 }}>
-      {% if document.html == blank or document.html == nil %}
-        {{ document.title }}
+      {% if default_link %}
+        <a href="{{ default_link }}">{{ document.title }}</a>
       {% else %}
-        <a href="{{ document.html }}">{{ document.title }}</a>
+        {{ document.title }}
       {% endif %}
     </h{{ depth | plus: 1 }}>
   </div>
 
+  {% if document.docstatus %}
   <div class="doc-info {{ document.docstatus.stage.value | downcase }}">
     <div class="doc-stage {{ document.docstatus.stage.value | downcase }}">
       {{ document.docstatus.stage.abbreviation }}
@@ -57,6 +70,7 @@
       </div>
     </div>
   </div>
+  {% endif %}
 
   <div class="doc-bib">
     <div class="doc-bib-relaton">
