@@ -33,7 +33,8 @@ module Relaton
         # @return [RelatonBib::BibliographicItem,
         #   RelatonIso::IsoBiblioraphicItem]
         def convert_single_file(content)
-          if (processor = Registry.instance.by_type(doctype(content["docid"])))
+          flavor = content.dig("ext", "flavor") || doctype(content["docid"])
+          if (processor = Registry.instance.by_type(flavor))
             processor.hash_to_bib content
           else
             RelatonBib::BibliographicItem.new(

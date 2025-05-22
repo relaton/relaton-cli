@@ -1,6 +1,6 @@
 RSpec.describe "Relaton yaml2html" do
   describe "relaton yaml2html" do
-    it "convers the yaml file to html" do
+    it "converts the yaml file to html" do
       allow(Relaton::Cli::YAMLConvertor).to receive(:to_html)
       command = %w(yaml2html samplenew.yaml style.css templates)
 
