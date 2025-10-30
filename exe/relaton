@@ -15,6 +15,6 @@ class Gem::Specification
   def this; self; end
 end
 
-require "relaton/cli"
+require "relaton-cli"
 
 Relaton::Cli.start(ARGV)
