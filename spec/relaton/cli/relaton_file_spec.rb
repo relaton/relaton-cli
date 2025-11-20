@@ -84,6 +84,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
         expect(hashdoc["root"]["author"]).to be_nil
 
         items = hashdoc["root"]["items"]
+        #warn items
         expect(items[0]["docid"][0]["id"]).to eq("CC 18001")
         expect(items[1]["docid"][0]["id"]).to eq("CC 36000")
         expect(items[2]["xml"]).not_to eq("spec/fixtures/sample-collection")
