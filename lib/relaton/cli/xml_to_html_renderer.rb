@@ -55,7 +55,7 @@ module Relaton::Cli
         depth: 2,
         css: stylesheet,
         title: bibcollection.title,
-        date: Date.today.to_s,
+        date: DateTime.now.to_s,
         metanorma_v: mnv.lines.first&.strip,
         author: bibcollection.author,
         documents: document_items(bibcollection)
