@@ -1,3 +1,4 @@
+require "date"
 require "relaton/cli/relaton_file"
 require "relaton/cli/xml_convertor"
 require "relaton/cli/yaml_convertor"
@@ -176,6 +177,30 @@ module Relaton
 
     private
 
+    DATE_FILTER_FORMAT = /\A\d{4}(-\d{2}(-\d{2})?)?\z/
+
+    def parse_date_option(value, name)
+      return unless value
+
+      unless value.match?(DATE_FILTER_FORMAT)
+        raise ArgumentError,
+          "Invalid #{name}: #{value.inspect}. Expected YYYY, YYYY-MM, or YYYY-MM-DD."
+      end
+      parts = value.split("-").map(&:to_i)
+      Date.new(*parts.concat([1] * (3 - parts.size)))
+    rescue Date::Error
+      raise ArgumentError,
+        "Invalid #{name}: #{value.inspect}. Date components are out of range."
+    end
+
+    def validate_date_range(date_after, date_before)
+      return unless date_after && date_before
+      return if date_after < date_before
+
+      raise ArgumentError,
+        "Invalid date range: --publication-date-after (#{date_after}) must be before --publication-date-before (#{date_before})."
+    end
+
     # @param code [String]
     # @param options [Hash]
     # @option options [String] :type
@@ -185,6 +210,10 @@ module Relaton
     def fetch_document(code, options) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/AbcSize,Metrics/MethodLength
       year = options[:year]&.to_s
       dup_opts = options.dup.transform_keys { |k| k.to_s.gsub("-", "_").to_sym }
+      %i[publication_date_before publication_date_after].each do |key|
+        dup_opts[key] = parse_date_option(dup_opts[key], key.to_s.tr("_", "-").prepend("--")) if dup_opts[key]
+      end
+      validate_date_range dup_opts[:publication_date_after], dup_opts[:publication_date_before]
       if (processor = Relaton::Registry.instance.by_type options[:type]&.upcase)
         doc = Relaton.db.fetch_std code, year, processor.short, **dup_opts
       elsif options[:type] then return

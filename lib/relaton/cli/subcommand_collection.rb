@@ -111,8 +111,13 @@ module Relaton
 
       def fetch(code) # rubocop:disable Metrics/AbcSize
         opts = {}
-        opts[:publication_date_before] = options[:"publication-date-before"] if options[:"publication-date-before"]
-        opts[:publication_date_after] = options[:"publication-date-after"] if options[:"publication-date-after"]
+        if options[:"publication-date-before"]
+          opts[:publication_date_before] = parse_date_option(options[:"publication-date-before"], "--publication-date-before")
+        end
+        if options[:"publication-date-after"]
+          opts[:publication_date_after] = parse_date_option(options[:"publication-date-after"], "--publication-date-after")
+        end
+        validate_date_range opts[:publication_date_after], opts[:publication_date_before]
         doc = Relaton.db.fetch(code, options[:year]&.to_s, **opts)
         if doc
           colfile = File.join directory, options[:collection]
