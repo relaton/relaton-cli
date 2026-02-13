@@ -102,13 +102,18 @@ module Relaton
                     desc: "Type of standard to get bibliographic entry for"
       option :year, aliases: :y, type: :numeric,
                     desc: "Year the standard was published"
+      option :"publication-date-before", desc: "Fetch only documents published before the specified date (e.g. 2008, 2008-02, or 2008-02-02)"
+      option :"publication-date-after", desc: "Fetch only documents published after the specified date (e.g. 2002, 2002-01, or 2002-01-01)"
       option :collection, aliases: :c, required: true,
                           desc: "Collection to store a document"
       option :dir, aliases: :d, desc: "Directory with collections. Default is " \
                                       "$HOME/.relaton/collections."
 
       def fetch(code) # rubocop:disable Metrics/AbcSize
-        doc = Relaton.db.fetch(code, options[:year]&.to_s)
+        opts = {}
+        opts[:publication_date_before] = options[:"publication-date-before"] if options[:"publication-date-before"]
+        opts[:publication_date_after] = options[:"publication-date-after"] if options[:"publication-date-after"]
+        doc = Relaton.db.fetch(code, options[:year]&.to_s, **opts)
         if doc
           colfile = File.join directory, options[:collection]
           coll = read_collection colfile

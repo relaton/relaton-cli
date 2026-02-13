@@ -40,6 +40,8 @@ module Relaton
                                          "Default xml."
       option :year, aliases: :y, type: :numeric, desc: "Year the standard " \
                                                        "was published"
+      option :"publication-date-before", desc: "Fetch only documents published before the specified date (e.g. 2008, 2008-02, or 2008-02-02)"
+      option :"publication-date-after", desc: "Fetch only documents published after the specified date (e.g. 2002, 2002-01, or 2002-01-01)"
 
       def fetch(code)
         io = IO.new($stdout.fcntl(::Fcntl::F_DUPFD), mode: "w:UTF-8")

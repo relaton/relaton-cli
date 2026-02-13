@@ -31,6 +31,18 @@ RSpec.describe "Relaton Fetch" do
         command = ["fetch", "--no-cache", "ISO 2146"]
         Relaton::Cli.start(command)
       end
+
+      it "calls fetch with publication date options" do
+        expect(db).to receive(:fetch).with(
+          "ISO 2146", nil,
+          publication_date_before: "2008",
+          publication_date_after: "2002"
+        )
+
+        command = ["fetch", "--publication-date-before", "2008",
+                   "--publication-date-after", "2002", "ISO 2146"]
+        Relaton::Cli.start(command)
+      end
     end
 
     context do
