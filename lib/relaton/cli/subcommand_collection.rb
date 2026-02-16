@@ -102,8 +102,12 @@ module Relaton
                     desc: "Type of standard to get bibliographic entry for"
       option :year, aliases: :y, type: :numeric,
                     desc: "Year the standard was published"
-      option :"publication-date-before", desc: "Fetch only documents published before the specified date (e.g. 2008, 2008-02, or 2008-02-02)"
-      option :"publication-date-after", desc: "Fetch only documents published after the specified date (e.g. 2002, 2002-01, or 2002-01-01)"
+      option :"publication-date-before",
+        desc: "Fetch only documents published before the specified date " \
+          "(e.g. 2008, 2008-02, or 2008-02-02)"
+      option :"publication-date-after",
+        desc: "Fetch only documents published after the specified date " \
+          "(e.g. 2002, 2002-01, or 2002-01-01)"
       option :collection, aliases: :c, required: true,
                           desc: "Collection to store a document"
       option :dir, aliases: :d, desc: "Directory with collections. Default is " \
