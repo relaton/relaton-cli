@@ -31,6 +31,66 @@ RSpec.describe "Relaton Fetch" do
         command = ["fetch", "--no-cache", "ISO 2146"]
         Relaton::Cli.start(command)
       end
+
+      it "calls fetch with publication date options" do
+        expect(db).to receive(:fetch).with(
+          "ISO 2146", nil,
+          publication_date_before: Date.new(2008, 1, 1),
+          publication_date_after: Date.new(2002, 1, 1)
+        )
+
+        command = ["fetch", "--publication-date-before", "2008",
+                   "--publication-date-after", "2002", "ISO 2146"]
+        Relaton::Cli.start(command)
+      end
+
+      it "calls fetch with YYYY-MM publication date options" do
+        expect(db).to receive(:fetch).with(
+          "ISO 2146", nil,
+          publication_date_before: Date.new(2008, 6, 1),
+          publication_date_after: Date.new(2002, 3, 1)
+        )
+
+        command = ["fetch", "--publication-date-before", "2008-06",
+                   "--publication-date-after", "2002-03", "ISO 2146"]
+        Relaton::Cli.start(command)
+      end
+
+      it "calls fetch with YYYY-MM-DD publication date options" do
+        expect(db).to receive(:fetch).with(
+          "ISO 2146", nil,
+          publication_date_before: Date.new(2008, 6, 15),
+          publication_date_after: Date.new(2002, 3, 10)
+        )
+
+        command = ["fetch", "--publication-date-before", "2008-06-15",
+                   "--publication-date-after", "2002-03-10", "ISO 2146"]
+        Relaton::Cli.start(command)
+      end
+    end
+
+    context "publication date validation" do
+      it "rejects invalid publication date format" do
+        command = ["fetch", "--publication-date-before", "not-a-date", "ISO 2146"]
+        expect { Relaton::Cli.start(command) }.to raise_error(
+          ArgumentError, /Invalid --publication-date-before.*Expected YYYY/
+        )
+      end
+
+      it "rejects out-of-range date components" do
+        command = ["fetch", "--publication-date-after", "2008-13-01", "ISO 2146"]
+        expect { Relaton::Cli.start(command) }.to raise_error(
+          ArgumentError, /Invalid --publication-date-after.*out of range/
+        )
+      end
+
+      it "rejects date-after >= date-before" do
+        command = ["fetch", "--publication-date-after", "2010",
+                   "--publication-date-before", "2008", "ISO 2146"]
+        expect { Relaton::Cli.start(command) }.to raise_error(
+          ArgumentError, /Invalid date range/
+        )
+      end
     end
 
     context do

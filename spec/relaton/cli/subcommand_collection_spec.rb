@@ -163,6 +163,85 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
       ]
       # end
     end
+
+    context "with publication date options" do
+      let(:dir) { "spec/fixtures" }
+      let(:coll) { "sample-collection.yaml" }
+      let(:file) { File.join dir, coll }
+
+      def stub_collection_write
+        expect(File).to receive(:file?).with(file).and_return true
+        expect(YAML).to receive(:load_file).with(file).and_return "root" => :coll
+        expect(Relaton::Bibcollection).to receive(:new).with(:coll).and_return []
+        expect(File).to receive(:write).with(file, "---\n- :doc\n", kind_of(Hash))
+      end
+
+      it "forwards parsed Date for --publication-date-before" do
+        db = double "db"
+        expect(Relaton).to receive(:db).and_return db
+        expect(db).to receive(:fetch).with(
+          "CC/DIR 10005", nil,
+          publication_date_before: Date.new(2020, 6, 1),
+        ).and_return :doc
+        stub_collection_write
+
+        Relaton::Cli::Command.start [
+          "collection", "fetch", "CC/DIR 10005", "-t", "CC", "-d", dir,
+          "-c", coll, "--publication-date-before", "2020-06"
+        ]
+      end
+
+      it "forwards parsed Date for --publication-date-after" do
+        db = double "db"
+        expect(Relaton).to receive(:db).and_return db
+        expect(db).to receive(:fetch).with(
+          "CC/DIR 10005", nil,
+          publication_date_after: Date.new(2019, 1, 1),
+        ).and_return :doc
+        stub_collection_write
+
+        Relaton::Cli::Command.start [
+          "collection", "fetch", "CC/DIR 10005", "-t", "CC", "-d", dir,
+          "-c", coll, "--publication-date-after", "2019"
+        ]
+      end
+
+      it "forwards both date options as parsed Dates" do
+        db = double "db"
+        expect(Relaton).to receive(:db).and_return db
+        expect(db).to receive(:fetch).with(
+          "CC/DIR 10005", nil,
+          publication_date_after: Date.new(2019, 1, 1),
+          publication_date_before: Date.new(2020, 6, 15),
+        ).and_return :doc
+        stub_collection_write
+
+        Relaton::Cli::Command.start [
+          "collection", "fetch", "CC/DIR 10005", "-t", "CC", "-d", dir,
+          "-c", coll, "--publication-date-after", "2019",
+          "--publication-date-before", "2020-06-15"
+        ]
+      end
+
+      it "raises ArgumentError for invalid date format" do
+        expect {
+          Relaton::Cli::Command.start [
+            "collection", "fetch", "CC/DIR 10005", "-t", "CC", "-d", dir,
+            "-c", coll, "--publication-date-before", "not-a-date"
+          ]
+        }.to raise_error(ArgumentError, /Invalid --publication-date-before/)
+      end
+
+      it "raises ArgumentError when after date is not before the before date" do
+        expect {
+          Relaton::Cli::Command.start [
+            "collection", "fetch", "CC/DIR 10005", "-t", "CC", "-d", dir,
+            "-c", coll, "--publication-date-after", "2020",
+            "--publication-date-before", "2019"
+          ]
+        }.to raise_error(ArgumentError, /Invalid date range/)
+      end
+    end
   end
 
   it "export collection" do

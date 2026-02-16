@@ -42,7 +42,7 @@ suports an additional `-x` or `--extension` options to use different extension.
 
 [source,console]
 ----
-$ relaton fetch CODE -t TYPE -f FORMAT -y YEAR -r RETRIES --all-parts --keep-year --no-cache
+$ relaton fetch CODE -t TYPE -f FORMAT -y YEAR -r RETRIES --all-parts --keep-year --no-cache --publication-date-before DATE --publication-date-after DATE
 ----
 
 Fetch the Relaton XML entry corresponding to the document identifier `CODE`.
@@ -54,6 +54,8 @@ Fetch the Relaton XML entry corresponding to the document identifier `CODE`.
 * `--all-parts` fetch all parts.
 * `--keep-year` undated reference should return an actual reference with year.
 * `--no-cache` do not use cache.
+* `--publication-date-before DATE` fetch only documents published before the specified date. Accepted formats: `YYYY`, `YYYY-MM`, `YYYY-MM-DD`.
+* `--publication-date-after DATE` fetch only documents published after the specified date. Accepted formats: `YYYY`, `YYYY-MM`, `YYYY-MM-DD`.
 
 === relaton fetch-data
 
@@ -358,7 +360,7 @@ Full-text search through a collection or all collections.
 ==== relaton collection fetch
 
 ----
-$ relaton collection fetch CODE -t TYPE -y YEAR -c COLLECTION -d DIRECTORY
+$ relaton collection fetch CODE -t TYPE -y YEAR -c COLLECTION -d DIRECTORY --publication-date-before DATE --publication-date-after DATE
 ----
 
 Fetch the Relaton XML entry corresponding to the document identifier `CODE` and save it into `COLLECTION`.
@@ -367,6 +369,8 @@ Fetch the Relaton XML entry corresponding to the document identifier `CODE` and 
 * `YEAR` is optional, and specifies the year of publication of the standard.
 * `COLLECTION` - a name of a collection.
 * `DIRECTORY` - optional, and specifies a path to a directory with collections. The default value is `$HOME/.relaton/collections`.
+* `--publication-date-before DATE` fetch only documents published before the specified date. Accepted formats: `YYYY`, `YYYY-MM`, `YYYY-MM-DD`.
+* `--publication-date-after DATE` fetch only documents published after the specified date. Accepted formats: `YYYY`, `YYYY-MM`, `YYYY-MM-DD`.
 
 ==== relaton collection export
 
