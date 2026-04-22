@@ -390,7 +390,7 @@ as well as "Spamalot", the musical inspired by the movie.</abstract>
   <status>
     <stage>Informational</stage>
   </status>
-  <ext schema-version="v1.1.2">
+  <ext>
     <doctype>rfc</doctype>
     <flavor>ietf</flavor>
   </ext>
@@ -431,7 +431,7 @@ some cities, usually based upon a central hub topology.</abstract>
   <status>
     <stage>Published</stage>
   </status>
-  <ext schema-version="v1.1.2">
+  <ext>
     <doctype>rfc</doctype>
     <flavor>ietf</flavor>
   </ext>
