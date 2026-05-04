@@ -90,12 +90,13 @@ module Relaton::Cli
           elsif value.is_a?(Hash) then v = value["content"]
           else v = value
           end
-        when "docid"
-          v = if value.is_a?(Array)
-                value.detect { |did| did["id"] !~ /^(http|https):\/\// } ||
-                  value.first
-              else value
-              end
+        when "docidentifier"
+          did = if value.is_a?(Array)
+                  value.detect { |d| (d["id"] || d["content"]).to_s !~ /^(http|https):\/\// } ||
+                    value.first
+                else value
+                end
+          v = did
         else v = value
         end
         [key.to_s, empty2nil(v)]

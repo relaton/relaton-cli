@@ -1,14 +1,14 @@
-<bibdata type="standard" schema-version="v1.2.9">
-  <title type="title-main" format="text/plain">Geographic information</title>
-  <title type="main" format="text/plain">Geographic information</title>
-  <title type="title-main" format="text/plain" language="fr" script="Latn">Information géographique</title>
-  <title type="main" format="text/plain" language="fr" script="Latn">Information géographique</title>
-  <docidentifier primary="true" type="ISO">TC211</docidentifier>
+<bibdata type="standard" schema-version="v1.5.6">
+  <title type="title-main">Geographic information</title>
+  <title type="main">Geographic information</title>
+  <title language="fr" script="Latn" type="title-main">Information géographique</title>
+  <title language="fr" script="Latn" type="main">Information géographique</title>
+  <docidentifier type="ISO" primary="true">ISO 55000:2014</docidentifier>
   <date type="issued">
-    <on>2014-01-01</on>
+    <on>2014</on>
   </date>
   <date type="published">
-    <on>2014-04-01</on>
+    <on>2014-04</on>
   </date>
   <date type="accessed">
     <on>2015-05-20</on>
@@ -18,7 +18,7 @@
     <substage>substage</substage>
     <iteration>final</iteration>
   </status>
-  <ext schema-version="v1.0.3">
+  <ext schema-version="v1.1.2">
     <doctype>standard</doctype>
   </ext>
 </bibdata>

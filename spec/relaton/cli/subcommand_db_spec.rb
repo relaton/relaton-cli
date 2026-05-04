@@ -117,9 +117,9 @@ RSpec.describe Relaton::Cli::SubcommandDb do
 
       context "return YAML" do
         it do
-          out = { title: "Title" }
-          bib = double "BibItem", to_hash: out
-          expect(io).to receive(:puts).with(out.to_yaml)
+          title = Relaton::Bib::Title.new content: "Geographic information"
+          bib = Relaton::Bib::ItemData.new title: [title]
+          expect(io).to receive(:puts).with(/^- content: Geographic information/)
           expect(db).to receive(:fetch_all) do |arg|
             expect(arg).to be_nil
             [bib]
@@ -130,7 +130,7 @@ RSpec.describe Relaton::Cli::SubcommandDb do
 
       context "return BibTex" do
         it do
-          out = "@manual{ISOTC211, tile = {Geographic information}}"
+          out = "@manual{ISO55000, tile = {Geographic information}}"
           bib = double "BibItem", to_bibtex: out
           expect(io).to receive(:puts).with(out)
           expect(db).to receive(:fetch_all) do |arg|

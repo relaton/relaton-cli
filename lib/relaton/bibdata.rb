@@ -13,7 +13,7 @@ module Relaton
     end
 
     def docidentifier
-      @bibitem.docidentifier.first&.id
+      @bibitem.docidentifier.first&.content&.to_s
     end
 
     # def doctype
@@ -50,10 +50,9 @@ module Relaton
     end
 
     def to_h
-      URL_TYPES.reduce(@bibitem.to_hash) do |h, t|
+      URL_TYPES.each_with_object(YAML.safe_load(@bibitem.to_yaml)) do |t, h|
         value = send t
-        h[t.to_s] = value
-        h
+        h[t.to_s] = value if value
       end
     end
 
@@ -68,19 +67,20 @@ module Relaton
       if @bibitem.respond_to?(meth)
         @bibitem.send meth, *args
       elsif URL_TYPES.include? meth
-        link = @bibitem.link.detect do |l|
+        source = (@bibitem.source || []).detect do |l|
           l.type == meth.to_s || (meth == :uri && l.type.nil?)
         end
-        link&.content&.to_s
+        source&.content&.to_s
       elsif URL_TYPES.include? meth.match(/^\w+(?==)/).to_s.to_sym
         /^(?<type>\w+)/ =~ meth
-        link = @bibitem.link.detect do |l|
+        @bibitem.source ||= []
+        source = @bibitem.source.detect do |l|
           l.type == type || (type == "uri" && l.type.nil?)
         end
-        if link
-          link.content = args[0]
+        if source
+          source.content = args[0]
         else
-          @bibitem.link << RelatonBib::TypedUri.new(type: type, content: args[0])
+          @bibitem.source << Relaton::Bib::Uri.new(type: type, content: args[0])
         end
       else
         super

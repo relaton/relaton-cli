@@ -13,7 +13,7 @@
             <docidentifier primary="true">CC 34000</docidentifier>
             <language></language>
             <script></script>
-            <date type="">
+            <date type="issued">
                 <on>2018-10-25</on>
             </date>
             <status><stage>proposal</stage></status>
@@ -31,7 +31,7 @@
             <docidentifier primary="true">CC 34002</docidentifier>
             <language></language>
             <script></script>
-            <date type="">
+            <date type="issued">
                 <on>2018-10-25</on>
             </date>
             <status><stage>proposal</stage></status>
@@ -49,7 +49,7 @@
             <docidentifier primary="true">CC 34003</docidentifier>
             <language></language>
             <script></script>
-            <date type="">
+            <date type="issued">
                 <on>2018-10-25</on>
             </date>
             <status><stage>proposal</stage></status>
@@ -67,7 +67,7 @@
             <docidentifier primary="true">CC 34005</docidentifier>
             <language></language>
             <script></script>
-            <date type="">
+            <date type="issued">
                 <on>2018-10-25</on>
             </date>
             <status><stage>proposal</stage></status>
@@ -85,7 +85,7 @@
             <docidentifier primary="true">CC/S 34006</docidentifier>
             <language></language>
             <script></script>
-            <date type="">
+            <date type="issued">
                 <on>2018-10-25</on>
             </date>
             <status><stage>proposal</stage></status>
@@ -103,7 +103,7 @@
             <docidentifier primary="true">CC 36000</docidentifier>
             <language></language>
             <script></script>
-            <date type="">
+            <date type="issued">
                 <on>2018-10-25</on>
             </date>
             <status><stage>proposal</stage></status>

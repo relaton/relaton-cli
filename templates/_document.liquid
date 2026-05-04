@@ -20,16 +20,16 @@
     <div class="doc-identifier">
       <h{{ depth }}>
       {% if default_link %}
-        <a href="{{ default_link }}">{{ document.docid.id }}</a>
+        <a href="{{ default_link }}">{{ document.docidentifier.content }}</a>
       {% else %}
-        {{ document.docid.id }}
+        {{ document.docidentifier.content }}
       {% endif %}
       </h{{ depth }}>
     </div>
 
     <div class="doc-type-wrap">
-      <div class="doc-type {{ document.doctype.type | downcase | split: " " | join: "-" }}">
-      {{ document.doctype.type }}
+      <div class="doc-type {{ document.ext.doctype.content | downcase | split: " " | join: "-" }}">
+      {{ document.ext.doctype.content }}
       </div>
     </div>
 
@@ -50,18 +50,17 @@
     </h{{ depth | plus: 1 }}>
   </div>
 
-  {% if document.docstatus %}
-  <div class="doc-info {{ document.docstatus.stage.value | downcase }}">
-    <div class="doc-stage {{ document.docstatus.stage.value | downcase }}">
-      {{ document.docstatus.stage.abbreviation }}
-      {% if document.docstatus.substage %}
-        {{ document.docstatus.stage.value }}.{{ document.docstatus.substage.value }}
+  {% if document.status %}
+  <div class="doc-info {{ document.status.stage.content | downcase }}">
+    <div class="doc-stage {{ document.status.stage.content | downcase }}">
+      {% if document.status.substage %}
+        {{ document.status.stage.content }}.{{ document.status.substage.content }}
       {% else %}
-        {{ document.docstatus.stage.value }}
+        {{ document.status.stage.content }}
       {% endif %}
     </div>
     <div class="doc-dates">
-      {% unless document.docstatus.stage.value == "published" %}
+      {% unless document.status.stage.content == "published" %}
       <div class="doc-updated">
       {% else %}
       <div class="doc-published">

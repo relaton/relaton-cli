@@ -1,6 +1,6 @@
 require "yaml"
 require "relaton/cli/base_convertor"
-require "relaton_bib"
+require "relaton/bib"
 
 module Relaton
   module Cli
@@ -33,13 +33,15 @@ module Relaton
         # @return [RelatonBib::BibliographicItem,
         #   RelatonIso::IsoBiblioraphicItem]
         def convert_single_file(content)
-          flavor = content.dig("ext", "flavor") || doctype(content["docid"])
+          flavor = content.dig("ext", "flavor") || doctype(content["docidentifier"])
           if (processor = Registry.instance.by_type(flavor))
-            processor.hash_to_bib content
+            begin
+              processor.from_yaml content.to_yaml
+            rescue RuntimeError
+              Relaton::Bib::Item.from_yaml(content.to_yaml)
+            end
           else
-            RelatonBib::BibliographicItem.new(
-              **RelatonBib::HashConverter::hash_to_bib(content)
-            )
+            Relaton::Bib::Item.from_yaml(content.to_yaml)
           end
         end
 
@@ -51,7 +53,7 @@ module Relaton
           did = docid.is_a?(Array) ? docid.fetch(0) : docid
           return unless did
 
-          did["type"] || did.fetch("id")&.match(/^\w+/)&.to_s
+          did["type"] || did.fetch("content")&.match(/^\w+/)&.to_s
         end
       end
 

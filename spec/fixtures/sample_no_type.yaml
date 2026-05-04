@@ -1,19 +1,23 @@
-technical_committee: PUBLISH
-docid: 
-  - id: TC211
-    primary: true
-doctype: standard
-title: 
-  - Geographic information
-  - content: Information géographique
-    language: fr
-    script: Latn
-docstatus:
+title:
+- content: Geographic information
+  type: title-main
+- content: Geographic information
+  type: main
+- content: Information géographique
+  language: fr
+  script: Latn
+docidentifier:
+- content: TC211
+  primary: true
+date:
+- type: published
+  at: "2014-04"
+status:
   stage:
-    value: stage
+    content: stage
   substage:
-    value: substage
+    content: substage
   iteration: final
-date: 
-  - type: published
-    value: "2014-04"
+ext:
+  doctype:
+    content: standard

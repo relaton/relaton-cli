@@ -3,6 +3,8 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in gemspec
 gemspec
 
+
+
 gem "byebug", "~> 11.0"
 gem "equivalent-xml", "~> 0.6"
 gem "pry"
@@ -15,3 +17,4 @@ gem "simplecov"
 gem "vcr"
 gem "webmock"
 gem "debug"
+gem "fiddle"

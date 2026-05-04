@@ -95,6 +95,8 @@ RSpec.describe "Relaton Fetch" do
 
     context do
       let(:io) { double "IO" }
+      let(:tmpdir) { Dir.mktmpdir("relaton_test_cache") }
+
       before (:each) do
         RSpec::Mocks.space.proxy_for(IO).reset
         expect(IO).to receive(:new) do |arg1, arg2, &block|
@@ -103,10 +105,19 @@ RSpec.describe "Relaton Fetch" do
           end
         end.at_most(2).times
 
+        # Isolate from global cache by using a fresh DB in a temp directory
+        Relaton::Cli::RelatonDb.instance.instance_variable_set(:@db, nil)
+        Relaton::Cli.relaton(tmpdir)
+
         # Force to download index file
         require "relaton/index"
         allow_any_instance_of(Relaton::Index::Type).to receive(:actual?).and_return(false)
         allow_any_instance_of(Relaton::Index::FileIO).to receive(:check_file).and_return(nil)
+      end
+
+      after(:each) do
+        Relaton::Cli::RelatonDb.instance.instance_variable_set(:@db, nil)
+        FileUtils.remove_entry(tmpdir)
       end
 
       it "calls fetch and return XML" do
@@ -123,7 +134,7 @@ RSpec.describe "Relaton Fetch" do
 
       it "calls fetch and return YAML" do
         expect(io).to receive(:puts) do |arg|
-          expect(arg).to include "- id: ISO 2146:2010"
+          expect(arg).to include "- content: ISO 2146:2010"
         end
         VCR.use_cassette "iso_2146" do
           command = ["fetch", "--type", "iso", "--format", "yaml", "ISO 2146"]
@@ -205,12 +216,12 @@ RSpec.describe "Relaton Fetch" do
     end
 
     it "raise request error" do
-      expect(db).to receive(:fetch_std).and_raise RelatonBib::RequestError
+      expect(db).to receive(:fetch_std).and_raise Relaton::RequestError
       expect(Relaton::Cli).to receive(:relaton).and_return(db)
       command = Relaton::Cli::Command.new
       # expect(command).to receive(:registered_types).and_return ["ISO"]
       expect(command.send(:fetch_document, "ISO 2146", type: "ISO")).to eq(
-        "RelatonBib::RequestError",
+        "Relaton::RequestError",
       )
       Relaton::Cli::RelatonDb.instance.instance_variable_set :@db, nil
     end

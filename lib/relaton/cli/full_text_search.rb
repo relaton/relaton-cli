@@ -1,10 +1,13 @@
-# require "forwardable"
+require "set"
 
 module Relaton
   class FullTextSeatch
-    # extend Forwardable
-
-    # def_delegators :@collections, :<<
+    # Instance variables added by lutaml-model that form back-references
+    # (cycles) when a model is serialized. Skipping them keeps recursive
+    # traversal of a bibitem's object graph finite.
+    INTERNAL_IVARS = %i[
+      @using_default @lutaml_register @lutaml_parent @lutaml_root @register_records
+    ].freeze
 
     # @return Regexp
     attr_reader :regex
@@ -19,8 +22,7 @@ module Relaton
     def search(text)
       @regex = %{(.*?)(.{0,20})(#{text})(.{0,20})(.*)}
       @matches = @collection.items.reduce({}) do |m, item|
-        # m + results(col, rgx)
-        res = result item
+        res = result item, Set.new
         m[item.id] = res if res.any?
         m
       end
@@ -58,19 +60,24 @@ module Relaton
     end
 
     # @param item [Relaton::Bibdata]
+    # @param seen [Set<Integer>] object_ids already visited on this path
     # @return [Hash]
-    def result(item)
+    def result(item, seen)
       if item.is_a? String
         message $~ if item.match regex
       elsif item.respond_to? :reduce
         item.reduce([]) do |m, i|
-          res = result i
+          res = result i, seen
           m << res if res && !res.empty?
           m
         end
       else
+        return {} unless seen.add?(item.object_id)
+
         item.instance_variables.reduce({}) do |m, var|
-          res = result item.instance_variable_get(var)
+          next m if INTERNAL_IVARS.include?(var)
+
+          res = result item.instance_variable_get(var), seen
           m[var.to_s.tr(":@", "")] = res if res && !res.empty?
           m
         end

@@ -140,7 +140,7 @@ module Relaton
         xml = Nokogiri::XML(File.read(file, encoding: "UTF-8"))
         item = Relaton::Cli.parse_xml xml
         result = if /yaml|yml/.match?(options[:format])
-                   item.to_hash.to_yaml
+                   item.to_yaml
                  else item.send "to_#{options[:format]}"
                  end
         ext = case options[:format]
@@ -226,16 +226,16 @@ module Relaton
       return "No matching bibliographic entry found" unless doc
 
       serialize doc, options[:format]
-    rescue RelatonBib::RequestError => e
+    rescue Relaton::RequestError => e
       e.message
     end
 
-    # @param doc [RelatonBib::BibliographicItem]
+    # @param doc [Relaton::Bib::ItemData]
     # @param format [String]
     # @return [String]
     def serialize(doc, format)
       case format
-      when "yaml", "yml" then doc.to_hash.to_yaml
+      when "yaml", "yml" then doc.to_yaml
       when "bibtex" then doc.to_bibtex
       else doc.to_xml bibdata: true
       end

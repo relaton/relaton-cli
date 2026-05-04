@@ -1,14 +1,13 @@
-technical_committee: PUBLISH
-docid: 
-  type: CC
-  id: CC 36000
-  primary: true
 type: standard
-title: Standardization documents - Vocabulary
-docstatus:
+title:
+- content: Standardization documents - Vocabulary
+docidentifier:
+- content: CC 36000
+  type: CC
+  primary: true
+date:
+- type: issued
+  at: '2018-10-25'
+status:
   stage:
-    value: proposal
-date: 
-  type: issued
-  value: '2018-10-25'
-
+    content: proposal
