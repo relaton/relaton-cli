@@ -1,0 +1,23 @@
+<relaton-collection xmlns="http://riboseinc.com/isoxml">
+  <title>Use of <strong>ActualText</strong> &amp; <strong>Reference</strong> structure elements</title>
+  <contributor>
+    <role type="author"/>
+    <organization>
+      <name>Acme &amp; Co</name>
+    </organization>
+  </contributor>
+  <relation type='partOf'>
+    <bibdata type='standard'>
+      <title>Sample doc title</title>
+      <uri>http://example.org/sample.pdf</uri>
+      <docidentifier primary="true">EX 1</docidentifier>
+      <date type='published'>
+        <on>2026-01-01</on>
+      </date>
+      <status><stage>Published</stage></status>
+      <ext>
+        <technical-committee>TC EX</technical-committee>
+      </ext>
+    </bibdata>
+  </relation>
+</relaton-collection>

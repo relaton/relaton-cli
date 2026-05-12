@@ -31,6 +31,29 @@ RSpec.describe Relaton::Cli::XmlToHtmlRenderer do
       end
     end
 
+    context "with markup and entities in the collection title and author" do
+      let(:html) do
+        renderer.render(File.read("spec/assets/index-with-markup.xml"))
+      end
+
+      it "preserves <strong> markup and &amp; in the coverpage title" do
+        expect(html).to include(
+          '<span class="title-first">Use of <strong>ActualText</strong> ' \
+          "&amp; <strong>Reference</strong> structure elements</span>",
+        )
+      end
+
+      it "strips inline tags but keeps &amp; in <head><title>" do
+        head_title = html[/<title>([^<]*(?:<(?!\/title)[^<]*)*)<\/title>/m, 1]
+        expect(head_title).to include("&amp;")
+        expect(head_title).not_to include("<strong>")
+      end
+
+      it "preserves &amp; in the rendered author" do
+        expect(html).to include("Acme &amp; Co")
+      end
+    end
+
     context "with a document containing other collections" do
       let(:html) do
         renderer.render(File.read("spec/assets/with-collections.xml"))

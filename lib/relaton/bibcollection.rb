@@ -32,8 +32,8 @@ module Relaton
 
     # @param source [Nokogiri::XML::Element]
     def self.from_xml(source)
-      title = find_text("./relaton-collection/title", source)
-      author = find_text(
+      title = find_html("./relaton-collection/title", source)
+      author = find_html(
         "./relaton-collection/contributor[role/@type='author']/organization/"\
         "name", source
       )
