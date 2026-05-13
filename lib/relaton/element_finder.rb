@@ -6,6 +6,10 @@ module Relaton
       find(xpath, element)&.text
     end
 
+    def find_html(xpath, element = nil)
+      find(xpath, element)&.inner_html
+    end
+
     def find(xpath, element = nil)
       (element || document).at(apply_namespace(xpath))
     end
