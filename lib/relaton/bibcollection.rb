@@ -61,10 +61,10 @@ module Relaton
                         end
 
       ret = "<relaton-collection #{collection_type}>"
-      ret += "<title>#{title}</title>" if title
+      ret += "<title>#{xml_escape(title)}</title>" if title
       if author
         ret += "<contributor><role type='author'/><organization><name>"\
-        "#{author}</name></organization></contributor>"
+        "#{xml_escape(author)}</name></organization></contributor>"
       end
       unless items.empty?
         items.each do |item|
@@ -133,6 +133,14 @@ module Relaton
                else new_bib_item_class(item)
                end
       end
+    end
+
+    # Escape bare & in content for XML serialization, leaving already-encoded
+    # entity references (&amp;, &#123;, &#x1f;) and inline markup (<em> etc.)
+    # untouched. This prevents invalid XML when plain-text values (e.g. from
+    # YAML) contain literal ampersands.
+    def xml_escape(str)
+      str.gsub(/&(?![a-zA-Z][a-zA-Z0-9]*;|#[0-9]+;|#x[0-9a-fA-F]+;)/, "&amp;")
     end
   end
 end
