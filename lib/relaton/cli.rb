@@ -40,9 +40,18 @@ module Relaton
     end
 
     class << self
+      # The processor registry moved in relaton v3: the top-level
+      # Relaton::Registry became Relaton::Db::Registry. The v2 line keeps
+      # the old constant, so resolve whichever is present.
+      def registry
+        Relaton::Db::Registry.instance
+      rescue NameError
+        Relaton::Registry.instance
+      end
+
       def version
         require "relaton/bib"
-        registry = Relaton::Registry.instance
+        registry = registry()
         puts "CLI => #{Relaton::Cli::VERSION}"
         puts "relaton => #{Gem.loaded_specs['relaton'].version}"
         puts "relaton-bib => #{Gem.loaded_specs['relaton-bib'].version}"
@@ -91,7 +100,7 @@ module Relaton
         proc = get_proc docid
         return proc if proc
 
-        Relaton::Registry.instance.by_type(docid&.text&.match(/^\w+/)&.to_s)
+        registry.by_type(docid&.text&.match(/^\w+/)&.to_s)
       end
 
       private
@@ -104,7 +113,7 @@ module Relaton
       def get_proc(docid)
         return unless docid && docid[:type]
 
-        Relaton::Registry.instance.by_type(docid[:type])
+        registry.by_type(docid[:type])
       end
     end
   end

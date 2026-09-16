@@ -34,7 +34,7 @@ module Relaton
         #   RelatonIso::IsoBiblioraphicItem]
         def convert_single_file(content)
           flavor = content.dig("ext", "flavor") || doctype(content["docidentifier"])
-          if (processor = Registry.instance.by_type(flavor))
+          if (processor = Relaton::Cli.registry.by_type(flavor))
             begin
               processor.from_yaml content.to_yaml
             rescue RuntimeError
