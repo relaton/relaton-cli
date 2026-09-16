@@ -40,13 +40,10 @@ module Relaton
     end
 
     class << self
-      # The processor registry moved in relaton v3: the top-level
-      # Relaton::Registry became Relaton::Db::Registry. The v2 line keeps
-      # the old constant, so resolve whichever is present.
+      # relaton v3 (the monogem) keeps the processor registry as the Db
+      # singleton; this line requires v3, so there is no v2 fallback.
       def registry
         Relaton::Db::Registry.instance
-      rescue NameError
-        Relaton::Registry.instance
       end
 
       def version
