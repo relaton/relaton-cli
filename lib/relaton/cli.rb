@@ -40,9 +40,15 @@ module Relaton
     end
 
     class << self
+      # relaton v3 (the monogem) keeps the processor registry as the Db
+      # singleton; this line requires v3, so there is no v2 fallback.
+      def registry
+        Relaton::Db::Registry.instance
+      end
+
       def version
         require "relaton/bib"
-        registry = Relaton::Registry.instance
+        registry = registry()
         puts "CLI => #{Relaton::Cli::VERSION}"
         puts "relaton => #{Gem.loaded_specs['relaton'].version}"
         puts "relaton-bib => #{Gem.loaded_specs['relaton-bib'].version}"
@@ -91,7 +97,7 @@ module Relaton
         proc = get_proc docid
         return proc if proc
 
-        Relaton::Registry.instance.by_type(docid&.text&.match(/^\w+/)&.to_s)
+        registry.by_type(docid&.text&.match(/^\w+/)&.to_s)
       end
 
       private
@@ -104,7 +110,7 @@ module Relaton
       def get_proc(docid)
         return unless docid && docid[:type]
 
-        Relaton::Registry.instance.by_type(docid[:type])
+        registry.by_type(docid[:type])
       end
     end
   end

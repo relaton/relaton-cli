@@ -218,7 +218,7 @@ module Relaton
         dup_opts[key] = parse_date_option(dup_opts[key], key.to_s.tr("_", "-").prepend("--")) if dup_opts[key]
       end
       validate_date_range dup_opts[:publication_date_after], dup_opts[:publication_date_before]
-      if (processor = Relaton::Registry.instance.by_type options[:type]&.upcase)
+      if (processor = Relaton::Cli.registry.by_type options[:type]&.upcase)
         doc = Relaton.db.fetch_std code, year, processor.short, **dup_opts
       elsif options[:type] then return
       else doc = Relaton.db.fetch(code, year, **dup_opts)
@@ -247,7 +247,7 @@ module Relaton
 
     def registered_types
       @registered_types ||=
-        Relaton::Registry.instance.processors.each.map { |_n, pr| pr.prefix }
+        Relaton::Cli.registry.processors.each.map { |_n, pr| pr.prefix }
     end
   end
 end

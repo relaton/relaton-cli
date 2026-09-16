@@ -2,7 +2,7 @@ module Relaton
   module Cli
     module DataFetcher
       def fetch(source, options)
-        processor = Relaton::Registry.instance.find_processor_by_dataset source
+        processor = Relaton::Cli.registry.find_processor_by_dataset source
         unless processor
           Util.warn "no processor found for `#{source}`"
           return

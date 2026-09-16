@@ -1,9 +1,13 @@
 source "https://rubygems.org"
 
+git_source(:github) { |repo| "https://github.com/#{repo}" }
+
 # Specify your gem's dependencies in gemspec
 gemspec
 
-
+# The v3 line tracks relaton main; drop this pin when the next
+# 3.0.0.pre.alpha reaches rubygems (released pres lag main).
+gem "relaton", github: "relaton/relaton", branch: "main"
 
 gem "byebug", "~> 11.0"
 gem "equivalent-xml", "~> 0.6"
