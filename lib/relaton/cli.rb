@@ -51,10 +51,10 @@ module Relaton
         registry = registry()
         puts "CLI => #{Relaton::Cli::VERSION}"
         puts "relaton => #{Gem.loaded_specs['relaton'].version}"
-        puts "relaton-bib => #{Gem.loaded_specs['relaton-bib'].version}"
         registry.processors.each_key do |k|
           name = k.to_s.sub("_", "-")
-          puts "#{name} => #{Gem.loaded_specs[name].version}"
+          spec = Gem.loaded_specs[name]
+          puts "#{name} => #{spec.version}" if spec
         end
       end
 

@@ -184,11 +184,10 @@ RSpec.describe "Relaton Fetch" do
     context "fetch code with invalid/missing type" do
       it "calls supported_type_message method" do
         io = double "IO"
-        expect(io).to receive(:puts).with(
-          "Recognised types: 3GPP, BIPM, BSI, CC, CCSDS, CEN, CIE, CN, DOI, " \
-          "ECMA, ETSI, IANA, IEC, IEEE, IETF, IHO, ISBN, ISO, ITU, JIS, NIST, OASIS, " \
-          "OGC, OMG, PLATEAU, UN, W3C, XEP"
-        )
+        expected_types = "Recognised types: " +
+          Relaton::Cli.registry.processors.each.map { |_n, pr| pr.prefix }
+                                   .sort.join(", ")
+        expect(io).to receive(:puts).with(expected_types)
         expect(IO).to receive(:new).with(kind_of(Integer), mode: "w:UTF-8").and_return io
         Relaton::Cli.start ["fetch", "ISO 2146", "--type", "invalid"]
       end
@@ -200,11 +199,10 @@ RSpec.describe "Relaton Fetch" do
 
       it "prints a warning message with suggestions for invalid type" do
         output = `relaton fetch 'ISO 2146' --type invalid`
-        expect(output).to include(
-          "Recognised types: 3GPP, BIPM, BSI, CC, CCSDS, CEN, CIE, CN, DOI, " \
-          "ECMA, ETSI, IANA, IEC, IEEE, IETF, IHO, ISBN, ISO, ITU, JIS, NIST, OASIS, " \
-          "OGC, OMG, PLATEAU, UN, W3C, XEP"
-        )
+        expected_types = "Recognised types: " +
+          Relaton::Cli.registry.processors.each.map { |_n, pr| pr.prefix }
+                                   .sort.join(", ")
+        expect(output).to include(expected_types)
       end
     end
 

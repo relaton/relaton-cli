@@ -5,36 +5,8 @@ RSpec.describe Relaton::Cli::Command do
     end.to output(%r{
       CLI\s=>\s#{Relaton::Cli::VERSION}\n
       relaton\s=>\s[\w.]+\n
-      relaton-bib\s=>\s[\w.]+\n
-      relaton-gb\s=>\s[\w.]+\n
-      relaton-iec\s=>\s[\w.]+\n
-      relaton-ietf\s=>\s[\w.]+\n
-      relaton-iso\s=>\s[\w.]+\n
-      relaton-itu\s=>\s[\w.]+\n
-      relaton-nist\s=>\s[\w.]+\n
-      relaton-ogc\s=>\s[\w.]+\n
-      relaton-calconnect\s=>\s[\w.]+\n
-      relaton-omg\s=>\s[\w.]+\n
-      relaton-un\s=>\s[\w.]+\n
-      relaton-w3c\s=>\s[\w.]+\n
-      relaton-ieee\s=>\s[\w.]+\n
-      relaton-iho\s=>\s[\w.]+\n
-      relaton-bipm\s=>\s[\w.]+\n
-      relaton-ecma\s=>\s[\w.]+\n
-      relaton-cie\s=>\s[\w.]+\n
-      relaton-bsi\s=>\s[\w.]+\n
-      relaton-cen\s=>\s[\w.]+\n
-      relaton-iana\s=>\s[\w.]+\n
-      relaton-3gpp\s=>\s[\w.]+\n
-      relaton-oasis\s=>\s[\w.]+\n
-      relaton-doi\s=>\s[\w.]+\n
-      relaton-jis\s=>\s[\w.]+\n
-      relaton-xsf\s=>\s[\w.]+\n
-      relaton-ccsds\s=>\s[\w.]+\n
-      relaton-etsi\s=>\s[\w.]+\n
-      relaton-isbn\s=>\s[\w.]+\n
-      relaton-plateau\s=>\s[\w.]+\n
     }xo).to_stdout
+    # The v3 monogem ships every flavor: no relaton-bib, no per-flavor gems.
   end
 
   context "convert Relaton XML document" do
