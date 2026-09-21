@@ -1,4 +1,5 @@
 require "date"
+require "parslet"
 require "relaton/cli/relaton_file"
 require "relaton/cli/xml_convertor"
 require "relaton/cli/yaml_convertor"
@@ -226,6 +227,8 @@ module Relaton
       return "No matching bibliographic entry found" unless doc
 
       serialize doc, options[:format]
+    rescue Parslet::ParseFailed
+      %("#{code}" is not a recognized standards identifier)
     rescue Relaton::RequestError => e
       e.message
     end
