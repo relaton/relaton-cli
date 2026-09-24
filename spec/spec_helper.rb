@@ -1,6 +1,16 @@
 require "bundler/setup"
 require "fileutils"
 
+# Adapter selection is an end-user concern — relaton-the-library never sets
+# it. The suite pins the stack it exercises.
+# TODO(lutaml-model#856): flip to :leptris once its serializer calls the
+# mapped reader for map_content (derived-content models currently
+# serialize empty under it).
+require "lutaml/model"
+Lutaml::Model::Config.configure do |config|
+  config.xml_adapter_type = :nokogiri
+end
+
 Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
 
 require "relaton-cli"
