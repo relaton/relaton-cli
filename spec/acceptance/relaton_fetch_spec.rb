@@ -95,6 +95,8 @@ RSpec.describe "Relaton Fetch" do
 
     context do
       let(:io) { double "IO" }
+      let(:tmpdir) { Dir.mktmpdir("relaton_test_cache") }
+
       before (:each) do
         RSpec::Mocks.space.proxy_for(IO).reset
         expect(IO).to receive(:new) do |arg1, arg2, &block|
@@ -103,10 +105,19 @@ RSpec.describe "Relaton Fetch" do
           end
         end.at_most(2).times
 
+        # Isolate from global cache by using a fresh DB in a temp directory
+        Relaton::Cli::RelatonDb.instance.instance_variable_set(:@db, nil)
+        Relaton::Cli.relaton(tmpdir)
+
         # Force to download index file
         require "relaton/index"
         allow_any_instance_of(Relaton::Index::Type).to receive(:actual?).and_return(false)
         allow_any_instance_of(Relaton::Index::FileIO).to receive(:check_file).and_return(nil)
+      end
+
+      after(:each) do
+        Relaton::Cli::RelatonDb.instance.instance_variable_set(:@db, nil)
+        FileUtils.remove_entry(tmpdir)
       end
 
       it "calls fetch and return XML" do
@@ -123,7 +134,7 @@ RSpec.describe "Relaton Fetch" do
 
       it "calls fetch and return YAML" do
         expect(io).to receive(:puts) do |arg|
-          expect(arg).to include "- id: ISO 2146:2010"
+          expect(arg).to include "- content: ISO 2146:2010"
         end
         VCR.use_cassette "iso_2146" do
           command = ["fetch", "--type", "iso", "--format", "yaml", "ISO 2146"]
@@ -144,28 +155,28 @@ RSpec.describe "Relaton Fetch" do
 
     context "fetch code with a type" do
       it "prints out the document for valid code and type" do
-        output = `relaton fetch --type ISO 'ISO 2146'`
+        output = `bundle exec relaton fetch --type ISO 'ISO 2146'`
 
         expect(output).to include('<relation type="obsoletes">')
         expect(output).to include('<docidentifier type="ISO" primary="true">ISO 2146')
       end
 
       it "prints out the document in BibTeX format" do
-        output = `relaton fetch --format bibtex --type ISO 'ISO 2146'`
+        output = `bundle exec relaton fetch --format bibtex --type ISO 'ISO 2146'`
         expect(output).to include("@misc{ISO2146,")
       end
     end
 
     context "fetch code with date specified" do
       it "prints out the correct document for valid date" do
-        output = `relaton fetch -t ISO -y 2010 'ISO 2146'`
+        output = `bundle exec relaton fetch -t ISO -y 2010 'ISO 2146'`
 
         expect(output).to include('<relation type="obsoletes">')
         expect(output).to include('<docidentifier type="ISO" primary="true">ISO 2146')
       end
 
       it "prints out a warning messages for wrong date" do
-        output = `relaton fetch -t ISO -y 2009 'ISO 2146'`
+        output = `bundle exec relaton fetch -t ISO -y 2009 'ISO 2146'`
         expect(output).to include("No matching bibliographic entry")
       end
     end
@@ -173,11 +184,10 @@ RSpec.describe "Relaton Fetch" do
     context "fetch code with invalid/missing type" do
       it "calls supported_type_message method" do
         io = double "IO"
-        expect(io).to receive(:puts).with(
-          "Recognised types: 3GPP, BIPM, BSI, CC, CCSDS, CEN, CIE, CN, DOI, " \
-          "ECMA, ETSI, IANA, IEC, IEEE, IETF, IHO, ISBN, ISO, ITU, JIS, NIST, OASIS, " \
-          "OGC, OMG, PLATEAU, UN, W3C, XEP"
-        )
+        expected_types = "Recognised types: " +
+          Relaton::Cli.registry.processors.each.map { |_n, pr| pr.prefix }
+                                   .sort.join(", ")
+        expect(io).to receive(:puts).with(expected_types)
         expect(IO).to receive(:new).with(kind_of(Integer), mode: "w:UTF-8").and_return io
         Relaton::Cli.start ["fetch", "ISO 2146", "--type", "invalid"]
       end
@@ -188,29 +198,28 @@ RSpec.describe "Relaton Fetch" do
       # end
 
       it "prints a warning message with suggestions for invalid type" do
-        output = `relaton fetch 'ISO 2146' --type invalid`
-        expect(output).to include(
-          "Recognised types: 3GPP, BIPM, BSI, CC, CCSDS, CEN, CIE, CN, DOI, " \
-          "ECMA, ETSI, IANA, IEC, IEEE, IETF, IHO, ISBN, ISO, ITU, JIS, NIST, OASIS, " \
-          "OGC, OMG, PLATEAU, UN, W3C, XEP"
-        )
+        output = `bundle exec relaton fetch 'ISO 2146' --type invalid`
+        expected_types = "Recognised types: " +
+          Relaton::Cli.registry.processors.each.map { |_n, pr| pr.prefix }
+                                   .sort.join(", ")
+        expect(output).to include(expected_types)
       end
     end
 
     context "fetch code with undefined standard" do
       it "prints out a warning message for undefined standard" do
-        output = `relaton fetch -t ISO 'ISO 123456'`
-        expect(output).to include("No matching bibliographic entry found")
+        output = `bundle exec relaton fetch -t ISO 'ISO 123456'`
+        expect(output).to include("is not a recognized standards identifier")
       end
     end
 
     it "raise request error" do
-      expect(db).to receive(:fetch_std).and_raise RelatonBib::RequestError
+      expect(db).to receive(:fetch_std).and_raise Relaton::RequestError
       expect(Relaton::Cli).to receive(:relaton).and_return(db)
       command = Relaton::Cli::Command.new
       # expect(command).to receive(:registered_types).and_return ["ISO"]
       expect(command.send(:fetch_document, "ISO 2146", type: "ISO")).to eq(
-        "RelatonBib::RequestError",
+        "Relaton::RequestError",
       )
       Relaton::Cli::RelatonDb.instance.instance_variable_set :@db, nil
     end

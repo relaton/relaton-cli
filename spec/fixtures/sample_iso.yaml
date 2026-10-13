@@ -1,29 +1,34 @@
-technical_committee: PUBLISH
-docid: 
-  - id: TC211
-    type: ISO
-    primary: true
-doctype: standard
-title: 
-  - Geographic information
-  - content: Information géographique
-    language: fr
-    script: Latn
-    type: title-main
-  - content: Information géographique
-    language: fr
-    script: Latn
-    type: main
-docstatus:
+type: standard
+title:
+- content: Geographic information
+  type: title-main
+- content: Geographic information
+  type: main
+- content: Information géographique
+  language: fr
+  script: Latn
+  type: title-main
+- content: Information géographique
+  language: fr
+  script: Latn
+  type: main
+docidentifier:
+- content: ISO 55000:2014
+  type: ISO
+  primary: true
+date:
+- type: issued
+  at: "2014"
+- type: published
+  at: "2014-04"
+- type: accessed
+  at: "2015-05-20"
+status:
   stage:
-    value: stage
+    content: stage
   substage:
-    value: substage
+    content: substage
   iteration: final
-date: 
-  - type: issued
-    value: "2014"
-  - type: published
-    value: "2014-04"
-  - type: accessed
-    value: "2015-05-20"
+ext:
+  doctype:
+    content: standard

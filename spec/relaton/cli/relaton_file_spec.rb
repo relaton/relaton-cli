@@ -85,8 +85,8 @@ RSpec.describe Relaton::Cli::RelatonFile do
 
         items = hashdoc["root"]["items"]
         #warn items
-        expect(items[0]["docid"][0]["id"]).to eq("CC 18001")
-        expect(items[1]["docid"][0]["id"]).to eq("CC 36000")
+        expect(items[0]["docidentifier"][0]["content"]).to eq("CC 18001")
+        expect(items[1]["docidentifier"][0]["content"]).to eq("CC 36000")
         expect(items[2]["xml"]).not_to eq("spec/fixtures/sample-collection")
       end
     end
@@ -103,7 +103,7 @@ RSpec.describe Relaton::Cli::RelatonFile do
 
         expect(hashdoc["root"]["title"]).to eq("collection title")
         expect(hashdoc["root"]["author"]).to eq("Ribose Inc")
-        expect(hashdoc["root"]["items"][1]["docid"][0]["id"]).to eq("CC 36000")
+        expect(hashdoc["root"]["items"][1]["docidentifier"][0]["content"]).to eq("CC 36000")
       end
 
       it "uses the new Relaton XML format" do
@@ -114,12 +114,12 @@ RSpec.describe Relaton::Cli::RelatonFile do
         )
 
         hashdoc = YAML.load_file("./tmp/concatenate.yml")
-        items = hashdoc["root"]["items"].sort_by { |item| item["id"] }
+        items = hashdoc["root"]["items"].sort_by { |item| item["id"].to_s }
 
         expect(hashdoc["root"]["title"]).to eq("collection title")
         expect(hashdoc["root"]["author"]).to eq("Ribose Inc")
-        expect(items[3]["docid"][0]["id"]).to eq("CC 36000")
-        expect(items[3]["docid"][0]["type"]).to eq("CC")
+        expect(items[3]["docidentifier"][0]["content"]).to eq("CC 36000")
+        expect(items[3]["docidentifier"][0]["type"]).to eq("CC")
       end
 
       it "with IETF sample files" do
@@ -154,11 +154,11 @@ RSpec.describe Relaton::Cli::RelatonFile do
         expect(hashdoc["root"]["title"]).to be_nil
         expect(hashdoc["root"]["author"]).to be_nil
 
-        expect(items[0]["docid"][0]["id"]).to eq("CC 18001")
-        expect(items[0]["link"].detect { |l| l["type"] == "xml" }["content"]).to eq("spec/fixtures/sample.xml")
-        expect(items[0]["link"].detect { |l| l["type"] == "pdf" }["content"]).to eq("spec/fixtures/sample.pdf")
-        expect(items[0]["link"].detect { |l| l["type"] == "doc" }["content"]).to eq("spec/fixtures/sample.doc")
-        expect(items[0]["link"].detect { |l| l["type"] == "html" }["content"]).to eq("spec/fixtures/sample.html")
+        expect(items[0]["docidentifier"][0]["content"]).to eq("CC 18001")
+        expect(items[0]["source"].detect { |l| l["type"] == "xml" }["content"]).to eq("spec/fixtures/sample.xml")
+        expect(items[0]["source"].detect { |l| l["type"] == "pdf" }["content"]).to eq("spec/fixtures/sample.pdf")
+        expect(items[0]["source"].detect { |l| l["type"] == "doc" }["content"]).to eq("spec/fixtures/sample.doc")
+        expect(items[0]["source"].detect { |l| l["type"] == "html" }["content"]).to eq("spec/fixtures/sample.html")
       end
     end
   end

@@ -1,42 +1,37 @@
-= Relaton CLI (relaton-cli): Relaton Command-line Interface
+= Relaton CLI: Command-line Interface for Bibliographic References
 
 image:https://img.shields.io/gem/v/relaton-cli.svg["Gem Version", link="https://rubygems.org/gems/relaton-cli"]
 image:https://github.com/relaton/relaton-cli/workflows/rake/badge.svg["Build Status", link="https://github.com/relaton/relaton-cli/actions?workflow=rake"]
-// image:https://codeclimate.com/github/metanorma/relaton-cli/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/metanorma/relaton-cli"]
 
-Documentation in development.
+Relaton CLI is a command-line tool for fetching, converting, and managing
+bibliographic references to standards (ISO, IEC, IETF, NIST, IEEE, and many
+more). It is part of the https://github.com/relaton[Relaton] /
+https://www.metanorma.org[Metanorma] ecosystem.
 
-Please refer to https://github.com/relaton/relaton.
+== Installation
 
-== Commands
+Add to your `Gemfile`:
 
-Each command has an option `--verbose` (the short form is `-v`). Use the option to get warnings in the commands output.
-The following commands are provided.
+[source,ruby]
+----
+gem "relaton-cli"
+----
 
-=== relaton concatenate
+Or install directly:
 
 [source,console]
 ----
-$ relaton concatenate Source-Directory Relaton-Collection-File -t TITLE -g ORGANIZATION
+$ gem install relaton-cli
 ----
 
-Iterates through all the Relaton files (YAML and XML) in `Source-Directory`, and concatenates them into a Relaton Collection file. The extension of the Collection file can be set using the `Relaton-Collection-File` file name (i.e, if it uses an extension of `yaml`, a Relaton YAML file will be created; if `rxl`, a Relaton XML file will be created, or via the `-x [ext]` (or `--extension`) option.
+== Requirements
 
-For each Relaton input file in the `Source-Directory`, if a document file with the same base name is identified (i.e. an XML, HTML, PDF or DOC
-file) a link to that file is inserted.
+* Ruby >= 3.2.0
 
-If the `TITLE` or `ORGANIZATION` options are given, they are added to the `Collection-File` output as the
-title and author of the `Relaton-Collection-File` document.
+== Usage
 
-=== relaton split
-
-[source,console]
-----
-$ relaton split Relaton-Collection-File Relaton-File-Directory -x rxl
-----
-
-Splits a `Relaton-Collection-File` into multiple files in the `Relaton-File-Directory`, and it also
-suports an additional `-x` or `--extension` options to use different extension.
+Each command supports a `--verbose` (short form `-v`) option to include
+warnings in the output.
 
 === relaton fetch
 
@@ -47,11 +42,12 @@ $ relaton fetch CODE -t TYPE -f FORMAT -y YEAR -r RETRIES --all-parts --keep-yea
 
 Fetch the Relaton XML entry corresponding to the document identifier `CODE`.
 
-* `YEAR` is optional and specifies the year of publication of the standard.
-* `FORMAT` is optional, and specifies the output format; the recognized values for `FORMAT` are `xml` (default), yaml, `bibtex`.
-* `TYPE` is optional and specifies the standards class library to be used, that the identifier is part of. The recognized values for `TYPE` are: `3GPP`, `BIPM`, `CCTF`, `CCDS`, `CGPM`, `CIPM`, `JCRB`, `JCGM`, `BSI`, `BS`, `PD`, `CC`, `CCSDS`, `CEN`, `EN`, `ENV`, `CWA`, `HD`, `CR`, `CIE`, `DOI`, `ECMA`, `ETSI`, `CN`, `GB`, `GB/T`, `GB/Z`, `IANA`, `IEC`, `CISPR`, `IEV`, `IEEE`, `ANSI`, `NACE`, `AIEE`, `ASA`, `IRE`, `IETF`, `RFC`, `BCP`, `FYI`, `STD`, `I-D`, `IHO`, `ISBN`, `ISO`, `ISO/IEC`, `ITU`, `JIS`, `TR`, `NIST`, `NBS`, `NISTGCR`, `ITL Bulletin`, `JPCRD`, `NISTIR`, `CSRC`, `FIPS`, `OASIS`, `OGC`, `OMG`, `UN`, `W3C`, `XEP`, `PLATEAU`.
+[[relaton-fetch-types]]
+* `TYPE` is optional and specifies the standards class library to use. Recognized values for `TYPE` are: `3GPP`, `BIPM`, `CCTF`, `CCDS`, `CGPM`, `CIPM`, `JCRB`, `JCGM`, `BSI`, `BS`, `PD`, `CC`, `CCSDS`, `CEN`, `EN`, `ENV`, `CWA`, `HD`, `CR`, `CIE`, `DOI`, `ECMA`, `ETSI`, `CN`, `GB`, `GB/T`, `GB/Z`, `IANA`, `IEC`, `CISPR`, `IEV`, `IEEE`, `ANSI`, `NACE`, `AIEE`, `ASA`, `IRE`, `IETF`, `RFC`, `BCP`, `FYI`, `STD`, `I-D`, `IHO`, `ISBN`, `ISO`, `ISO/IEC`, `ITU`, `JIS`, `TR`, `NIST`, `NBS`, `NISTGCR`, `ITL Bulletin`, `JPCRD`, `NISTIR`, `CSRC`, `FIPS`, `OASIS`, `OGC`, `OMG`, `UN`, `W3C`, `XEP`, `PLATEAU`.
+* `FORMAT` is optional. Recognized values are `xml` (default), `yaml`, `bibtex`.
+* `YEAR` is optional and specifies the year of publication.
 * `RETRIES` is optional, number of network retries (default 1).
-* `--all-parts` fetch all parts.
+* `--all-parts` fetch all parts of the standard.
 * `--keep-year` undated reference should return an actual reference with year.
 * `--no-cache` do not use cache.
 * `--publication-date-before DATE` fetch only documents published before the specified date. Accepted formats: `YYYY`, `YYYY-MM`, `YYYY-MM-DD`.
@@ -64,7 +60,7 @@ Fetch the Relaton XML entry corresponding to the document identifier `CODE`.
 $ relaton fetch-data DATASET -o DIR -f FORMAT
 ----
 
-Fetch all the documents from a `DATASET` source and save them to a folder `DIR` in the format `FORMAT`.
+Fetch all documents from a `DATASET` source and save them to folder `DIR` in format `FORMAT`.
 
 The following datasets are available:
 
@@ -72,18 +68,18 @@ The following datasets are available:
 * `cie-techstreet` - https://www.techstreet.com/cie/searches/31156444
 * `calconnect-org` - https://standards.calconnect.org/relaton/index.yaml
 * `ogc-naming-authority` - https://raw.githubusercontent.com/opengeospatial/NamingAuthority/master/incubation/bibliography/bibliography.json
-* `ieee-rawbib` - looks for the IEEE dataset in the local `./ieee-rawbib` directory. The dataset could be downloaded from https://github.com/ietf-ribose/ieee-rawbib repository
+* `ieee-rawbib` - looks for the IEEE dataset in the local `./ieee-rawbib` directory. The dataset can be downloaded from https://github.com/ietf-ribose/ieee-rawbib
 * `w3c-rdf` - http://www.w3.org/2002/01/tr-automation/tr.rdf
-* `w3c-tr-archive` - looks for the W3C archive dataset in local `./w3c-tr-archive` directory. The dataset could be downloaded from https://github.com/relaton/w3c-tr-archive repository
+* `w3c-tr-archive` - looks for the W3C archive dataset in local `./w3c-tr-archive` directory. The dataset can be downloaded from https://github.com/relaton/w3c-tr-archive
 * `iana-registries` - https://github.com/ietf-ribose/iana-registries
 * `status-smg-3GPP` - updates previously downloaded data if a new archive is available in ftp://www.3gpp.org/Information/Databases/
 * `status-smg-3GPP-force` - download data from the latest archive in ftp://www.3gpp.org/Information/Databases/
 * `ietf-rfcsubseries` - https://www.rfc-editor.org/rfc-index.xml (`<bcp-entry>`, `<fyi-entry>`, `<std-entry>`)
-* `ietf-internet-drafts` - looks for the Internet-Drafts dataset in the local `./bibxml-ids` directory. The dataset could be downloaded using `rsync -avcizxL rsync.ietf.org::bibxml-ids ./bibxml-ids` command.
+* `ietf-internet-drafts` - looks for the Internet-Drafts dataset in the local `./bibxml-ids` directory. The dataset can be downloaded using `rsync -avcizxL rsync.ietf.org::bibxml-ids ./bibxml-ids`.
 * `ietf-rfc-entries` - https://www.rfc-editor.org/rfc-index.xml (`<rfc-entry>`)
 * `oasis-open` - https://www.oasis-open.org/standards/
-* `bipm-data-outcomes` - looks for the BIPM dataset in the local `./bipm-data-outcomes` directory. The dataset could be downloaded from https://github.com/metanorma/bipm-data-outcomes repository
-* `si-brochure` - looks for the SI-Brochure dataset in the local `./bipm-si-brocure` directory. The dataset could be downloaded from https://github.com/metanorma/bipm-si-brochure repository
+* `bipm-data-outcomes` - looks for the BIPM dataset in the local `./bipm-data-outcomes` directory. The dataset can be downloaded from https://github.com/metanorma/bipm-data-outcomes
+* `si-brochure` - looks for the SI-Brochure dataset in the local `./bipm-si-brochure` directory. The dataset can be downloaded from https://github.com/metanorma/bipm-si-brochure
 * `ecma-standards` - https://www.ecma-international.org/publications/standards/
 * `itu-r` - https://extranet.itu.int/brdocsearch
 * `ccsds` - https://public.ccsds.org/Publications/AllPubs.aspx
@@ -95,7 +91,7 @@ The following datasets are available:
 Options:
 
 * `DIR` - folder name to store documents (default `./data`).
-* `FORMAT` - format in which the documents are saved. Possible formats are: `yaml`, `xml`, `bibxml` (default `yaml`).
+* `FORMAT` - output format: `yaml` (default), `xml`, `bibxml`.
 
 === relaton extract
 
@@ -104,11 +100,97 @@ Options:
 $ relaton extract Metanorma-XML-Directory Relaton-XML-Directory -x EXTENSION
 ----
 
-Iterate through all the Metanorma XML files in `Metanorma-XML-Directory`, and extract the `bibdata`
-element from each. Save the `bibdata` element for each file to `Relaton-XML-Directory`, as the Relaton XML
-description for that file. If a document identifier is present in `bibdata`, it is used as the name of the
-file; otherwise, the original file name is used. The filename is suffixed with `EXTENSION`; by default,
-`.rxl` is used.
+Iterate through all Metanorma XML files in `Metanorma-XML-Directory` and extract the `bibdata` element from each. Save the `bibdata` element to `Relaton-XML-Directory` as the Relaton XML description for that file. If a document identifier is present in `bibdata`, it is used as the filename; otherwise, the original filename is used. The filename is suffixed with `EXTENSION` (default `.rxl`).
+
+=== relaton concatenate
+
+[source,console]
+----
+$ relaton concatenate Source-Directory Relaton-Collection-File -t TITLE -g ORGANIZATION
+----
+
+Iterate through all Relaton files (YAML and XML) in `Source-Directory` and concatenate them into a Relaton Collection file. The extension of the Collection file can be set via the filename (e.g., `.yaml` for YAML, `.rxl` for XML) or using the `-x` (`--extension`) option.
+
+For each Relaton input file in `Source-Directory`, if a document file with the same base name is identified (XML, HTML, PDF, or DOC), a link to that file is inserted.
+
+If `TITLE` or `ORGANIZATION` options are given, they are added to the output as the title and author of the collection.
+
+=== relaton split
+
+[source,console]
+----
+$ relaton split Relaton-Collection-File Relaton-File-Directory -x rxl
+----
+
+Split a `Relaton-Collection-File` into multiple files in `Relaton-File-Directory`. Supports the `-x` (`--extension`) option to set the file extension.
+
+=== relaton convert
+
+[source,console]
+----
+$ relaton convert XML -f FORMAT -o OUTPUT-FILE
+----
+
+Convert a Relaton XML document into YAML, AsciiBib, or BibTeX format. Allowed `--format` values are `yaml`, `asciibib`, `bibtex`. If `--output` is omitted, a new file is created in the same folder with the appropriate extension.
+
+=== relaton yaml2xml
+
+[source,console]
+----
+$ relaton yaml2xml YAML -o OUTPUT-DIRECTORY -x RELATON_EXTENSION -p PREFIX -r LIBRARY
+----
+
+Convert a Relaton YAML file into Relaton Collection XML or separate files. If the YAML file specifies multiple bibliographic items and `OUTPUT-DIRECTORY` is given, also convert into individual Relaton XML files per entry. The document identifier is used as the filename, suffixed with `RELATON_EXTENSION` (default `.rxl`) and prefixed with `PREFIX` (default empty). Libraries required for conversion are specified in `LIBRARY` as a space-delimited list.
+
+[[relaton-yaml]]
+A Relaton Collection YAML file contains initial metadata and a list of bibliographic entries:
+
+[source,yaml]
+----
+root:
+  title: CalConnect Standards Registry
+  author: The Calendaring and Scheduling Consortium
+  items:
+    - id: CC36000
+      type: standard
+      title:
+        - content: Standardization documents -- Vocabulary
+      docidentifier:
+        - type: CC
+          content: CC 36000
+          primary: true
+      date:
+        - type: issued
+          at: '2018-10-25'
+      status:
+        stage:
+          content: proposal
+    - id: CC34000
+      type: standard
+      title:
+        - content: Date and time -- Concepts and vocabulary
+      docidentifier:
+        - type: CC
+          content: CC 34000
+          primary: true
+      date:
+        - type: issued
+          at: '2018-10-25'
+      status:
+        stage:
+          content: proposal
+----
+
+A Relaton YAML file describing an individual bibliographic entry is limited to metadata specific to that entry. The link:https://github.com/relaton/relaton-bib/blob/master/docs/hash.adoc#yaml[Relaton YAML] illustrates the common fields supported by all flavor gems.
+
+=== relaton xml2yaml
+
+[source,console]
+----
+$ relaton xml2yaml XML -o OUTPUT-DIRECTORY -x RELATON_EXTENSION -p PREFIX -r LIBRARY
+----
+
+Convert a Relaton XML file into Relaton YAML. If the XML file is a collection and `OUTPUT-DIRECTORY` is given, also produce individual YAML files per entry. The document identifier is used as the filename, suffixed with `RELATON_EXTENSION` (default `.yaml`) and prefixed with `PREFIX` (default empty). Libraries required for conversion are specified in `LIBRARY` as a space-delimited list.
 
 [[relaton-xml2html]]
 === relaton xml2html
@@ -121,130 +203,18 @@ $ relaton xml2html <relaton-xml> [<stylesheet>] [<html-template-dir>]
 Render a Relaton Collection XML as an HTML file. Used to generate an HTML index of standards.
 
 * `relaton-xml` is the Relaton Collection XML file.
-* `stylesheet` is the CSS stylesheet to be used to style the output. For the CSS styling of each bibliographic element, see below.
-* `html-template-dir` is a directory containing HTML Liquid Template files into which the bibliographic entries are to be inserted.
-There are two templates necessary:
+* `stylesheet` is the CSS stylesheet to style the output.
+* `html-template-dir` is a directory containing HTML Liquid Template files. Two templates are required:
 
-** Index template (`_index.liquid_`)
-
-*** The HTML Template file `_index.liquid` recognizes the following parameters:
-*** `css`: where the CSS stylesheet `stylesheet` is injected
-*** `title`: the Title of the collection, `./relaton-collection/title` in `relaton-xml`
-*** `author`: the Author of the collection, `./relaton-collection/contributor[role/@type = 'author']/organization/name` in `relaton-xml`
+** Index template (`_index.liquid`) -- recognizes the following parameters:
+*** `css`: the CSS stylesheet content
+*** `title`: the collection title from `./relaton-collection/title`
+*** `author`: the collection author from `./relaton-collection/contributor[role/@type = 'author']/organization/name`
 *** `content`: the list of resources generated by the script
 
-** Individual bibliographic entries template (`_document.liquid`)
+** Individual entry template (`_document.liquid`) -- recognizes attributes of a bibliographic entry (`document`) following the naming convention of <<relaton-yaml,Relaton YAML>>; e.g. `document.html` is the HTML URI for the document.
 
-*** This template recognizes attributes of a bibliographic entry (`document`) that follow the naming convention of <<relaton-yaml,Relaton YAML>>; e.g. `document.html` is the HTML URI for the document.
-
-The default stylesheet and templates are given (which also demonstrates the structure) in the `templates` directory.
-
-Sample HTML output for a bibliographic entry:
-
-[source,html]
-----
-<div class="document">
-  <div class="doc-line">
-    <div class="doc-identifier">
-      <h2>
-        <a href="http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.html">CC/R 3101</a>
-      </h2>
-    </div>
-    <div class="doc-type-wrap">
-      <div class="doc-type report">report</div>
-    </div>
-  </div>
-  <div class="doc-title">
-    <h3>
-      <a href="http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.html">CalConnect XLIII -- Position on the European Union daylight-savings timezone change</a>
-    </h3>
-  </div>
-  <div class="doc-info cancelled">
-    <div class="doc-stage cancelled">cancelled</div>
-    <div class="doc-dates">
-      <div class="doc-updated">2019-10-17</div>
-    </div>
-  </div>
-  <div class="doc-bib">
-    <div class="doc-bib-relaton">
-      <a href="csd/cc-r-3101.xml">Relaton XML</a>
-    </div>
-  </div>
-  <div class="doc-access">
-    <div class="doc-access-button-html">
-      <a href="http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.html">HTML</a>
-    </div>
-    <div class="doc-access-button-pdf">
-      <a href="http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.pdf">PDF</a>
-    </div>
-    <div class="doc-access-button-doc">
-      <a href="http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.doc">Word</a>
-    </div>
-    <div class="doc-access-button-xml">
-      <a href="http://calconnect.org/pubdocs/CD0507%20CalDAV%20Use%20Cases%20V1.0.xml">XML</a>
-    </div>
-  </div>
-</div>
-----
-
-=== relaton yaml2xml
-
-[source,console]
-----
-$ relaton yaml2xml YAML -o OUTPUT-DIRECTORY -x RELATON_EXTENSION -p PREFIX -r LIBRARY
-----
-
-Convert a Relaton YAML file (`filename.yaml`) into a Relaton XML file (`filename.xml`). If the Relaton YAML file specifies multiple bibliograph items, and `OUTPUT-DIRECTORY` is nominated, also convert the file into a list of Relaton XML files for each entry, stored in that directory. The document identifier is used as the name of each Relaton XML file; the Relaton XML filename is suffixed with `RELATON_EXTENSION` (default `.rxl`) and prefixed with `PREFIX` (default empty). Any libraries that need to be required for the conversion are specified in `LIBRARY` as a space-delimited list.
-
-[[relaton-yaml]]
-A Relaton Collection YAML file contains some initial metadata and a list of metadata about each bibliographic entry:
-
-[source,yaml]
-----
-root:
-  author: The Calendaring and Scheduling Consortium
-  title: CalConnect Standards Registry
-  items:
-    - technical_committee: PUBLISH
-      docid:
-        type: CC
-        id: CC 36000
-        primary: true
-      type: standard
-      title:
-        type: main
-        content: Standardization documents -- Vocabulary
-      docstatus:
-        stage: proposal
-      date:
-        type: issued
-        value:  2018-10-25
-    - technical_committee: DATETIME
-      docid:
-        type: CC
-        id: CC 34000
-        primary: true
-      type: standard
-      title:
-        type: main
-        content: Date and time -- Concepts and vocabulary
-      docstatus:
-        stage: proposal
-      date:
-        type: issued
-        value: 2018-10-25
-----
-
-A Relaton YAML file describing an individual bibliographic entry is limited to metadata specific to that entry. Flavor gems have additional fields. The link:https://github.com/relaton/relaton-bib/blob/master/docs/hash.adoc#yaml[Relaton YAML] illustrates the common fields supported by all flavor gems.
-
-=== relaton xml2yaml
-
-[source,console]
-----
-$ relaton xml2yaml XML -o OUTPUT-DIRECTORY -x RELATON_EXTENSION -p PREFIX -r LIBRARY
-----
-
-Convert a Relaton XML file (`filename.xml` or `filename.rxl`) into a Relaton YAML file (`filename.yaml`). If the Relaton XML file is a collection, and `OUTPUT-DIRECTORY` is nominated, also convert the file into a list of Relaton YAML files for each entry, stored in that directory. The document identifier is used as the name of each Relaton XML file; the Relaton XML filename is suffixed with `RELATON_EXTENSION` (default `.yaml`) and prefixed with `PREFIX` (default empty). Any libraries that need to be required for the conversion are specified in `LIBRARY` as a space-delimited list.
+The default stylesheet and templates are provided in the `templates` directory.
 
 === relaton yaml2html
 
@@ -253,56 +223,20 @@ Convert a Relaton XML file (`filename.xml` or `filename.rxl`) into a Relaton YAM
 $ relaton yaml2html YAML [<stylesheet>] [<liquid-template-dir>]
 ----
 
-Render a Relaton YAML file (`filename.yaml`) as an HTML file. The `stylesheet` and `liquid-template-dir` directories are as for <<relaton-xml2html,relaton xml2html>>.
-
-=== relaton convert
-
-[source,conxole]
-----
-$ relaton convert XML -f FORMAT -o OUTPUT-FILE
-----
-
-Convert a Relaton XML document into YAML, AsciiBib, or BibTex format. Allowed -f or --format options are yaml, asciibib, bibtex. If the option -o or --output is omitted then a new file will be created in the folder where the original file is, with the same name but another appropriated extension.
+Render a Relaton YAML file as an HTML file. The `stylesheet` and `liquid-template-dir` parameters are as for <<relaton-xml2html,relaton xml2html>>.
 
 === relaton version
+
+[source,console]
 ----
 $ relaton version
-CLI => 1.17.2
-relaton => 1.17.2
-relaton-bib => 1.17.2
-relaton-iso-bib => 1.17.0
-relaton-gb => 1.17.0
-relaton-iec => 1.17.0
-relaton-ietf => 1.17.0
-relaton-iso => 1.17.0
-relaton-itu => 1.17.0
-relaton-nist => 1.17.0
-relaton-ogc => 1.17.1
-relaton-calconnect => 1.17.0
-relaton-omg => 1.17.0
-relaton-un => 1.17.0
-relaton-w3c => 1.17.2
-relaton-ieee => 1.17.0
-relaton-iho => 1.17.0
-relaton-bipm => 1.17.0
-relaton-ecma => 1.17.0
-relaton-cie => 1.17.0
-relaton-bsi => 1.17.0
-relaton-cen => 1.17.0
-relaton-iana => 1.17.0
-relaton-3gpp => 1.17.0
-relaton-oasis => 1.17.0
-relaton-doi => 1.17.0
-relaton-jis => 1.17.0
-relaton-xsf => 1.17.0
-relaton-ccsds => 1.17.0
-relaton-etsi => 1.17.0
-relaton-isbn => 1.17.0
 ----
+
+Display version information for the CLI and all installed Relaton libraries.
 
 === relaton collection
 
-The `relaton collection` is a set of subcommands for collection manipulations.
+The `relaton collection` command provides subcommands for collection manipulation.
 
 ==== relaton collection create
 
@@ -311,8 +245,9 @@ $ relaton collection create COLLECTION -d DIRECTORY --author AUTHOR --title TITL
 ----
 
 Create a new empty collection with the name `COLLECTION`.
-* `DIRECTORY` - optional, and specifies a path to a directory with collections. The default value is `$HOME/.relaton/collections`.
-* `AUTHOR`, `TITLE`, and `DOCTYPE` are optional.
+
+* `DIRECTORY` - optional path to a directory with collections. Default: `$HOME/.relaton/collections`.
+* `AUTHOR`, `TITLE`, and `DOCTYPE` are optional metadata.
 
 ==== relaton collection info
 
@@ -320,8 +255,9 @@ Create a new empty collection with the name `COLLECTION`.
 $ relaton collection info COLLECTION -d DIRECTORY
 ----
 
-Show information about `COLLECTION` (number of items, file size of collection, last updated, name, metadata).
-* `DIRECTORY` is optional, and specifies the path to a directory with collections. The default value is `$HOME/.relaton/collections`.
+Show information about `COLLECTION` (number of items, file size, last updated, name, metadata).
+
+* `DIRECTORY` - optional path to a directory with collections. Default: `$HOME/.relaton/collections`.
 
 ==== relaton collection list
 
@@ -330,8 +266,9 @@ $ relaton collection list -d DIRECTORY -e
 ----
 
 List all collections.
-* `DIRECTORY` - optional, and specifies the path to a directory with collections. The default value is `$HOME/.relaton/collections`.
-* When parameter `-e` is defined the id of each entry id will be listed.
+
+* `DIRECTORY` - optional path to a directory with collections. Default: `$HOME/.relaton/collections`.
+* `-e` - when set, list the document ID of each entry.
 
 ==== relaton collection get
 
@@ -339,12 +276,12 @@ List all collections.
 $ relaton collection get CODE -c COLLECTION -d DIRECTORY -f FORMAT -o FILE
 ----
 
-Get a document matched to `CODE` from `COLLECTION`.
+Get a document matching `CODE` from `COLLECTION`.
 
-* `COLLECTION` - optional name of a collection. If undefined then fetch the first match across all collections in `DIRECTORY`.
-* `DIRECTORY` - optional, and specifies a path to a directory with collections. The default value is `$HOME/.relaton/collections`.
-* `FORMAT` - optional. If undefined then print a document in a human-readable form. Allowed values are `abb` (AsciiBib) or `xml` (XML).
-* `FILE` is optional. When it's defined then save a document with the given file name. The file's extension defines the format of the file. Possible extensions are `abb` (AsciiBib) or `xml` (XML).
+* `COLLECTION` - optional name of a collection. If omitted, fetches the first match across all collections in `DIRECTORY`.
+* `DIRECTORY` - optional path to a directory with collections. Default: `$HOME/.relaton/collections`.
+* `FORMAT` - optional. If omitted, output is in human-readable form. Allowed values: `abb` (AsciiBib), `xml` (XML).
+* `FILE` - optional. Save the document with the given filename. The file extension (`abb`, `xml`) defines the output format.
 
 ==== relaton collection find
 
@@ -354,8 +291,8 @@ $ relaton collection find TEXT -c COLLECTION -d DIRECTORY
 
 Full-text search through a collection or all collections.
 
-* `COLLECTION` - optional name of a collection. If undefined then search across all collections.
-* `DIRECTORY` - optional, and specifies a path to a directory with collections. The default value is `$HOME/.relaton/collections`.
+* `COLLECTION` - optional name of a collection. If omitted, searches across all collections.
+* `DIRECTORY` - optional path to a directory with collections. Default: `$HOME/.relaton/collections`.
 
 ==== relaton collection fetch
 
@@ -363,12 +300,12 @@ Full-text search through a collection or all collections.
 $ relaton collection fetch CODE -t TYPE -y YEAR -c COLLECTION -d DIRECTORY --publication-date-before DATE --publication-date-after DATE
 ----
 
-Fetch the Relaton XML entry corresponding to the document identifier `CODE` and save it into `COLLECTION`.
+Fetch the Relaton entry for document identifier `CODE` and save it into `COLLECTION`.
 
-* `TYPE` specifies the standards class library to be used, that the identifier is part of. The recognized values for `TYPE` are: `3GPP`, `BIPM`, `CCTF`, `CCDS`, `CGPM`, `CIPM`, `JCRB`, `JCGM`, `BSI`, `BS`, `PD`, `CC`, `CCSDS`, `CEN`, `EN`, `ENV`, `CWA`, `HD`, `CR`, `CIE`, `DOI`, `ECMA`, `ETSI`, `CN`, `GB`, `GB/T`, `GB/Z`, `IANA`, `IEC`, `CISPR`, `IEV`, `IEEE`, `ANSI`, `NACE`, `AIEE`, `ASA`, `IRE`, `IETF`, `RFC`, `BCP`, `FYI`, `STD`, `I-D`, `IHO`, `ISBN`, `ISO`, `ISO/IEC`, `ITU`, `JIS`, `TR`, `NIST`, `NBS`, `NISTGCR`, `ITL Bulletin`, `JPCRD`, `NISTIR`, `CSRC`, `FIPS`, `OASIS`, `OGC`, `OMG`, `UN`, `W3C`, `XEP`.
-* `YEAR` is optional, and specifies the year of publication of the standard.
-* `COLLECTION` - a name of a collection.
-* `DIRECTORY` - optional, and specifies a path to a directory with collections. The default value is `$HOME/.relaton/collections`.
+* `TYPE` - specifies the standards class library. See <<relaton-fetch-types,recognized TYPE values>>.
+* `YEAR` - optional year of publication.
+* `COLLECTION` - name of a collection (required).
+* `DIRECTORY` - optional path to a directory with collections. Default: `$HOME/.relaton/collections`.
 * `--publication-date-before DATE` fetch only documents published before the specified date. Accepted formats: `YYYY`, `YYYY-MM`, `YYYY-MM-DD`.
 * `--publication-date-after DATE` fetch only documents published after the specified date. Accepted formats: `YYYY`, `YYYY-MM`, `YYYY-MM-DD`.
 
@@ -380,7 +317,7 @@ $ relaton collection export COLLECTION -d DIRECTORY
 
 Export `COLLECTION` into an XML file.
 
-* `DIRECTORY` - optional, and specifies a path to a directory with collections. The default value is `$HOME/.relaton/collections`.
+* `DIRECTORY` - optional path to a directory with collections. Default: `$HOME/.relaton/collections`.
 
 ==== relaton collection import
 
@@ -388,111 +325,88 @@ Export `COLLECTION` into an XML file.
 $ relaton collection import FILE -c COLLECTION -d DIRECTORY
 ----
 
-Import document or collection from XML `FILE` into `COLLECTION`.
+Import a document or collection from XML `FILE` into `COLLECTION`.
 
-* `COLLECTION` - optional. If a collection doesn't exist then it will be created.
-* `DIRECTORY` - optional, and specifies a path to a directory with collections. The default value is `$HOME/.relaton/collections`.
+* `COLLECTION` - optional. If the collection does not exist, it will be created.
+* `DIRECTORY` - optional path to a directory with collections. Default: `$HOME/.relaton/collections`.
 
-=== Dadabase manipulation
+=== Database manipulation
 
-==== Create database
+==== relaton db create
 
 ----
 $ relaton db create DIR
 ----
 
-Creates a new database in a directory `DIR` (optional, the default value is `/home/USER/.relaton/dbpath`). In case the target directory exists it will be used as a database.
+Create a new cache database in directory `DIR` (optional, default: `$HOME/.relaton/cache`). If the target directory exists, it will be used as a database.
 
-----
-$ relaton db create
-[relaton-cli] Database is in `/Users/user/.relaton/cache`
-
-$ relaton db create cachedb
-[relaton-cli] Database is in `/Users/user/RubyProjects/relaton-cli/cachedb`
-----
-
-==== Move database
+==== relaton db mv
 
 ----
 $ relaton db mv DIR
 ----
 
-Move a database to another place `DIR`.
+Move the cache database to a new directory `DIR`.
 
-----
-$ relaton db mv cache_dir
-[relaton-cli] Database is moved to `/Users/user/RubyProjects/relaton-cli/cache_dir`
-----
-
-==== Clear database
-
-Delete all entries from a cache DB.
+==== relaton db clear
 
 ----
 $ relaton db clear
 ----
 
-==== Fetch from database
+Delete all entries from the cache database.
+
+==== relaton db fetch
 
 ----
-$ relaton db fetch -t TYPE -f FORMAT -y YEAR
+$ relaton db fetch CODE -t TYPE -f FORMAT -y YEAR --publication-date-before DATE --publication-date-after DATE
 ----
 
-Fetch an entry from a database. See [relaton fetch](#relaton-fetch) for the explanation of the arguments.
+Fetch an entry from the cache database. Arguments are the same as for `relaton fetch`.
 
-==== Fetch all
-
-Fetch all entries from a cache DB.
+==== relaton db fetch_all
 
 ----
 $ relaton db fetch_all TEXT -e EDITION -y YEAR -f FORMAT
 ----
 
-* `TEXT` (optional) search for a certain string
-* `EDITION` (optional) filter documents with a certain edition
-* `YEAR` (optional) filter documents by a year
-* `FORMAT` (optional) specifies the output format. Recognized values are `xml` (default), yaml, `bibtex`.
+Fetch all entries from the cache database.
 
-----
-$ relaton db fetch_all
-<bibitem id="ISO/IECDIR1" type="international-standard">
-...
+* `TEXT` - optional, search for a specific string.
+* `EDITION` - optional, filter documents by edition.
+* `YEAR` - optional, filter documents by year.
+* `FORMAT` - optional output format: `xml` (default), `yaml`, `bibtex`.
 
-$ relaton db fetch_all 'Procedures for the technical work'
-<bibitem id="ISO/IECDIR1" type="international-standard">
-  <fetched>2021-04-01</fetched>
-  <title type="title-main" format="text/plain" language="en" script="Latn">Procedures for the technical work</title>
-...
-
-$ relaton db fetch_all -e 3
-<bibitem id="ISO2146-2010" type="standard">
-...
-<edition>3</edition>
-...
-
-$ relaton db fetch_all -e 8 -y 2018
-<bibitem id="ISO/IECDIR2IEC" type="international-standard">
-  <fetched>2021-04-01</fetched>
-  <title type="title-main" format="text/plain" language="en" script="Latn">Principles and rules for the structure and drafting of ISO and IEC documents</title>
-  <uri type="obp">https://www.iec.ch/members_experts/refdocs/iec/isoiecdir2%7Bed8.0.RLV%7Den.pdf</uri>
-  <docidentifier type="ISO" primary="true">ISO/IEC DIR 2 IEC</docidentifier>
-  <date type="published">
-    <on>2018-05-01</on>
-  </date>
-  <edition>8</edition>
-...
-----
-
-==== Get document type
+==== relaton db doctype
 
 ----
 $ relaton db doctype REF
 ----
 
-Takes a reference `REF` and returns a document type.
+Detect and display the document type from reference `REF`.
 
 ----
 $ relaton db doctype 'CN(GB/T 1.1)'
 Chinese Standard
 GB/T 1.1
 ----
+
+== Development
+
+[source,console]
+----
+$ bundle install
+$ bundle exec rspec
+$ bundle exec rubocop
+----
+
+== Contributing
+
+Open an issue or pull request at https://github.com/relaton/relaton-cli.
+
+This gem is developed, maintained, and funded by
+https://www.ribose.com[Ribose Inc.]
+
+== License
+
+BSD 2-Clause. See link:../LICENSE[LICENSE] for details.

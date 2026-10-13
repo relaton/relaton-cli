@@ -1,85 +1,102 @@
+---
 root:
-  author: The Calendaring and Scheduling Consortium
   title: CalConnect Standards Registry
   items:
-    - technical_committee: PUBLISH
-      docid: 
-        type: CC
-        id: CC 36000
-        primary: true
-      type: standard
-      title: 
-        content: Standardization documents -- Vocabulary
-      docstatus:
-        stage:
-          value: proposal
-      date:
-        type: issued
-        value:  '2018-10-25'
-    - technical_committee: DATETIME
-      docid: 
-        id: CC 34000
-        primary: true
-      type: standard
-      title: 
-        content: Date and time -- Concepts and vocabulary
-      docstatus:
-        stage:
-          value: proposal
-      date:
-        type: issued
-        value: '2018-10-25'
-    - technical_committee: DATETIME
-      docid: 
-        type: CC
-        id: CC 34002
-        primary: true
-      type: standard
-      title: 
-        content: Date and time -- Timezones
-      docstatus:
-        stage:
-          value: proposal
-      date:
-        type: issued
-        value: '2018-10-25'
-    - technical_committee: DATETIME
-      docid: 
-        type: CC
-        id: CC 34003
-        primary: true
-      type: standard
-      title: 
-        content: Date and time -- Codes for calendar systems
-      docstatus:
-        stage:
-          value: proposal
-      date:
-        type: issued
-        value: '2018-10-25'
-    - technical_committee: DATETIME
-      docid: 
-        type: CC
-        id: CC 34005
-        primary: true
-      type: standard
-      title: Date and time - Calendars - Gregorian calendar
-      docstatus:
-        stage:
-          value: proposal
-      date:
-        type: issued
-        value: '2018-10-25'
-    - technical_committee: DATETIME
-      docid: 
-        type: CC
-        id: CC/S 34006
-        primary: true
-      type: standard
-      title: Date and time - Calendars - Chinese calendar
-      docstatus:
-        stage:
-          value: proposal
-      date:
-        type: issued
-        value: '2018-10-25'
+  - id: CC34000
+    type: standard
+    schema_version: v1.5.6
+    fetched: '2018-11-09'
+    title:
+    - content: Date and time -- Concepts and vocabulary
+    docidentifier:
+    - type: CC
+      content: CC 34000
+      primary: true
+    date:
+    - type: issued
+      at: '2018-10-25'
+    status:
+      stage:
+        content: proposal
+  - id: CC34002
+    type: standard
+    schema_version: v1.5.6
+    fetched: '2018-11-09'
+    title:
+    - content: Date and time -- Timezones
+    docidentifier:
+    - type: CC
+      content: CC 34002
+      primary: true
+    date:
+    - type: issued
+      at: '2018-10-25'
+    status:
+      stage:
+        content: proposal
+  - id: CC34003
+    type: standard
+    schema_version: v1.5.6
+    fetched: '2018-11-09'
+    title:
+    - content: Date and time -- Codes for calendar systems
+    docidentifier:
+    - type: CC
+      content: CC 34003
+      primary: true
+    date:
+    - type: issued
+      at: '2018-10-25'
+    status:
+      stage:
+        content: proposal
+  - id: CC34005
+    type: standard
+    schema_version: v1.5.6
+    fetched: '2018-11-09'
+    title:
+    - content: Date and time -- Calendars -- Gregorian calendar
+    docidentifier:
+    - type: CC
+      content: CC 34005
+      primary: true
+    date:
+    - type: issued
+      at: '2018-10-25'
+    status:
+      stage:
+        content: proposal
+  - id: CCS34006
+    type: specification
+    schema_version: v1.5.6
+    fetched: '2018-11-09'
+    title:
+    - content: Date and time -- Calendars -- Chinese calendar
+    docidentifier:
+    - type: CC
+      content: CC/S 34006
+      primary: true
+    date:
+    - type: issued
+      at: '2018-10-25'
+    status:
+      stage:
+        content: proposal
+  - id: CC36000
+    type: standard
+    schema_version: v1.5.6
+    fetched: '2018-11-09'
+    title:
+    - content: Standardization documents -- Vocabulary
+    docidentifier:
+    - type: CC
+      content: CC 36000
+      primary: true
+    date:
+    - type: issued
+      at: '2018-10-25'
+    status:
+      stage:
+        content: proposal
+  doctype:
+  author: The Calendaring and Scheduling Consortium

@@ -1,7 +1,7 @@
 RSpec.describe Relaton::Bibdata do
   subject do
-    docid = RelatonBib::DocumentIdentifier.new id: %{A/B\\C?D%E*F:G|H"I<J>K.L M/N}
-    item = RelatonBib::BibliographicItem.new docid: [docid]
+    docid = Relaton::Bib::Docidentifier.new content: %{A/B\\C?D%E*F:G|H"I<J>K.L M/N}
+    item = Relaton::Bib::ItemData.new docidentifier: [docid]
     Relaton::Bibdata.new(item)
   end
 

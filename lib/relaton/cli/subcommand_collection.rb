@@ -144,11 +144,13 @@ module Relaton
         collfile = File.join directory, options[:collection]
         coll = read_collection collfile
         xml = Nokogiri::XML File.read(file, encoding: "UTF-8")
+        xml.remove_namespaces!
         if xml.at "relaton-collection"
+          imported = import_collection(xml)
           if coll
-            coll << Relaton::Bibcollection.from_xml(xml)
+            coll << imported
           else
-            coll = Relaton::Bibcollection.from_xml(xml)
+            coll = imported
           end
         else
           coll ||= Relaton::Bibcollection.new({})
@@ -168,6 +170,22 @@ module Relaton
       end
 
       private
+
+      # Parse a namespace-free collection XML document.
+      # Bibcollection.from_xml expects namespaced docs (via apply_namespace),
+      # so we use plain XPath on the namespace-stripped document instead.
+      def import_collection(xml)
+        title = xml.at("relaton-collection/title")&.text
+        author = xml.at_xpath(
+          "./relaton-collection/contributor[role/@type='author']"\
+          "/organization/name",
+        )&.text
+        items = xml.xpath("relaton-collection/relation").map do |rel|
+          el = rel.at("bibdata") || rel.at("bibitem")
+          Relaton::Bibdata.from_xml(el || rel)
+        end.compact
+        Relaton::Bibcollection.new(title: title, author: author, items: items)
+      end
 
       # @return [String]
       def directory
@@ -231,9 +249,9 @@ module Relaton
       # @param item [Relaton::Bibdata]
       def puts_human_readable_item(item) # rubocop:disable Metrics/AbcSize
         puts "Document identifier: #{item.docidentifier}"
-        puts "Title: #{item.title.first.title.content}"
+        puts "Title: #{item.title.first.content}"
         puts "Status: #{item.status.stage}"
-        item.date.each { |d| puts "Date #{d.type}: #{d.on || d.from}" }
+        item.date.each { |d| puts "Date #{d.type}: #{d.at || d.from}" }
       end
     end
   end

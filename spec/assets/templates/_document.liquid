@@ -7,10 +7,10 @@
   <div class="doc-line">
     <div class="doc-identifier">
       <h{{ depth }}>
-      {% if document.html == "" %}
-        {{ document.docid.id }}
+      {% if document.html == blank or document.html == nil %}
+        {{ document.docidentifier.content }}
       {% else %}
-        <a href="{{ document.html }}">{{ document.docid.id }}</a>
+        <a href="{{ document.html }}">{{ document.docidentifier.content }}</a>
       {% endif %}
       </h{{ depth }}>
     </div>

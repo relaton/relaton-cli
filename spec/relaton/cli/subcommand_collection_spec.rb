@@ -132,7 +132,7 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
     context "in titles" do
       include_examples(
         "search", "Calendars",
-        /Date and time - \e\[4mCalendars\e\[24m - Gregorian calenda\.{3}/
+        /Date and time -- \e\[4mCalendars\e\[24m -- Gregorian calend\.{3}/
       )
     end
   end
@@ -258,7 +258,7 @@ RSpec.describe Relaton::Cli::SubcommandCollection do
   context "import" do
     before(:example) do
       file = File.join dir, coll
-      expect(File).to receive(:write).with file, /CC\s18001/, kind_of(Hash)
+      expect(File).to receive(:write).with file, /CC\s18001/, encoding: "UTF-8"
     end
 
     shared_examples "import" do |source|

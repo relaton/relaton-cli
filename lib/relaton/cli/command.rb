@@ -1,4 +1,5 @@
 require "date"
+require "parslet"
 require "relaton/cli/relaton_file"
 require "relaton/cli/xml_convertor"
 require "relaton/cli/yaml_convertor"
@@ -140,7 +141,7 @@ module Relaton
         xml = Nokogiri::XML(File.read(file, encoding: "UTF-8"))
         item = Relaton::Cli.parse_xml xml
         result = if /yaml|yml/.match?(options[:format])
-                   item.to_hash.to_yaml
+                   item.to_yaml
                  else item.send "to_#{options[:format]}"
                  end
         ext = case options[:format]
@@ -218,7 +219,7 @@ module Relaton
         dup_opts[key] = parse_date_option(dup_opts[key], key.to_s.tr("_", "-").prepend("--")) if dup_opts[key]
       end
       validate_date_range dup_opts[:publication_date_after], dup_opts[:publication_date_before]
-      if (processor = Relaton::Registry.instance.by_type options[:type]&.upcase)
+      if (processor = Relaton::Cli.registry.by_type options[:type]&.upcase)
         doc = Relaton.db.fetch_std code, year, processor.short, **dup_opts
       elsif options[:type] then return
       else doc = Relaton.db.fetch(code, year, **dup_opts)
@@ -226,16 +227,18 @@ module Relaton
       return "No matching bibliographic entry found" unless doc
 
       serialize doc, options[:format]
-    rescue RelatonBib::RequestError => e
+    rescue Parslet::ParseFailed
+      %("#{code}" is not a recognized standards identifier)
+    rescue Relaton::RequestError => e
       e.message
     end
 
-    # @param doc [RelatonBib::BibliographicItem]
+    # @param doc [Relaton::Bib::ItemData]
     # @param format [String]
     # @return [String]
     def serialize(doc, format)
       case format
-      when "yaml", "yml" then doc.to_hash.to_yaml
+      when "yaml", "yml" then doc.to_yaml
       when "bibtex" then doc.to_bibtex
       else doc.to_xml bibdata: true
       end
@@ -247,7 +250,7 @@ module Relaton
 
     def registered_types
       @registered_types ||=
-        Relaton::Registry.instance.processors.each.map { |_n, pr| pr.prefix }
+        Relaton::Cli.registry.processors.each.map { |_n, pr| pr.prefix }
     end
   end
 end

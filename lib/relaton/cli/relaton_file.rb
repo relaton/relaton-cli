@@ -119,15 +119,15 @@ module Relaton
           if (bib = xml.at("//bibdata"))
             bib = nokogiri_document(bib.to_xml)
           elsif (rfc = xml.at("//rfc"))
-            require "relaton_ietf/bibxml_parser"
-            ietf = RelatonIetf::BibXMLParser.fetch_rfc rfc
+            require "relaton/ietf"
+            require "relaton/ietf/bibxml_parser"
+            ietf = Relaton::Ietf::BibXMLParser.parse_rfc rfc.to_xml
             bib = nokogiri_document(ietf.to_xml(bibdata: true))
           else
             next
           end
 
           bib.remove_namespaces!
-          bib.root.add_namespace(nil, "xmlns")
 
           bibdata = Relaton::Bibdata.from_xml(bib.root)
           if bibdata
@@ -147,8 +147,9 @@ module Relaton
         xml_files.flatten.reduce([]) do |mem, xml|
           doc = nokogiri_document(xml[:content])
           if (rfc = doc.at("/rfc"))
-            require "relaton_ietf/bibxml_parser"
-            ietf = RelatonIetf::BibXMLParser.fetch_rfc rfc
+            require "relaton/ietf"
+            require "relaton/ietf/bibxml_parser"
+            ietf = Relaton::Ietf::BibXMLParser.parse_rfc rfc.to_xml
             d = nokogiri_document ietf.to_xml(bibdata: true)
             mem << bibdata_instance(d, xml[:file])
           elsif %w[bibitem bibdata].include? doc&.root&.name
@@ -231,7 +232,6 @@ module Relaton
       # @return [Nokogiri::XML::Document]
       def clean_nokogiri_document(document)
         document.remove_namespaces!
-        document.root.add_namespace(nil, "xmlns")
         nokogiri_document(document.to_xml)
       end
 

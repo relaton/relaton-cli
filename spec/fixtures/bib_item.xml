@@ -1,4 +1,4 @@
-<bibitem id="ISOTC211" type="standard">
+<bibitem id="ISO55000" type="standard">
   <fetched>2020-07-04</fetched>
   <title type="title-main" format="text/plain">Geographic information</title>
   <title type="main" format="text/plain">Geographic information</title>
@@ -8,10 +8,7 @@
   <uri type="rss">https://www.iso.org/contents/data/standard/05/37/53798.detail.rss</uri>
   <uri type="doi">http://standrd.org/doi-123</uri>
   <uri type="file">file://path/file</uri>
-  <docidentifier primary="true" type="ISO">TC211</docidentifier>
-  <docidentifier type="isbn">ISBN</docidentifier>
-  <docidentifier type="lccn">LCCN</docidentifier>
-  <docidentifier type="issn" scope="series">ISSN</docidentifier>
+  <docidentifier primary="true" type="ISO">ISO 55000:2014</docidentifier>
   <docnumber>123456</docnumber>
   <date type="issued">
     <on>2014</on>
@@ -118,8 +115,8 @@
   <language>en</language>
   <language>fr</language>
   <script>Latn</script>
-  <abstract format="text/plain" language="en" script="Latn">ISO 19115-1:2014 defines the schema required for ...</abstract>
-  <abstract format="text/plain" language="fr" script="Latn">L'ISO 19115-1:2014 définit le schéma requis pour ...</abstract>
+  <abstract format="text/plain" language="en" script="Latn">ISO 55000:2014:2014 defines the schema required for ...</abstract>
+  <abstract format="text/plain" language="fr" script="Latn">L'ISO 55000:2014:2014 définit le schéma requis pour ...</abstract>
   <status>
     <stage abbreviation="CD">30</stage>
     <substage>substage</substage>

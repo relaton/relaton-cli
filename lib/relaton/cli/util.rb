@@ -1,7 +1,7 @@
 module Relaton
   module Cli
     module Util
-      extend RelatonBib::Util
+      extend Relaton::Bib::Util
       PROGNAME = "relaton-cli".freeze
     end
   end

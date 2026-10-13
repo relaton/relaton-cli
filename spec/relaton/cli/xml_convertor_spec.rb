@@ -1,12 +1,16 @@
 RSpec.describe Relaton::Cli::XMLConvertor do
+  before do
+    allow(File).to receive(:open).and_call_original
+  end
+
   describe ".to_yaml" do
     context "with collection xml" do
       it "converts collection xml to relaton yaml" do
         buffer = stub_file_write_to_io(sample_collection_file)
         Relaton::Cli::XMLConvertor.to_yaml(sample_collection_file)
 
-        expect(buffer).to include("id: CC 34000")
-        expect(buffer).to include("id: CC/S 34006")
+        expect(buffer).to include("id: CC34000")
+        expect(buffer).to include("id: CCS34006")
         expect(buffer).to include("title:\n    - content: Date and time -- Calendars")
         expect(buffer).to include("root:\n  title: CalConnect Standards")
       end
@@ -22,7 +26,7 @@ RSpec.describe Relaton::Cli::XMLConvertor do
         )
 
         expect(buffer.count).to eq(6)
-        expect(buffer.last).to include("id: CC/S 34006")
+        expect(buffer.last).to include("id: CCS34006")
         expect(buffer.last).to include("title:\n- content: Date and time -- Calendars")
       end
     end
@@ -32,7 +36,7 @@ RSpec.describe Relaton::Cli::XMLConvertor do
         buffer = stub_file_write_to_io(sample_relaton_fille)
         Relaton::Cli::XMLConvertor.to_yaml(sample_relaton_fille)
 
-        expect(buffer).to include("id: CC 18001")
+        expect(buffer).to include("id: CC18001")
         expect(buffer).to include("type: standard")
         expect(buffer).to include("content: standards/csd-datetime-explict")
       end
@@ -52,7 +56,7 @@ RSpec.describe Relaton::Cli::XMLConvertor do
 
         expect(buffer).to include("I AM A SAMPLE STYLESHEET")
         expect(buffer).to include("Generated: #{Date.today}")
-        expect(buffer).to include('<a href="">CC/S 34006</a>')
+        expect(buffer).to include("CC/S 34006")
         expect(buffer).to include("<!DOCTYPE HTML>\n<html>\n  <head>")
         expect(buffer).to include("<title>CalConnect Standards Registry</tit")
       end
