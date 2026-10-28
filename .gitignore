@@ -16,3 +16,6 @@
 Gemfile.lock
 .DS_Store
 .claude/
+
+# libraries resolve their own bundles; a committed lock pins consumers
+Gemfile.lock
