@@ -11,6 +11,9 @@ gem "relaton", github: "relaton/relaton", branch: "main"
 
 gem "byebug", "~> 11.0"
 gem "canon", "~> 0.3.122"
+# lib/relaton/cli/command.rb requires parslet at runtime; main's resolution
+# pulled it transitively and the canon swap dropped it
+gem "parslet"
 gem "pry"
 gem "rake"
 gem "rspec", "~> 3.0"
