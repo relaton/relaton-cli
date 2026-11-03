@@ -10,7 +10,7 @@ gemspec
 gem "relaton", github: "relaton/relaton", branch: "main"
 
 gem "byebug", "~> 11.0"
-gem "equivalent-xml", "~> 0.6"
+gem "canon", "~> 0.3.122"
 gem "pry"
 gem "rake"
 gem "rspec", "~> 3.0"
