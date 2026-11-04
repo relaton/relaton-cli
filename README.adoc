@@ -1,0 +1,16 @@
+= ARCHIVED — superseded by the relaton gem
+
+This repository is archived and no longer maintained. The relaton-cli code
+was consolidated into the relaton gem (https://github.com/relaton/relaton):
+
+- The `relaton-cli` rubygems gem continues to publish from the relaton
+  monogem's release workflow; new bundles should depend on
+  `gem "relaton", ">= 3.1"` — it ships `relaton/cli` directly, so
+  `require "relaton/cli"` keeps working without this gem.
+- Existing bundles resolve a final shell release that pulls `relaton`.
+
+Issues moved to https://github.com/relaton/relaton/issues (relaton#447
+through relaton#461).
+
+---
+
